@@ -76,6 +76,11 @@ a {
   color: var(--color-accent);
 }
 
+/* L'attribut hidden doit l'emporter sur tout display: posé par un composant. */
+[hidden] {
+  display: none !important;
+}
+
 img {
   max-width: 100%;
   height: auto;

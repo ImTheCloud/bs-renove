@@ -1,0 +1,188 @@
+---
+import Bouton from '../Bouton.astro';
+import FormulaireDevis from '../FormulaireDevis.astro';
+import Icon from '../Icon.astro';
+import { adresseUneLigne, entreprise, lienWhatsApp } from '~/data/entreprise';
+import { t, type Langue } from '~/i18n';
+
+interface Props {
+  langue: Langue;
+}
+
+const { langue } = Astro.props;
+const textes = t(langue);
+const bloc = textes.contactPage;
+const contact = textes.accueil.contact;
+
+// L'email n'a pas encore été communiqué : on le dit, on n'en invente pas.
+const emailManquant = !entreprise.email;
+---
+
+<div class="wrap contact-page">
+  <header class="contact-page__entete">
+    <span class="surtitre">{bloc.surtitre}</span>
+    <h1>{bloc.titre}</h1>
+    <p class="contact-page__intro">{bloc.intro}</p>
+  </header>
+
+  <div class="contact-page__corps">
+    <section class="contact-page__form" aria-labelledby="titre-formulaire">
+      <h2 id="titre-formulaire" class="contact-page__sous-titre">{bloc.formulaireTitre}</h2>
+      <FormulaireDevis langue={langue} />
+    </section>
+
+    <aside class="contact-page__direct">
+      <h2 class="contact-page__sous-titre">{bloc.ouTitre}</h2>
+      <p class="contact-page__direct-texte">{bloc.ouTexte}</p>
+
+      <div class="contact-page__actions">
+        <Bouton href={`tel:${entreprise.telephoneLien}`} variante="principal" icone="telephone" large>
+          {entreprise.telephoneAffiche}
+        </Bouton>
+        <Bouton
+          href={lienWhatsApp(textes.whatsappMessage)}
+          variante="secondaire"
+          icone="whatsapp"
+          large
+          target="_blank"
+          rel="noopener"
+        >
+          {textes.actions.whatsapp}
+        </Bouton>
+      </div>
+
+      <ul class="contact-page__infos">
+        <li>
+          <span class="contact-page__label">{contact.labelEmail}</span>
+          {
+            emailManquant ? (
+              <span class="contact-page__manquant">
+                [{textes.aConfirmer} : {contact.labelEmail.toLowerCase()}]
+              </span>
+            ) : (
+              <a href={`mailto:${entreprise.email}`}>{entreprise.email}</a>
+            )
+          }
+        </li>
+        <li>
+          <span class="contact-page__label">{contact.labelZone}</span>
+          <span>{contact.valeurZone}</span>
+        </li>
+        <li>
+          <span class="contact-page__label">{textes.piedDePage.siege}</span>
+          <span>{adresseUneLigne}</span>
+          <span class="contact-page__tva">{textes.piedDePage.tva} {entreprise.tva}</span>
+        </li>
+      </ul>
+    </aside>
+  </div>
+</div>
+
+<style>
+  .contact-page {
+    padding-block: 40px 0;
+  }
+
+  .contact-page__entete {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 620px;
+    margin-bottom: 44px;
+  }
+
+  .surtitre {
+    font-size: var(--size-tiny);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .contact-page__intro {
+    color: var(--color-text);
+  }
+
+  .contact-page__corps {
+    display: grid;
+    gap: 48px;
+  }
+
+  .contact-page__sous-titre {
+    margin-bottom: 20px;
+    font-size: var(--size-h3);
+    letter-spacing: var(--tracking-h3);
+  }
+
+  .contact-page__direct {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 28px 24px;
+    background: var(--color-surface);
+    border-radius: var(--radius-card);
+    height: fit-content;
+  }
+
+  .contact-page__direct-texte {
+    margin-bottom: 20px;
+    font-size: var(--size-small);
+    color: var(--color-text);
+  }
+
+  .contact-page__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .contact-page__actions :global(.bouton) {
+    width: 100%;
+  }
+
+  .contact-page__infos {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+    margin: 28px 0 0;
+    padding: 24px 0 0;
+    border-top: 1px solid var(--color-border);
+    list-style: none;
+  }
+
+  .contact-page__infos li {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: var(--size-small);
+    color: var(--color-ink);
+  }
+
+  .contact-page__label {
+    font-size: var(--size-tiny);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .contact-page__manquant {
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .contact-page__tva {
+    font-size: var(--size-tiny);
+    color: var(--color-muted);
+  }
+
+  @media (min-width: 980px) {
+    .contact-page__corps {
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: 56px;
+      align-items: start;
+    }
+  }
+</style>

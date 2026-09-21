@@ -13,7 +13,7 @@ Mis à jour le 21 septembre 2026 (fin de la phase 2).
 |---|---|---|---|
 | 1 | **Adresse email** de l'entreprise | bloc contact, pied de page, mentions légales, vie privée | ❌ absent |
 | 2 | **Logo en fichier** (SVG de préférence) + le vrai bleu du logo | partout | ❌ logo texte provisoire |
-| 3 | **Adresse définitive du site** (domaine acheté chez Wix) | `astro.config.mjs`, `robots.txt`, sitemap, balises canoniques | ⚠️ provisoire : `bs-renove.pages.dev` |
+| 3 | **Adresse définitive du site** (domaine acheté chez Wix) | `astro.config.mjs`, `robots.txt`, sitemap, balises canoniques, **et la redirection du formulaire de devis** | ⚠️ provisoire : `bs-renove.pages.dev` |
 | 4 | **Relecture néerlandaise par un natif** | tout le site | ❌ jamais relu |
 
 ### Détail
@@ -151,3 +151,67 @@ le fichier YAML si le client préfère un autre chantier en vitrine.
   ce que Google lit en priorité. À compléter proprement en phase 5.
 - **Image de partage** (réseaux sociaux, 1200×630) : toujours manquante.
 - **Données structurées** `HomeAndConstructionBusiness` : pas encore posées.
+
+---
+
+## 9. Ajouté en phase 4 : services, contact et formulaire
+
+### Bloquant : la clé du formulaire
+
+Le formulaire de devis passe par **Web3Forms**. Sans clé, il ne s'affiche pas :
+un encadré visible invite à appeler ou à écrire sur WhatsApp. Aucun formulaire cassé.
+
+**Comment l'obtenir** : aller sur https://web3forms.com, donner l'adresse email qui
+doit recevoir les demandes, la clé arrive par email. Puis :
+
+```
+cp .env.example .env
+# coller la clé dans .env, à la place de WEB3FORMS_KEY=
+```
+
+**La clé n'est pas un secret** : Web3Forms fonctionne sans serveur, donc elle est
+forcément visible dans le code des pages de contact. Elle ne permet que d'envoyer
+un message vers l'adresse email associée. Elle est mise dans `.env` pour pouvoir
+la changer sans toucher au code, pas pour la cacher.
+
+Le fichier `.env` n'est jamais envoyé sur GitHub. Il faudra aussi renseigner cette
+clé chez l'hébergeur (Cloudflare Pages ou Netlify) au moment de la mise en ligne.
+
+### Bloquant : la page vie privée
+
+La case de consentement du formulaire renvoie vers `/vie-privee/`, **qui est encore
+une page provisoire**. En l'état, on demande un consentement en pointant vers une page
+vide : ce n'est pas conforme au RGPD. Cette page doit être écrite avant la mise en ligne.
+
+Elle doit dire, au minimum :
+
+- quelles données le formulaire collecte (nom, téléphone, email, commune, type de travaux, message) ;
+- pourquoi (répondre à une demande de devis) ;
+- combien de temps elles sont conservées ;
+- que **Web3Forms** transmet le message et agit comme sous-traitant ;
+- comment exercer ses droits — d'où la nécessité de **l'adresse email de l'entreprise**.
+
+### À faire valider par le client : les textes des services
+
+Les descriptions et les « exemples de travaux » des 8 services décrivent le métier,
+pas l'entreprise : aucune promesse, aucun chiffre, aucune garantie. Ils restent
+à relire par Sergiu, qui doit confirmer qu'il fait bien tout cela.
+
+### ⚠ Deux services sortent des activités enregistrées
+
+Le brief (§ 1) liste comme activités enregistrées : plomberie, menuiserie, carrelage,
+toiture, maçonnerie et rejointoiement, restauration de bâtiments.
+
+**L'électricité et la peinture n'y figurent pas.** Or le site les annonce comme services (§ 6 du brief).
+En Belgique, les travaux électriques sont encadrés et l'installation doit être contrôlée
+par un organisme agréé. **À vérifier avec Sergiu avant la mise en ligne** :
+
+- soit ces activités sont bien enregistrées et le brief est incomplet ;
+- soit il les sous-traite, et il faut le formuler autrement ;
+- soit il faut retirer ces deux services du site.
+
+### Détail
+
+- Les pages de remerciement (`/contact/merci/` et `/nl/contact/bedankt/`) servent aux
+  visiteurs dont le navigateur n'exécute pas le JavaScript. Elles sont en `noindex`.
+- Le champ caché anti-robots (`botcheck`) est celui attendu par Web3Forms.

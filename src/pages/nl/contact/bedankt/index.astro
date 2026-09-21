@@ -1,0 +1,74 @@
+---
+/**
+ * Page d'arrivée après l'envoi du formulaire, pour les visiteurs
+ * dont le navigateur n'a pas exécuté le JavaScript.
+ * Avec JavaScript, la confirmation s'affiche sans quitter la page contact.
+ */
+import Bouton from '~/components/Bouton.astro';
+import Icon from '~/components/Icon.astro';
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { lienWhatsApp } from '~/data/entreprise';
+import { chemin, t } from '~/i18n';
+
+const langue = 'nl' as const;
+const textes = t(langue);
+const f = textes.formulaire;
+---
+
+<BaseLayout langue={langue} titre={f.merciTitre} description={f.merciTexte} noindex>
+  <section class="wrap merci">
+    <span class="merci__coche">
+      <Icon nom="check" taille={30} epaisseur={2.2} />
+    </span>
+    <h1>{f.merciTitre}</h1>
+    <p class="merci__texte">{f.merciTexte}</p>
+    <div class="merci__actions">
+      <Bouton
+        href={lienWhatsApp(textes.whatsappMessage)}
+        variante="principal"
+        icone="whatsapp"
+        large
+        target="_blank"
+        rel="noopener"
+      >
+        {f.merciWhatsApp}
+      </Bouton>
+      <Bouton href={chemin('accueil', langue)} variante="secondaire" large>
+        {f.merciRetour}
+      </Bouton>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .merci {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    max-width: 640px;
+    padding-block: 56px var(--section-gap);
+  }
+
+  .merci__coche {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    background: var(--color-surface);
+    border-radius: var(--radius-pill);
+    color: var(--color-accent);
+  }
+
+  .merci__texte {
+    color: var(--color-text);
+  }
+
+  .merci__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 8px;
+  }
+</style>

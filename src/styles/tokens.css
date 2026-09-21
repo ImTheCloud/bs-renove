@@ -16,6 +16,8 @@
   --color-muted: #5f6573;       /* texte secondaire */
   --color-border: #d5dae1;      /* bordures */
   --color-border-light: #e3e6eb;/* bordures discrètes (cartes) */
+  --color-border-field: #7d8595; /* bordure des champs de saisie : 3,7:1, lisible */
+  --color-erreur: #b3261e;       /* champ mal rempli */
   --color-placeholder: #dde1e7; /* blocs « photo à venir » */
   --color-placeholder-2: #c9ced6; /* second bloc, pour le curseur avant/après */
   --color-manquant: #ffd48a;  /* information non confirmée, sur fond ink */

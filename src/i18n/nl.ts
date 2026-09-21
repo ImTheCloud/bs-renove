@@ -152,6 +152,60 @@ export const nl: Traductions = {
       'Vertel ons wat u in gedachten hebt, wij komen bij u terug met een eerste raming.',
   },
 
+  servicesPage: {
+    surtitre: 'Onze diensten',
+    titre: 'Wat wij doen.',
+    intro:
+      'Een algemene aannemer, dus één aanspreekpunt van de eerste offerte tot de laatste afwerking.',
+    exemplesTitre: 'Bijvoorbeeld',
+    projetsLies: 'Bekijk de projecten',
+    devisPour: 'Offerte aanvragen',
+  },
+
+  contactPage: {
+    surtitre: 'Contact',
+    titre: 'Laten we over uw project praten.',
+    intro:
+      'Beschrijf ons wat u in gedachten hebt. Wij komen bij u terug met een eerste raming.',
+    ouTitre: 'Sneller',
+    ouTexte: 'Telefoon en WhatsApp blijven het meest rechtstreeks.',
+    formulaireTitre: 'Offerte aanvragen',
+  },
+
+  formulaire: {
+    nom: 'Uw naam',
+    nomAide: 'Voornaam en naam',
+    telephone: 'Telefoon',
+    telephoneAide: 'Om u terug te bellen',
+    email: 'E-mail',
+    commune: 'Gemeente van de werf',
+    communeAide: 'Wij werken in heel België',
+    typeTravaux: 'Type werken',
+    choisir: 'Maak een keuze…',
+    autre: 'Andere',
+    message: 'Uw project',
+    messageAide: 'Wat u wilt laten doen, en indien mogelijk tegen wanneer',
+    consentement:
+      'Ik ga ermee akkoord dat mijn gegevens gebruikt worden om mijn vraag te beantwoorden.',
+    consentementLien: 'Lees de privacypagina',
+    obligatoire: 'verplicht',
+    envoyer: 'Mijn aanvraag versturen',
+    envoiEnCours: 'Versturen…',
+
+    merciTitre: 'Bedankt, uw aanvraag is verstuurd.',
+    merciTexte:
+      'Wij komen snel bij u terug. Hebt u foto’s van de werf? Stuur ze ons via WhatsApp, dat helpt het meest om een prijs te bepalen.',
+    merciWhatsApp: 'Foto’s versturen via WhatsApp',
+    merciRetour: 'Terug naar de startpagina',
+
+    erreurTitre: 'Het versturen is mislukt.',
+    erreurTexte: 'U kunt het opnieuw proberen, of ons rechtstreeks bellen op',
+
+    cleManquanteTitre: 'Formulier nog niet actief',
+    cleManquanteTexte:
+      'De sleutel van de verzenddienst is niet ingesteld. Gebruik ondertussen de telefoon of WhatsApp.',
+  },
+
   pages: {
     accueil: {
       titre: 'BS Renove · Algemene aannemer voor renovatie in België',

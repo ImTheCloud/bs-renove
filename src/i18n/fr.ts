@@ -148,6 +148,60 @@ export const fr = {
       'Expliquez-nous ce que vous avez en tête, nous revenons vers vous avec une première estimation.',
   },
 
+  servicesPage: {
+    surtitre: 'Nos services',
+    titre: 'Ce que nous faisons.',
+    intro:
+      'Une entreprise générale, donc un seul interlocuteur du premier devis à la dernière finition.',
+    exemplesTitre: 'Par exemple',
+    projetsLies: 'Voir les projets',
+    devisPour: 'Demander un devis',
+  },
+
+  contactPage: {
+    surtitre: 'Contact',
+    titre: 'Parlons de votre projet.',
+    intro:
+      'Décrivez-nous ce que vous avez en tête. Nous revenons vers vous avec une première estimation.',
+    ouTitre: 'Plus rapide',
+    ouTexte: 'Le téléphone et WhatsApp restent le plus direct.',
+    formulaireTitre: 'Demander un devis',
+  },
+
+  formulaire: {
+    nom: 'Votre nom',
+    nomAide: 'Prénom et nom',
+    telephone: 'Téléphone',
+    telephoneAide: 'Pour vous rappeler',
+    email: 'Email',
+    commune: 'Commune du chantier',
+    communeAide: 'Nous intervenons partout en Belgique',
+    typeTravaux: 'Type de travaux',
+    choisir: 'Choisissez…',
+    autre: 'Autre',
+    message: 'Votre projet',
+    messageAide: 'Ce que vous voulez faire, et si possible dans quels délais',
+    consentement:
+      'J’accepte que mes données soient utilisées pour répondre à ma demande.',
+    consentementLien: 'Lire la page vie privée',
+    obligatoire: 'obligatoire',
+    envoyer: 'Envoyer ma demande',
+    envoiEnCours: 'Envoi…',
+
+    merciTitre: 'Merci, votre demande est partie.',
+    merciTexte:
+      'Nous revenons vers vous rapidement. Vous avez des photos du chantier ? Envoyez-les nous par WhatsApp, c’est ce qui aide le plus à chiffrer.',
+    merciWhatsApp: 'Envoyer des photos par WhatsApp',
+    merciRetour: 'Retour à l’accueil',
+
+    erreurTitre: 'L’envoi n’a pas fonctionné.',
+    erreurTexte: 'Vous pouvez réessayer, ou nous appeler directement au',
+
+    cleManquanteTitre: 'Formulaire pas encore actif',
+    cleManquanteTexte:
+      'La clé du service d’envoi n’est pas configurée. En attendant, utilisez le téléphone ou WhatsApp.',
+  },
+
   pages: {
     accueil: {
       titre: 'BS Renove · Entreprise générale de rénovation en Belgique',

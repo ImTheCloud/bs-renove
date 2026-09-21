@@ -1,13 +1,12 @@
 ---
-import EnConstruction from '~/components/EnConstruction.astro';
+import ListeServices from '~/components/sections/ListeServices.astro';
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import { t } from '~/i18n';
 
 const langue = 'nl' as const;
-const textes = t(langue);
-const page = textes.pages.services;
+const page = t(langue).pages.services;
 ---
 
 <BaseLayout langue={langue} titre={page.titre} description={page.description}>
-  <EnConstruction langue={langue} titre="Onze diensten" />
+  <ListeServices langue={langue} />
 </BaseLayout>

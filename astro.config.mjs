@@ -20,6 +20,8 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
+      // Les pages de remerciement sont en noindex : elles n'ont rien à faire ici.
+      filter: (page) => !page.includes('/merci/') && !page.includes('/bedankt/'),
       i18n: {
         defaultLocale: 'fr',
         locales: { fr: 'fr-BE', nl: 'nl-BE' },

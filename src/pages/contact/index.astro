@@ -1,13 +1,12 @@
 ---
-import EnConstruction from '~/components/EnConstruction.astro';
+import PageContact from '~/components/sections/PageContact.astro';
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import { t } from '~/i18n';
 
 const langue = 'fr' as const;
-const textes = t(langue);
-const page = textes.pages.contact;
+const page = t(langue).pages.contact;
 ---
 
 <BaseLayout langue={langue} titre={page.titre} description={page.description}>
-  <EnConstruction langue={langue} titre="Contact et devis" />
+  <PageContact langue={langue} />
 </BaseLayout>
