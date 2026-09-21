@@ -4,7 +4,7 @@ import CarteProjet from '../CarteProjet.astro';
 import CurseurAvantApres from '../CurseurAvantApres.astro';
 import Galerie from '../Galerie.astro';
 import Icon from '../Icon.astro';
-import PhotoAVenir from '../PhotoAVenir.astro';
+import PhotoProjet from '../PhotoProjet.astro';
 import { autresProjets, galerieOrdonnee, nomService, type Projet } from '~/data/projets';
 import { chemin, t, type Langue } from '~/i18n';
 
@@ -20,7 +20,7 @@ const donnees = projet.data;
 
 const service = nomService(donnees.service, langue);
 const recit = donnees.recit[langue];
-const photos = galerieOrdonnee(projet).map((entree) => ({ alt: entree.alt[langue] }));
+const photos = galerieOrdonnee(projet).map((entree) => ({ alt: entree.alt[langue], image: entree.image }));
 const suite = await autresProjets(projet.id, 3);
 
 const parties = [
@@ -65,11 +65,13 @@ const parties = [
   </header>
 
   <div class="projet__couverture">
-    <PhotoAVenir
+    <PhotoProjet
+      image={donnees.couverture}
+      alt={donnees.couvertureAlt[langue]}
       langue={langue}
-      legende={donnees.couvertureAlt[langue]}
       ratio="16 / 9"
       arrondi="var(--radius-photo)"
+      prioritaire
     />
   </div>
 
@@ -86,17 +88,19 @@ const parties = [
                 ratio="4 / 3"
                 precision={paire.legende[langue]}
               >
-                <PhotoAVenir
+                <PhotoProjet
                   slot="avant"
+                  image={paire.avant}
+                  alt={textes.photos.avant}
                   langue={langue}
-                  legende={textes.photos.avant}
                   ratio="4 / 3"
                   ton="moyen"
                 />
-                <PhotoAVenir
+                <PhotoProjet
                   slot="apres"
+                  image={paire.apres}
+                  alt={textes.photos.apres}
                   langue={langue}
-                  legende={textes.photos.apres}
                   ratio="4 / 3"
                   ton="fonce"
                 />

@@ -1,7 +1,7 @@
 ---
 import CurseurAvantApres from '../CurseurAvantApres.astro';
 import Icon from '../Icon.astro';
-import PhotoAVenir from '../PhotoAVenir.astro';
+import PhotoProjet from '../PhotoProjet.astro';
 import { autresProjets, nomService, projetMisEnAvant } from '~/data/projets';
 import { chemin, t, type Langue } from '~/i18n';
 
@@ -27,17 +27,19 @@ const lienProjet = projet ? `${chemin('realisations', langue)}${projet.id}/` : c
       <div class="avant-apres__cadre">
         <div class="avant-apres__curseur">
           <CurseurAvantApres langue={langue} id="curseur-accueil" ratio="4 / 3">
-            <PhotoAVenir
+            <PhotoProjet
               slot="avant"
+              image={paire?.avant}
+              alt={textes.photos.avant}
               langue={langue}
-              legende={textes.photos.avant}
               ratio="4 / 3"
               ton="moyen"
             />
-            <PhotoAVenir
+            <PhotoProjet
               slot="apres"
+              image={paire?.apres}
+              alt={textes.photos.apres}
               langue={langue}
-              legende={textes.photos.apres}
               ratio="4 / 3"
               ton="fonce"
             />
@@ -71,7 +73,14 @@ const lienProjet = projet ? `${chemin('realisations', langue)}${projet.id}/` : c
               {suite.map((autre) => (
                 <a href={`${chemin('realisations', langue)}${autre.id}/`} class="mini">
                   <span class="mini__vignette">
-                    <PhotoAVenir langue={langue} ratio="1 / 1" arrondi="var(--radius-mini)" compact />
+                    <PhotoProjet
+                      image={autre.data.couverture}
+                      alt=""
+                      langue={langue}
+                      ratio="1 / 1"
+                      arrondi="var(--radius-mini)"
+                      compact
+                    />
                   </span>
                   <span class="mini__nom">
                     {autre.data.titre[langue]}

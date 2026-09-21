@@ -7,12 +7,12 @@
  * On n'ajoute que la navigation aux flèches.
  */
 import Icon from './Icon.astro';
-import PhotoAVenir from './PhotoAVenir.astro';
+import PhotoProjet from './PhotoProjet.astro';
 import { t, type Langue } from '~/i18n';
 
 interface Props {
   langue: Langue;
-  photos: { alt: string }[];
+  photos: { alt: string; image?: ImageMetadata }[];
 }
 
 const { langue, photos } = Astro.props;
@@ -33,7 +33,7 @@ const projet = textes.projet;
               aria-label={projet.agrandir}
               data-legende-photo={photo.alt}
             >
-              <PhotoAVenir langue={langue} legende={photo.alt} ratio="4 / 3" />
+              <PhotoProjet image={photo.image} alt={photo.alt} langue={langue} ratio="4 / 3" />
             </button>
           </li>
         ))}

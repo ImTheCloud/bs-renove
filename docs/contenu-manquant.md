@@ -280,3 +280,57 @@ tout moment vs conservation comptable obligatoire), les mentions légales affirm
 un accord des propriétaires qui n'est pas encore une réalité (reformulé en politique
 de l'entreprise plutôt qu'en fait accompli), et les données structurées déclaraient
 Sergiu « fondateur » alors que le seul fait vérifié est qu'il est gérant.
+
+---
+
+## 12. Photos reçues du client (21 septembre 2026)
+
+872 photos reçues (exports WhatsApp, donc sans date ni position GPS — WhatsApp les
+efface à la compression). Triées en plusieurs temps : analyse technique (netteté,
+doublons) sur les 872, puis classification visuelle par lecture réelle des photos,
+dossier par dossier.
+
+### Fait : 6 projets ont maintenant de vraies photos
+
+| Projet | Commune | Couverture | Avant/après | Galerie |
+|---|---|---|---|---|
+| `salle-de-bain-knokke` | Knokke | ✅ | ✅ 1 paire | 4 photos |
+| `cuisine-ixelles` | Ixelles | ✅ | — | 5 photos |
+| `toiture-woluwe-saint-pierre` | Woluwe-Saint-Pierre | ✅ | — | 5 photos |
+| `renovation-interieure-ostende` | Ostende | ✅ | — | 5 photos |
+| `salle-de-bain-watermael-boitsfort` | Watermael-Boitsfort | ✅ | — | 4 photos |
+| `renovation-woluwe-saint-pierre` **(nouveau)** | Woluwe-Saint-Pierre | ✅ | — | 4 photos |
+
+Le brief prévoyait 5 projets candidats ; les photos reçues en montrent en réalité
+**7** (Watermael-Boitsfort et Woluwe-Saint-Pierre ont chacun deux chantiers
+distincts). Le récit de chaque projet (`recit.depart/travaux/resultat`, durée en
+semaines) reste à écrire avec Sergiu : je ne peux pas l'inventer à partir des photos.
+
+**Une photo a été écartée et supprimée** : elle montrait le numéro de la maison sur
+la façade, ainsi qu'un email personnel sur la camionnette. Vérifié à l'œil sur
+chaque photo de couverture et sur les photos extérieures ; aucune autre trouvée.
+
+### Reste à trier : 632 photos, dans 9 dossiers sans commune connue
+
+Le nom de ces dossiers ne précise pas d'adresse, et sans GPS je ne peux pas deviner
+la commune — ce serait inventer une information sur le domicile d'un client.
+
+| Dossier | Photos | Ce qu'il montre |
+|---|---|---|
+| Rénovations / Rénovations 2 | 200 | à examiner |
+| Rénovation intérieur / 2 / extérieur | 222 | à examiner |
+| Travaux / Travaux generale lartigue | 118 | à examiner |
+| Carrelage sur plusieurs endroits | 86 | carrelage à divers endroits — utilisable comme photos génériques du service Carrelage, sans lien à une commune |
+| Travaux Av coloniale, 1170 watermael | 84 | commune connue (Watermael-Boitsfort) mais le dossier mélange deux adresses différentes (2 photos montrent une façade voisine, avec le panneau d'un bureau d'architectes) — à trier avant import |
+| Autres | 6 | à examiner |
+
+**À demander à Claudiu / Sergiu** : à quelle commune (et éventuellement quel
+projet déjà listé) correspond chaque dossier ? Une fois su, le même pipeline
+(tri technique → lecture visuelle → sélection → import) peut être relancé dessus.
+
+### Les photos originales
+
+Toujours dans `~/Downloads`, intactes. Rien n'a été supprimé de ce dossier : les
+9 dossiers non triés en ont encore besoin, et même les 7 dossiers déjà traités
+gardent leurs photos non retenues, au cas où un meilleur choix serait souhaité
+plus tard (par exemple une fois le récit de chaque projet connu).

@@ -1,6 +1,6 @@
 ---
 import Icon from './Icon.astro';
-import PhotoAVenir from './PhotoAVenir.astro';
+import PhotoProjet from './PhotoProjet.astro';
 import { nomService, type Projet } from '~/data/projets';
 import { chemin, t, type Langue } from '~/i18n';
 
@@ -20,9 +20,10 @@ const href = `${chemin('realisations', langue)}${projet.id}/`;
 
 <a class="projet" href={href}>
   <div class="projet__image">
-    <PhotoAVenir
+    <PhotoProjet
+      image={projet.data.couverture}
+      alt={projet.data.couvertureAlt[langue]}
       langue={langue}
-      legende={projet.data.couvertureAlt[langue]}
       ratio="4 / 3"
       arrondi="var(--radius-card-img)"
     />

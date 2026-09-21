@@ -1,7 +1,7 @@
 ---
 import Bouton from '../Bouton.astro';
 import Icon from '../Icon.astro';
-import PhotoAVenir from '../PhotoAVenir.astro';
+import PhotoProjet from '../PhotoProjet.astro';
 import { entreprise, lienWhatsApp } from '~/data/entreprise';
 import { projetMisEnAvant } from '~/data/projets';
 import { chemin, t, type Langue } from '~/i18n';
@@ -71,11 +71,13 @@ const etiquette = projet
   </div>
 
   <div class="hero__visuel">
-    <PhotoAVenir
+    <PhotoProjet
+      image={projet?.data.couverture}
+      alt={projet ? projet.data.couvertureAlt[langue] : textes.photos.principale}
       langue={langue}
-      legende={textes.photos.principale}
       ratio="4 / 3"
       arrondi="var(--radius-photo)"
+      prioritaire
     />
 
     {etiquette && <span class="hero__etiquette">{etiquette}</span>}
