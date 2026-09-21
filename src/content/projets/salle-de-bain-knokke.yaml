@@ -7,48 +7,28 @@ commune:
 service: salles-de-bain
 ordre: 1
 misEnAvant: true
-couverture: ../../assets/projets/salle-de-bain-knokke/cover.jpg
 couvertureAlt:
-  fr: Escalier rénové, repeint en blanc avec une rampe en bois naturel.
-  nl: Gerenoveerde trap, geschilderd in het wit met een leuning in natuurlijk hout.
+  fr: "[À CONFIRMER : ce que montre la photo de couverture]"
+  nl: "[TE BEVESTIGEN: wat de omslagfoto toont]"
 recit:
   fr:
-    depart: "[À CONFIRMER : l'état de la pièce au départ, en une ou deux phrases.]"
+    depart: "[À CONFIRMER : l'état au départ, en une ou deux phrases.]"
     travaux: "[À CONFIRMER : les travaux réalisés, dans l'ordre.]"
     resultat: "[À CONFIRMER : le résultat, vu par le propriétaire.]"
   nl:
-    depart: "[TE BEVESTIGEN: de begintoestand van de ruimte, in één of twee zinnen.]"
+    depart: "[TE BEVESTIGEN: de begintoestand, in één of twee zinnen.]"
     travaux: "[TE BEVESTIGEN: de uitgevoerde werken, in volgorde.]"
     resultat: "[TE BEVESTIGEN: het resultaat, gezien door de eigenaar.]"
 avantApres:
-  - avant: ../../assets/projets/salle-de-bain-knokke/avant-1.jpg
-    apres: ../../assets/projets/salle-de-bain-knokke/apres-1.jpg
-    legende:
-      fr: La même baignoire, avant et après la pose de l'habillage et du carrelage.
-      nl: Hetzelfde bad, vóór en na het plaatsen van de bekleding en de tegels.
+  - legende:
+      fr: "[À CONFIRMER : ce que montre la comparaison]"
+      nl: "[TE BEVESTIGEN: wat de vergelijking toont]"
 galerie:
-  - image: ../../assets/projets/salle-de-bain-knokke/chantier-1.jpg
-    alt:
-      fr: Habillage de la baignoire en plaques hydrofuges, avant la pose du carrelage.
-      nl: Bekleding van het bad met waterwerende platen, vóór het tegelwerk.
-    type: chantier
-  - image: ../../assets/projets/salle-de-bain-knokke/chantier-2.jpg
-    alt:
-      fr: La baignoire carrelée, avant la pose des joints.
-      nl: Het betegelde bad, vóór het voegwerk.
-    type: chantier
-  - image: ../../assets/projets/salle-de-bain-knokke/chantier-3.jpg
-    alt:
-      fr: Vasque en marbre avec robinetterie dorée, plomberie encore en finition.
-      nl: Marmeren wastafel met gouden kraanwerk, loodgieterij nog in afwerking.
-    type: chantier
-  - image: ../../assets/projets/salle-de-bain-knokke/detail-1.jpg
-    alt:
-      fr: L'escalier terminé, avec sa rampe en bois et ses balustres blancs.
-      nl: De afgewerkte trap, met houten leuning en witte spijlen.
+  - alt:
+      fr: "[À CONFIRMER : ce que montre la photo]"
+      nl: "[TE BEVESTIGEN: wat de foto toont]"
     type: detail
-  - image: ../../assets/projets/salle-de-bain-knokke/chantier-4.jpg
-    alt:
-      fr: Escalier et palier en cours de finition, marches encore protégées.
-      nl: Trap en overloop in afwerking, treden nog beschermd.
+  - alt:
+      fr: "[À CONFIRMER : ce que montre la photo]"
+      nl: "[TE BEVESTIGEN: wat de foto toont]"
     type: chantier
