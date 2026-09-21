@@ -1,0 +1,86 @@
+/* ==========================================================================
+   Les réglages du site, au même endroit.
+   Changer une valeur ici la change partout. Par exemple : le bleu.
+   ========================================================================== */
+
+:root {
+  /* --- Couleurs -------------------------------------------------------- */
+  --color-bg: #ffffff;          /* fond de page */
+  --color-surface: #f3f5f8;     /* cartes, pastilles, points forts */
+  --color-surface-2: #eef1f5;   /* conteneurs secondaires, sélecteur de langue */
+  --color-ink: #1d2a4a;         /* titres, texte fort, bloc contact */
+  --color-accent: #2f5bd3;      /* boutons principaux, liens */
+  --color-accent-dark: #2549a8; /* survol du bouton principal */
+  --color-text: #4b5160;        /* texte courant */
+  --color-muted: #5f6573;       /* texte secondaire */
+  --color-border: #d5dae1;      /* bordures */
+  --color-border-light: #e3e6eb;/* bordures discrètes (cartes) */
+  --color-placeholder: #dde1e7; /* blocs « photo à venir » */
+
+  /* Sur le bloc contact (fond ink) */
+  --color-on-ink: #ffffff;
+  --color-on-ink-soft: #d6dcea;  /* texte secondaire */
+  --color-on-ink-label: #b9c3da; /* petits labels */
+
+  /* --- Polices --------------------------------------------------------- */
+  --font-title: 'Bricolage Grotesque Variable', 'Trebuchet MS', sans-serif;
+  --font-text: 'Figtree Variable', 'Helvetica Neue', Arial, sans-serif;
+
+  /* --- Tailles de texte : mobile d'abord -------------------------------- */
+  --size-h1: 44px;
+  --size-h2: 36px;
+  --size-h3: 22px;
+  --size-body: 17px;
+  --size-small: 15px;
+  --size-tiny: 14px;
+
+  --tracking-h1: -0.03em;
+  --tracking-h2: -0.025em;
+  --tracking-h3: -0.02em;
+
+  /* --- Arrondis -------------------------------------------------------- */
+  --radius-pill: 999px;   /* boutons, pastilles */
+  --radius-photo: 32px;   /* grandes photos */
+  --radius-card: 28px;    /* cartes */
+  --radius-card-img: 20px;/* images dans les cartes */
+  --radius-small: 18px;   /* petits blocs */
+  --radius-large: 36px;   /* grands conteneurs */
+
+  /* --- Ombre : seulement pour ce qui flotte sur une photo --------------- */
+  --shadow-float: 0 12px 32px rgba(29, 42, 74, 0.14);
+
+  /* --- Gabarit --------------------------------------------------------- */
+  --content-max: 1344px;
+  --gutter: 20px;          /* marge latérale sur mobile */
+  --section-gap: 72px;     /* espace entre deux sections */
+  --tap-min: 48px;         /* jamais moins sur mobile */
+
+  /* --- Mouvement ------------------------------------------------------- */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --speed: 220ms;
+}
+
+/* --- Desktop : on agrandit ------------------------------------------- */
+@media (min-width: 900px) {
+  :root {
+    --size-h1: 76px;
+    --size-h2: 58px;
+    --size-h3: 26px;
+    --size-body: 18px;
+    --size-small: 16px;
+    --size-tiny: 15px;
+
+    --tracking-h1: -0.035em;
+    --tracking-h2: -0.03em;
+
+    --gutter: 48px;
+    --section-gap: 120px;
+  }
+}
+
+/* Respecte le réglage « réduire les animations » du système. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --speed: 0ms;
+  }
+}

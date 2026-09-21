@@ -1,0 +1,43 @@
+---
+import Bouton from '~/components/Bouton.astro';
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { chemin, t } from '~/i18n';
+
+const langue = 'fr' as const;
+const textes = t(langue);
+const page = textes.pages.erreur404;
+---
+
+<BaseLayout langue={langue} titre={page.titre} description={page.description} noindex>
+  <section class="wrap erreur">
+    <p class="erreur__code">404</p>
+    <h1>{page.h1}</h1>
+    <p class="erreur__texte">{page.texte}</p>
+    <Bouton href={chemin('accueil', langue)} variante="principal" iconeApres="fleche" large>
+      {page.retour}
+    </Bouton>
+  </section>
+</BaseLayout>
+
+<style>
+  .erreur {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding-block: 56px var(--section-gap);
+    max-width: 640px;
+  }
+
+  .erreur__code {
+    font-family: var(--font-title);
+    font-size: var(--size-h3);
+    font-weight: 800;
+    color: var(--color-accent);
+    letter-spacing: var(--tracking-h3);
+  }
+
+  .erreur__texte {
+    color: var(--color-text);
+  }
+</style>

@@ -1,0 +1,96 @@
+---
+/**
+ * Barre fixe en bas de l'écran, sur mobile uniquement.
+ * La plupart des visiteurs sont au téléphone : appeler et WhatsApp
+ * doivent être atteignables au pouce, tout le temps.
+ */
+import Icon from './Icon.astro';
+import { entreprise, lienWhatsApp } from '../data/entreprise';
+import { t, type Langue } from '../i18n';
+
+interface Props {
+  langue: Langue;
+}
+
+const { langue } = Astro.props;
+const textes = t(langue);
+---
+
+<div class="barre">
+  <a href={`tel:${entreprise.telephoneLien}`} class="barre__lien barre__lien--appel">
+    <Icon nom="telephone" taille={20} />
+    <span>{textes.actions.appeler}</span>
+  </a>
+  <a
+    href={lienWhatsApp(textes.whatsappMessage)}
+    class="barre__lien barre__lien--whatsapp"
+    target="_blank"
+    rel="noopener"
+  >
+    <Icon nom="whatsapp" taille={20} />
+    <span>{textes.actions.whatsappCourt}</span>
+  </a>
+</div>
+
+<style is:global>
+  /* Réserve la place en bas de page pour que la barre ne cache rien. */
+  :root {
+    --mobile-bar-height: 72px;
+  }
+
+  @media (min-width: 900px) {
+    :root {
+      --mobile-bar-height: 0px;
+    }
+  }
+</style>
+
+<style>
+  .barre {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 48;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 10px var(--gutter) calc(10px + env(safe-area-inset-bottom, 0px));
+    background: var(--color-bg);
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  .barre__lien {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: var(--tap-min);
+    border-radius: var(--radius-pill);
+    font-size: var(--size-small);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .barre__lien--appel {
+    background: var(--color-accent);
+    color: #fff;
+  }
+
+  .barre__lien--whatsapp {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-ink);
+  }
+
+  /* Cachée dès qu'on a de la place, et quand le menu est ouvert. */
+  :global(body.menu-ouvert) .barre {
+    display: none;
+  }
+
+  @media (min-width: 900px) {
+    .barre {
+      display: none;
+    }
+  }
+</style>

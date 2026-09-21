@@ -1,0 +1,118 @@
+---
+import Logo from './Logo.astro';
+import SelecteurLangue from './SelecteurLangue.astro';
+import { adresseUneLigne, entreprise } from '../data/entreprise';
+import { chemin, t, type Langue } from '../i18n';
+
+interface Props {
+  langue: Langue;
+  cheminActuel: string;
+}
+
+const { langue, cheminActuel } = Astro.props;
+const textes = t(langue);
+const annee = 2026;
+---
+
+<footer class="pied">
+  <div class="wrap pied__interieur">
+    <div class="pied__marque">
+      <a href={chemin('accueil', langue)} aria-label={textes.entete.accueilAria} class="pied__logo">
+        <Logo langue={langue} />
+      </a>
+      <p class="pied__identite">
+        <span>{entreprise.nomLegal}</span>
+        <span aria-hidden="true">·</span>
+        <span>{adresseUneLigne}</span>
+        <span aria-hidden="true">·</span>
+        <span>{textes.piedDePage.tva} {entreprise.tva}</span>
+      </p>
+    </div>
+
+    <div class="pied__bas">
+      <nav class="pied__liens" aria-label={textes.piedDePage.mentionsLegales}>
+        <a href={chemin('mentionsLegales', langue)}>{textes.piedDePage.mentionsLegales}</a>
+        <a href={chemin('viePrivee', langue)}>{textes.piedDePage.viePrivee}</a>
+      </nav>
+      <SelecteurLangue langue={langue} cheminActuel={cheminActuel} />
+    </div>
+
+    <p class="pied__droits">© {annee} {entreprise.nomLegal}. {textes.piedDePage.droits}</p>
+  </div>
+</footer>
+
+<style>
+  .pied {
+    margin-top: var(--section-gap);
+    border-top: 1px solid var(--color-border-light);
+    padding-block: 40px;
+  }
+
+  .pied__interieur {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .pied__logo {
+    display: inline-block;
+    text-decoration: none;
+  }
+
+  .pied__marque {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .pied__identite {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: var(--size-tiny);
+    color: var(--color-muted);
+  }
+
+  .pied__bas {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .pied__liens {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .pied__liens a {
+    font-size: var(--size-tiny);
+    font-weight: 500;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .pied__liens a:hover {
+    color: var(--color-ink);
+    text-decoration: underline;
+  }
+
+  .pied__droits {
+    font-size: var(--size-tiny);
+    color: var(--color-muted);
+  }
+
+  @media (min-width: 900px) {
+    .pied {
+      padding-block: 48px;
+    }
+
+    .pied__marque {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+</style>

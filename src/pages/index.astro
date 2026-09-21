@@ -1,0 +1,15 @@
+---
+import EnConstruction from '~/components/EnConstruction.astro';
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { t } from '~/i18n';
+
+const langue = 'fr' as const;
+const textes = t(langue);
+const page = textes.pages.accueil;
+
+// La vraie page d'accueil (hero, services, avant/après…) arrive en phase 2.
+---
+
+<BaseLayout langue={langue} titre={page.titre} description={page.description}>
+  <EnConstruction langue={langue} titre={page.description} />
+</BaseLayout>

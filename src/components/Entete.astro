@@ -1,0 +1,253 @@
+---
+import Bouton from './Bouton.astro';
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+import SelecteurLangue from './SelecteurLangue.astro';
+import { entreprise } from '../data/entreprise';
+import { chemin, liensNavigation, t, type Langue } from '../i18n';
+
+interface Props {
+  langue: Langue;
+  cheminActuel: string;
+}
+
+const { langue, cheminActuel } = Astro.props;
+const textes = t(langue);
+const liens = liensNavigation(langue);
+---
+
+<header class="entete">
+  <div class="wrap entete__interieur">
+    <a href={chemin('accueil', langue)} class="entete__logo" aria-label={textes.entete.accueilAria}>
+      <Logo langue={langue} />
+    </a>
+
+    <nav class="entete__nav" aria-label={textes.entete.menuAria}>
+      {liens.map((lien) => <a href={lien.href}>{lien.libelle}</a>)}
+    </nav>
+
+    <div class="entete__actions">
+      <SelecteurLangue langue={langue} cheminActuel={cheminActuel} />
+      <Bouton href={chemin('contact', langue)} variante="principal" iconeApres="fleche" class="entete__devis">
+        {textes.actions.devis}
+      </Bouton>
+    </div>
+
+    <div class="entete__mobile">
+      <a
+        href={`tel:${entreprise.telephoneLien}`}
+        class="entete__appel"
+        aria-label={`${textes.actions.appeler} ${entreprise.telephoneAffiche}`}
+      >
+        <Icon nom="telephone" taille={22} />
+      </a>
+      <button
+        type="button"
+        class="entete__burger"
+        id="bouton-menu"
+        aria-expanded="false"
+        aria-controls="menu-mobile"
+        aria-label={textes.entete.ouvrirMenu}
+        data-ouvrir={textes.entete.ouvrirMenu}
+        data-fermer={textes.entete.fermerMenu}
+      >
+        <Icon nom="menu" taille={24} class="entete__burger-ouvrir" />
+        <Icon nom="fermer" taille={24} class="entete__burger-fermer" />
+      </button>
+    </div>
+  </div>
+
+  <div class="entete__panneau" id="menu-mobile" hidden>
+    <nav class="entete__panneau-nav" aria-label={textes.entete.menuAria}>
+      {liens.map((lien) => <a href={lien.href}>{lien.libelle}</a>)}
+    </nav>
+    <div class="entete__panneau-bas">
+      <Bouton href={chemin('contact', langue)} variante="principal" iconeApres="fleche" large>
+        {textes.actions.devis}
+      </Bouton>
+      <SelecteurLangue langue={langue} cheminActuel={cheminActuel} />
+    </div>
+  </div>
+</header>
+
+<script>
+  const bouton = document.getElementById('bouton-menu');
+  const panneau = document.getElementById('menu-mobile');
+
+  if (bouton && panneau) {
+    const basculer = (ouvert: boolean) => {
+      bouton.setAttribute('aria-expanded', String(ouvert));
+      bouton.setAttribute(
+        'aria-label',
+        (ouvert ? bouton.dataset.fermer : bouton.dataset.ouvrir) ?? '',
+      );
+      panneau.hidden = !ouvert;
+      document.body.classList.toggle('menu-ouvert', ouvert);
+    };
+
+    bouton.addEventListener('click', () => {
+      basculer(bouton.getAttribute('aria-expanded') !== 'true');
+    });
+
+    // Échap referme le menu et remet le focus sur le bouton.
+    document.addEventListener('keydown', (evenement) => {
+      if (evenement.key === 'Escape' && bouton.getAttribute('aria-expanded') === 'true') {
+        basculer(false);
+        bouton.focus();
+      }
+    });
+
+    // Si on repasse en desktop, on remet tout à zéro.
+    const desktop = window.matchMedia('(min-width: 900px)');
+    desktop.addEventListener('change', (evenement) => {
+      if (evenement.matches) basculer(false);
+    });
+  }
+</script>
+
+<style is:global>
+  /* Empêche de faire défiler la page derrière le menu ouvert. */
+  body.menu-ouvert {
+    overflow: hidden;
+  }
+</style>
+
+<style>
+  .entete {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--color-bg);
+    border-bottom: 1px solid transparent;
+  }
+
+  .entete__interieur {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    min-height: 76px;
+  }
+
+  .entete__logo {
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .entete__nav,
+  .entete__actions {
+    display: none;
+  }
+
+  .entete__mobile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .entete__appel,
+  .entete__burger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--tap-min);
+    height: var(--tap-min);
+    padding: 0;
+    background: var(--color-surface);
+    border: none;
+    border-radius: var(--radius-pill);
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+
+  .entete__burger-fermer {
+    display: none;
+  }
+
+  .entete__burger[aria-expanded='true'] .entete__burger-ouvrir {
+    display: none;
+  }
+
+  .entete__burger[aria-expanded='true'] .entete__burger-fermer {
+    display: block;
+  }
+
+  /* Panneau du menu mobile */
+  .entete__panneau {
+    position: fixed;
+    inset: 76px 0 0;
+    z-index: 49;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 32px;
+    padding: 32px var(--gutter) calc(32px + env(safe-area-inset-bottom, 0px));
+    background: var(--color-bg);
+    overflow-y: auto;
+  }
+
+  .entete__panneau[hidden] {
+    display: none;
+  }
+
+  .entete__panneau-nav {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .entete__panneau-nav a {
+    padding: 18px 0;
+    border-bottom: 1px solid var(--color-border-light);
+    font-family: var(--font-title);
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: var(--tracking-h3);
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .entete__panneau-bas {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .entete__panneau-bas :global(.bouton) {
+    width: 100%;
+  }
+
+  @media (min-width: 900px) {
+    .entete__interieur {
+      min-height: 100px;
+    }
+
+    .entete__nav {
+      display: flex;
+      gap: 36px;
+      font-size: var(--size-small);
+      font-weight: 500;
+    }
+
+    .entete__nav a {
+      color: var(--color-text);
+      text-decoration: none;
+      transition: color var(--speed) var(--ease);
+    }
+
+    .entete__nav a:hover {
+      color: var(--color-ink);
+    }
+
+    .entete__actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .entete__mobile,
+    .entete__panneau {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,73 @@
+---
+/**
+ * Logo de l'entreprise.
+ * Version texte en attendant le vrai fichier SVG du client.
+ * Pour le remplacer : mettre le SVG ici, garder le même nom de composant.
+ */
+import { entreprise } from '../data/entreprise';
+import { t, type Langue } from '../i18n';
+
+interface Props {
+  langue: Langue;
+  /** Sur fond ink (bloc contact, pied de page), le texte passe en blanc. */
+  surFonce?: boolean;
+}
+
+const { langue, surFonce = false } = Astro.props;
+const textes = t(langue);
+---
+
+<span class:list={['logo', { 'logo--fonce': surFonce }]}>
+  <span class="logo__nom">
+    BS <span class="logo__nom-suite">Renove</span>
+  </span>
+  <span class="logo__tagline">{textes.entete.tagline}</span>
+  <span class="sr-only">{entreprise.nomLegal}</span>
+</span>
+
+<style>
+  .logo {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    line-height: 1;
+  }
+
+  .logo__nom {
+    font-family: var(--font-title);
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+  }
+
+  .logo__nom-suite {
+    font-weight: 600;
+    color: var(--color-muted);
+  }
+
+  .logo__tagline {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-muted);
+  }
+
+  .logo--fonce .logo__nom {
+    color: var(--color-on-ink);
+  }
+
+  .logo--fonce .logo__nom-suite,
+  .logo--fonce .logo__tagline {
+    color: var(--color-on-ink-label);
+  }
+
+  @media (min-width: 900px) {
+    .logo__nom {
+      font-size: 28px;
+    }
+
+    .logo__tagline {
+      font-size: 13px;
+    }
+  }
+</style>

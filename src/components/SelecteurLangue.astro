@@ -1,0 +1,90 @@
+---
+/**
+ * Sélecteur FR / NL en pilule.
+ * Mène toujours à la MÊME page dans l'autre langue, jamais à l'accueil
+ * (sauf si la page n'existe pas dans l'autre langue).
+ */
+import { LANGUES, memePageDansLaLangue, t, type Langue } from '../i18n';
+
+interface Props {
+  langue: Langue;
+  cheminActuel: string;
+  surFonce?: boolean;
+}
+
+const { langue, cheminActuel, surFonce = false } = Astro.props;
+const textes = t(langue);
+
+const options = LANGUES.map((code) => ({
+  code,
+  libelle: code.toUpperCase(),
+  href: memePageDansLaLangue(cheminActuel, code),
+  actif: code === langue,
+  titre: code === 'nl' ? textes.langues.versNl : textes.langues.versFr,
+}));
+---
+
+<nav class:list={['langues', { 'langues--fonce': surFonce }]} aria-label={textes.langues.choisirAria}>
+  {
+    options.map((option) => (
+      <a
+        href={option.href}
+        class:list={['langues__lien', { 'langues__lien--actif': option.actif }]}
+        hreflang={option.code}
+        lang={option.code}
+        aria-current={option.actif ? 'true' : undefined}
+        title={option.actif ? undefined : option.titre}
+      >
+        {option.libelle}
+      </a>
+    ))
+  }
+</nav>
+
+<style>
+  .langues {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 4px;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-pill);
+  }
+
+  .langues__lien {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 36px;
+    padding: 0 12px;
+    border-radius: var(--radius-pill);
+    font-size: var(--size-tiny);
+    font-weight: 600;
+    color: var(--color-muted);
+    text-decoration: none;
+    transition: background-color var(--speed) var(--ease);
+  }
+
+  .langues__lien:hover {
+    color: var(--color-ink);
+  }
+
+  .langues__lien--actif {
+    background: var(--color-bg);
+    color: var(--color-ink);
+  }
+
+  .langues--fonce {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .langues--fonce .langues__lien {
+    color: var(--color-on-ink-label);
+  }
+
+  .langues--fonce .langues__lien--actif {
+    background: rgba(255, 255, 255, 0.16);
+    color: #fff;
+  }
+</style>

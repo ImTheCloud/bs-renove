@@ -1,0 +1,114 @@
+---
+/**
+ * Bouton en forme de pilule. Toujours un vrai <a> (lien) ou <button> (action).
+ * Variantes : principal, secondaire, et les deux versions sur fond ink.
+ */
+import Icon, { type NomIcone } from './Icon.astro';
+
+type Variante = 'principal' | 'secondaire' | 'ink-principal' | 'ink-secondaire';
+
+interface Props {
+  href?: string;
+  type?: 'button' | 'submit';
+  variante?: Variante;
+  icone?: NomIcone;
+  iconeApres?: NomIcone;
+  large?: boolean;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  href,
+  type = 'button',
+  variante = 'principal',
+  icone,
+  iconeApres,
+  large = false,
+  class: classe,
+  ...reste
+} = Astro.props;
+
+const Element = href ? 'a' : 'button';
+const attributs = href ? { href } : { type };
+const classes = ['bouton', `bouton--${variante}`, large && 'bouton--large', classe];
+---
+
+<Element class:list={classes} {...attributs} {...reste}>
+  {icone && <Icon nom={icone} taille={20} />}
+  <span><slot /></span>
+  {iconeApres && <Icon nom={iconeApres} taille={20} />}
+</Element>
+
+<style>
+  .bouton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: var(--tap-min);
+    padding: 0 26px;
+    border: 1px solid transparent;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-text);
+    font-size: var(--size-small);
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background-color var(--speed) var(--ease),
+      border-color var(--speed) var(--ease),
+      transform var(--speed) var(--ease);
+  }
+
+  .bouton--large {
+    min-height: 58px;
+    padding: 0 32px;
+    font-size: var(--size-body);
+  }
+
+  .bouton:active {
+    transform: translateY(1px);
+  }
+
+  /* Fond blanc : le bouton principal est bleu */
+  .bouton--principal {
+    background: var(--color-accent);
+    color: #fff;
+  }
+
+  .bouton--principal:hover {
+    background: var(--color-accent-dark);
+  }
+
+  .bouton--secondaire {
+    background: var(--color-bg);
+    border-color: var(--color-border);
+    color: var(--color-ink);
+  }
+
+  .bouton--secondaire:hover {
+    background: var(--color-surface);
+  }
+
+  /* Sur le bloc contact (fond ink) : le principal devient blanc */
+  .bouton--ink-principal {
+    background: #fff;
+    color: var(--color-ink);
+  }
+
+  .bouton--ink-principal:hover {
+    background: var(--color-on-ink-soft);
+  }
+
+  .bouton--ink-secondaire {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.35);
+    color: #fff;
+  }
+
+  .bouton--ink-secondaire:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+</style>

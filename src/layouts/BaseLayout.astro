@@ -1,0 +1,79 @@
+---
+/** Gabarit commun à toutes les pages du site. */
+
+// Polices hébergées sur le site : aucun appel à Google Fonts.
+import '@fontsource-variable/bricolage-grotesque';
+import '@fontsource-variable/figtree';
+import '../styles/global.css';
+
+import BarreMobile from '../components/BarreMobile.astro';
+import Entete from '../components/Entete.astro';
+import PiedDePage from '../components/PiedDePage.astro';
+import { LANGUES, memePageDansLaLangue, t, type Langue } from '../i18n';
+
+interface Props {
+  langue: Langue;
+  titre: string;
+  description: string;
+  /** Les pages légales et la 404 ne doivent pas remonter dans Google. */
+  noindex?: boolean;
+}
+
+const { langue, titre, description, noindex = false } = Astro.props;
+const textes = t(langue);
+
+const cheminActuel = Astro.url.pathname;
+const canonique = new URL(cheminActuel, Astro.site);
+
+// Une balise hreflang par langue, plus x-default vers le français.
+const alternatives = LANGUES.map((code) => ({
+  code,
+  hreflang: t(code).htmlLang,
+  href: new URL(memePageDansLaLangue(cheminActuel, code), Astro.site).href,
+}));
+const xDefault = alternatives.find((alternative) => alternative.code === 'fr');
+---
+
+<!doctype html>
+<html lang={textes.htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{titre}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonique.href} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+
+    {
+      alternatives.map((alternative) => (
+        <link rel="alternate" hreflang={alternative.hreflang} href={alternative.href} />
+      ))
+    }
+    {xDefault && <link rel="alternate" hreflang="x-default" href={xDefault.href} />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BS Renove" />
+    <meta property="og:title" content={titre} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonique.href} />
+    <meta property="og:locale" content={textes.htmlLang.replace('-', '_')} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta name="theme-color" content="#ffffff" />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#contenu">{textes.accessibilite.allerAuContenu}</a>
+
+    <Entete langue={langue} cheminActuel={cheminActuel} />
+
+    <main id="contenu">
+      <slot />
+    </main>
+
+    <PiedDePage langue={langue} cheminActuel={cheminActuel} />
+    <BarreMobile langue={langue} />
+  </body>
+</html>
