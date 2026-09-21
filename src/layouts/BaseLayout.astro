@@ -7,6 +7,12 @@ import '@fontsource-variable/figtree';
 import '../styles/global.css';
 
 import BarreMobile from '../components/BarreMobile.astro';
+// Préchargées : sinon le navigateur ne les découvre qu'après avoir lu le CSS,
+// ce qui retarde l'affichage du texte.
+import policeTitre from '@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2?url';
+import policeTexte from '@fontsource-variable/figtree/files/figtree-latin-wght-normal.woff2?url';
+import imagePartage from '../assets/partage.png';
+import DonneesStructurees from '../components/DonneesStructurees.astro';
 import Entete from '../components/Entete.astro';
 import PiedDePage from '../components/PiedDePage.astro';
 import { LANGUES, memePageDansLaLangue, t, type Langue } from '../i18n';
@@ -32,6 +38,9 @@ const alternatives = LANGUES.map((code) => ({
   href: new URL(memePageDansLaLangue(cheminActuel, code), Astro.site).href,
 }));
 const xDefault = alternatives.find((alternative) => alternative.code === 'fr');
+
+// Image affichée quand le site est partagé sur WhatsApp ou les réseaux.
+const urlPartage = new URL(imagePartage.src, Astro.site).href;
 ---
 
 <!doctype html>
@@ -40,6 +49,9 @@ const xDefault = alternatives.find((alternative) => alternative.code === 'fr');
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="generator" content={Astro.generator} />
+
+    <link rel="preload" href={policeTitre} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={policeTexte} as="font" type="font/woff2" crossorigin />
 
     <title>{titre}</title>
     <meta name="description" content={description} />
@@ -59,9 +71,17 @@ const xDefault = alternatives.find((alternative) => alternative.code === 'fr');
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonique.href} />
     <meta property="og:locale" content={textes.htmlLang.replace('-', '_')} />
+    <meta property="og:image" content={urlPartage} />
+    <meta property="og:image:width" content={String(imagePartage.width)} />
+    <meta property="og:image:height" content={String(imagePartage.height)} />
+    <meta property="og:image:alt" content={titre} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={urlPartage} />
 
     <meta name="theme-color" content="#ffffff" />
+
+    {/* La fiche entreprise, une seule fois, sur l'accueil. */}
+    {(cheminActuel === '/' || cheminActuel === '/nl/') && <DonneesStructurees langue={langue} />}
   </head>
 
   <body>

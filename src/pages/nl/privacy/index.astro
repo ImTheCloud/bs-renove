@@ -1,13 +1,13 @@
 ---
-import EnConstruction from '~/components/EnConstruction.astro';
+import PageLegale from '~/components/sections/PageLegale.astro';
 import BaseLayout from '~/layouts/BaseLayout.astro';
+import { viePrivee } from '~/data/textes-legaux';
 import { t } from '~/i18n';
 
 const langue = 'nl' as const;
-const textes = t(langue);
-const page = textes.pages.viePrivee;
+const page = t(langue).pages.viePrivee;
 ---
 
 <BaseLayout langue={langue} titre={page.titre} description={page.description}>
-  <EnConstruction langue={langue} titre="Privacy" />
+  <PageLegale langue={langue} titre={page.titre.split(' · ')[0]} blocs={viePrivee} />
 </BaseLayout>

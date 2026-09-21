@@ -2,7 +2,7 @@
 import Bouton from '../Bouton.astro';
 import Icon from '../Icon.astro';
 import { adresseUneLigne, entreprise, lienWhatsApp } from '~/data/entreprise';
-import { chemin, t, type Langue } from '~/i18n';
+import { chemin, marqueurAConfirmer, t, type Langue } from '~/i18n';
 
 interface Props {
   langue: Langue;
@@ -13,7 +13,7 @@ const textes = t(langue);
 const bloc = textes.accueil.contact;
 
 // L'email n'a pas encore été communiqué : on le dit, on n'en invente pas.
-const emailAffiche = entreprise.email ?? `[${textes.aConfirmer} : ${bloc.labelEmail.toLowerCase()}]`;
+const emailAffiche = entreprise.email ?? marqueurAConfirmer(langue, bloc.labelEmail.toLowerCase());
 ---
 
 <section id="contact" class="wrap contact">

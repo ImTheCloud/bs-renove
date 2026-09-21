@@ -202,6 +202,24 @@ export const fr = {
       'La clé du service d’envoi n’est pas configurée. En attendant, utilisez le téléphone ou WhatsApp.',
   },
 
+  legal: {
+    aRelire: 'À RELIRE',
+    aRelireTexte:
+      'Ces textes sont un point de départ. Ils doivent être relus et validés avant la mise en ligne.',
+    identite: "L'entreprise",
+    nomLegal: 'Dénomination',
+    formeJuridique: 'Forme juridique',
+    formeJuridiqueValeur: 'Société à responsabilité limitée (SRL)',
+    gerant: 'Gérant',
+    siege: 'Siège social',
+    entreprise: "Numéro d'entreprise et TVA",
+    rpm: 'RPM',
+    telephone: 'Téléphone',
+    email: 'Email',
+    majLe: 'Dernière mise à jour',
+    majValeur: '21 septembre 2026',
+  },
+
   pages: {
     accueil: {
       titre: 'BS Renove · Entreprise générale de rénovation en Belgique',

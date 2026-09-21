@@ -13,7 +13,7 @@ import Bouton from './Bouton.astro';
 import Icon from './Icon.astro';
 import { entreprise, lienWhatsApp } from '~/data/entreprise';
 import { services } from '~/data/services';
-import { chemin, t, type Langue } from '~/i18n';
+import { chemin, marqueurAConfirmer, t, type Langue } from '~/i18n';
 
 interface Props {
   langue: Langue;
@@ -41,7 +41,7 @@ const sujet =
   cleManquante ? (
     <div class="alerte" role="status">
       <span class="alerte__titre">
-        [{textes.aConfirmer}] {f.cleManquanteTitre}
+        {marqueurAConfirmer(langue)} {f.cleManquanteTitre}
       </span>
       <p>{f.cleManquanteTexte}</p>
       <div class="alerte__actions">

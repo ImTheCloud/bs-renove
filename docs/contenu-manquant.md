@@ -215,3 +215,68 @@ par un organisme agréé. **À vérifier avec Sergiu avant la mise en ligne** :
 - Les pages de remerciement (`/contact/merci/` et `/nl/contact/bedankt/`) servent aux
   visiteurs dont le navigateur n'exécute pas le JavaScript. Elles sont en `noindex`.
 - Le champ caché anti-robots (`botcheck`) est celui attendu par Web3Forms.
+
+---
+
+## 10. Ajouté en phase 5 : SEO, pages légales, performance
+
+Les pages **Mentions légales** et **Vie privée** sont maintenant écrites en entier,
+dans les deux langues. Elles portent la mention `[À RELIRE]` en haut, visible.
+
+### Ce qui manque encore dans ces pages
+
+| Ce qui manque | Où | Pourquoi ça bloque |
+|---|---|---|
+| **L'adresse email** | les deux pages, et le formulaire | Obligatoire par la loi belge dans les mentions légales, et c'est le contact pour exercer ses droits RGPD |
+| **La durée de conservation** des demandes | page vie privée | Le RGPD impose de l'indiquer. Une durée courante est de 3 ans après le dernier contact, mais c'est à Sergiu de décider |
+| **Le nom de l'hébergeur** | mentions légales | Connu une fois choisi entre Cloudflare Pages et Netlify |
+| **Une relecture par un humain** | les deux pages | Ce sont des textes juridiques. Je les ai écrits à partir des faits connus, mais je ne suis pas juriste |
+
+### Fait, et vérifié
+
+- **Données structurées** `HomeAndConstructionBusiness` sur l'accueil FR et NL :
+  nom, adresse, téléphone, numéro de TVA, zone desservie, gérant. L'email n'y figure
+  pas tant qu'il n'est pas connu — un champ absent vaut mieux qu'un champ faux.
+- **Sitemap** : les 22 adresses déclarent désormais leurs versions française et
+  néerlandaise. L'option toute faite d'Astro n'y arrivait pas parce que nos adresses
+  sont traduites ; les correspondances sont maintenant construites à partir de la
+  même table que le sélecteur de langue.
+- **Image de partage** (1200 × 630) : provisoire, faite avec le logo texte et les
+  couleurs du site. `scripts/generer-image-partage.mjs` la regénère.
+  **À remplacer par une vraie photo de chantier** dès qu'on en a une.
+- **Polices préchargées** : le texte s'affiche sans attendre la lecture du CSS.
+- **Accessibilité** : les 26 pages contrôlées une par une. Aucun titre manquant ou
+  mal ordonné, aucun lien sans intitulé, aucune zone tactile trop petite, aucun
+  débordement horizontal.
+- **Performance mesurée** sur téléphone milieu de gamme en 4G lente : premier
+  affichage à ~360 ms, aucun décalage de mise en page (CLS 0), aucun fichier
+  JavaScript séparé à télécharger.
+
+### Reste à faire pour finir la phase 5
+
+- Remplacer l'image de partage par une photo réelle.
+- Mesurer avec Lighthouse une fois le site en ligne : les chiffres ci-dessus viennent
+  d'un serveur local, la réalité dépendra de l'hébergeur.
+
+---
+
+## 11. Corrections juridiques (relecture indépendante, 21 septembre 2026)
+
+Une relecture séparée a trouvé 3 affirmations fausses ou trompeuses dans les pages
+légales. Corrigées, mais deux points restent à trancher avec un professionnel :
+
+- **RPM / RPR** (numéro du tribunal de l'entreprise) : `[À CONFIRMER]` sur la page
+  mentions légales. Se déduit probablement du siège (Denderleeuw → arrondissement de
+  Dendermonde → « RPM Gand, division Dendermonde »), mais à faire confirmer par le
+  comptable de Sergiu avant de l'écrire en dur.
+- **Transfert de données hors UE** : le formulaire passe par Web3Forms, dont les
+  serveurs sont aux États-Unis. La page vie privée le dit maintenant, mais la garantie
+  de transfert qu'exige le RGPD (clauses contractuelles types ou équivalent) n'est pas
+  formalisée avec ce prestataire. À vérifier avant la mise en ligne — éventuellement en
+  choisissant un service basé dans l'UE si le sujet est sensible pour le client.
+
+Corrigé aussi : la base légale se contredisait elle-même (consentement retirable à
+tout moment vs conservation comptable obligatoire), les mentions légales affirmaient
+un accord des propriétaires qui n'est pas encore une réalité (reformulé en politique
+de l'entreprise plutôt qu'en fait accompli), et les données structurées déclaraient
+Sergiu « fondateur » alors que le seul fait vérifié est qu'il est gérant.

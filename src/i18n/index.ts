@@ -75,3 +75,13 @@ export function liensNavigation(langue: Langue) {
     { libelle: textes.nav.contact, href: chemin('contact', langue) },
   ];
 }
+
+/**
+ * Le marqueur d'une information non confirmée, avec la bonne typographie.
+ * Le français met une espace avant le deux-points, le néerlandais non.
+ */
+export function marqueurAConfirmer(langue: Langue, quoi?: string): string {
+  const mot = t(langue).aConfirmer;
+  if (!quoi) return `[${mot}]`;
+  return langue === 'fr' ? `[${mot} : ${quoi}]` : `[${mot}: ${quoi}]`;
+}

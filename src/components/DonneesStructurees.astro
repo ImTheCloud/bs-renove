@@ -1,0 +1,51 @@
+---
+/**
+ * Données structurées JSON-LD, lues par Google.
+ * Tout vient de src/data/entreprise.ts : aucune information inventée,
+ * et un champ non confirmé est simplement absent plutôt que faux.
+ */
+import { entreprise } from '~/data/entreprise';
+import { t, type Langue } from '~/i18n';
+
+interface Props {
+  langue: Langue;
+}
+
+const { langue } = Astro.props;
+const textes = t(langue);
+
+const fiche: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'HomeAndConstructionBusiness',
+  name: entreprise.nomLegal,
+  alternateName: entreprise.nomCourt,
+  description: textes.pages.accueil.description,
+  url: new URL(langue === 'fr' ? '/' : '/nl/', Astro.site).href,
+  telephone: entreprise.telephoneLien,
+  vatID: entreprise.tva.replace(/[\s.]/g, ''),
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: entreprise.adresse.rue,
+    postalCode: entreprise.adresse.codePostal,
+    addressLocality: entreprise.adresse.ville,
+    addressCountry: entreprise.adresse.pays,
+  },
+  areaServed: {
+    '@type': 'Country',
+    name: 'Belgique',
+  },
+  // « employee » plutôt que « founder » : le seul fait vérifié est qu'il est
+  // gérant, pas qu'il a fondé l'entreprise.
+  employee: {
+    '@type': 'Person',
+    name: entreprise.gerant,
+    jobTitle: 'Gérant',
+  },
+  availableLanguage: ['fr-BE', 'nl-BE'],
+};
+
+// L'email n'est ajouté que s'il existe vraiment.
+if (entreprise.email) fiche.email = entreprise.email;
+---
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(fiche)} />

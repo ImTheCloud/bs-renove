@@ -3,7 +3,7 @@ import Bouton from '../Bouton.astro';
 import FormulaireDevis from '../FormulaireDevis.astro';
 import Icon from '../Icon.astro';
 import { adresseUneLigne, entreprise, lienWhatsApp } from '~/data/entreprise';
-import { t, type Langue } from '~/i18n';
+import { marqueurAConfirmer, t, type Langue } from '~/i18n';
 
 interface Props {
   langue: Langue;
@@ -57,7 +57,7 @@ const emailManquant = !entreprise.email;
           {
             emailManquant ? (
               <span class="contact-page__manquant">
-                [{textes.aConfirmer} : {contact.labelEmail.toLowerCase()}]
+                {marqueurAConfirmer(langue, contact.labelEmail.toLowerCase())}
               </span>
             ) : (
               <a href={`mailto:${entreprise.email}`}>{entreprise.email}</a>

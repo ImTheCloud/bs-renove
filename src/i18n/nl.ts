@@ -206,6 +206,24 @@ export const nl: Traductions = {
       'De sleutel van de verzenddienst is niet ingesteld. Gebruik ondertussen de telefoon of WhatsApp.',
   },
 
+  legal: {
+    aRelire: 'NA TE LEZEN',
+    aRelireTexte:
+      'Deze teksten zijn een vertrekpunt. Ze moeten worden nagelezen en goedgekeurd vóór de publicatie.',
+    identite: 'De onderneming',
+    nomLegal: 'Benaming',
+    formeJuridique: 'Rechtsvorm',
+    formeJuridiqueValeur: 'Besloten vennootschap (BV/SRL)',
+    gerant: 'Zaakvoerder',
+    siege: 'Maatschappelijke zetel',
+    entreprise: 'Ondernemings- en btw-nummer',
+    rpm: 'RPR',
+    telephone: 'Telefoon',
+    email: 'E-mail',
+    majLe: 'Laatst bijgewerkt',
+    majValeur: '21 september 2026',
+  },
+
   pages: {
     accueil: {
       titre: 'BS Renove · Algemene aannemer voor renovatie in België',
