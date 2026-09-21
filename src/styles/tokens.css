@@ -16,6 +16,7 @@
   --color-border: #d5dae1;      /* bordures */
   --color-border-light: #e3e6eb;/* bordures discrètes (cartes) */
   --color-placeholder: #dde1e7; /* blocs « photo à venir » */
+  --color-placeholder-2: #c9ced6; /* second bloc, pour le curseur avant/après */
 
   /* Sur le bloc contact (fond ink) */
   --color-on-ink: #ffffff;

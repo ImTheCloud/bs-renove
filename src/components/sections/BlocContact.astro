@@ -1,0 +1,216 @@
+---
+import Bouton from '../Bouton.astro';
+import Icon from '../Icon.astro';
+import { adresseUneLigne, entreprise, lienWhatsApp } from '~/data/entreprise';
+import { chemin, t, type Langue } from '~/i18n';
+
+interface Props {
+  langue: Langue;
+}
+
+const { langue } = Astro.props;
+const textes = t(langue);
+const bloc = textes.accueil.contact;
+
+// L'email n'a pas encore été communiqué : on le dit, on n'en invente pas.
+const emailAffiche = entreprise.email ?? `[${textes.aConfirmer} : ${bloc.labelEmail.toLowerCase()}]`;
+---
+
+<section id="contact" class="wrap contact">
+  <div class="contact__cadre">
+    <div class="contact__haut">
+      <div class="contact__titres">
+        <h2>{bloc.titre}</h2>
+        <p class="contact__texte">{bloc.texte}</p>
+      </div>
+
+      <div class="contact__actions">
+        <Bouton href={chemin('contact', langue)} variante="ink-principal" iconeApres="fleche" large>
+          {textes.actions.devis}
+        </Bouton>
+        <div class="contact__actions-secondaires">
+          <Bouton
+            href={lienWhatsApp(textes.whatsappMessage)}
+            variante="ink-secondaire"
+            icone="whatsapp"
+            target="_blank"
+            rel="noopener"
+          >
+            {textes.actions.whatsappCourt}
+          </Bouton>
+          <Bouton href={`tel:${entreprise.telephoneLien}`} variante="ink-secondaire" icone="telephone">
+            {textes.actions.appeler}
+          </Bouton>
+        </div>
+      </div>
+    </div>
+
+    <ul class="contact__tuiles">
+      <li class="tuile">
+        <span class="tuile__icone"><Icon nom="telephone" taille={20} /></span>
+        <span class="tuile__label">{bloc.labelTelephone}</span>
+        <a href={`tel:${entreprise.telephoneLien}`} class="tuile__valeur tuile__valeur--lien">
+          {entreprise.telephoneAffiche}
+        </a>
+      </li>
+
+      <li class="tuile">
+        <span class="tuile__icone"><Icon nom="email" taille={20} /></span>
+        <span class="tuile__label">{bloc.labelEmail}</span>
+        {
+          entreprise.email ? (
+            <a href={`mailto:${entreprise.email}`} class="tuile__valeur tuile__valeur--lien">
+              {entreprise.email}
+            </a>
+          ) : (
+            <span class="tuile__valeur tuile__valeur--manquant">{emailAffiche}</span>
+          )
+        }
+      </li>
+
+      <li class="tuile">
+        <span class="tuile__icone"><Icon nom="carte" taille={20} /></span>
+        <span class="tuile__label">{bloc.labelZone}</span>
+        <span class="tuile__valeur">{bloc.valeurZone}</span>
+        <span class="tuile__detail">{adresseUneLigne}</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .contact {
+    padding-block: var(--section-gap) 0;
+  }
+
+  .contact__cadre {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    padding: 36px 24px;
+    background: var(--color-ink);
+    border-radius: var(--radius-large);
+    color: var(--color-on-ink);
+  }
+
+  .contact__haut {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .contact__titres {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .contact__titres h2 {
+    color: var(--color-on-ink);
+  }
+
+  .contact__texte {
+    max-width: 46ch;
+    color: var(--color-on-ink-soft);
+  }
+
+  .contact__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .contact__actions-secondaires {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .contact__tuiles {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tuile {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: var(--radius-small);
+  }
+
+  .tuile__icone {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-pill);
+    color: var(--color-on-ink);
+  }
+
+  .tuile__label {
+    font-size: var(--size-tiny);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-on-ink-label);
+  }
+
+  .tuile__valeur {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-size: var(--size-body);
+    font-weight: 600;
+    color: var(--color-on-ink);
+    text-decoration: none;
+  }
+
+  .tuile__valeur--lien:hover {
+    text-decoration: underline;
+  }
+
+  /* Rend l'information manquante impossible à rater. */
+  .tuile__valeur--manquant {
+    font-size: var(--size-small);
+    color: #ffd48a;
+  }
+
+  .tuile__detail {
+    font-size: var(--size-tiny);
+    color: var(--color-on-ink-soft);
+  }
+
+  @media (min-width: 700px) {
+    .contact__tuiles {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .contact__cadre {
+      gap: 44px;
+      padding: 56px 48px;
+    }
+
+    .contact__haut {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 48px;
+    }
+
+    .contact__actions {
+      align-items: flex-end;
+      flex-shrink: 0;
+    }
+  }
+</style>

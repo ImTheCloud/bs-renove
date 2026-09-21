@@ -1,0 +1,232 @@
+---
+/**
+ * Curseur avant / après : l'élément marquant du site.
+ *
+ * Construit autour d'un vrai <input type="range"> : il marche donc
+ * à la souris, au doigt ET au clavier (flèches gauche/droite), sans
+ * une ligne de code en plus. Aucune librairie externe.
+ *
+ * Les deux images passent par les emplacements « avant » et « apres ».
+ */
+import { t, type Langue } from '~/i18n';
+
+interface Props {
+  langue: Langue;
+  /** Identifiant unique : il peut y avoir plusieurs curseurs sur une page. */
+  id: string;
+  /** Proportion de l'image. */
+  ratio?: string;
+}
+
+const { langue, id, ratio = '4 / 3' } = Astro.props;
+const textes = t(langue);
+const avantApres = textes.accueil.avantApres;
+const aideId = `${id}-aide`;
+---
+
+<div class="curseur" data-curseur style={`--ratio: ${ratio};`}>
+  <!-- Fond : la photo « après ». Elle est visible à droite du trait. -->
+  <div class="curseur__couche curseur__couche--apres">
+    <slot name="apres" />
+  </div>
+
+  <!-- Dessus : la photo « avant », rognée à gauche du trait. -->
+  <div class="curseur__couche curseur__couche--avant" data-avant>
+    <slot name="avant" />
+  </div>
+
+  <span class="curseur__etiquette curseur__etiquette--avant">{avantApres.avant}</span>
+  <span class="curseur__etiquette curseur__etiquette--apres">{avantApres.apres}</span>
+
+  <!-- Le trait et la poignée : décoratifs, ils suivent la valeur du range. -->
+  <div class="curseur__trait" data-trait aria-hidden="true">
+    <span class="curseur__poignee">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M9 7l-5 5 5 5"></path>
+        <path d="M15 7l5 5-5 5"></path>
+      </svg>
+    </span>
+  </div>
+
+  <label class="sr-only" for={id}>{avantApres.curseurLabel}</label>
+  <input
+    type="range"
+    id={id}
+    class="curseur__range"
+    min="0"
+    max="100"
+    value="50"
+    step="1"
+    aria-describedby={aideId}
+    data-range
+  />
+  <p id={aideId} class="sr-only">{avantApres.curseurAide}</p>
+</div>
+
+<script>
+  // Chaque curseur de la page se gère tout seul.
+  document.querySelectorAll<HTMLElement>('[data-curseur]').forEach((curseur) => {
+    const range = curseur.querySelector<HTMLInputElement>('[data-range]');
+    if (!range) return;
+
+    const appliquer = () => {
+      curseur.style.setProperty('--position', `${range.value}%`);
+    };
+
+    range.addEventListener('input', appliquer);
+    appliquer();
+  });
+</script>
+
+<style>
+  .curseur {
+    --position: 50%;
+    position: relative;
+    width: 100%;
+    aspect-ratio: var(--ratio);
+    border-radius: var(--radius-photo);
+    overflow: hidden;
+    /* Empêche le geste de faire défiler la page quand on glisse le doigt. */
+    touch-action: pan-y;
+  }
+
+  .curseur__couche {
+    position: absolute;
+    inset: 0;
+  }
+
+  .curseur__couche :global(> *) {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    object-fit: cover;
+  }
+
+  /* La photo « avant » n'est montrée que du bord gauche jusqu'au trait. */
+  .curseur__couche--avant {
+    clip-path: inset(0 calc(100% - var(--position)) 0 0);
+  }
+
+  .curseur__etiquette {
+    position: absolute;
+    top: 16px;
+    z-index: 2;
+    padding: 7px 16px;
+    background: rgba(29, 42, 74, 0.72);
+    border-radius: var(--radius-pill);
+    font-size: var(--size-tiny);
+    font-weight: 600;
+    color: #fff;
+    pointer-events: none;
+  }
+
+  .curseur__etiquette--avant {
+    left: 16px;
+  }
+
+  .curseur__etiquette--apres {
+    right: 16px;
+  }
+
+  .curseur__trait {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--position);
+    z-index: 3;
+    width: 3px;
+    margin-left: -1.5px;
+    background: #fff;
+    pointer-events: none;
+  }
+
+  .curseur__poignee {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border-radius: var(--radius-pill);
+    color: var(--color-ink);
+    box-shadow: var(--shadow-float);
+  }
+
+  /*
+    Le vrai <input> est invisible mais couvre toute l'image :
+    c'est lui qu'on manipule à la souris, au doigt et au clavier.
+  */
+  .curseur__range {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background: transparent;
+    appearance: none;
+    cursor: ew-resize;
+  }
+
+  .curseur__range::-webkit-slider-thumb {
+    appearance: none;
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    cursor: ew-resize;
+  }
+
+  .curseur__range::-moz-range-thumb {
+    width: 56px;
+    height: 56px;
+    border: none;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    cursor: ew-resize;
+  }
+
+  /* Au clavier, l'anneau de focus se dessine autour de l'image entière. */
+  .curseur__range:focus {
+    outline: none;
+  }
+
+  .curseur:has(.curseur__range:focus-visible) {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 599px) {
+    .curseur__poignee {
+      width: 48px;
+      height: 48px;
+    }
+
+    .curseur__etiquette {
+      top: 12px;
+      padding: 6px 12px;
+    }
+
+    .curseur__etiquette--avant {
+      left: 12px;
+    }
+
+    .curseur__etiquette--apres {
+      right: 12px;
+    }
+  }
+</style>

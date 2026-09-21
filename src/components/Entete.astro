@@ -51,8 +51,8 @@ const liens = liensNavigation(langue);
         data-ouvrir={textes.entete.ouvrirMenu}
         data-fermer={textes.entete.fermerMenu}
       >
-        <Icon nom="menu" taille={24} class="entete__burger-ouvrir" />
-        <Icon nom="fermer" taille={24} class="entete__burger-fermer" />
+        <span class="entete__burger-ouvrir"><Icon nom="menu" taille={24} /></span>
+        <span class="entete__burger-fermer"><Icon nom="fermer" taille={24} /></span>
       </button>
     </div>
   </div>
@@ -130,6 +130,9 @@ const liens = liensNavigation(langue);
   }
 
   .entete__logo {
+    display: flex;
+    align-items: center;
+    min-height: var(--tap-min);
     text-decoration: none;
     flex-shrink: 0;
   }
@@ -160,6 +163,11 @@ const liens = liensNavigation(langue);
     cursor: pointer;
   }
 
+  .entete__burger-ouvrir,
+  .entete__burger-fermer {
+    display: flex;
+  }
+
   .entete__burger-fermer {
     display: none;
   }
@@ -169,7 +177,7 @@ const liens = liensNavigation(langue);
   }
 
   .entete__burger[aria-expanded='true'] .entete__burger-fermer {
-    display: block;
+    display: flex;
   }
 
   /* Panneau du menu mobile */

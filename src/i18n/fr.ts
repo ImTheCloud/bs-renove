@@ -1,4 +1,4 @@
-/** Tous les textes d'interface en français. Le NL suit la même structure. */
+/** Tous les textes d'interface en français. Le NL suit exactement la même structure. */
 export const fr = {
   code: 'fr',
   htmlLang: 'fr-BE',
@@ -51,6 +51,82 @@ export const fr = {
   enConstruction: {
     etiquette: 'En construction',
     texte: 'Cette page arrive bientôt. En attendant, appelez-nous ou écrivez-nous sur WhatsApp.',
+  },
+
+  /** Marqueur visible tant qu'une information n'est pas confirmée par le client. */
+  aConfirmer: 'À CONFIRMER',
+
+  /** Blocs « photo à venir », en attendant les vraies photos. */
+  photos: {
+    aVenir: 'Photo à venir',
+    principale: 'La plus belle réalisation, en format horizontal',
+    service: 'Photo du service',
+    avant: 'Photo avant',
+    apres: 'Photo après, même angle',
+    gerant: 'Photo de Sergiu sur un chantier',
+  },
+
+  accueil: {
+    hero: {
+      zone: 'Denderleeuw · partout en Belgique',
+      titreDebut: 'Votre maison, entre de bonnes',
+      titreFin: 'mains.',
+      texte:
+        "Salles de bain, cuisines, carrelage, toiture et maçonnerie. On s'occupe de votre chantier du premier devis jusqu'à la dernière finition.",
+      atouts: ['Devis détaillé', 'Un seul interlocuteur', 'Français · Nederlands'],
+      badgeUnite: 'ans',
+      badgeTexte: 'de métier dans la construction',
+      etiquetteProjet: 'Salle de bain · Knokke',
+    },
+
+    services: {
+      surtitre: 'Nos services',
+      titre: 'Tout pour votre rénovation, au même endroit.',
+      bouton: 'Tous nos services',
+    },
+
+    avantApres: {
+      surtitre: 'Avant, après',
+      titreProjet: 'Salle de bain à Knokke',
+      texte:
+        "[En deux ou trois phrases : l'état au départ, ce qu'on a fait, le résultat.]",
+      duree: 'Durée',
+      semaines: 'semaines',
+      travaux: ['Carrelage', 'Sanitaires'],
+      autresProjets: 'Autres projets',
+      autres: [
+        'Rénovation intérieure · Ostende',
+        'Toiture · Woluwe-Saint-Pierre',
+        'Cuisine · Ixelles',
+      ],
+      avant: 'Avant',
+      apres: 'Après',
+      curseurLabel: 'Comparer avant et après',
+      curseurAide: 'Utilisez les flèches gauche et droite pour comparer.',
+    },
+
+    pourquoi: {
+      surtitre: 'Pourquoi BS Renove',
+      titre: 'Un projet. Un seul interlocuteur.',
+      texte:
+        'Nous vous accompagnons à chaque étape de votre projet, pour une réalisation claire, efficace et sans mauvaises surprises.',
+      points: [
+        'Devis détaillé',
+        'Suivi du chantier',
+        'Interlocuteur unique',
+        'Matériaux de qualité',
+      ],
+    },
+
+    contact: {
+      titre: 'Vous avez un projet ? Parlons-en.',
+      texte:
+        'Construction, rénovation ou transformation : expliquez-nous votre projet et recevez une première estimation.',
+      labelTelephone: 'Téléphone',
+      labelEmail: 'Email',
+      labelZone: "Zone d'intervention",
+      valeurZone: 'Toute la Belgique',
+    },
   },
 
   pages: {

@@ -55,7 +55,9 @@ const annee = 2026;
   }
 
   .pied__logo {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-min);
     text-decoration: none;
   }
 
@@ -88,6 +90,9 @@ const annee = 2026;
   }
 
   .pied__liens a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
     font-size: var(--size-tiny);
     font-weight: 500;
     color: var(--color-text);

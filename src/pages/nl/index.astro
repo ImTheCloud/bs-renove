@@ -1,15 +1,20 @@
 ---
-import EnConstruction from '~/components/EnConstruction.astro';
+import BlocContact from '~/components/sections/BlocContact.astro';
+import Hero from '~/components/sections/Hero.astro';
+import SectionAvantApres from '~/components/sections/SectionAvantApres.astro';
+import SectionPourquoi from '~/components/sections/SectionPourquoi.astro';
+import SectionServices from '~/components/sections/SectionServices.astro';
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import { t } from '~/i18n';
 
 const langue = 'nl' as const;
-const textes = t(langue);
-const page = textes.pages.accueil;
-
-// La vraie page d'accueil (hero, services, avant/après…) arrive en phase 2.
+const page = t(langue).pages.accueil;
 ---
 
 <BaseLayout langue={langue} titre={page.titre} description={page.description}>
-  <EnConstruction langue={langue} titre={page.description} />
+  <Hero langue={langue} />
+  <SectionServices langue={langue} />
+  <SectionAvantApres langue={langue} />
+  <SectionPourquoi langue={langue} />
+  <BlocContact langue={langue} />
 </BaseLayout>

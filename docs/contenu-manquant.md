@@ -3,7 +3,7 @@
 Tout ce qu'il faut demander au client avant la mise en ligne.
 Tant qu'une ligne est ici, le site affiche un texte `[À CONFIRMER : …]` ou ne montre rien du tout.
 
-Mis à jour le 21 septembre 2026 (fin de la phase 1).
+Mis à jour le 21 septembre 2026 (fin de la phase 2).
 
 ---
 

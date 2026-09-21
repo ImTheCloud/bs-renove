@@ -1,0 +1,118 @@
+---
+import Icon from '../Icon.astro';
+import PhotoAVenir from '../PhotoAVenir.astro';
+import { t, type Langue } from '~/i18n';
+
+interface Props {
+  langue: Langue;
+}
+
+const { langue } = Astro.props;
+const textes = t(langue);
+const bloc = textes.accueil.pourquoi;
+---
+
+<section id="apropos" class="wrap pourquoi">
+  <div class="pourquoi__visuel">
+    <PhotoAVenir
+      langue={langue}
+      legende={textes.photos.gerant}
+      ratio="4 / 5"
+      arrondi="var(--radius-photo)"
+    />
+  </div>
+
+  <div class="pourquoi__texte">
+    <span class="surtitre">{bloc.surtitre}</span>
+    <h2>{bloc.titre}</h2>
+    <p class="pourquoi__intro">{bloc.texte}</p>
+
+    <ul class="pourquoi__points">
+      {
+        bloc.points.map((point) => (
+          <li class="pourquoi__point">
+            <span class="pourquoi__coche">
+              <Icon nom="check" taille={16} epaisseur={2.4} />
+            </span>
+            {point}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .pourquoi {
+    display: grid;
+    gap: 36px;
+    padding-block: var(--section-gap) 0;
+  }
+
+  .pourquoi__texte {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .surtitre {
+    font-size: var(--size-tiny);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .pourquoi__intro {
+    max-width: 48ch;
+    color: var(--color-text);
+  }
+
+  .pourquoi__points {
+    display: grid;
+    gap: 12px;
+    width: 100%;
+    margin: 8px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pourquoi__point {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    background: var(--color-surface);
+    border-radius: var(--radius-small);
+    font-size: var(--size-small);
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .pourquoi__coche {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    background: var(--color-bg);
+    border-radius: var(--radius-pill);
+    color: var(--color-accent);
+  }
+
+  @media (min-width: 600px) {
+    .pourquoi__points {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 900px) {
+    .pourquoi {
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+      align-items: center;
+      gap: 64px;
+    }
+  }
+</style>

@@ -59,6 +59,80 @@ export const nl: Traductions = {
     texte: 'Deze pagina komt binnenkort. Bel ons ondertussen of schrijf ons op WhatsApp.',
   },
 
+  aConfirmer: 'TE BEVESTIGEN',
+
+  photos: {
+    aVenir: 'Foto volgt',
+    principale: 'De mooiste realisatie, in liggend formaat',
+    service: 'Foto van de dienst',
+    avant: 'Foto voor',
+    apres: 'Foto na, zelfde hoek',
+    gerant: 'Foto van Sergiu op een werf',
+  },
+
+  accueil: {
+    hero: {
+      zone: 'Denderleeuw · overal in België',
+      titreDebut: 'Uw woning, in goede',
+      titreFin: 'handen.',
+      texte:
+        'Badkamers, keukens, tegelwerk, dakwerken en metselwerk. Wij begeleiden uw werf van de eerste offerte tot de laatste afwerking.',
+      atouts: ['Gedetailleerde offerte', 'Eén aanspreekpunt', 'Nederlands · Français'],
+      badgeUnite: 'jaar',
+      badgeTexte: 'ervaring in de bouw',
+      etiquetteProjet: 'Badkamer · Knokke',
+    },
+
+    services: {
+      surtitre: 'Onze diensten',
+      titre: 'Alles voor uw renovatie, op één plek.',
+      bouton: 'Al onze diensten',
+    },
+
+    avantApres: {
+      surtitre: 'Voor, na',
+      titreProjet: 'Badkamer in Knokke',
+      texte:
+        '[In twee of drie zinnen: de begintoestand, wat we gedaan hebben, het resultaat.]',
+      duree: 'Duur',
+      semaines: 'weken',
+      travaux: ['Tegelwerk', 'Sanitair'],
+      autresProjets: 'Andere projecten',
+      autres: [
+        'Binnenrenovatie · Oostende',
+        'Dakwerken · Sint-Pieters-Woluwe',
+        'Keuken · Elsene',
+      ],
+      avant: 'Voor',
+      apres: 'Na',
+      curseurLabel: 'Voor en na vergelijken',
+      curseurAide: 'Gebruik de pijltjestoetsen links en rechts om te vergelijken.',
+    },
+
+    pourquoi: {
+      surtitre: 'Waarom BS Renove',
+      titre: 'Eén project. Eén aanspreekpunt.',
+      texte:
+        'Wij begeleiden u bij elke stap van uw project, voor een duidelijke en efficiënte uitvoering, zonder onaangename verrassingen.',
+      points: [
+        'Gedetailleerde offerte',
+        'Opvolging van de werf',
+        'Eén aanspreekpunt',
+        'Kwaliteitsmaterialen',
+      ],
+    },
+
+    contact: {
+      titre: 'Hebt u een project? Laten we erover praten.',
+      texte:
+        'Bouwen, renoveren of verbouwen: leg ons uw project uit en ontvang een eerste raming.',
+      labelTelephone: 'Telefoon',
+      labelEmail: 'E-mail',
+      labelZone: 'Werkgebied',
+      valeurZone: 'Heel België',
+    },
+  },
+
   pages: {
     accueil: {
       titre: 'BS Renove · Algemene aannemer voor renovatie in België',
