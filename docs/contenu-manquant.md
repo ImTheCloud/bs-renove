@@ -108,3 +108,46 @@ et le récit en trois parties (au départ · les travaux · le résultat), en FR
 | Clé du formulaire | à mettre dans `.env` (jamais sur GitHub) | 4 |
 | Hébergement | Cloudflare Pages ou Netlify | 6 |
 | Page 404 en néerlandais | l'hébergeur ne sert qu'un seul fichier 404 par défaut ; à configurer si on veut une 404 NL séparée | 6 |
+
+---
+
+## 7. Ajouté en phase 3 : les pages réalisations
+
+Les 5 projets existent en fichiers (`src/content/projets/`), mais **tout leur contenu
+est provisoire**. Chaque `[À CONFIRMER]` visible à l'écran correspond à une ligne ici.
+
+### Pour chacun des 5 projets
+
+| Ce qui manque | Où ça s'affiche |
+|---|---|
+| Le récit en trois parties : au départ · les travaux · le résultat | page projet, et le « résultat » sert aussi de description pour Google |
+| La durée du chantier, en semaines | pastille sur la page projet et sur l'accueil |
+| Ce que montre chaque comparaison avant/après | légende sous le curseur |
+| Ce que montre chaque photo de la galerie | texte alternatif, lu par les lecteurs d'écran et par Google |
+| Le texte alternatif de la photo de couverture | partout où le projet apparaît |
+
+Tout cela est à écrire **en français et en néerlandais**.
+
+### Les communes sont bilingues
+
+Les noms néerlandais utilisés sont : Oostende (Ostende), Sint-Pieters-Woluwe
+(Woluwe-Saint-Pierre), Elsene (Ixelles), Watermaal-Bosvoorde (Watermael-Boitsfort).
+Knokke s'écrit pareil dans les deux langues. **À faire confirmer par le relecteur néerlandophone.**
+
+### Le projet mis en avant
+
+Un seul projet porte `misEnAvant: true` : c'est lui qui apparaît sur la page d'accueil,
+dans le hero et dans la section avant/après. Aujourd'hui c'est Knokke. À changer dans
+le fichier YAML si le client préfère un autre chantier en vitrine.
+
+---
+
+## 8. Connu, à traiter en phase 5 (finitions)
+
+- **Le sitemap ne déclare les versions FR/NL que pour l'accueil et /contact/.** Le module
+  `@astrojs/sitemap` ne sait relier deux pages que si leur adresse est identique d'une langue
+  à l'autre — or nos adresses sont traduites (`/services/` ↔ `/nl/diensten/`). Les balises
+  `hreflang` dans le `<head>` de chaque page, elles, sont complètes et correctes : c'est
+  ce que Google lit en priorité. À compléter proprement en phase 5.
+- **Image de partage** (réseaux sociaux, 1200×630) : toujours manquante.
+- **Données structurées** `HomeAndConstructionBusiness` : pas encore posées.

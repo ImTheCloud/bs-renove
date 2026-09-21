@@ -37,8 +37,9 @@ const textes = t(langue);
 <div
   class:list={['photo', `photo--${ton}`, classe]}
   style={`--ratio: ${ratio}; --arrondi: ${arrondi};`}
-  role="img"
-  aria-label={legende ?? textes.photos.aVenir}
+  role={compact ? undefined : 'img'}
+  aria-label={compact ? undefined : (legende ?? textes.photos.aVenir)}
+  aria-hidden={compact ? 'true' : undefined}
 >
   <Icon nom="carte" taille={compact ? 18 : 26} epaisseur={1.4} />
   {!compact && <span class="photo__titre">{textes.photos.aVenir}</span>}

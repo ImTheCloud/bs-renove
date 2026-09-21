@@ -76,7 +76,7 @@ export const fr = {
       atouts: ['Devis détaillé', 'Un seul interlocuteur', 'Français · Nederlands'],
       badgeUnite: 'ans',
       badgeTexte: 'de métier dans la construction',
-      etiquetteProjet: 'Salle de bain · Knokke',
+
     },
 
     services: {
@@ -87,18 +87,7 @@ export const fr = {
 
     avantApres: {
       surtitre: 'Avant, après',
-      titreProjet: 'Salle de bain à Knokke',
-      texte:
-        "[En deux ou trois phrases : l'état au départ, ce qu'on a fait, le résultat.]",
-      duree: 'Durée',
-      semaines: 'semaines',
-      travaux: ['Carrelage', 'Sanitaires'],
       autresProjets: 'Autres projets',
-      autres: [
-        'Rénovation intérieure · Ostende',
-        'Toiture · Woluwe-Saint-Pierre',
-        'Cuisine · Ixelles',
-      ],
       avant: 'Avant',
       apres: 'Après',
       curseurLabel: 'Comparer avant et après',
@@ -127,6 +116,36 @@ export const fr = {
       labelZone: "Zone d'intervention",
       valeurZone: 'Toute la Belgique',
     },
+  },
+
+  realisations: {
+    surtitre: 'Réalisations',
+    titre: 'Des chantiers, pas des promesses.',
+    intro:
+      'Quelques projets récents, en photos. Faites glisser le curseur pour voir la différence.',
+    voirLeProjet: 'Voir le projet',
+    commune: 'Commune',
+    service: 'Type de travaux',
+    duree: 'Durée',
+    semaines: 'semaines',
+    aucun: 'Les premiers projets arrivent bientôt.',
+  },
+
+  projet: {
+    retour: 'Toutes les réalisations',
+    avantApres: 'Avant, après',
+    recitTitre: 'Le chantier',
+    depart: 'Au départ',
+    travaux: 'Les travaux',
+    resultat: 'Le résultat',
+    galerie: 'En images',
+    agrandir: 'Agrandir la photo',
+    fermer: 'Fermer',
+    precedente: 'Photo précédente',
+    suivante: 'Photo suivante',
+    similaireTitre: 'Un projet similaire ?',
+    similaireTexte:
+      'Expliquez-nous ce que vous avez en tête, nous revenons vers vous avec une première estimation.',
   },
 
   pages: {

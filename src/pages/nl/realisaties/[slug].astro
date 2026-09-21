@@ -1,0 +1,20 @@
+---
+import PageProjet from '~/components/sections/PageProjet.astro';
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { listerProjets } from '~/data/projets';
+
+export async function getStaticPaths() {
+  const projets = await listerProjets();
+  return projets.map((projet) => ({ params: { slug: projet.id }, props: { projet } }));
+}
+
+const { projet } = Astro.props;
+const langue = 'nl' as const;
+
+const titre = `${projet.data.titre[langue]} · BS Renove`;
+const description = projet.data.recit[langue].resultat;
+---
+
+<BaseLayout langue={langue} titre={titre} description={description}>
+  <PageProjet projet={projet} langue={langue} />
+</BaseLayout>

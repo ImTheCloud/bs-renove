@@ -1,0 +1,127 @@
+---
+import Icon from './Icon.astro';
+import PhotoAVenir from './PhotoAVenir.astro';
+import { nomService, type Projet } from '~/data/projets';
+import { chemin, t, type Langue } from '~/i18n';
+
+interface Props {
+  /** h2 quand les cartes sont le contenu principal, h3 quand elles sont une sous-partie. */
+  niveauTitre?: 2 | 3;
+  projet: Projet;
+  langue: Langue;
+}
+
+const { projet, langue, niveauTitre = 3 } = Astro.props;
+const Titre = `h${niveauTitre}` as 'h2' | 'h3';
+const textes = t(langue);
+const service = nomService(projet.data.service, langue);
+const href = `${chemin('realisations', langue)}${projet.id}/`;
+---
+
+<a class="projet" href={href}>
+  <div class="projet__image">
+    <PhotoAVenir
+      langue={langue}
+      legende={projet.data.couvertureAlt[langue]}
+      ratio="4 / 3"
+      arrondi="var(--radius-card-img)"
+    />
+  </div>
+
+  <div class="projet__texte">
+    <span class="projet__commune">
+      <Icon nom="pin" taille={15} />
+      {projet.data.commune[langue]}
+    </span>
+    <Titre class="projet__titre">{projet.data.titre[langue]}</Titre>
+    <div class="projet__bas">
+      {service && <span class="projet__service">{service}</span>}
+      <span class="projet__lien">
+        {textes.realisations.voirLeProjet}
+        <Icon nom="fleche" taille={18} />
+      </span>
+    </div>
+  </div>
+</a>
+
+<style>
+  .projet {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: 100%;
+    padding: 16px;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-card);
+    text-decoration: none;
+    transition:
+      background-color var(--speed) var(--ease),
+      border-color var(--speed) var(--ease);
+  }
+
+  .projet:hover {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+  }
+
+  .projet__texte {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 8px 10px;
+  }
+
+  /* Le niveau du titre change pour les lecteurs d'écran, jamais son apparence. */
+  .projet__titre {
+    font-family: var(--font-title);
+    font-size: var(--size-h3);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: var(--tracking-h3);
+    color: var(--color-ink);
+    margin: 0;
+  }
+
+  .projet__commune {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--size-tiny);
+    font-weight: 600;
+    color: var(--color-muted);
+  }
+
+  .projet__bas {
+    margin-top: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 4px;
+  }
+
+  .projet__service {
+    padding: 6px 14px;
+    background: var(--color-surface);
+    border-radius: var(--radius-pill);
+    font-size: var(--size-tiny);
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .projet:hover .projet__service {
+    background: var(--color-surface-2);
+  }
+
+  .projet__lien {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--size-tiny);
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+</style>

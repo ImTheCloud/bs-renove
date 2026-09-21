@@ -3,6 +3,7 @@ import Bouton from '../Bouton.astro';
 import Icon from '../Icon.astro';
 import PhotoAVenir from '../PhotoAVenir.astro';
 import { entreprise, lienWhatsApp } from '~/data/entreprise';
+import { projetMisEnAvant } from '~/data/projets';
 import { chemin, t, type Langue } from '~/i18n';
 
 interface Props {
@@ -12,6 +13,12 @@ interface Props {
 const { langue } = Astro.props;
 const textes = t(langue);
 const hero = textes.accueil.hero;
+
+// L'étiquette de la photo vient du projet mis en avant, pas d'un texte en dur.
+const projet = await projetMisEnAvant();
+const etiquette = projet
+  ? `${projet.data.titre[langue]} · ${projet.data.commune[langue]}`
+  : undefined;
 ---
 
 <section class="wrap hero">
@@ -71,7 +78,7 @@ const hero = textes.accueil.hero;
       arrondi="var(--radius-photo)"
     />
 
-    <span class="hero__etiquette">{hero.etiquetteProjet}</span>
+    {etiquette && <span class="hero__etiquette">{etiquette}</span>}
 
     <!-- Le nombre d'années n'est pas confirmé : on l'affiche tel quel. -->
     <div class="hero__badge">

@@ -1,0 +1,30 @@
+titre:
+  fr: Salle de bain à Knokke
+  nl: Badkamer in Knokke
+commune:
+  fr: Knokke
+  nl: Knokke
+service: salles-de-bain
+ordre: 1
+misEnAvant: true
+couvertureAlt:
+  fr: "[À CONFIRMER : ce que montre la photo de couverture]"
+  nl: "[TE BEVESTIGEN: wat de omslagfoto toont]"
+recit:
+  fr:
+    depart: "[À CONFIRMER : l'état de la pièce au départ, en une ou deux phrases.]"
+    travaux: "[À CONFIRMER : les travaux réalisés, dans l'ordre.]"
+    resultat: "[À CONFIRMER : le résultat, vu par le propriétaire.]"
+  nl:
+    depart: "[TE BEVESTIGEN: de begintoestand van de ruimte, in één of twee zinnen.]"
+    travaux: "[TE BEVESTIGEN: de uitgevoerde werken, in volgorde.]"
+    resultat: "[TE BEVESTIGEN: het resultaat, gezien door de eigenaar.]"
+avantApres:
+  - legende:
+      fr: "[À CONFIRMER : ce que montre la comparaison]"
+      nl: "[TE BEVESTIGEN: wat de vergelijking toont]"
+galerie:
+  - alt:
+      fr: "[À CONFIRMER : ce que montre la photo]"
+      nl: "[TE BEVESTIGEN: wat de foto toont]"
+    type: detail

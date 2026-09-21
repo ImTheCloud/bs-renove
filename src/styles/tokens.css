@@ -9,6 +9,7 @@
   --color-surface: #f3f5f8;     /* cartes, pastilles, points forts */
   --color-surface-2: #eef1f5;   /* conteneurs secondaires, sélecteur de langue */
   --color-ink: #1d2a4a;         /* titres, texte fort, bloc contact */
+  --color-ink-rgb: 29, 42, 74; /* pour les fonds semi-transparents */
   --color-accent: #2f5bd3;      /* boutons principaux, liens */
   --color-accent-dark: #2549a8; /* survol du bouton principal */
   --color-text: #4b5160;        /* texte courant */
@@ -17,6 +18,7 @@
   --color-border-light: #e3e6eb;/* bordures discrètes (cartes) */
   --color-placeholder: #dde1e7; /* blocs « photo à venir » */
   --color-placeholder-2: #c9ced6; /* second bloc, pour le curseur avant/après */
+  --color-manquant: #ffd48a;  /* information non confirmée, sur fond ink */
 
   /* Sur le bloc contact (fond ink) */
   --color-on-ink: #ffffff;
@@ -45,6 +47,7 @@
   --radius-card: 28px;    /* cartes */
   --radius-card-img: 20px;/* images dans les cartes */
   --radius-small: 18px;   /* petits blocs */
+  --radius-mini: 12px;    /* vignettes */
   --radius-large: 36px;   /* grands conteneurs */
 
   /* --- Ombre : seulement pour ce qui flotte sur une photo --------------- */

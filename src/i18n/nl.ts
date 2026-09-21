@@ -80,7 +80,7 @@ export const nl: Traductions = {
       atouts: ['Gedetailleerde offerte', 'Eén aanspreekpunt', 'Nederlands · Français'],
       badgeUnite: 'jaar',
       badgeTexte: 'ervaring in de bouw',
-      etiquetteProjet: 'Badkamer · Knokke',
+
     },
 
     services: {
@@ -91,18 +91,7 @@ export const nl: Traductions = {
 
     avantApres: {
       surtitre: 'Voor, na',
-      titreProjet: 'Badkamer in Knokke',
-      texte:
-        '[In twee of drie zinnen: de begintoestand, wat we gedaan hebben, het resultaat.]',
-      duree: 'Duur',
-      semaines: 'weken',
-      travaux: ['Tegelwerk', 'Sanitair'],
       autresProjets: 'Andere projecten',
-      autres: [
-        'Binnenrenovatie · Oostende',
-        'Dakwerken · Sint-Pieters-Woluwe',
-        'Keuken · Elsene',
-      ],
       avant: 'Voor',
       apres: 'Na',
       curseurLabel: 'Voor en na vergelijken',
@@ -131,6 +120,36 @@ export const nl: Traductions = {
       labelZone: 'Werkgebied',
       valeurZone: 'Heel België',
     },
+  },
+
+  realisations: {
+    surtitre: 'Realisaties',
+    titre: 'Werven, geen beloftes.',
+    intro:
+      'Enkele recente projecten in beeld. Versleep de schuifknop om het verschil te zien.',
+    voirLeProjet: 'Bekijk het project',
+    commune: 'Gemeente',
+    service: 'Type werken',
+    duree: 'Duur',
+    semaines: 'weken',
+    aucun: 'De eerste projecten volgen binnenkort.',
+  },
+
+  projet: {
+    retour: 'Alle realisaties',
+    avantApres: 'Voor, na',
+    recitTitre: 'De werf',
+    depart: 'Bij de start',
+    travaux: 'De werken',
+    resultat: 'Het resultaat',
+    galerie: 'In beeld',
+    agrandir: 'Foto vergroten',
+    fermer: 'Sluiten',
+    precedente: 'Vorige foto',
+    suivante: 'Volgende foto',
+    similaireTitre: 'Een gelijkaardig project?',
+    similaireTexte:
+      'Vertel ons wat u in gedachten hebt, wij komen bij u terug met een eerste raming.',
   },
 
   pages: {

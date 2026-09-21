@@ -1,0 +1,246 @@
+---
+/**
+ * Galerie de photos avec agrandissement.
+ *
+ * Basée sur <dialog> : le navigateur s'occupe tout seul de la touche Échap,
+ * du piège à focus et du retour du focus sur la vignette d'origine.
+ * On n'ajoute que la navigation aux flèches.
+ */
+import Icon from './Icon.astro';
+import PhotoAVenir from './PhotoAVenir.astro';
+import { t, type Langue } from '~/i18n';
+
+interface Props {
+  langue: Langue;
+  photos: { alt: string }[];
+}
+
+const { langue, photos } = Astro.props;
+const textes = t(langue);
+const projet = textes.projet;
+---
+
+{
+  photos.length > 0 && (
+    <div class="galerie" data-galerie>
+      <ul class="galerie__grille">
+        {photos.map((photo, index) => (
+          <li>
+            <button
+              type="button"
+              class="galerie__vignette"
+              data-photo={index}
+              aria-label={projet.agrandir}
+              data-legende-photo={photo.alt}
+            >
+              <PhotoAVenir langue={langue} legende={photo.alt} ratio="4 / 3" />
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      <dialog class="loupe" data-loupe aria-label={projet.galerie}>
+        <div class="loupe__barre">
+          <p class="loupe__compte" data-compte />
+          <button type="button" class="loupe__bouton" data-fermer aria-label={projet.fermer}>
+            <Icon nom="fermer" taille={22} />
+          </button>
+        </div>
+
+        <div class="loupe__scene">
+          {
+            photos.length > 1 && (
+              <button
+                type="button"
+                class="loupe__bouton loupe__nav"
+                data-precedente
+                aria-label={projet.precedente}
+              >
+                <span class="loupe__fleche-gauche">
+                  <Icon nom="fleche" taille={22} />
+                </span>
+              </button>
+            )
+          }
+
+          <figure class="loupe__figure">
+            <div class="loupe__image" data-image />
+            <figcaption class="loupe__legende" data-legende aria-live="polite" />
+          </figure>
+
+          {
+            photos.length > 1 && (
+              <button
+                type="button"
+                class="loupe__bouton loupe__nav"
+                data-suivante
+                aria-label={projet.suivante}
+              >
+                <Icon nom="fleche" taille={22} />
+              </button>
+            )
+          }
+        </div>
+      </dialog>
+    </div>
+  )
+}
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-galerie]').forEach((galerie) => {
+    const loupe = galerie.querySelector<HTMLDialogElement>('[data-loupe]');
+    const zoneImage = galerie.querySelector<HTMLElement>('[data-image]');
+    const legende = galerie.querySelector<HTMLElement>('[data-legende]');
+    const compte = galerie.querySelector<HTMLElement>('[data-compte]');
+    const vignettes = Array.from(galerie.querySelectorAll<HTMLButtonElement>('[data-photo]'));
+    if (!loupe || !zoneImage || !legende || !compte || vignettes.length === 0) return;
+
+    let index = 0;
+
+    // La vignette où ramener le focus à la fermeture : toujours celle qu'on regarde.
+    let origine: HTMLButtonElement | null = null;
+
+    const afficher = (i: number) => {
+      index = (i + vignettes.length) % vignettes.length;
+      const source = vignettes[index];
+      origine = source;
+      const contenu = source.firstElementChild;
+      zoneImage.replaceChildren(contenu ? contenu.cloneNode(true) : document.createTextNode(''));
+      legende.textContent = source.dataset.legendePhoto ?? '';
+      compte.textContent = `${index + 1} / ${vignettes.length}`;
+    };
+
+    loupe.addEventListener('close', () => {
+      origine?.focus();
+    });
+
+    vignettes.forEach((vignette, i) => {
+      vignette.addEventListener('click', () => {
+        afficher(i);
+        loupe.showModal();
+      });
+    });
+
+    galerie.querySelector('[data-fermer]')?.addEventListener('click', () => loupe.close());
+    galerie.querySelector('[data-precedente]')?.addEventListener('click', () => afficher(index - 1));
+    galerie.querySelector('[data-suivante]')?.addEventListener('click', () => afficher(index + 1));
+
+    // Les flèches du clavier font défiler les photos.
+    loupe.addEventListener('keydown', (evenement) => {
+      if (evenement.key === 'ArrowLeft') { evenement.preventDefault(); afficher(index - 1); }
+      if (evenement.key === 'ArrowRight') { evenement.preventDefault(); afficher(index + 1); }
+    });
+
+    // Un clic en dehors de l'image referme.
+    loupe.addEventListener('click', (evenement) => {
+      if (evenement.target === loupe) loupe.close();
+    });
+  });
+</script>
+
+<style>
+  .galerie__grille {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .galerie__vignette {
+    display: block;
+    width: 100%;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: var(--radius-card-img);
+    cursor: zoom-in;
+    transition: opacity var(--speed) var(--ease);
+  }
+
+  .galerie__vignette:hover {
+    opacity: 0.88;
+  }
+
+  .loupe {
+    width: min(94vw, 1100px);
+    max-width: none;
+    padding: 0;
+    background: var(--color-bg);
+    border: none;
+    border-radius: var(--radius-card);
+    color: var(--color-ink);
+  }
+
+  .loupe::backdrop {
+    background: rgba(var(--color-ink-rgb), 0.82);
+  }
+
+  .loupe__barre {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--color-border-light);
+  }
+
+  .loupe__compte {
+    margin: 0;
+    font-size: var(--size-tiny);
+    font-weight: 600;
+    color: var(--color-muted);
+  }
+
+  .loupe__bouton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--tap-min);
+    height: var(--tap-min);
+    flex-shrink: 0;
+    padding: 0;
+    background: var(--color-surface);
+    border: none;
+    border-radius: var(--radius-pill);
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+
+  .loupe__bouton:hover {
+    background: var(--color-surface-2);
+  }
+
+  .loupe__scene {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .loupe__figure {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+  }
+
+  .loupe__legende {
+    padding-top: 12px;
+    font-size: var(--size-small);
+    color: var(--color-text);
+    text-align: center;
+  }
+
+  .loupe__fleche-gauche {
+    display: inline-flex;
+    transform: rotate(180deg);
+  }
+
+  @media (min-width: 700px) {
+    .galerie__grille {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+  }
+</style>

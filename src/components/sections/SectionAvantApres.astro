@@ -2,6 +2,7 @@
 import CurseurAvantApres from '../CurseurAvantApres.astro';
 import Icon from '../Icon.astro';
 import PhotoAVenir from '../PhotoAVenir.astro';
+import { autresProjets, nomService, projetMisEnAvant } from '~/data/projets';
 import { chemin, t, type Langue } from '~/i18n';
 
 interface Props {
@@ -11,59 +12,82 @@ interface Props {
 const { langue } = Astro.props;
 const textes = t(langue);
 const bloc = textes.accueil.avantApres;
+
+// Le projet mis en avant vient de src/content/projets/, plus d'un texte en dur.
+const projet = await projetMisEnAvant();
+const suite = projet ? await autresProjets(projet.id, 3) : [];
+const service = projet ? nomService(projet.data.service, langue) : undefined;
+const paire = projet?.data.avantApres[0];
+const lienProjet = projet ? `${chemin('realisations', langue)}${projet.id}/` : chemin('realisations', langue);
 ---
 
-<section id="realisations" class="wrap avant-apres">
-  <div class="avant-apres__cadre">
-    <div class="avant-apres__curseur">
-      <CurseurAvantApres langue={langue} id="curseur-accueil" ratio="4 / 3">
-        <PhotoAVenir
-          slot="avant"
-          langue={langue}
-          legende={textes.photos.avant}
-          ratio="4 / 3"
-          ton="moyen"
-        />
-        <PhotoAVenir
-          slot="apres"
-          langue={langue}
-          legende={textes.photos.apres}
-          ratio="4 / 3"
-          ton="fonce"
-        />
-      </CurseurAvantApres>
-    </div>
+{
+  projet && (
+    <section id="realisations" class="wrap avant-apres">
+      <div class="avant-apres__cadre">
+        <div class="avant-apres__curseur">
+          <CurseurAvantApres langue={langue} id="curseur-accueil" ratio="4 / 3">
+            <PhotoAVenir
+              slot="avant"
+              langue={langue}
+              legende={textes.photos.avant}
+              ratio="4 / 3"
+              ton="moyen"
+            />
+            <PhotoAVenir
+              slot="apres"
+              langue={langue}
+              legende={textes.photos.apres}
+              ratio="4 / 3"
+              ton="fonce"
+            />
+          </CurseurAvantApres>
+        </div>
 
-    <div class="avant-apres__infos">
-      <div class="avant-apres__projet">
-        <span class="surtitre">{bloc.surtitre}</span>
-        <h3 class="avant-apres__titre">{bloc.titreProjet}</h3>
-        <p class="avant-apres__texte">{bloc.texte}</p>
-        <ul class="avant-apres__pastilles">
-          <li>{bloc.duree} : [{textes.aConfirmer}] {bloc.semaines}</li>
-          {bloc.travaux.map((travail) => <li>{travail}</li>)}
-        </ul>
-      </div>
+        <div class="avant-apres__infos">
+          <div class="avant-apres__projet">
+            <span class="surtitre">{bloc.surtitre}</span>
+            <h2 class="avant-apres__titre">
+              <a href={lienProjet}>{projet.data.titre[langue]}</a>
+            </h2>
+            <p class="avant-apres__texte">{projet.data.recit[langue].resultat}</p>
+            {(projet.data.dureeSemaines || service || paire) && (
+            <ul class="avant-apres__pastilles">
+              {projet.data.dureeSemaines && (
+                <li>
+                  {textes.realisations.duree} : {projet.data.dureeSemaines}{' '}
+                  {textes.realisations.semaines}
+                </li>
+              )}
+              {service && <li>{service}</li>}
+              {paire && <li>{paire.legende[langue]}</li>}
+            </ul>
+            )}
+          </div>
 
-      <div class="avant-apres__autres">
-        <span class="avant-apres__autres-titre">{bloc.autresProjets}</span>
-        {
-          bloc.autres.map((projet) => (
-            <a href={chemin('realisations', langue)} class="mini">
-              <span class="mini__vignette">
-                <PhotoAVenir langue={langue} ratio="1 / 1" arrondi="12px" compact />
-              </span>
-              <span class="mini__nom">{projet}</span>
-              <span class="mini__fleche">
-                <Icon nom="fleche" taille={18} />
-              </span>
-            </a>
-          ))
-        }
+          {suite.length > 0 && (
+            <div class="avant-apres__autres">
+              <span class="avant-apres__autres-titre">{bloc.autresProjets}</span>
+              {suite.map((autre) => (
+                <a href={`${chemin('realisations', langue)}${autre.id}/`} class="mini">
+                  <span class="mini__vignette">
+                    <PhotoAVenir langue={langue} ratio="1 / 1" arrondi="var(--radius-mini)" compact />
+                  </span>
+                  <span class="mini__nom">
+                    {autre.data.titre[langue]}
+                  </span>
+                  <span class="mini__fleche">
+                    <Icon nom="fleche" taille={18} />
+                  </span>
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
+  )
+}
 
 <style>
   .avant-apres {
@@ -102,6 +126,15 @@ const bloc = textes.accueil.avantApres;
   .avant-apres__titre {
     font-size: var(--size-h2);
     letter-spacing: var(--tracking-h2);
+  }
+
+  .avant-apres__titre a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .avant-apres__titre a:hover {
+    text-decoration: underline;
   }
 
   .avant-apres__texte {
@@ -145,6 +178,7 @@ const bloc = textes.accueil.avantApres;
     display: flex;
     align-items: center;
     gap: 14px;
+    min-height: var(--tap-min);
     padding: 10px 16px 10px 10px;
     background: var(--color-bg);
     border-radius: var(--radius-small);
@@ -157,9 +191,9 @@ const bloc = textes.accueil.avantApres;
   }
 
   .mini__vignette {
+    display: block;
     width: 52px;
     flex-shrink: 0;
-    display: block;
   }
 
   .mini__vignette :global(> *) {
