@@ -3,7 +3,7 @@ import Bouton from '../Bouton.astro';
 import Icon from '../Icon.astro';
 import PhotoProjet from '../PhotoProjet.astro';
 import { services } from '~/data/services';
-import { photosServices } from '~/data/services-photos';
+import { photosServices, aUnePhoto } from '~/data/services-photos';
 import { chemin, t, type Langue } from '~/i18n';
 
 interface Props {
@@ -13,6 +13,7 @@ interface Props {
 const { langue } = Astro.props;
 const textes = t(langue);
 const bloc = textes.accueil.services;
+const servicesAffiches = services.filter((service) => aUnePhoto(service.slug));
 ---
 
 <section id="services" class="wrap services">
@@ -28,7 +29,7 @@ const bloc = textes.accueil.services;
 
   <ul class="services__grille">
     {
-      services.map((service) => (
+      servicesAffiches.map((service) => (
         <li>
           <a href={`${chemin('services', langue)}#${service.slug}`} class="carte">
             <PhotoProjet

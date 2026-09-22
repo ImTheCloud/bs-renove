@@ -638,3 +638,42 @@ correction de la couverture ci-dessus.
 `playwright` a été ajouté aux dépendances de développement (`devDependencies`)
 pour permettre ce genre de vérification visuelle à l'avenir — ne sert qu'en
 local, n'affecte pas le site publié.
+
+---
+
+## 15. Retours de Sergiu sur le rendu (22 septembre 2026, tard)
+
+- **Favicon** : le site n'avait pas d'icône d'onglet de navigateur. Ajoutée
+  à partir du logo (`public/favicon.png`, `public/apple-touch-icon.png`).
+- **Logo plus visible** : agrandi dans l'en-tête (46px → 60px selon l'écran,
+  au lieu de 34-40px).
+- **Texte « Denderleeuw · partout en Belgique »** : Sergiu n'aimait pas cette
+  formulation. Remplacé par « Intervient dans toute la Belgique » (accueil),
+  qui met en avant la zone d'intervention sans la juxtaposition avec le nom
+  de la commune (déjà visible ailleurs : pied de page, mentions légales).
+- **Services sans photo retirés de l'affichage** : même logique que les
+  projets sans couverture (§ 13). Maçonnerie & façades et Peinture et
+  finitions n'apparaissent plus tant qu'on n'a pas de photo — ils restent
+  dans `src/data/services.ts` et réapparaissent automatiquement dès qu'une
+  photo est ajoutée dans `src/data/services-photos.ts`.
+- **Bouton WhatsApp** : passé en vert avec une icône bulle + combiné
+  (inspirée du vrai logo WhatsApp, dans le style au trait du site). Premier
+  essai avec le vert officiel WhatsApp (`#25d366`) refusé par Sergiu (trop
+  fluo) — et de toute façon son contraste avec le texte blanc était
+  insuffisant (1,98:1). Couleur retenue : `#0e8449`, contraste 4,76:1.
+
+### ⚠ À faire par Sergiu : activer le formulaire de devis
+
+Le formulaire de devis ne peut pas encore envoyer de message : il manque la
+clé Web3Forms. En attendant, le site affiche « Appelez-nous ou écrivez sur
+WhatsApp » à la place — rien n'est cassé, mais autant l'activer.
+
+1. Aller sur https://web3forms.com
+2. Donner l'adresse email qui doit recevoir les demandes de devis
+3. La clé arrive par email
+4. Envoyer cette clé à Claudiu (ou l'ajouter soi-même dans un fichier `.env`
+   à la racine du projet : `cp .env.example .env`, puis coller la clé)
+
+Cette clé n'est pas un secret à protéger comme un mot de passe : elle est de
+toute façon visible dans le code des pages, et ne permet que de recevoir des
+messages sur l'adresse email choisie.

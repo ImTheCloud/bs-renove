@@ -68,7 +68,7 @@ export const fr = {
 
   accueil: {
     hero: {
-      zone: 'Denderleeuw · partout en Belgique',
+      zone: 'Intervient dans toute la Belgique',
       titreDebut: 'Votre maison, entre de bonnes',
       titreFin: 'mains.',
       texte:

@@ -22,7 +22,7 @@ const textes = t(langue);
 ---
 
 <span class:list={['logo', { 'logo--fonce': surFonce }]}>
-  {!surFonce && <Image src={icone} alt="" width={40} height={40} class="logo__icone" />}
+  {!surFonce && <Image src={icone} alt="" width={60} height={60} class="logo__icone" />}
   <span class="logo__texte">
     <span class="logo__nom">
       BS <span class="logo__nom-suite">Renove</span>
@@ -41,8 +41,8 @@ const textes = t(langue);
   }
 
   .logo__icone {
-    width: 34px;
-    height: 34px;
+    width: 46px;
+    height: 46px;
     flex-shrink: 0;
     border-radius: var(--radius-small);
   }
@@ -55,7 +55,7 @@ const textes = t(langue);
 
   .logo__nom {
     font-family: var(--font-title);
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 800;
     letter-spacing: -0.02em;
     color: var(--color-ink);

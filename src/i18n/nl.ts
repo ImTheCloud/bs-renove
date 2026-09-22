@@ -72,7 +72,7 @@ export const nl: Traductions = {
 
   accueil: {
     hero: {
-      zone: 'Denderleeuw · overal in België',
+      zone: 'Actief in heel België',
       titreDebut: 'Uw woning, in goede',
       titreFin: 'handen.',
       texte:

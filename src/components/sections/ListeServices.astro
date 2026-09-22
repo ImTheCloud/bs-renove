@@ -4,7 +4,7 @@ import Icon from '../Icon.astro';
 import PhotoProjet from '../PhotoProjet.astro';
 import { listerProjets } from '~/data/projets';
 import { services } from '~/data/services';
-import { photosServices } from '~/data/services-photos';
+import { photosServices, aUnePhoto } from '~/data/services-photos';
 import { chemin, t, type Langue } from '~/i18n';
 
 interface Props {
@@ -14,6 +14,7 @@ interface Props {
 const { langue } = Astro.props;
 const textes = t(langue);
 const bloc = textes.servicesPage;
+const servicesAffiches = services.filter((service) => aUnePhoto(service.slug));
 
 // Chaque service affiche les projets qui lui sont liés, s'il y en a.
 const projets = await listerProjets();
@@ -34,7 +35,7 @@ for (const projet of projets) {
 
   <div class="services-page__liste">
     {
-      services.map((service, index) => {
+      servicesAffiches.map((service, index) => {
         const lies = projetsParService.get(service.slug) ?? [];
         const photos = photosServices[service.slug] ?? [];
         return (

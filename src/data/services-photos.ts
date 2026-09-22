@@ -34,3 +34,14 @@ export const photosServices: Partial<Record<string, ImageMetadata[]>> = {
   toiture: [woluweAuventFini, woluweAuventLarge, exempleToiture1, exempleToiture2],
   electricite: [exempleElectricite, woluweGainesElec],
 };
+
+/**
+ * Un service sans aucune photo n'apparaît nulle part sur le site public
+ * (même logique que les projets sans couverture) : mieux vaut ne pas montrer
+ * un service tant qu'on n'a pas de quoi l'illustrer, plutôt qu'un bloc
+ * « photo à venir ». Le service reste dans src/data/services.ts et
+ * réapparaît automatiquement dès qu'une photo est ajoutée ci-dessus.
+ */
+export function aUnePhoto(slug: string): boolean {
+  return (photosServices[slug]?.length ?? 0) > 0;
+}

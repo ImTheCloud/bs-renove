@@ -5,7 +5,7 @@
  */
 import Icon, { type NomIcone } from './Icon.astro';
 
-type Variante = 'principal' | 'secondaire' | 'ink-principal' | 'ink-secondaire';
+type Variante = 'principal' | 'secondaire' | 'ink-principal' | 'ink-secondaire' | 'whatsapp';
 
 interface Props {
   href?: string;
@@ -110,5 +110,17 @@ const classes = ['bouton', `bouton--${variante}`, large && 'bouton--large', clas
 
   .bouton--ink-secondaire:hover {
     background: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Vert WhatsApp, plus sobre que le vert officiel : le vert officiel est
+     très saturé et son contraste avec le texte blanc est insuffisant
+     (1,98:1, sous le minimum accessible de 4,5:1). Ce ton-ci tient 4,76:1. */
+  .bouton--whatsapp {
+    background: #0e8449;
+    color: #fff;
+  }
+
+  .bouton--whatsapp:hover {
+    background: #0b6b3b;
   }
 </style>
