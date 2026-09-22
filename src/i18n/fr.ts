@@ -164,43 +164,28 @@ export const fr = {
     titre: 'Parlons de votre projet.',
     intro:
       'Décrivez-nous ce que vous avez en tête. Nous revenons vers vous avec une première estimation.',
+    devisTitre: 'Demander un devis par email',
+    devisTexte:
+      'Un clic ouvre votre messagerie avec un email déjà prêt : il ne reste qu’à compléter vos coordonnées et le décrire.',
     ouTitre: 'Plus rapide',
     ouTexte: 'Le téléphone et WhatsApp restent le plus direct.',
-    formulaireTitre: 'Demander un devis',
   },
 
-  formulaire: {
-    nom: 'Votre nom',
-    nomAide: 'Prénom et nom',
-    telephone: 'Téléphone',
-    telephoneAide: 'Pour vous rappeler',
-    email: 'Email',
-    commune: 'Commune du chantier',
-    communeAide: 'Nous intervenons partout en Belgique',
-    typeTravaux: 'Type de travaux',
-    choisir: 'Choisissez…',
-    autre: 'Autre',
-    message: 'Votre projet',
-    messageAide: 'Ce que vous voulez faire, et si possible dans quels délais',
-    consentement:
-      'J’accepte que mes données soient utilisées pour répondre à ma demande.',
-    consentementLien: 'Lire la page vie privée',
-    obligatoire: 'obligatoire',
-    envoyer: 'Envoyer ma demande',
-    envoiEnCours: 'Envoi…',
+  /** Le sujet et le corps du mail pré-rempli derrière chaque bouton « devis ». */
+  devisEmail: {
+    sujet: 'Demande de devis',
+    corps: `Bonjour,
 
-    merciTitre: 'Merci, votre demande est partie.',
-    merciTexte:
-      'Nous revenons vers vous rapidement. Vous avez des photos du chantier ? Envoyez-les nous par WhatsApp, c’est ce qui aide le plus à chiffrer.',
-    merciWhatsApp: 'Envoyer des photos par WhatsApp',
-    merciRetour: 'Retour à l’accueil',
+Je souhaite recevoir un devis pour les travaux suivants :
 
-    erreurTitre: 'L’envoi n’a pas fonctionné.',
-    erreurTexte: 'Vous pouvez réessayer, ou nous appeler directement au',
+Nom :
+Téléphone :
+Commune du chantier :
+Type de travaux :
+Description du projet :
 
-    cleManquanteTitre: 'Formulaire pas encore actif',
-    cleManquanteTexte:
-      'La clé du service d’envoi n’est pas configurée. En attendant, utilisez le téléphone ou WhatsApp.',
+
+Merci d'avance,`,
   },
 
   legal: {

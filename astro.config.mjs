@@ -21,10 +21,8 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      // Les pages de remerciement sont en noindex : elles n'ont rien à faire ici.
-      // Pages de remerciement (noindex) et 404 : hors sitemap.
-      filter: (page) =>
-        !page.includes('/merci/') && !page.includes('/bedankt/') && !page.includes('/404/'),
+      // La page 404 est en noindex : elle n'a rien à faire dans le sitemap.
+      filter: (page) => !page.includes('/404/'),
 
       /*
         L'option i18n toute faite ne sait relier deux pages que si leur adresse

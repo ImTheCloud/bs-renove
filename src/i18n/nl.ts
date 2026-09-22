@@ -168,43 +168,28 @@ export const nl: Traductions = {
     titre: 'Laten we over uw project praten.',
     intro:
       'Beschrijf ons wat u in gedachten hebt. Wij komen bij u terug met een eerste raming.',
+    devisTitre: 'Offerte aanvragen via email',
+    devisTexte:
+      'Eén klik opent uw mailprogramma met een kant-en-klare email: u hoeft enkel uw gegevens en uw project te beschrijven.',
     ouTitre: 'Sneller',
     ouTexte: 'Telefoon en WhatsApp blijven het meest rechtstreeks.',
-    formulaireTitre: 'Offerte aanvragen',
   },
 
-  formulaire: {
-    nom: 'Uw naam',
-    nomAide: 'Voornaam en naam',
-    telephone: 'Telefoon',
-    telephoneAide: 'Om u terug te bellen',
-    email: 'E-mail',
-    commune: 'Gemeente van de werf',
-    communeAide: 'Wij werken in heel België',
-    typeTravaux: 'Type werken',
-    choisir: 'Maak een keuze…',
-    autre: 'Andere',
-    message: 'Uw project',
-    messageAide: 'Wat u wilt laten doen, en indien mogelijk tegen wanneer',
-    consentement:
-      'Ik ga ermee akkoord dat mijn gegevens gebruikt worden om mijn vraag te beantwoorden.',
-    consentementLien: 'Lees de privacypagina',
-    obligatoire: 'verplicht',
-    envoyer: 'Mijn aanvraag versturen',
-    envoiEnCours: 'Versturen…',
+  /** Onderwerp en inhoud van de vooraf ingevulde mail achter elke "offerte"-knop. */
+  devisEmail: {
+    sujet: 'Offerteaanvraag',
+    corps: `Hallo,
 
-    merciTitre: 'Bedankt, uw aanvraag is verstuurd.',
-    merciTexte:
-      'Wij komen snel bij u terug. Hebt u foto’s van de werf? Stuur ze ons via WhatsApp, dat helpt het meest om een prijs te bepalen.',
-    merciWhatsApp: 'Foto’s versturen via WhatsApp',
-    merciRetour: 'Terug naar de startpagina',
+Ik zou graag een offerte ontvangen voor de volgende werken:
 
-    erreurTitre: 'Het versturen is mislukt.',
-    erreurTexte: 'U kunt het opnieuw proberen, of ons rechtstreeks bellen op',
+Naam:
+Telefoon:
+Gemeente van de werf:
+Type werken:
+Beschrijving van het project:
 
-    cleManquanteTitre: 'Formulier nog niet actief',
-    cleManquanteTexte:
-      'De sleutel van de verzenddienst is niet ingesteld. Gebruik ondertussen de telefoon of WhatsApp.',
+
+Alvast bedankt,`,
   },
 
   legal: {

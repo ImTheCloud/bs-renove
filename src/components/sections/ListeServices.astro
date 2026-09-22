@@ -2,6 +2,7 @@
 import Bouton from '../Bouton.astro';
 import Icon from '../Icon.astro';
 import PhotoProjet from '../PhotoProjet.astro';
+import { lienDevis } from '~/data/entreprise';
 import { listerProjets } from '~/data/projets';
 import { services } from '~/data/services';
 import { photosServices, aUnePhoto } from '~/data/services-photos';
@@ -75,7 +76,11 @@ for (const projet of projets) {
               </div>
 
               <div class="metier__actions">
-                <Bouton href={chemin('contact', langue)} variante="principal" iconeApres="fleche">
+                <Bouton
+                  href={lienDevis(textes.devisEmail.sujet, textes.devisEmail.corps)}
+                  variante="principal"
+                  iconeApres="fleche"
+                >
                   {bloc.devisPour}
                 </Bouton>
                 {lies.length > 0 && (

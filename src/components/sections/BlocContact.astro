@@ -1,8 +1,8 @@
 ---
 import Bouton from '../Bouton.astro';
 import Icon from '../Icon.astro';
-import { adresseUneLigne, entreprise, lienWhatsApp } from '~/data/entreprise';
-import { chemin, marqueurAConfirmer, t, type Langue } from '~/i18n';
+import { adresseUneLigne, entreprise, lienDevis, lienWhatsApp } from '~/data/entreprise';
+import { marqueurAConfirmer, t, type Langue } from '~/i18n';
 
 interface Props {
   langue: Langue;
@@ -25,7 +25,12 @@ const emailAffiche = entreprise.email ?? marqueurAConfirmer(langue, bloc.labelEm
       </div>
 
       <div class="contact__actions">
-        <Bouton href={chemin('contact', langue)} variante="ink-principal" iconeApres="fleche" large>
+        <Bouton
+          href={lienDevis(textes.devisEmail.sujet, textes.devisEmail.corps)}
+          variante="ink-principal"
+          iconeApres="fleche"
+          large
+        >
           {textes.actions.devis}
         </Bouton>
         <div class="contact__actions-secondaires">

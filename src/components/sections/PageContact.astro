@@ -1,8 +1,7 @@
 ---
 import Bouton from '../Bouton.astro';
-import FormulaireDevis from '../FormulaireDevis.astro';
 import Icon from '../Icon.astro';
-import { adresseUneLigne, entreprise, lienWhatsApp } from '~/data/entreprise';
+import { adresseUneLigne, entreprise, lienDevis, lienWhatsApp } from '~/data/entreprise';
 import { marqueurAConfirmer, t, type Langue } from '~/i18n';
 
 interface Props {
@@ -26,12 +25,20 @@ const emailManquant = !entreprise.email;
   </header>
 
   <div class="contact-page__corps">
-    <section class="contact-page__form" aria-labelledby="titre-formulaire">
-      <h2 id="titre-formulaire" class="contact-page__sous-titre">{bloc.formulaireTitre}</h2>
-      <FormulaireDevis langue={langue} />
+    <section class="contact-page__carte">
+      <h2 class="contact-page__sous-titre">{bloc.devisTitre}</h2>
+      <p class="contact-page__direct-texte">{bloc.devisTexte}</p>
+      <Bouton
+        href={lienDevis(textes.devisEmail.sujet, textes.devisEmail.corps)}
+        variante="principal"
+        icone="email"
+        large
+      >
+        {textes.actions.devis}
+      </Bouton>
     </section>
 
-    <aside class="contact-page__direct">
+    <aside class="contact-page__carte">
       <h2 class="contact-page__sous-titre">{bloc.ouTitre}</h2>
       <p class="contact-page__direct-texte">{bloc.ouTexte}</p>
 
@@ -105,16 +112,16 @@ const emailManquant = !entreprise.email;
 
   .contact-page__corps {
     display: grid;
-    gap: 48px;
+    gap: 24px;
   }
 
   .contact-page__sous-titre {
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     font-size: var(--size-h3);
     letter-spacing: var(--tracking-h3);
   }
 
-  .contact-page__direct {
+  .contact-page__carte {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -137,7 +144,7 @@ const emailManquant = !entreprise.email;
     width: 100%;
   }
 
-  .contact-page__actions :global(.bouton) {
+  .contact-page__carte :global(.bouton) {
     width: 100%;
   }
 
@@ -178,11 +185,9 @@ const emailManquant = !entreprise.email;
     color: var(--color-muted);
   }
 
-  @media (min-width: 980px) {
+  @media (min-width: 700px) {
     .contact-page__corps {
-      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
-      gap: 56px;
-      align-items: start;
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 </style>

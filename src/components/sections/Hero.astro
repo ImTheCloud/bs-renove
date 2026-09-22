@@ -2,9 +2,9 @@
 import Bouton from '../Bouton.astro';
 import Icon from '../Icon.astro';
 import PhotoProjet from '../PhotoProjet.astro';
-import { entreprise, lienWhatsApp } from '~/data/entreprise';
+import { entreprise, lienDevis, lienWhatsApp } from '~/data/entreprise';
 import { projetMisEnAvant } from '~/data/projets';
-import { chemin, t, type Langue } from '~/i18n';
+import { t, type Langue } from '~/i18n';
 
 interface Props {
   langue: Langue;
@@ -35,7 +35,12 @@ const etiquette = projet
     <p class="hero__intro">{hero.texte}</p>
 
     <div class="hero__actions">
-      <Bouton href={chemin('contact', langue)} variante="principal" iconeApres="fleche" large>
+      <Bouton
+        href={lienDevis(textes.devisEmail.sujet, textes.devisEmail.corps)}
+        variante="principal"
+        iconeApres="fleche"
+        large
+      >
         {textes.actions.devis}
       </Bouton>
       <Bouton

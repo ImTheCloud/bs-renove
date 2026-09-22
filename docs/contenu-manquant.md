@@ -123,9 +123,8 @@ et le récit en trois parties (au départ · les travaux · le résultat), en FR
 ## 5. Textes juridiques
 
 - **Mentions légales** : squelette seulement. Il manque l'email. À relire par le client.
-- **Vie privée** : dépend du service de formulaire retenu (Web3Forms ou Formspree), qui n'est
-  pas encore choisi. Il faudra dire quelles données sont collectées, pourquoi, combien de temps
-  et par quel service elles transitent.
+- ~~Vie privée : dépend du service de formulaire retenu~~ — plus de service de formulaire
+  du tout depuis le 22 septembre (§ 16), la page est réécrite en conséquence.
 - Les deux pages porteront la mention `[À RELIRE]` tant qu'un humain ne les a pas validées.
 
 ---
@@ -134,8 +133,7 @@ et le récit en trois parties (au départ · les travaux · le résultat), en FR
 
 | Sujet | Décision attendue | Phase |
 |---|---|---|
-| Service de formulaire | Web3Forms ou Formspree | 4 |
-| Clé du formulaire | à mettre dans `.env` (jamais sur GitHub) | 4 |
+| ~~Service de formulaire~~ | abandonné le 22 septembre au profit d'un simple lien email, § 16 | 4 |
 | Hébergement | Cloudflare Pages ou Netlify | 6 |
 | Page 404 en néerlandais | l'hébergeur ne sert qu'un seul fichier 404 par défaut ; à configurer si on veut une 404 NL séparée | 6 |
 
@@ -186,32 +184,9 @@ le fichier YAML si le client préfère un autre chantier en vitrine.
 
 ## 9. Ajouté en phase 4 : services, contact et formulaire
 
-### ~~Bloquant~~ : la clé du formulaire — ✅ faite le 22 septembre 2026
-
-Sergiu a créé son compte Web3Forms et donné la clé. Elle est dans `.env`
-(jamais envoyé sur GitHub, comme prévu) : le vrai formulaire de devis
-s'affiche maintenant, plus l'encadré « appelez ou écrivez sur WhatsApp ».
-
-**Reste à faire une seule fois, au moment de choisir l'hébergeur** (Cloudflare
-Pages ou Netlify, § 6) : recopier cette même clé dans les variables
-d'environnement de l'hébergeur, sous le même nom `WEB3FORMS_KEY`. Sans ça, le
-site déployé n'aura pas la clé (elle n'est jamais sur GitHub) et le formulaire
-retombera sur l'encadré « appelez ou écrivez sur WhatsApp ». La clé elle-même :
-`dce50bf7-6fc0-4d72-a1f4-c50d5916038c`.
-
-### Bloquant : la page vie privée
-
-La case de consentement du formulaire renvoie vers `/vie-privee/`, **qui est encore
-une page provisoire**. En l'état, on demande un consentement en pointant vers une page
-vide : ce n'est pas conforme au RGPD. Cette page doit être écrite avant la mise en ligne.
-
-Elle doit dire, au minimum :
-
-- quelles données le formulaire collecte (nom, téléphone, email, commune, type de travaux, message) ;
-- pourquoi (répondre à une demande de devis) ;
-- combien de temps elles sont conservées ;
-- que **Web3Forms** transmet le message et agit comme sous-traitant ;
-- comment exercer ses droits — d'où la nécessité de **l'adresse email de l'entreprise**.
+*(Cette section décrit le formulaire Web3Forms tel qu'il a existé un temps.
+Il n'existe plus depuis le 22 septembre 2026 — remplacé par un simple lien
+email, voir § 16. Gardé ici pour mémoire, pas pour action.)*
 
 ### À faire valider par le client : les textes des services
 
@@ -231,12 +206,6 @@ par un organisme agréé. **À vérifier avec Sergiu avant la mise en ligne** :
 - soit ces activités sont bien enregistrées et le brief est incomplet ;
 - soit il les sous-traite, et il faut le formuler autrement ;
 - soit il faut retirer ces deux services du site.
-
-### Détail
-
-- Les pages de remerciement (`/contact/merci/` et `/nl/contact/bedankt/`) servent aux
-  visiteurs dont le navigateur n'exécute pas le JavaScript. Elles sont en `noindex`.
-- Le champ caché anti-robots (`botcheck`) est celui attendu par Web3Forms.
 
 ---
 
@@ -560,15 +529,9 @@ les deux, par message :
   le dernier contact). Ce n'est pas strictement interdit de ne pas en fixer une, mais
   c'est plus fragile si un jour l'APD pose la question. À vous de voir si vous préférez
   rester ainsi ou fixer un chiffre.
-- **Transfert des données vers les États-Unis (Web3Forms) : accepté par consentement
-  explicite.** Sergiu ne veut pas changer de prestataire ni mettre en place de garantie
-  contractuelle supplémentaire : le visiteur accepte ce transfert en cochant la case du
-  formulaire, qui renvoie vers cette page. C'est une base légale valable pour ce genre
-  de transfert (le RGPD le permet via le consentement explicite et informé), donc la
-  page vie privée le formule maintenant ainsi plutôt que de dire que c'est « à
-  confirmer ».
-
-Les deux pages n'affichent donc plus aucun `[À CONFIRMER]` lié à ces deux sujets.
+- ~~Transfert des données vers les États-Unis (Web3Forms)~~ : **ce sujet a disparu tout
+  seul le 22 septembre** en même temps que Web3Forms (§ 16) — plus de formulaire, plus
+  de service tiers, donc plus de transfert à expliquer.
 
 ---
 
@@ -651,18 +614,55 @@ local, n'affecte pas le site publié.
   fluo) — et de toute façon son contraste avec le texte blanc était
   insuffisant (1,98:1). Couleur retenue : `#0e8449`, contraste 4,76:1.
 
-### ⚠ À faire par Sergiu : activer le formulaire de devis
+### Devis par email — configuré puis abandonné le même jour
 
-Le formulaire de devis ne peut pas encore envoyer de message : il manque la
-clé Web3Forms. En attendant, le site affiche « Appelez-nous ou écrivez sur
-WhatsApp » à la place — rien n'est cassé, mais autant l'activer.
+Le 22 septembre, la clé Web3Forms a été configurée et le vrai formulaire de
+devis a fonctionné brièvement. Sergiu, en le voyant, a préféré une solution
+plus simple : voir § 16.
 
-1. Aller sur https://web3forms.com
-2. Donner l'adresse email qui doit recevoir les demandes de devis
-3. La clé arrive par email
-4. Envoyer cette clé à Claudiu (ou l'ajouter soi-même dans un fichier `.env`
-   à la racine du projet : `cp .env.example .env`, puis coller la clé)
+---
 
-Cette clé n'est pas un secret à protéger comme un mot de passe : elle est de
-toute façon visible dans le code des pages, et ne permet que de recevoir des
-messages sur l'adresse email choisie.
+## 16. Le formulaire de devis est remplacé par un simple email pré-rempli (22 septembre 2026, tard)
+
+Sergiu a vu le vrai formulaire fonctionner et a préféré une solution plus
+simple : au lieu d'un formulaire à remplir sur le site (nom, téléphone,
+email, commune, type de travaux, message, case à cocher), le bouton
+« Demander un devis » ouvre directement la messagerie du visiteur avec un
+email déjà écrit — sujet et corps pré-remplis, dans sa langue (français ou
+néerlandais) — qu'il n'a plus qu'à compléter avec ses coordonnées et
+envoyer lui-même.
+
+**Ce qui a changé dans le code :**
+
+- Le composant `FormulaireDevis.astro` et les pages « Merci, votre demande
+  est partie » (`/contact/merci/`, `/nl/contact/bedankt/`) sont supprimés.
+- Tous les boutons « Demander un devis » du site (en-tête, accueil, page
+  services, bas de chaque page projet, page contact) pointent maintenant
+  vers `mailto:Bivol.sergiu@hotmail.com` avec un sujet et un corps
+  pré-écrits (`lienDevis()` dans `src/data/entreprise.ts`, textes dans
+  `devisEmail` de `src/i18n/fr.ts` et `nl.ts`).
+- Le contenu du mail pré-rempli demande : nom, téléphone, commune du
+  chantier, type de travaux, description du projet — les informations que
+  Sergiu avait indiquées comme utiles pour chiffrer un devis.
+- La page `/contact/` est simplifiée : la carte "Demander un devis" (un
+  bouton) remplace le formulaire à plusieurs champs.
+- **Web3Forms n'est plus utilisé du tout** : compte, clé et fichiers `.env`
+  / `.env.example` supprimés, plus rien à configurer chez un hébergeur
+  pour le devis.
+- **La page vie privée est réécrite et bien plus courte** : le site ne
+  « collecte » plus rien lui-même (pas de formulaire, pas de base de
+  données) — tout contact est un moyen que le visiteur choisit et déclenche
+  lui-même (téléphone, WhatsApp, ou cet email pré-rempli qu'il envoie de
+  sa propre messagerie). Ça résout au passage, sans rien décider de plus,
+  le point resté ouvert au § 13 sur le transfert de données vers les
+  États-Unis : il n'y a plus de service tiers du tout entre le visiteur et
+  BS Renove.
+
+**Limite à connaître, propre à tout lien `mailto:`** : ça ouvre l'application
+email par défaut de l'appareil. Ça marche bien sur ordinateur et sur la
+plupart des téléphones, mais un visiteur dont le téléphone n'a aucune
+application email configurée (de plus en plus rare, mais ça arrive,
+surtout si quelqu'un n'utilise que l'appli Gmail sans l'avoir mise par
+défaut) peut voir un écran vide ou une erreur en cliquant. Le téléphone et
+WhatsApp restent affichés juste à côté sur la page contact, pour cette
+raison.

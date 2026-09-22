@@ -3,7 +3,7 @@ import Bouton from './Bouton.astro';
 import Icon from './Icon.astro';
 import Logo from './Logo.astro';
 import SelecteurLangue from './SelecteurLangue.astro';
-import { entreprise } from '../data/entreprise';
+import { entreprise, lienDevis } from '../data/entreprise';
 import { chemin, liensNavigation, t, type Langue } from '../i18n';
 
 interface Props {
@@ -14,6 +14,7 @@ interface Props {
 const { langue, cheminActuel } = Astro.props;
 const textes = t(langue);
 const liens = liensNavigation(langue);
+const devis = lienDevis(textes.devisEmail.sujet, textes.devisEmail.corps);
 ---
 
 <header class="entete">
@@ -28,7 +29,7 @@ const liens = liensNavigation(langue);
 
     <div class="entete__actions">
       <SelecteurLangue langue={langue} cheminActuel={cheminActuel} />
-      <Bouton href={chemin('contact', langue)} variante="principal" iconeApres="fleche" class="entete__devis">
+      <Bouton href={devis} variante="principal" iconeApres="fleche" class="entete__devis">
         {textes.actions.devis}
       </Bouton>
     </div>
@@ -62,7 +63,7 @@ const liens = liensNavigation(langue);
       {liens.map((lien) => <a href={lien.href}>{lien.libelle}</a>)}
     </nav>
     <div class="entete__panneau-bas">
-      <Bouton href={chemin('contact', langue)} variante="principal" iconeApres="fleche" large>
+      <Bouton href={devis} variante="principal" iconeApres="fleche" large>
         {textes.actions.devis}
       </Bouton>
       <SelecteurLangue langue={langue} cheminActuel={cheminActuel} />

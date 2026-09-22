@@ -37,3 +37,12 @@ export const adresseUneLigne = `${entreprise.adresse.rue}, ${entreprise.adresse.
 export function lienWhatsApp(message: string): string {
   return `https://wa.me/${entreprise.whatsappNumero}?text=${encodeURIComponent(message)}`;
 }
+
+/**
+ * Construit un lien « mailto » avec le sujet et le corps déjà écrits :
+ * un clic ouvre le client email du visiteur avec la demande de devis
+ * prête à compléter et à envoyer. Pas de formulaire, pas de service tiers.
+ */
+export function lienDevis(sujet: string, corps: string): string {
+  return `mailto:${entreprise.email ?? ''}?subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(corps)}`;
+}

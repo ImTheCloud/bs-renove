@@ -5,6 +5,7 @@ import CurseurAvantApres from '../CurseurAvantApres.astro';
 import Galerie from '../Galerie.astro';
 import Icon from '../Icon.astro';
 import PhotoProjet from '../PhotoProjet.astro';
+import { lienDevis } from '~/data/entreprise';
 import { autresProjets, galerieOrdonnee, nomService, type Projet } from '~/data/projets';
 import { chemin, t, type Langue } from '~/i18n';
 
@@ -141,7 +142,12 @@ const parties = [
       <h2>{bloc.similaireTitre}</h2>
       <p>{bloc.similaireTexte}</p>
     </div>
-    <Bouton href={chemin('contact', langue)} variante="ink-principal" iconeApres="fleche" large>
+    <Bouton
+      href={lienDevis(textes.devisEmail.sujet, textes.devisEmail.corps)}
+      variante="ink-principal"
+      iconeApres="fleche"
+      large
+    >
       {textes.actions.devis}
     </Bouton>
   </section>
