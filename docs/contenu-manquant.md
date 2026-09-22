@@ -580,3 +580,61 @@ les deux, par message :
   confirmer ».
 
 Les deux pages n'affichent donc plus aucun `[À CONFIRMER]` lié à ces deux sujets.
+
+---
+
+## 14. Dernier lot de photos : le site est complet (22 septembre 2026, soir)
+
+Sergiu a prévenu : ces 6 derniers tags sont les derniers, plus aucune photo à
+attendre. 32 photos vérifiées une par une (aucune écartée pour la vie privée
+cette fois), et les 3 derniers projets encore vides ont enfin de vraies photos.
+
+| Projet | Avant | Après ce round |
+|---|---|---|
+| `renovation-interieure-ostende` | vide | ✅ publié — 15 photos (salle de bain + toiture) |
+| `salle-de-bain-watermael-boitsfort` | vide | ✅ publié — couverture + 1 paire avant/après |
+| `toiture-woluwe-saint-pierre` | vide | ✅ publié — couverture + 3 photos |
+
+**Les 7 projets du départ ont maintenant tous de vraies photos, sauf
+`cuisine-ixelles`** (qui attend toujours une vraie photo de la cuisine
+elle-même — voir § 13). Le site public passe de 2 à 5 projets visibles.
+
+Le tag « WoluweSaintPierre_Toit » correspond à une **autre adresse** que le
+grand chantier « Avenue Manoir d'Anjou » déjà utilisé pour
+`renovation-woluwe-saint-pierre` (le dossier source s'appelle « Toit Palmier »)
+— les deux sont restés bien séparés, aucune photo mélangée entre les deux
+chantiers de Woluwe-Saint-Pierre.
+
+Deux tags sans adresse (« Vitres », « Toitures ») ont servi à enrichir les
+photos de service (Rénovation complète, Toiture), comme le tag « Parquet »
+plus tôt — jamais présentés comme une réalisation avec une commune inventée.
+
+**Erreur trouvée et corrigée en cours de route** : la couverture du projet
+`renovation-parquet-menuiseries` montrait par erreur une photo de plafond en
+travaux au lieu de la belle pièce avec parquet et portes-fenêtres prévue.
+Repéré en comparant le rendu du site aux photos sources, corrigé avant la mise
+en ligne (la photo de plafond n'est pas perdue : elle est maintenant dans la
+galerie du même projet, correctement légendée).
+
+### Couleur du site calée sur le logo
+
+Le bleu `--color-accent` était provisoire depuis le début (`#2f5bd3`, choisi
+au hasard en attendant le logo). Sergiu a envoyé le logo dans ce round : le
+bleu du site est maintenant `#0066b4`, la couleur dominante du logo
+(mesurée directement sur le fichier, pas approximée à l'œil). Contraste
+vérifié : 5,9:1 sur fond blanc, largement au-dessus du minimum accessible
+(4,5:1). Un seul endroit à changer si Sergiu préfère une autre nuance :
+`src/styles/tokens.css`.
+
+### Vérification visuelle mobile et desktop
+
+Le site a été vérifié avec des captures d'écran réelles (mobile 390px et
+desktop 1440px), pas seulement en lisant le code — conformément à la
+consigne « mobile d'abord ». Vérifiés : le hero et sa photo, la barre fixe
+« Appeler / WhatsApp » sur mobile, le curseur avant/après, la grille de
+photos par service, les pages projet. Rien de cassé trouvé après la
+correction de la couverture ci-dessus.
+
+`playwright` a été ajouté aux dépendances de développement (`devDependencies`)
+pour permettre ce genre de vérification visuelle à l'avenir — ne sert qu'en
+local, n'affecte pas le site publié.

@@ -10,8 +10,8 @@
   --color-surface-2: #eef1f5;   /* conteneurs secondaires, sélecteur de langue */
   --color-ink: #1d2a4a;         /* titres, texte fort, bloc contact */
   --color-ink-rgb: 29, 42, 74; /* pour les fonds semi-transparents */
-  --color-accent: #2f5bd3;      /* boutons principaux, liens */
-  --color-accent-dark: #2549a8; /* survol du bouton principal */
+  --color-accent: #0066b4;      /* boutons principaux, liens — calé sur le bleu du logo */
+  --color-accent-dark: #005290; /* survol du bouton principal */
   --color-text: #4b5160;        /* texte courant */
   --color-muted: #5f6573;       /* texte secondaire */
   --color-border: #d5dae1;      /* bordures */

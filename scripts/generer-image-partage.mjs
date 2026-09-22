@@ -12,7 +12,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import sharp from 'sharp';
 
 const INK = '#1d2a4a';
-const ACCENT = '#2f5bd3';
+const ACCENT = '#0066b4';
 const GRIS = '#5f6573';
 
 // Les polices du site, encodées dans le SVG pour que le rendu soit identique.

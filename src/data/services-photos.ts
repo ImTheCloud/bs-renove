@@ -12,6 +12,10 @@ import exempleCarrelage2 from '~/assets/services/carrelage/exemple-2.jpg';
 import exempleCarrelage3 from '~/assets/services/carrelage/exemple-3.jpg';
 import exempleCarrelage4 from '~/assets/services/carrelage/exemple-4.jpg';
 import exempleRenovationComplete from '~/assets/services/renovation-complete/exemple-1.jpg';
+import exempleRenovationComplete2 from '~/assets/services/renovation-complete/exemple-2.jpg';
+import exempleRenovationComplete3 from '~/assets/services/renovation-complete/exemple-3.jpg';
+import exempleToiture1 from '~/assets/services/toiture/exemple-1.jpg';
+import exempleToiture2 from '~/assets/services/toiture/exemple-2.jpg';
 import exempleElectricite from '~/assets/services/electricite/exemple-1.jpg';
 import woluweCouverture from '~/assets/projets/renovation-woluwe-saint-pierre/cover.jpg';
 import woluweDoubleVasque from '~/assets/projets/renovation-woluwe-saint-pierre/detail-1.jpg';
@@ -23,10 +27,10 @@ import woluweAuventLarge from '~/assets/projets/renovation-woluwe-saint-pierre/d
 import woluweGainesElec from '~/assets/projets/renovation-woluwe-saint-pierre/chantier-3.jpg';
 
 export const photosServices: Partial<Record<string, ImageMetadata[]>> = {
-  'renovation-complete': [exempleRenovationComplete, woluweCouverture],
+  'renovation-complete': [exempleRenovationComplete, woluweCouverture, exempleRenovationComplete2, exempleRenovationComplete3],
   'salles-de-bain': [exempleSallesDeBain, woluweDoucheFinie, woluweDoubleVasque],
   cuisines: [woluweCuisineEnsemble, woluweCuisineDetail],
   carrelage: [exempleCarrelage1, exempleCarrelage2, exempleCarrelage3, exempleCarrelage4],
-  toiture: [woluweAuventFini, woluweAuventLarge],
+  toiture: [woluweAuventFini, woluweAuventLarge, exempleToiture1, exempleToiture2],
   electricite: [exempleElectricite, woluweGainesElec],
 };

@@ -41,11 +41,11 @@ galerie:
       fr: 'Nouvelle porte-fenêtre installée'
       nl: 'Nieuwe tuindeur geïnstalleerd'
     type: detail
-  - image: ../../assets/projets/renovation-parquet-menuiseries/detail-2.jpg
+  - image: ../../assets/projets/renovation-parquet-menuiseries/chantier-4.jpg
     alt:
-      fr: 'Parquet terminé, pièce lumineuse'
-      nl: 'Parket klaar, lichte kamer'
-    type: detail
+      fr: Plafond avant peinture, ancienne fenêtre
+      nl: Plafond voor het schilderwerk, oud raam
+    type: chantier
   - image: ../../assets/projets/renovation-parquet-menuiseries/detail-3.jpg
     alt:
       fr: 'Le même parquet, vu d''un autre angle'

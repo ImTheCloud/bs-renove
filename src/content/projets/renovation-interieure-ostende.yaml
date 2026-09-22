@@ -7,28 +7,93 @@ commune:
 service: renovation-complete
 ordre: 2
 misEnAvant: false
+couverture: ../../assets/projets/renovation-interieure-ostende/cover.jpg
 couvertureAlt:
-  fr: "[À CONFIRMER : ce que montre la photo de couverture]"
-  nl: "[TE BEVESTIGEN: wat de omslagfoto toont]"
+  fr: Salle de bain terminée, miroir rond doré et sol en terrazzo
+  nl: Afgewerkte badkamer, ronde gouden spiegel en terrazzovloer
 recit:
   fr:
     depart: "[À CONFIRMER : l'état au départ, en une ou deux phrases.]"
-    travaux: "[À CONFIRMER : les travaux réalisés, dans l'ordre.]"
+    travaux: "Rénovation intérieure complète : plomberie et structure repris, nouvelle salle de bain avec douche et baignoire, et reprise de la toiture (démolition, charpente, tuiles neuves)."
     resultat: "[À CONFIRMER : le résultat, vu par le propriétaire.]"
   nl:
     depart: "[TE BEVESTIGEN: de begintoestand, in één of twee zinnen.]"
-    travaux: "[TE BEVESTIGEN: de uitgevoerde werken, in volgorde.]"
+    travaux: "Volledige binnenrenovatie: loodgieterij en structuur vernieuwd, nieuwe badkamer met douche en bad, en het dak volledig vernieuwd (afbraak, dakstructuur, nieuwe pannen)."
     resultat: "[TE BEVESTIGEN: het resultaat, gezien door de eigenaar.]"
 avantApres:
-  - legende:
-      fr: "[À CONFIRMER : ce que montre la comparaison]"
-      nl: "[TE BEVESTIGEN: wat de vergelijking toont]"
+  - avant: ../../assets/projets/renovation-interieure-ostende/avant-1.jpg
+    apres: ../../assets/projets/renovation-interieure-ostende/apres-1.jpg
+    legende:
+      fr: Salle de bain, avant carrelage et terminée
+      nl: Badkamer, voor het tegelwerk en klaar
 galerie:
-  - alt:
-      fr: "[À CONFIRMER : ce que montre la photo]"
-      nl: "[TE BEVESTIGEN: wat de foto toont]"
+  - image: ../../assets/projets/renovation-interieure-ostende/detail-1.jpg
+    alt:
+      fr: Douche terminée, robinetterie dorée
+      nl: Afgewerkte douche, gouden kraanwerk
     type: detail
-  - alt:
-      fr: "[À CONFIRMER : ce que montre la photo]"
-      nl: "[TE BEVESTIGEN: wat de foto toont]"
+  - image: ../../assets/projets/renovation-interieure-ostende/detail-2.jpg
+    alt:
+      fr: Vasque et miroir rond, détail
+      nl: Wastafel en ronde spiegel, detail
+    type: detail
+  - image: ../../assets/projets/renovation-interieure-ostende/detail-3.jpg
+    alt:
+      fr: Salle de bain et toilette, vue d'ensemble
+      nl: Badkamer en toilet, overzicht
+    type: detail
+  - image: ../../assets/projets/renovation-interieure-ostende/detail-4.jpg
+    alt:
+      fr: Façade en cours de restauration, échafaudage
+      nl: Gevel tijdens de restauratie, stelling
+    type: detail
+  - image: ../../assets/projets/renovation-interieure-ostende/detail-5.jpg
+    alt:
+      fr: Travaux de toiture, vue sur les toits d'Ostende
+      nl: Dakwerken, zicht over de daken van Oostende
+    type: detail
+  - image: ../../assets/projets/renovation-interieure-ostende/detail-6.jpg
+    alt:
+      fr: Pose de panneaux solaires et de velux
+      nl: Plaatsing van zonnepanelen en dakvensters
+    type: detail
+  - image: ../../assets/projets/renovation-interieure-ostende/detail-7.jpg
+    alt:
+      fr: Détail de la façade restaurée
+      nl: Detail van de gerestaureerde gevel
+    type: detail
+  - image: ../../assets/projets/renovation-interieure-ostende/chantier-1.jpg
+    alt:
+      fr: Plomberie avant la pose du sous-plancher
+      nl: Sanitair voor de plaatsing van de onderlaag
+    type: chantier
+  - image: ../../assets/projets/renovation-interieure-ostende/chantier-2.jpg
+    alt:
+      fr: Ossature métallique, cloison en construction
+      nl: Metalen structuur, wand in opbouw
+    type: chantier
+  - image: ../../assets/projets/renovation-interieure-ostende/chantier-3.jpg
+    alt:
+      fr: Sous-plancher et évacuations avant la salle de bain
+      nl: Onderlaag en afvoeren voor de badkamer
+    type: chantier
+  - image: ../../assets/projets/renovation-interieure-ostende/chantier-4.jpg
+    alt:
+      fr: Membrane d'étanchéité avant le carrelage
+      nl: Waterdichtingsmembraan voor het tegelwerk
+    type: chantier
+  - image: ../../assets/projets/renovation-interieure-ostende/chantier-5.jpg
+    alt:
+      fr: Membrane d'étanchéité, autre angle
+      nl: Waterdichtingsmembraan, andere hoek
+    type: chantier
+  - image: ../../assets/projets/renovation-interieure-ostende/chantier-6.jpg
+    alt:
+      fr: Démolition de la toiture, charpente à nu
+      nl: Afbraak van het dak, blote dakstructuur
+    type: chantier
+  - image: ../../assets/projets/renovation-interieure-ostende/chantier-7.jpg
+    alt:
+      fr: Charpente et mur en briques à nu, sous les combles
+      nl: Dakstructuur en blote bakstenen muur, onder het dak
     type: chantier
