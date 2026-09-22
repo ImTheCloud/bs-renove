@@ -6,7 +6,7 @@ commune:
   nl: Sint-Pieters-Woluwe
 service: renovation-complete
 ordre: 6
-misEnAvant: false
+misEnAvant: true
 couverture: ../../assets/projets/renovation-woluwe-saint-pierre/cover.jpg
 couvertureAlt:
   fr: Séjour rénové avec cuisine ouverte et baie vitrée donnant sur le jardin
@@ -96,4 +96,49 @@ galerie:
     alt:
       fr: Combles en cours de plafonnage
       nl: Zolder tijdens het plafonneren
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-8.jpg
+    alt:
+      fr: Local technique avec chaudière et ballon d'eau chaude
+      nl: Technische ruimte met verwarmingsketel en boiler
+    type: detail
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-9.jpg
+    alt:
+      fr: Chambre sous les combles, parquet terminé
+      nl: Slaapkamer onder het schuine dak, parket klaar
+    type: detail
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-10.jpg
+    alt:
+      fr: Autre pièce avec le même parquet
+      nl: Andere kamer met hetzelfde parket
+    type: detail
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-11.jpg
+    alt:
+      fr: Escalier du garage, vu depuis le bas
+      nl: Trap naar de garage, van onderaan gezien
+    type: detail
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-12.jpg
+    alt:
+      fr: Local technique carrelé
+      nl: Betegelde technische ruimte
+    type: detail
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-13.jpg
+    alt:
+      fr: L'auvent de l'entrée, vu de plus loin
+      nl: De luifel boven de voordeur, van verder gezien
+    type: detail
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-3.jpg
+    alt:
+      fr: Gaines électriques avant la chape
+      nl: Elektriciteitsleidingen voor het storten van de dekvloer
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-4.jpg
+    alt:
+      fr: Ossature du plafond en cours de montage
+      nl: Plafondconstructie tijdens de montage
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-5.jpg
+    alt:
+      fr: L'équipe BS Renove au travail sur le plafond
+      nl: Het BS Renove-team aan het werk aan het plafond
     type: chantier

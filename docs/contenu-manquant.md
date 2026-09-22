@@ -404,6 +404,31 @@ galerie finale avec d'autres clichés).
   relancer le même pipeline (scanner → lecture visuelle personnelle → sélection →
   `sharp` pour nettoyer les métadonnées → import) à chaque nouveau lot.
 
+### Round 2 : accueil et services enrichis (22 septembre 2026, plus tard)
+
+Après un premier retour de Sergiu (« je pensais qu'on avait plus de photos que
+ça, je n'en vois pas dans service »), deuxième passe sur le même matériel déjà
+trié, plutôt qu'une nouvelle collecte :
+
+- **Le hero et le curseur avant/après de l'accueil** (l'élément le plus visible
+  du site) montraient le projet Knokke, qui n'a aucune photo — l'accueil avait
+  donc l'air vide au premier coup d'œil. Basculé sur `renovation-woluwe-saint-pierre`
+  (`misEnAvant`), qui en a. Un simple réglage, zéro nouvelle photo nécessaire.
+- **9 photos de plus dans la galerie Woluwe-Saint-Pierre**, puisées parmi les
+  « meilleures » déjà validées par le tri mais pas encore utilisées (local
+  technique, gaines électriques, deux pièces supplémentaires, plafond en
+  chantier avec l'équipe au travail, etc.) : 16 photos de galerie + 6 paires
+  avant/après au total sur ce projet, sans redescendre sous la barre qualité.
+- **3 services de plus ont une vraie photo** : Électricité, Toiture, Cuisines
+  (avant : seuls Salles de bain, Carrelage et Rénovation complète en avaient).
+  Restent sans photo, honnêtement : Maçonnerie & façades et Peinture &
+  finitions — aucune photo du lot ne montre vraiment ça, mieux vaut le
+  placeholder « photo à venir » qu'une photo qui ne correspond pas.
+
+La structure du site (une page par projet + une page par service) n'a pas
+changé : elle permet déjà d'ajouter facilement un nouveau projet quand un
+nouveau tag arrive, ce qui était la vraie question posée.
+
 ### ⚠ Blocage technique du poste, sans rapport avec le site (contourné)
 
 Sur cette machine, la commande `git` du système (`/usr/bin/git`) échoue avec

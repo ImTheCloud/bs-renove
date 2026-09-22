@@ -9,9 +9,15 @@ import type { ImageMetadata } from 'astro';
 import exempleSallesDeBain from '~/assets/services/salles-de-bain/exemple-1.jpg';
 import exempleCarrelage from '~/assets/services/carrelage/exemple-1.jpg';
 import exempleRenovationComplete from '~/assets/services/renovation-complete/exemple-1.jpg';
+import exempleElectricite from '~/assets/services/electricite/exemple-1.jpg';
+import exempleToiture from '~/assets/services/toiture/exemple-1.jpg';
+import exempleCuisines from '~/assets/services/cuisines/exemple-1.jpg';
 
 export const photosServices: Partial<Record<string, ImageMetadata>> = {
   'salles-de-bain': exempleSallesDeBain,
   carrelage: exempleCarrelage,
   'renovation-complete': exempleRenovationComplete,
+  electricite: exempleElectricite,
+  toiture: exempleToiture,
+  cuisines: exempleCuisines,
 };

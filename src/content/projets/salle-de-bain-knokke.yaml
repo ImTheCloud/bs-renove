@@ -6,7 +6,7 @@ commune:
   nl: Knokke
 service: salles-de-bain
 ordre: 1
-misEnAvant: true
+misEnAvant: false
 couvertureAlt:
   fr: "[À CONFIRMER : ce que montre la photo de couverture]"
   nl: "[TE BEVESTIGEN: wat de omslagfoto toont]"
