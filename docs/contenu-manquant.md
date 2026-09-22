@@ -723,9 +723,39 @@ page complète.
 
 **Vérification de la couleur bleue** : Sergiu avait l'impression que le
 site utilisait plusieurs bleus différents (boutons vs autres endroits).
-Vérifié dans le code : une seule valeur existe, `--color-accent: #0066b4`
-(`src/styles/tokens.css`), utilisée partout — boutons, liens, pastilles,
-numéros. La seule variante est `--color-accent-dark`, une version plus
-foncée utilisée uniquement au survol d'un bouton (normal, pas un bleu
-différent). Si un bleu différent est encore visible quelque part, ce
-serait à un endroit précis à signaler — pas un problème général de code.
+Premier constat : une seule valeur d'accent existe, `--color-accent:
+#0066b4` (`src/styles/tokens.css`), utilisée partout — boutons, liens,
+pastilles, numéros. Mais Sergiu a ensuite pointé le bloc sombre « Vous
+avez un projet ? » : là, le fond utilisait `--color-ink`, une marine
+distincte de l'accent (`#1d2a4a`, une autre famille de bleu). Corrigé :
+`--color-ink` est maintenant dérivée du **même bleu que les boutons**,
+juste assombrie (`#002948`), et non plus une couleur à part — un seul
+bleu dans tout le site, comme demandé.
+
+---
+
+## 19. Icône WhatsApp plus réaliste, communes retirées des avant/après (23 septembre 2026)
+
+**Communes retirées de l'affichage avant/après** : sur l'accueil et sur
+la page Réalisations, une paire avant/après n'affiche plus jamais où se
+trouve le chantier (« Rénovation à Woluwe-Saint-Pierre »), seulement ce
+que montre la photo (« Salle de bain », « Toiture »...). La commune ne
+reste visible que sur la fiche du projet lui-même, en cliquant « Voir le
+chantier complet ».
+
+**Bouton WhatsApp refait** : Sergiu trouvait la couleur et l'icône « pas
+très réelles ». Nouvelle icône (`src/components/Icon.astro`) : un
+pictogramme plein (bulle + combiné) aux couleurs officielles WhatsApp, au
+lieu d'un simple trait générique — c'est le seul logo de marque du site,
+tout le reste reste au trait. Nouvelle couleur de fond, `#0e8449` (un vert
+WhatsApp assombri pour rester lisible en blanc dessus — le vert officiel
+`#25d366` ne passait pas le contraste minimum).
+
+**Outil de tri des photos** : pour que Sergiu puisse choisir lui-même les
+meilleures photos et repérer facilement celles à enlever, sans devoir le
+demander à chaque fois — un outil séparé (en dehors du site, donc pas de
+base de données ajoutée au site lui-même) avec une case à cocher par
+photo, projet par projet. Le lien a été envoyé séparément ; une fois son
+tri terminé, les photos marquées seront retirées du site (paires
+avant/après en entier si l'une des deux est marquée, la couverture d'un
+projet sera remplacée plutôt que juste enlevée).
