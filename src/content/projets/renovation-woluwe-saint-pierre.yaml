@@ -142,3 +142,233 @@ galerie:
       fr: L'équipe BS Renove au travail sur le plafond
       nl: Het BS Renove-team aan het werk aan het plafond
     type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-6.jpg
+    alt:
+      fr: 'Tuyaux au sol avant la chape'
+      nl: 'Leidingen op de vloer voor het storten van de dekvloer'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-7.jpg
+    alt:
+      fr: 'Réseau de plomberie en cours d''installation'
+      nl: 'Loodgieterijnetwerk tijdens de installatie'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-8.jpg
+    alt:
+      fr: 'Colonne d''évacuation et raccordements'
+      nl: 'Afvoerkolom en aansluitingen'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-9.jpg
+    alt:
+      fr: 'Tuyaux de plomberie au sol'
+      nl: 'Loodgietersleidingen op de vloer'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-10.jpg
+    alt:
+      fr: 'Passage des tuyaux avant la chape'
+      nl: 'Doorvoer van leidingen voor de dekvloer'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-11.jpg
+    alt:
+      fr: 'Réseau de plomberie, vue d''ensemble'
+      nl: 'Loodgieterijnetwerk, overzicht'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-12.jpg
+    alt:
+      fr: 'Raccordements de plomberie'
+      nl: 'Loodgietersaansluitingen'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-13.jpg
+    alt:
+      fr: 'Tuyaux d''évacuation avant la chape'
+      nl: 'Afvoerleidingen voor de dekvloer'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-14.jpg
+    alt:
+      fr: 'Local technique, autre vue'
+      nl: 'Technische ruimte, ander zicht'
+    type: detail
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-14.jpg
+    alt:
+      fr: 'Câbles électriques avant la chape'
+      nl: 'Elektriciteitskabels voor de dekvloer'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-15.jpg
+    alt:
+      fr: 'Salle de bain en cours de chantier'
+      nl: 'Badkamer tijdens de werken'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-16.jpg
+    alt:
+      fr: 'Plomberie de la salle de bain avant carrelage'
+      nl: 'Sanitair van de badkamer voor het tegelwerk'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-17.jpg
+    alt:
+      fr: 'Salle de bain, état intermédiaire'
+      nl: 'Badkamer, tussentoestand'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-18.jpg
+    alt:
+      fr: 'Salle de bain avant carrelage, panneau étanche posé'
+      nl: 'Badkamer voor het tegelwerk, waterdicht paneel geplaatst'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-15.jpg
+    alt:
+      fr: 'Chambre avec parquet posé'
+      nl: 'Slaapkamer met geplaatst parket'
+    type: detail
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-16.jpg
+    alt:
+      fr: 'Autre chambre, parquet terminé'
+      nl: 'Andere slaapkamer, parket klaar'
+    type: detail
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-19.jpg
+    alt:
+      fr: 'Chambre avant travaux'
+      nl: 'Slaapkamer voor de werken'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-20.jpg
+    alt:
+      fr: 'Chambre en chantier'
+      nl: 'Slaapkamer in verbouwing'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-21.jpg
+    alt:
+      fr: 'Combles avant travaux'
+      nl: 'Zolder voor de werken'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-22.jpg
+    alt:
+      fr: 'Pièce sous les combles avant travaux'
+      nl: 'Kamer onder het schuine dak voor de werken'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-23.jpg
+    alt:
+      fr: 'Chambre avant rénovation'
+      nl: 'Slaapkamer voor renovatie'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-24.jpg
+    alt:
+      fr: 'Pièce en cours de finition'
+      nl: 'Kamer tijdens de afwerking'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-17.jpg
+    alt:
+      fr: 'Escalier principal, nouvelles marches en bois clair'
+      nl: 'Hoofdtrap, nieuwe treden in lichte houtsoort'
+    type: detail
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-18.jpg
+    alt:
+      fr: 'Escalier principal terminé, vue du dessus'
+      nl: 'Hoofdtrap klaar, zicht van bovenaf'
+    type: detail
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-25.jpg
+    alt:
+      fr: 'Ancien escalier avant rénovation'
+      nl: 'Oude trap voor renovatie'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-26.jpg
+    alt:
+      fr: 'Escalier en cours de rénovation'
+      nl: 'Trap tijdens de renovatie'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-27.jpg
+    alt:
+      fr: 'Escalier du garage, ossature avant carrelage'
+      nl: 'Trap naar de garage, structuur voor het tegelwerk'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-28.jpg
+    alt:
+      fr: 'Escalier du garage en cours'
+      nl: 'Trap naar de garage tijdens de werken'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-29.jpg
+    alt:
+      fr: 'Plafond, isolation posée'
+      nl: 'Plafond, isolatie geplaatst'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-30.jpg
+    alt:
+      fr: 'Ossature du plafond, combles'
+      nl: 'Plafondconstructie, zolder'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-31.jpg
+    alt:
+      fr: 'Plafond avant plâtrage'
+      nl: 'Plafond voor het pleisterwerk'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-32.jpg
+    alt:
+      fr: 'Plâtrage du plafond en cours'
+      nl: 'Pleisterwerk van het plafond bezig'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-33.jpg
+    alt:
+      fr: 'Plafond et murs avant peinture'
+      nl: 'Plafond en muren voor het schilderwerk'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-19.jpg
+    alt:
+      fr: 'Détail du carrelage de l''îlot de cuisine'
+      nl: 'Detail van het tegelwerk van het kookeiland'
+    type: detail
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-20.jpg
+    alt:
+      fr: 'Îlot de cuisine carrelé, vue d''ensemble'
+      nl: 'Betegeld kookeiland, overzicht'
+    type: detail
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-21.jpg
+    alt:
+      fr: 'Cuisine terminée, plan de travail et électroménager'
+      nl: 'Keuken klaar, werkblad en toestellen'
+    type: detail
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-34.jpg
+    alt:
+      fr: 'Cuisine, meubles en cours d''installation'
+      nl: 'Keuken, meubels tijdens de plaatsing'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-35.jpg
+    alt:
+      fr: 'Installation de la cuisine, meuble îlot'
+      nl: 'Plaatsing van de keuken, kookeiland'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-36.jpg
+    alt:
+      fr: 'Cuisine en cours d''aménagement'
+      nl: 'Keuken tijdens de inrichting'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-37.jpg
+    alt:
+      fr: 'Cuisine en cours de chantier, accès jardin'
+      nl: 'Keuken tijdens de werken, toegang tot de tuin'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-22.jpg
+    alt:
+      fr: 'Local technique, chaudière et rangements'
+      nl: 'Technische ruimte, ketel en opbergruimte'
+    type: detail
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-23.jpg
+    alt:
+      fr: 'Terrasse en béton lissé, vue depuis la maison'
+      nl: 'Terras in gladde beton, zicht vanaf de woning'
+    type: detail
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-38.jpg
+    alt:
+      fr: 'Allée en cours de bétonnage'
+      nl: 'Pad tijdens het betonstorten'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-39.jpg
+    alt:
+      fr: 'Ferraillage avant coulage du béton'
+      nl: 'Wapening voor het storten van het beton'
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-24.jpg
+    alt:
+      fr: 'Terrasse et allée terminées'
+      nl: 'Terras en pad klaar'
+    type: detail
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-40.jpg
+    alt:
+      fr: 'Ferraillage de l''allée latérale'
+      nl: 'Wapening van het zijpad'
+    type: chantier

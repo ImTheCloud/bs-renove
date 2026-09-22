@@ -35,3 +35,8 @@ galerie:
       fr: Détail intérieur de l'armoire sur mesure
       nl: Detail van de binnenkant van de kast op maat
     type: detail
+  - image: ../../assets/projets/cuisine-ixelles/detail-4.jpg
+    alt:
+      fr: 'Façade de l''armoire sur mesure'
+      nl: 'Voorkant van de kast op maat'
+    type: detail

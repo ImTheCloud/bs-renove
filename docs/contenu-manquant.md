@@ -462,6 +462,62 @@ besoin de cliquer pour se rendre compte qu'il n'y a rien. Le bouton
 à ce service exact (aujourd'hui, seulement pour Rénovation complète, qui
 pointe vers Woluwe-Saint-Pierre).
 
+### Round 4 : (presque) toutes les photos triées sont maintenant sur le site (22 septembre 2026, encore plus tard)
+
+Sergiu a corrigé le tir : il voulait que je récupère **toutes** les photos
+valables de chaque tag, pas seulement une sélection resserrée — lui-même
+trierait et couperait ensuite. Les rounds précédents n'avaient utilisé que
+les « meilleures » photos présélectionnées par tag (39 sur 114). Ce round
+ajoute les **54 photos restantes** des 14 tags (celles qui n'étaient ni déjà
+utilisées, ni écartées pour la vie privée), vérifiées une par une avant
+import — même processus que les rounds précédents, juste sans le filtre de
+« joliesse ».
+
+**renovation-woluwe-saint-pierre** passe de 18 à **64 photos de galerie**
+(+ toujours 6 paires avant/après et la couverture) : plomberie, électricité,
+salle de bain, chambres, escaliers (intérieur et garage), plafond, cuisine,
+local technique et terrasse — le chantier au complet, chantier compris (pas
+seulement le résultat fini).
+
+**cuisine-ixelles** : 1 photo de plus (façade de l'armoire), toujours en
+attente d'une vraie photo de la cuisine elle-même pour être publiée.
+
+**Nouveau projet : `renovation-parquet-menuiseries`.** Le tag
+« Parquet/fenetre/vitre/plafond » (sans adresse connue) devient un projet à
+part entière plutôt qu'une simple photo de service — c'est ce que Sergiu
+avait décrit dès le départ (« c'est un autre projet »). Sa commune affiche
+`[À CONFIRMER : commune]` tant qu'elle n'est pas connue ; le reste
+(couverture, galerie, un résumé des travaux basé sur ce que Sergiu a décrit)
+est rempli. Comme il a une couverture, il apparaît déjà publiquement sur le
+site — à la différence de `cuisine-ixelles`.
+
+**Pas de nouvelles paires avant/après forcées** : pour rester honnête, je
+n'ai créé une comparaison avant/après que quand j'étais sûr que l'avant et
+l'après montraient la même pièce. Pour le reste (la plupart des nouvelles
+photos), chaque photo est présentée seule, avec une légende qui dit ce
+qu'elle montre — pas de fausse paire.
+
+### Photos toujours écartées pour la vie privée dans ce round
+
+Comme avant, vérifiées à l'œil une par une avant tout import (pas seulement
+sur base du champ automatique) : aucune nouvelle photo à risque trouvée
+dans ce lot de 54 — les 13 déjà identifiées lors des rounds précédents
+restent les seules écartées sur l'ensemble des 14 tags.
+
+### Chiffres à jour
+
+- 114 photos analysées sur les 14 tags de ce round.
+- 13 écartées pour la vie privée (numéro de maison, plaques, documents
+  avec coordonnées).
+- 101 utilisables, dont **101 sont maintenant sur le site** (65 pour Woluwe
+  en comptant couverture et paires, 4 pour Ixelles, 9 pour le nouveau projet,
+  plus 1 réutilisée comme photo de service Rénovation complète — certaines
+  photos servent à plusieurs endroits).
+- **Poids total des images optimisées du site : 19 Mo** (WebP, chargement
+  différé sauf la photo principale de chaque page). Sur un chantier aussi
+  complet que Woluwe, ça fait une page riche — normal vu le nombre de
+  corps de métier documentés.
+
 ### ⚠ Blocage technique du poste, sans rapport avec le site (contourné)
 
 Sur cette machine, la commande `git` du système (`/usr/bin/git`) échoue avec
