@@ -91,6 +91,7 @@ export const nl: Traductions = {
 
     avantApres: {
       surtitre: 'Voor, na',
+      voirTout: 'Bekijk al onze voor/na-foto’s',
       autresProjets: 'Andere projecten',
       avant: 'Voor',
       apres: 'Na',
@@ -127,13 +128,15 @@ export const nl: Traductions = {
     surtitre: 'Realisaties',
     titre: 'Werven, geen beloftes.',
     intro:
-      'Enkele recente projecten in beeld. Versleep de schuifknop om het verschil te zien.',
-    voirLeProjet: 'Bekijk het project',
+      'Versleep de schuifknop om het verschil te zien. Filter op ruimte om direct te vinden wat u zoekt.',
+    voirLeProjet: 'Bekijk de volledige werf',
     commune: 'Gemeente',
     service: 'Type werken',
     duree: 'Duur',
     semaines: 'weken',
-    aucun: 'De eerste projecten volgen binnenkort.',
+    aucun: 'De eerste voor/na-foto’s volgen binnenkort.',
+    toutes: 'Alles bekijken',
+    filtrerAria: 'Filteren op type ruimte',
   },
 
   projet: {

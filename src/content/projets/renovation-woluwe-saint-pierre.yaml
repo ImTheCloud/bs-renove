@@ -26,31 +26,37 @@ avantApres:
     legende:
       fr: Salle de bain avec douche à l'italienne
       nl: Badkamer met inloopdouche
+    categorie: salle-de-bain
   - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-2.jpg
     apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-2.jpg
     legende:
       fr: Séjour et cuisine ouverte
       nl: Woonkamer en open keuken
+    categorie: sejour
   - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-3.jpg
     apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-3.jpg
     legende:
       fr: Auvent au-dessus de la porte d'entrée
       nl: Luifel boven de voordeur
+    categorie: toiture
   - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-4.jpg
     apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-4.jpg
     legende:
       fr: Escalier du garage
       nl: Trap naar de garage
+    categorie: escalier
   - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-5.jpg
     apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-5.jpg
     legende:
       fr: Escalier principal
       nl: Hoofdtrap
+    categorie: escalier
   - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-6.jpg
     apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-6.jpg
     legende:
       fr: Toilette
       nl: Toilet
+    categorie: toilette
 galerie:
   - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-1.jpg
     alt:

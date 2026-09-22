@@ -1,7 +1,14 @@
 ---
-import CarteProjet from '../CarteProjet.astro';
-import { listerProjets } from '~/data/projets';
-import { t, type Langue } from '~/i18n';
+/**
+ * La page Réalisations : un mur d'avant/après, groupés par type de pièce,
+ * peu importe le chantier d'origine. L'avant/après est l'élément le plus
+ * apprécié du site : ici il occupe toute la place, en grand.
+ */
+import CurseurAvantApres from '../CurseurAvantApres.astro';
+import PhotoProjet from '../PhotoProjet.astro';
+import { categories, nomCategorie } from '~/data/categories';
+import { toutesLesPaires } from '~/data/projets';
+import { chemin, t, type Langue } from '~/i18n';
 
 interface Props {
   langue: Langue;
@@ -10,7 +17,9 @@ interface Props {
 const { langue } = Astro.props;
 const textes = t(langue);
 const bloc = textes.realisations;
-const projets = await listerProjets();
+
+const paires = await toutesLesPaires();
+const categoriesPresentes = categories.filter((c) => paires.some((p) => p.categorie === c.slug));
 ---
 
 <section class="wrap liste">
@@ -21,19 +30,88 @@ const projets = await listerProjets();
   </header>
 
   {
-    projets.length === 0 ? (
+    paires.length === 0 ? (
       <p class="liste__vide">{bloc.aucun}</p>
     ) : (
-      <ul class="liste__grille">
-        {projets.map((projet) => (
-          <li>
-            <CarteProjet projet={projet} langue={langue} niveauTitre={2} />
-          </li>
-        ))}
-      </ul>
+      <>
+        {categoriesPresentes.length > 1 && (
+          <div class="liste__filtres" role="group" aria-label={bloc.filtrerAria}>
+            <button type="button" class="filtre filtre--actif" data-filtre="toutes" aria-pressed="true">
+              {bloc.toutes}
+            </button>
+            {categoriesPresentes.map((c) => (
+              <button type="button" class="filtre" data-filtre={c.slug} aria-pressed="false">
+                {c.nom[langue]}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <div class="liste__paires" data-galerie-paires>
+          {paires.map((paire, index) => (
+            <figure class="paire" data-categorie={paire.categorie}>
+              <CurseurAvantApres
+                langue={langue}
+                id={`curseur-${paire.projetId}-${index}`}
+                ratio="4 / 3"
+                precision={paire.legende[langue]}
+              >
+                <PhotoProjet
+                  slot="avant"
+                  image={paire.avant}
+                  alt={textes.photos.avant}
+                  langue={langue}
+                  ratio="4 / 3"
+                  ton="moyen"
+                  prioritaire={index === 0}
+                />
+                <PhotoProjet
+                  slot="apres"
+                  image={paire.apres}
+                  alt={textes.photos.apres}
+                  langue={langue}
+                  ratio="4 / 3"
+                  ton="fonce"
+                  prioritaire={index === 0}
+                />
+              </CurseurAvantApres>
+              <figcaption class="paire__legende">
+                <span class="paire__categorie">{nomCategorie(paire.categorie, langue)}</span>
+                <span class="paire__texte">{paire.legende[langue]}</span>
+                <a href={`${chemin('realisations', langue)}${paire.projetId}/`} class="paire__lien">
+                  {bloc.voirLeProjet} · {paire.commune[langue]}
+                </a>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </>
     )
   }
 </section>
+
+<script>
+  // Filtre les avant/après par catégorie, sans recharger la page.
+  document.querySelectorAll<HTMLElement>('.liste__filtres').forEach((groupe) => {
+    const boutons = Array.from(groupe.querySelectorAll<HTMLButtonElement>('.filtre'));
+    const galerie = groupe.nextElementSibling;
+    const paires = Array.from(galerie?.querySelectorAll<HTMLElement>('.paire') ?? []);
+
+    boutons.forEach((bouton) => {
+      bouton.addEventListener('click', () => {
+        boutons.forEach((b) => {
+          const actif = b === bouton;
+          b.classList.toggle('filtre--actif', actif);
+          b.setAttribute('aria-pressed', String(actif));
+        });
+        const cible = bouton.dataset.filtre;
+        paires.forEach((paire) => {
+          paire.hidden = cible !== 'toutes' && paire.dataset.categorie !== cible;
+        });
+      });
+    });
+  });
+</script>
 
 <style>
   .liste {
@@ -44,8 +122,8 @@ const projets = await listerProjets();
     display: flex;
     flex-direction: column;
     gap: 16px;
-    max-width: 620px;
-    margin-bottom: 44px;
+    max-width: 680px;
+    margin-bottom: 36px;
   }
 
   .surtitre {
@@ -65,25 +143,103 @@ const projets = await listerProjets();
     color: var(--color-muted);
   }
 
-  .liste__grille {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
+  .liste__filtres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 40px;
+  }
+
+  .filtre {
+    min-height: var(--tap-min);
+    padding: 0 20px;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-text);
+    font-size: var(--size-small);
+    font-weight: 600;
+    color: var(--color-ink);
+    cursor: pointer;
+    transition:
+      background-color var(--speed) var(--ease),
+      border-color var(--speed) var(--ease),
+      color var(--speed) var(--ease);
+  }
+
+  .filtre:hover {
+    background: var(--color-surface);
+  }
+
+  .filtre--actif {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #fff;
+  }
+
+  .filtre--actif:hover {
+    background: var(--color-accent-dark);
+  }
+
+  .liste__paires {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  .paire {
     margin: 0;
-    padding: 0;
-    list-style: none;
   }
 
-  @media (min-width: 640px) {
-    .liste__grille {
-      grid-template-columns: repeat(2, 1fr);
+  .paire__legende {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px 14px;
+    padding-top: 20px;
+  }
+
+  .paire__categorie {
+    padding: 5px 14px;
+    background: var(--color-surface);
+    border-radius: var(--radius-pill);
+    font-size: var(--size-tiny);
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: var(--color-accent);
+  }
+
+  .paire__texte {
+    font-family: var(--font-title);
+    font-size: var(--size-h3);
+    font-weight: 700;
+    letter-spacing: var(--tracking-h3);
+    color: var(--color-ink);
+  }
+
+  .paire__lien {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-min);
+    font-size: var(--size-small);
+    font-weight: 600;
+    color: var(--color-muted);
+    text-decoration: none;
+  }
+
+  .paire__lien:hover {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  @media (min-width: 900px) {
+    .liste__paires {
+      gap: 96px;
     }
-  }
 
-  @media (min-width: 1100px) {
-    .liste__grille {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+    .paire__texte {
+      font-size: 28px;
     }
   }
 </style>

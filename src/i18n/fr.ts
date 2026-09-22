@@ -87,6 +87,7 @@ export const fr = {
 
     avantApres: {
       surtitre: 'Avant, après',
+      voirTout: 'Voir tous nos avant/après',
       autresProjets: 'Autres projets',
       avant: 'Avant',
       apres: 'Après',
@@ -123,13 +124,15 @@ export const fr = {
     surtitre: 'Réalisations',
     titre: 'Des chantiers, pas des promesses.',
     intro:
-      'Quelques projets récents, en photos. Faites glisser le curseur pour voir la différence.',
-    voirLeProjet: 'Voir le projet',
+      'Faites glisser le curseur pour voir la différence. Filtrez par pièce pour aller droit à ce qui vous intéresse.',
+    voirLeProjet: 'Voir le chantier complet',
     commune: 'Commune',
     service: 'Type de travaux',
     duree: 'Durée',
     semaines: 'semaines',
-    aucun: 'Les premiers projets arrivent bientôt.',
+    aucun: 'Les premiers avant/après arrivent bientôt.',
+    toutes: 'Tout voir',
+    filtrerAria: 'Filtrer par type de pièce',
   },
 
   projet: {

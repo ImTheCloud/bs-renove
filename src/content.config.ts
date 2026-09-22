@@ -1,5 +1,6 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { categories } from './data/categories';
 import { services } from './data/services';
 
 /** Un texte qui doit exister dans les deux langues. */
@@ -26,13 +27,18 @@ const projets = defineCollection({
       }),
       couverture: image().optional(),
       couvertureAlt: bilingue,
-      /** Une paire par comparaison avant/après. */
+      /**
+       * Une paire par comparaison avant/après. La catégorie (type de pièce,
+       * pas métier — src/data/categories.ts) sert à les regrouper toutes
+       * ensemble sur la page Réalisations, peu importe le chantier d'origine.
+       */
       avantApres: z
         .array(
           z.object({
             avant: image().optional(),
             apres: image().optional(),
             legende: bilingue,
+            categorie: z.enum(categories.map((c) => c.slug) as [string, ...string[]]),
           }),
         )
         .default([]),

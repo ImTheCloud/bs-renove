@@ -669,3 +669,40 @@ surtout si quelqu'un n'utilise que l'appli Gmail sans l'avoir mise par
 défaut) peut voir un écran vide ou une erreur en cliquant. Le téléphone et
 WhatsApp restent affichés juste à côté sur la page contact, pour cette
 raison.
+
+---
+
+## 17. Réalisations réorganisées par pièce, avant/après en grand (22 septembre 2026, très tard)
+
+Deux retours de Sergiu après avoir vu le site fini :
+
+1. Il préfère naviguer **par type de pièce** (« toutes les salles de bain »,
+   « toutes les toitures ») plutôt que par projet — l'avant/après est ce
+   qu'il préfère regarder, et il fallait ouvrir un projet pour en voir un.
+2. Le rendu ne lui semblait pas assez « wahou » — trop proche d'un site
+   statique classique. Direction choisie ensemble : **immersif, tout en
+   photo**.
+
+**Ce qui a changé :**
+
+- Chaque paire avant/après a maintenant une **catégorie** (pièce, pas
+  métier — `src/data/categories.ts` : salle de bain, cuisine, séjour,
+  chambre, toilette, escalier, toiture, façade, extérieur). Nouveau champ
+  obligatoire dans le schéma (`content.config.ts`), renseigné sur les 8
+  paires existantes.
+- **La page Réalisations est réécrite** (`ListeRealisations.astro`) :
+  ce n'est plus une liste de fiches projet, mais un mur d'avant/après en
+  grand, un par un, filtrable par pièce (boutons en haut de page). Chaque
+  avant/après garde un lien discret « Voir le chantier complet » vers sa
+  fiche projet, pour qui veut la commune et le reste des photos.
+- **L'avant/après de l'accueil passe en plein écran** (`SectionAvantApres.astro`) :
+  la photo occupe toute la largeur de l'écran, sans cadre ni fond gris
+  autour, avec un bouton « Voir tous nos avant/après » vers la nouvelle
+  page plutôt qu'une petite liste d'« autres projets ».
+- Les fiches projet individuelles existent toujours (accessibles depuis
+  chaque avant/après ou directement) : c'est là qu'on trouve la commune,
+  le récit du chantier et le reste des photos de détail/chantier.
+
+**À faire à chaque nouvelle paire avant/après ajoutée** : penser à
+renseigner `categorie:` dans le fichier YAML du projet — le build échoue
+sinon (comme pour `service:`).

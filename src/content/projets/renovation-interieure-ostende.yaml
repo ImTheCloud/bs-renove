@@ -26,6 +26,7 @@ avantApres:
     legende:
       fr: Salle de bain, avant carrelage et terminée
       nl: Badkamer, voor het tegelwerk en klaar
+    categorie: salle-de-bain
 galerie:
   - image: ../../assets/projets/renovation-interieure-ostende/detail-1.jpg
     alt:

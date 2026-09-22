@@ -19,10 +19,7 @@ recit:
     depart: "[TE BEVESTIGEN: de begintoestand, in één of twee zinnen.]"
     travaux: "[TE BEVESTIGEN: de uitgevoerde werken, in volgorde.]"
     resultat: "[TE BEVESTIGEN: het resultaat, gezien door de eigenaar.]"
-avantApres:
-  - legende:
-      fr: "[À CONFIRMER : ce que montre la comparaison]"
-      nl: "[TE BEVESTIGEN: wat de vergelijking toont]"
+avantApres: []
 galerie:
   - alt:
       fr: "[À CONFIRMER : ce que montre la photo]"

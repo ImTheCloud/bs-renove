@@ -1,8 +1,13 @@
 ---
+/**
+ * L'avant/après de l'accueil : l'élément le plus marquant du site, en
+ * grand, sans cadre autour — la photo occupe toute la place plutôt que
+ * d'être une carte parmi d'autres.
+ */
+import Bouton from '../Bouton.astro';
 import CurseurAvantApres from '../CurseurAvantApres.astro';
-import Icon from '../Icon.astro';
 import PhotoProjet from '../PhotoProjet.astro';
-import { autresProjets, nomService, projetMisEnAvant } from '~/data/projets';
+import { nomService, projetMisEnAvant } from '~/data/projets';
 import { chemin, t, type Langue } from '~/i18n';
 
 interface Props {
@@ -15,84 +20,54 @@ const bloc = textes.accueil.avantApres;
 
 // Le projet mis en avant vient de src/content/projets/, plus d'un texte en dur.
 const projet = await projetMisEnAvant();
-const suite = projet ? await autresProjets(projet.id, 3) : [];
 const service = projet ? nomService(projet.data.service, langue) : undefined;
 const paire = projet?.data.avantApres[0];
 const lienProjet = projet ? `${chemin('realisations', langue)}${projet.id}/` : chemin('realisations', langue);
 ---
 
 {
-  projet && (
-    <section id="realisations" class="wrap avant-apres">
-      <div class="avant-apres__cadre">
-        <div class="avant-apres__curseur">
-          <CurseurAvantApres langue={langue} id="curseur-accueil" ratio="4 / 3">
-            <PhotoProjet
-              slot="avant"
-              image={paire?.avant}
-              alt={textes.photos.avant}
-              langue={langue}
-              ratio="4 / 3"
-              ton="moyen"
-            />
-            <PhotoProjet
-              slot="apres"
-              image={paire?.apres}
-              alt={textes.photos.apres}
-              langue={langue}
-              ratio="4 / 3"
-              ton="fonce"
-            />
-          </CurseurAvantApres>
-        </div>
+  projet && paire && (
+    <section id="realisations" class="avant-apres">
+      <div class="avant-apres__curseur">
+        <CurseurAvantApres langue={langue} id="curseur-accueil" ratio="4 / 3" precision={paire.legende[langue]}>
+          <PhotoProjet
+            slot="avant"
+            image={paire.avant}
+            alt={textes.photos.avant}
+            langue={langue}
+            ratio="4 / 3"
+            ton="moyen"
+            prioritaire
+          />
+          <PhotoProjet
+            slot="apres"
+            image={paire.apres}
+            alt={textes.photos.apres}
+            langue={langue}
+            ratio="4 / 3"
+            ton="fonce"
+            prioritaire
+          />
+        </CurseurAvantApres>
+      </div>
 
-        <div class="avant-apres__infos">
-          <div class="avant-apres__projet">
-            <span class="surtitre">{bloc.surtitre}</span>
-            <h2 class="avant-apres__titre">
-              <a href={lienProjet}>{projet.data.titre[langue]}</a>
-            </h2>
-            <p class="avant-apres__texte">{projet.data.recit[langue].resultat}</p>
-            {(projet.data.dureeSemaines || service || paire) && (
+      <div class="wrap avant-apres__infos">
+        <div class="avant-apres__projet">
+          <span class="surtitre">{bloc.surtitre}</span>
+          <h2 class="avant-apres__titre">
+            <a href={lienProjet}>{projet.data.titre[langue]}</a>
+          </h2>
+          {(service || paire) && (
             <ul class="avant-apres__pastilles">
-              {projet.data.dureeSemaines && (
-                <li>
-                  {textes.realisations.duree} : {projet.data.dureeSemaines}{' '}
-                  {textes.realisations.semaines}
-                </li>
-              )}
               {service && <li>{service}</li>}
-              {paire && <li>{paire.legende[langue]}</li>}
+              <li>{paire.legende[langue]}</li>
             </ul>
-            )}
-          </div>
-
-          {suite.length > 0 && (
-            <div class="avant-apres__autres">
-              <span class="avant-apres__autres-titre">{bloc.autresProjets}</span>
-              {suite.map((autre) => (
-                <a href={`${chemin('realisations', langue)}${autre.id}/`} class="mini">
-                  <span class="mini__vignette">
-                    <PhotoProjet
-                      image={autre.data.couverture}
-                      alt=""
-                      langue={langue}
-                      ratio="1 / 1"
-                      arrondi="var(--radius-mini)"
-                      compact
-                    />
-                  </span>
-                  <span class="mini__nom">
-                    {autre.data.titre[langue]}
-                  </span>
-                  <span class="mini__fleche">
-                    <Icon nom="fleche" taille={18} />
-                  </span>
-                </a>
-              ))}
-            </div>
           )}
         </div>
+
+        <Bouton href={chemin('realisations', langue)} variante="secondaire" iconeApres="fleche">
+          {bloc.voirTout}
+        </Bouton>
       </div>
     </section>
   )
@@ -103,25 +78,23 @@ const lienProjet = projet ? `${chemin('realisations', langue)}${projet.id}/` : c
     padding-block: var(--section-gap) 0;
   }
 
-  .avant-apres__cadre {
-    display: grid;
-    gap: 28px;
-    padding: 20px;
-    background: var(--color-surface);
-    border-radius: var(--radius-large);
+  .avant-apres__curseur :global(.curseur) {
+    border-radius: 0;
   }
 
   .avant-apres__infos {
     display: flex;
-    flex-direction: column;
-    gap: 28px;
-    padding: 4px 8px 12px;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    padding-top: 28px;
   }
 
   .avant-apres__projet {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
   }
 
   .surtitre {
@@ -146,11 +119,6 @@ const lienProjet = projet ? `${chemin('realisations', langue)}${projet.id}/` : c
     text-decoration: underline;
   }
 
-  .avant-apres__texte {
-    font-size: var(--size-small);
-    color: var(--color-text);
-  }
-
   .avant-apres__pastilles {
     display: flex;
     flex-wrap: wrap;
@@ -162,76 +130,16 @@ const lienProjet = projet ? `${chemin('realisations', langue)}${projet.id}/` : c
 
   .avant-apres__pastilles li {
     padding: 8px 16px;
-    background: var(--color-bg);
+    background: var(--color-surface);
     border-radius: var(--radius-pill);
     font-size: var(--size-tiny);
     font-weight: 600;
     color: var(--color-ink);
   }
 
-  .avant-apres__autres {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .avant-apres__autres-titre {
-    font-size: var(--size-tiny);
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-muted);
-  }
-
-  .mini {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    min-height: var(--tap-min);
-    padding: 10px 16px 10px 10px;
-    background: var(--color-bg);
-    border-radius: var(--radius-small);
-    text-decoration: none;
-    transition: background-color var(--speed) var(--ease);
-  }
-
-  .mini:hover {
-    background: var(--color-surface-2);
-  }
-
-  .mini__vignette {
-    display: block;
-    width: 52px;
-    flex-shrink: 0;
-  }
-
-  .mini__vignette :global(> *) {
-    width: 100%;
-  }
-
-  .mini__nom {
-    flex: 1;
-    font-size: var(--size-small);
-    font-weight: 600;
-    color: var(--color-ink);
-  }
-
-  .mini__fleche {
-    display: inline-flex;
-    flex-shrink: 0;
-    color: var(--color-accent);
-  }
-
-  @media (min-width: 1000px) {
-    .avant-apres__cadre {
-      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-      align-items: center;
-      gap: 40px;
-      padding: 28px;
-    }
-
-    .avant-apres__infos {
-      padding: 0 12px 0 0;
+  @media (min-width: 700px) {
+    .avant-apres__curseur :global(.curseur) {
+      --ratio: 16 / 8;
     }
   }
 </style>

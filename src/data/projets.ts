@@ -42,3 +42,39 @@ export function galerieOrdonnee(projet: Projet) {
   const ordre = { detail: 0, chantier: 1 } as const;
   return [...projet.data.galerie].sort((a, b) => ordre[a.type] - ordre[b.type]);
 }
+
+export interface PaireAvecProjet {
+  projetId: string;
+  projetTitre: Record<Langue, string>;
+  commune: Record<Langue, string>;
+  avant: NonNullable<Projet['data']['avantApres'][number]['avant']>;
+  apres: NonNullable<Projet['data']['avantApres'][number]['apres']>;
+  legende: Record<Langue, string>;
+  categorie: string;
+}
+
+/**
+ * Toutes les paires avant/après de tous les projets publiés, peu importe
+ * le chantier d'origine — sert à les regrouper par type de pièce sur la
+ * page Réalisations. Seules les paires avec une vraie photo des deux
+ * côtés sont retenues (une légende seule, sans photo, ne sert à rien ici).
+ */
+export async function toutesLesPaires(): Promise<PaireAvecProjet[]> {
+  const projets = await listerProjets();
+  const paires: PaireAvecProjet[] = [];
+  for (const projet of projets) {
+    for (const paire of projet.data.avantApres) {
+      if (!paire.avant || !paire.apres) continue;
+      paires.push({
+        projetId: projet.id,
+        projetTitre: projet.data.titre,
+        commune: projet.data.commune,
+        avant: paire.avant,
+        apres: paire.apres,
+        legende: paire.legende,
+        categorie: paire.categorie,
+      });
+    }
+  }
+  return paires;
+}
