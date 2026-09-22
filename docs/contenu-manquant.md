@@ -429,6 +429,39 @@ La structure du site (une page par projet + une page par service) n'a pas
 changé : elle permet déjà d'ajouter facilement un nouveau projet quand un
 nouveau tag arrive, ce qui était la vraie question posée.
 
+### Round 3 : plus de pages vides accessibles (22 septembre 2026, encore plus tard)
+
+Sergiu est tombé sur une vraie incohérence : la page Services montrait une
+photo réelle de cuisine (empruntée au chantier de Woluwe-Saint-Pierre) sur la
+carte « Cuisines », mais le bouton « Voir le projet » renvoyait vers
+`cuisine-ixelles` — le seul projet marqué comme service « cuisines » — qui lui
+n'a aucune vraie photo de cuisine (juste une chambre voisine avec le même
+parquet). Le même problème touchait en fait la plupart des 8 services, parce
+que 5 des 7 projets n'ont encore aucune vraie photo.
+
+**Changement de règle** (`src/data/projets.ts`) : un projet n'apparaît nulle
+part sur le site public (page Réalisations, accueil, « voir le projet », page
+d'un autre projet) **tant qu'il n'a pas de vraie photo de couverture**. Rien
+n'est supprimé — les fichiers restent dans `src/content/projets/` — mais un
+visiteur ne peut plus tomber sur une page presque vide en cliquant quelque
+part. Dès qu'un projet reçoit une couverture, il réapparaît automatiquement
+partout, sans autre changement à faire.
+
+Conséquence immédiate : seul `renovation-woluwe-saint-pierre` est publié pour
+l'instant (18 pages construites au lieu de 28). C'est volontaire et normal :
+les 5 autres projets (Knokke, Ostende, toiture Woluwe, Watermael-Boitsfort)
+attendent encore leurs vraies photos (§ 12), et `cuisine-ixelles` attend une
+vraie photo de la cuisine elle-même (§ 13). Rien n'a été perdu : les 3 photos
+de chambre déjà ajoutées à `cuisine-ixelles` restent dans le fichier, prêtes
+à apparaître dès qu'une couverture est ajoutée.
+
+**La page Services montre maintenant plusieurs vraies photos par métier**
+(2 à 3, selon ce qu'on a), peu importe de quel projet elles viennent — plus
+besoin de cliquer pour se rendre compte qu'il n'y a rien. Le bouton
+« Voir le projet » ne s'affiche que quand un vrai projet publié correspond
+à ce service exact (aujourd'hui, seulement pour Rénovation complète, qui
+pointe vers Woluwe-Saint-Pierre).
+
 ### ⚠ Blocage technique du poste, sans rapport avec le site (contourné)
 
 Sur cette machine, la commande `git` du système (`/usr/bin/git`) échoue avec

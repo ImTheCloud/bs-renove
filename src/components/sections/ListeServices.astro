@@ -36,16 +36,23 @@ for (const projet of projets) {
     {
       services.map((service, index) => {
         const lies = projetsParService.get(service.slug) ?? [];
+        const photos = photosServices[service.slug] ?? [];
         return (
           <section id={service.slug} class:list={['metier', { 'metier--inverse': index % 2 === 1 }]}>
-            <div class="metier__visuel">
-              <PhotoProjet
-                image={photosServices[service.slug]}
-                alt={service.nom[langue]}
-                langue={langue}
-                ratio="4 / 3"
-                arrondi="var(--radius-photo)"
-              />
+            <div class:list={['metier__visuel', { 'metier__visuel--plusieurs': photos.length > 1 }]}>
+              {photos.length > 0 ? (
+                photos.map((photo, i) => (
+                  <PhotoProjet
+                    image={photo}
+                    alt={photos.length > 1 ? `${service.nom[langue]} ${i + 1}/${photos.length}` : service.nom[langue]}
+                    langue={langue}
+                    ratio="4 / 3"
+                    arrondi="var(--radius-photo)"
+                  />
+                ))
+              ) : (
+                <PhotoProjet alt={service.nom[langue]} langue={langue} ratio="4 / 3" arrondi="var(--radius-photo)" />
+              )}
             </div>
 
             <div class="metier__texte">
@@ -132,6 +139,12 @@ for (const projet of projets) {
     display: grid;
     gap: 28px;
     scroll-margin-top: 100px;
+  }
+
+  .metier__visuel--plusieurs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
 
   .metier__texte {

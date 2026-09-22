@@ -32,7 +32,7 @@ const bloc = textes.accueil.services;
         <li>
           <a href={`${chemin('services', langue)}#${service.slug}`} class="carte">
             <PhotoProjet
-              image={photosServices[service.slug]}
+              image={photosServices[service.slug]?.[0]}
               alt={service.nom[langue]}
               langue={langue}
               ratio="4 / 3"

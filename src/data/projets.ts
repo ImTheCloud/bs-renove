@@ -4,10 +4,20 @@ import type { Langue } from '~/i18n';
 
 export type Projet = CollectionEntry<'projets'>;
 
-/** Tous les projets, dans l'ordre choisi dans les fichiers. */
+/**
+ * Tous les projets publiables, dans l'ordre choisi dans les fichiers.
+ *
+ * Un projet est publiable dès qu'il a une vraie photo de couverture. En
+ * attendant, il reste dans `src/content/projets/` (rien n'est perdu) mais
+ * n'apparaît nulle part sur le site public : mieux vaut ne rien montrer
+ * qu'une page presque vide sur laquelle on peut tomber en cliquant.
+ * Il suffit d'ajouter une couverture pour qu'il apparaisse automatiquement.
+ */
 export async function listerProjets(): Promise<Projet[]> {
   const projets = await getCollection('projets');
-  return projets.sort((a, b) => a.data.ordre - b.data.ordre);
+  return projets
+    .filter((projet) => projet.data.couverture !== undefined)
+    .sort((a, b) => a.data.ordre - b.data.ordre);
 }
 
 /** Le projet mis en avant sur l'accueil. À défaut, le premier de la liste. */
