@@ -73,7 +73,7 @@ export const fr = {
       titreFin: 'mains.',
       texte:
         "Salles de bain, cuisines, carrelage, toiture et maçonnerie. On s'occupe de votre chantier du premier devis jusqu'à la dernière finition.",
-      atouts: ['Devis détaillé', 'Un seul interlocuteur', 'Français · Nederlands'],
+      atouts: ['Devis gratuit', 'Un seul interlocuteur', 'Français · Nederlands'],
       badgeUnite: 'ans',
       badgeTexte: 'de métier dans la construction',
 
@@ -100,10 +100,11 @@ export const fr = {
       texte:
         'Nous vous accompagnons à chaque étape de votre projet, pour une réalisation claire, efficace et sans mauvaises surprises.',
       points: [
-        'Devis détaillé',
+        'Devis gratuit et détaillé',
         'Suivi du chantier',
         'Interlocuteur unique',
         'Matériaux de qualité',
+        "Équipe d'une douzaine de personnes",
       ],
     },
 

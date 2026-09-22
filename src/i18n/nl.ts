@@ -77,7 +77,7 @@ export const nl: Traductions = {
       titreFin: 'handen.',
       texte:
         'Badkamers, keukens, tegelwerk, dakwerken en metselwerk. Wij begeleiden uw werf van de eerste offerte tot de laatste afwerking.',
-      atouts: ['Gedetailleerde offerte', 'Eén aanspreekpunt', 'Nederlands · Français'],
+      atouts: ['Gratis offerte', 'Eén aanspreekpunt', 'Nederlands · Français'],
       badgeUnite: 'jaar',
       badgeTexte: 'ervaring in de bouw',
 
@@ -104,10 +104,11 @@ export const nl: Traductions = {
       texte:
         'Wij begeleiden u bij elke stap van uw project, voor een duidelijke en efficiënte uitvoering, zonder onaangename verrassingen.',
       points: [
-        'Gedetailleerde offerte',
+        'Gratis en gedetailleerde offerte',
         'Opvolging van de werf',
         'Eén aanspreekpunt',
         'Kwaliteitsmaterialen',
+        'Team van een twaalftal mensen',
       ],
     },
 

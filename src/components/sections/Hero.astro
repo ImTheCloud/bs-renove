@@ -82,13 +82,12 @@ const etiquette = projet
 
     {etiquette && <span class="hero__etiquette">{etiquette}</span>}
 
-    <!-- Le nombre d'années n'est pas confirmé : on l'affiche tel quel. -->
     <div class="hero__badge">
       <span class="hero__badge-coche">
         <Icon nom="check" taille={22} epaisseur={2} />
       </span>
       <span class="hero__badge-texte">
-        <span class="hero__badge-nombre">[{textes.aConfirmer}] {hero.badgeUnite}</span>
+        <span class="hero__badge-nombre">{entreprise.anneesExperience} {hero.badgeUnite}</span>
         <span class="hero__badge-detail">{hero.badgeTexte}</span>
       </span>
     </div>

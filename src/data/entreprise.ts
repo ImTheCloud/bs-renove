@@ -25,6 +25,9 @@ export const entreprise = {
   whatsappNumero: '32485384390',
 
   email: 'Bivol.sergiu@hotmail.com' as string | null,
+
+  /** Confirmé par Sergiu le 22 septembre 2026. */
+  anneesExperience: 12,
 } as const;
 
 /** Adresse sur une ligne, pour le pied de page. */

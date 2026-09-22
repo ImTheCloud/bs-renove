@@ -11,7 +11,7 @@ Mis à jour le 21 septembre 2026 (fin de la phase 2).
 
 | # | Ce qui manque | Où ça sert | État |
 |---|---|---|---|
-| 1 | **Logo en fichier** (SVG de préférence) + le vrai bleu du logo | partout | ❌ logo texte provisoire |
+| 1 | ~~Logo en fichier~~ | partout | ✅ reçu, voir détail |
 | 2 | **Adresse définitive du site** (domaine acheté chez Wix) | `astro.config.mjs`, `robots.txt`, sitemap, balises canoniques, **et la redirection du formulaire de devis** | ⚠️ provisoire : `bs-renove.pages.dev` |
 | 3 | **Relecture néerlandaise par un natif** | tout le site | ❌ jamais relu |
 
@@ -24,10 +24,15 @@ maintenant automatiquement (bloc contact, pied de page, mentions légales, vie p
 C'est une adresse personnelle (Hotmail) plutôt qu'une adresse professionnelle : à voir avec
 Sergiu s'il préfère en créer une dédiée à l'entreprise plus tard.
 
-**2. Logo.** En attendant, `src/components/Logo.astro` affiche « BS Renove » en texte,
-avec « Entreprise générale » dessous. Pour le remplacer : coller le SVG dans ce fichier,
-sans changer le nom du composant. Le bleu `--color-accent: #2f5bd3` de
-`src/styles/tokens.css` est provisoire et devra être calé sur celui du logo — une seule ligne à changer.
+**2. Logo — ✅ reçu le 22 septembre 2026**, `src/assets/marque/icone-logo.png`, affiché
+via `src/components/Logo.astro` à côté du nom « BS Renove ». **Limite technique** : le
+fichier reçu est un PNG à fond blanc opaque (pas transparent), donc il n'est affiché que
+sur fond clair (en-tête, pied de page) — nulle part actuellement sur fond ink, donc pas
+de souci pour l'instant, mais à garder en tête si on veut le poser sur un fond coloré plus
+tard. Une version en SVG ou en PNG à fond transparent réglerait ça, si Sergiu en a une.
+Le bleu `--color-accent: #2f5bd3` de `src/styles/tokens.css` reste provisoire : le bleu du
+logo reçu semble assez proche, mais pas encore calé dessus au pixel — une seule ligne à
+changer si besoin.
 
 **3. Adresse du site.** Le domaine est acheté chez Wix mais pas encore branché.
 Valeur provisoire à trois endroits : la constante `SITE` dans `astro.config.mjs`,
@@ -49,12 +54,28 @@ Rien de tout ceci n'est écrit sur le site tant que le client ne l'a pas confirm
 
 | Information | Où ça servirait | État |
 |---|---|---|
-| Années d'expérience de Sergiu | badge du hero « [X] ans de métier » | ❌ à demander |
-| Taille de l'équipe | section « Pourquoi BS Renove » | ❌ ne pas écrire « notre équipe » |
-| Garantie sur les travaux | arguments, bloc contact | ❌ ne rien afficher |
-| Devis gratuit (oui / non) | boutons, page contact | ❌ ne rien affirmer |
-| Assurance (responsabilité, décennale) | page contact, mentions légales | ❌ ne rien afficher |
+| ~~Années d'expérience de Sergiu~~ | badge du hero | ✅ 12 ans, voir détail |
+| ~~Taille de l'équipe~~ | section « Pourquoi BS Renove » | ✅ voir détail |
+| Garantie sur les travaux | arguments, bloc contact | ✅ **tranché** : rien à afficher, ça dépend du chantier — ne pas redemander |
+| ~~Devis gratuit (oui / non)~~ | boutons, page contact | ✅ oui, voir détail |
+| Assurance (responsabilité, décennale) | page contact, mentions légales | ❌ à demander |
 | Avis clients | — | ❌ aucun : pas de section avis prévue |
+
+### Détail (reçu le 22 septembre 2026, par message à Sergiu)
+
+- **Années d'expérience : 12 ans.** Dans `src/data/entreprise.ts`
+  (`anneesExperience`), affiché dans le badge du hero (`Hero.astro`).
+- **Équipe : une douzaine de personnes, avec des indépendants.** Sergiu ne
+  salarie pas tout le monde en direct, il travaille aussi avec des
+  indépendants — phrase choisie pour rester exacte (« Équipe d'une douzaine
+  de personnes », pas « nos employés »). Ajouté à la liste « Pourquoi BS
+  Renove » sur l'accueil.
+- **Garantie : pas de réponse à afficher.** Sergiu ne veut rien affirmer
+  ici parce que ça dépend du chantier — ce n'est pas une info qui manque
+  encore, c'est une décision de ne rien dire. Le site n'affiche donc rien
+  sur ce sujet, comme avant, mais **ne plus reposer la question**.
+- **Devis gratuit : oui.** Ajouté dans les atouts du hero (« Devis gratuit »)
+  et dans la liste « Pourquoi BS Renove » (« Devis gratuit et détaillé »).
 
 ---
 

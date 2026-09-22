@@ -1,9 +1,13 @@
 ---
 /**
  * Logo de l'entreprise.
- * Version texte en attendant le vrai fichier SVG du client.
- * Pour le remplacer : mettre le SVG ici, garder le même nom de composant.
+ * Le fichier reçu du client est un PNG à fond blanc opaque (pas de fond
+ * transparent) : on ne peut donc l'afficher que sur fond clair. Sur fond
+ * ink (bloc contact, pied de page), on garde le texte seul en attendant
+ * une version à fond transparent.
  */
+import { Image } from 'astro:assets';
+import icone from '~/assets/marque/icone-logo.png';
 import { entreprise } from '../data/entreprise';
 import { t, type Langue } from '../i18n';
 
@@ -18,19 +22,35 @@ const textes = t(langue);
 ---
 
 <span class:list={['logo', { 'logo--fonce': surFonce }]}>
-  <span class="logo__nom">
-    BS <span class="logo__nom-suite">Renove</span>
+  {!surFonce && <Image src={icone} alt="" width={40} height={40} class="logo__icone" />}
+  <span class="logo__texte">
+    <span class="logo__nom">
+      BS <span class="logo__nom-suite">Renove</span>
+    </span>
+    <span class="logo__tagline">{textes.entete.tagline}</span>
   </span>
-  <span class="logo__tagline">{textes.entete.tagline}</span>
   <span class="sr-only">{entreprise.nomLegal}</span>
 </span>
 
 <style>
   .logo {
     display: flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 1;
+  }
+
+  .logo__icone {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border-radius: var(--radius-small);
+  }
+
+  .logo__texte {
+    display: flex;
     flex-direction: column;
     gap: 3px;
-    line-height: 1;
   }
 
   .logo__nom {
@@ -62,6 +82,11 @@ const textes = t(langue);
   }
 
   @media (min-width: 900px) {
+    .logo__icone {
+      width: 40px;
+      height: 40px;
+    }
+
     .logo__nom {
       font-size: 28px;
     }
