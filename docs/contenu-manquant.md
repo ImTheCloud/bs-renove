@@ -186,26 +186,18 @@ le fichier YAML si le client préfère un autre chantier en vitrine.
 
 ## 9. Ajouté en phase 4 : services, contact et formulaire
 
-### Bloquant : la clé du formulaire
+### ~~Bloquant~~ : la clé du formulaire — ✅ faite le 22 septembre 2026
 
-Le formulaire de devis passe par **Web3Forms**. Sans clé, il ne s'affiche pas :
-un encadré visible invite à appeler ou à écrire sur WhatsApp. Aucun formulaire cassé.
+Sergiu a créé son compte Web3Forms et donné la clé. Elle est dans `.env`
+(jamais envoyé sur GitHub, comme prévu) : le vrai formulaire de devis
+s'affiche maintenant, plus l'encadré « appelez ou écrivez sur WhatsApp ».
 
-**Comment l'obtenir** : aller sur https://web3forms.com, donner l'adresse email qui
-doit recevoir les demandes, la clé arrive par email. Puis :
-
-```
-cp .env.example .env
-# coller la clé dans .env, à la place de WEB3FORMS_KEY=
-```
-
-**La clé n'est pas un secret** : Web3Forms fonctionne sans serveur, donc elle est
-forcément visible dans le code des pages de contact. Elle ne permet que d'envoyer
-un message vers l'adresse email associée. Elle est mise dans `.env` pour pouvoir
-la changer sans toucher au code, pas pour la cacher.
-
-Le fichier `.env` n'est jamais envoyé sur GitHub. Il faudra aussi renseigner cette
-clé chez l'hébergeur (Cloudflare Pages ou Netlify) au moment de la mise en ligne.
+**Reste à faire une seule fois, au moment de choisir l'hébergeur** (Cloudflare
+Pages ou Netlify, § 6) : recopier cette même clé dans les variables
+d'environnement de l'hébergeur, sous le même nom `WEB3FORMS_KEY`. Sans ça, le
+site déployé n'aura pas la clé (elle n'est jamais sur GitHub) et le formulaire
+retombera sur l'encadré « appelez ou écrivez sur WhatsApp ». La clé elle-même :
+`dce50bf7-6fc0-4d72-a1f4-c50d5916038c`.
 
 ### Bloquant : la page vie privée
 
