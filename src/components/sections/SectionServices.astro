@@ -1,8 +1,9 @@
 ---
 import Bouton from '../Bouton.astro';
 import Icon from '../Icon.astro';
-import PhotoAVenir from '../PhotoAVenir.astro';
+import PhotoProjet from '../PhotoProjet.astro';
 import { services } from '~/data/services';
+import { photosServices } from '~/data/services-photos';
 import { chemin, t, type Langue } from '~/i18n';
 
 interface Props {
@@ -30,7 +31,12 @@ const bloc = textes.accueil.services;
       services.map((service) => (
         <li>
           <a href={`${chemin('services', langue)}#${service.slug}`} class="carte">
-            <PhotoAVenir langue={langue} legende={service.nom[langue]} ratio="4 / 3" />
+            <PhotoProjet
+              image={photosServices[service.slug]}
+              alt={service.nom[langue]}
+              langue={langue}
+              ratio="4 / 3"
+            />
             <div class="carte__texte">
               <div class="carte__ligne">
                 <h3>{service.nom[langue]}</h3>

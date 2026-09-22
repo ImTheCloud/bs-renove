@@ -7,28 +7,93 @@ commune:
 service: renovation-complete
 ordre: 6
 misEnAvant: false
+couverture: ../../assets/projets/renovation-woluwe-saint-pierre/cover.jpg
 couvertureAlt:
-  fr: "[À CONFIRMER : ce que montre la photo de couverture]"
-  nl: "[TE BEVESTIGEN: wat de omslagfoto toont]"
+  fr: Séjour rénové avec cuisine ouverte et baie vitrée donnant sur le jardin
+  nl: Gerenoveerde woonkamer met open keuken en glaspartij naar de tuin
 recit:
   fr:
-    depart: "[À CONFIRMER : l'état au départ, en une ou deux phrases.]"
-    travaux: "[À CONFIRMER : les travaux réalisés, dans l'ordre.]"
+    depart: "[À CONFIRMER : l'état général de la maison au départ, en une ou deux phrases.]"
+    travaux: "Rénovation complète de la maison : plomberie et électricité entièrement reprises, nouvelle salle de bain avec douche à l'italienne, toilette refaite, deux escaliers (intérieur et garage), plafonds, cuisine, et auvent d'entrée."
     resultat: "[À CONFIRMER : le résultat, vu par le propriétaire.]"
   nl:
-    depart: "[TE BEVESTIGEN: de begintoestand, in één of twee zinnen.]"
-    travaux: "[TE BEVESTIGEN: de uitgevoerde werken, in volgorde.]"
+    depart: "[TE BEVESTIGEN: de algemene toestand van de woning bij aanvang, in één of twee zinnen.]"
+    travaux: "Volledige renovatie van de woning: loodgieterij en elektriciteit volledig vernieuwd, nieuwe badkamer met inloopdouche, nieuw toilet, twee trappen (binnen en garage), plafonds, keuken en luifel boven de voordeur."
     resultat: "[TE BEVESTIGEN: het resultaat, gezien door de eigenaar.]"
 avantApres:
-  - legende:
-      fr: "[À CONFIRMER : ce que montre la comparaison]"
-      nl: "[TE BEVESTIGEN: wat de vergelijking toont]"
+  - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-1.jpg
+    apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-1.jpg
+    legende:
+      fr: Salle de bain avec douche à l'italienne
+      nl: Badkamer met inloopdouche
+  - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-2.jpg
+    apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-2.jpg
+    legende:
+      fr: Séjour et cuisine ouverte
+      nl: Woonkamer en open keuken
+  - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-3.jpg
+    apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-3.jpg
+    legende:
+      fr: Auvent au-dessus de la porte d'entrée
+      nl: Luifel boven de voordeur
+  - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-4.jpg
+    apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-4.jpg
+    legende:
+      fr: Escalier du garage
+      nl: Trap naar de garage
+  - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-5.jpg
+    apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-5.jpg
+    legende:
+      fr: Escalier principal
+      nl: Hoofdtrap
+  - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-6.jpg
+    apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-6.jpg
+    legende:
+      fr: Toilette
+      nl: Toilet
 galerie:
-  - alt:
-      fr: "[À CONFIRMER : ce que montre la photo]"
-      nl: "[TE BEVESTIGEN: wat de foto toont]"
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-1.jpg
+    alt:
+      fr: Double vasque avec miroirs lumineux
+      nl: Dubbele wastafel met verlichte spiegels
     type: detail
-  - alt:
-      fr: "[À CONFIRMER : ce que montre la photo]"
-      nl: "[TE BEVESTIGEN: wat de foto toont]"
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-2.jpg
+    alt:
+      fr: Douche sous les combles
+      nl: Douche onder het schuine dak
+    type: detail
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-3.jpg
+    alt:
+      fr: Cuisine ouverte avec îlot central
+      nl: Open keuken met kookeiland
+    type: detail
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-4.jpg
+    alt:
+      fr: Détail de l'îlot carrelé de la cuisine
+      nl: Detail van het betegelde kookeiland
+    type: detail
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-5.jpg
+    alt:
+      fr: Terrasse dallée le long de la maison
+      nl: Betegeld terras langs de woning
+    type: detail
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-6.jpg
+    alt:
+      fr: Terrasse et jardin
+      nl: Terras en tuin
+    type: detail
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-7.jpg
+    alt:
+      fr: Terrasse vue depuis la maison
+      nl: Terras gezien vanuit de woning
+    type: detail
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-1.jpg
+    alt:
+      fr: Passage des tuyaux avant la chape
+      nl: Leidingen voor het storten van de dekvloer
+    type: chantier
+  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-2.jpg
+    alt:
+      fr: Combles en cours de plafonnage
+      nl: Zolder tijdens het plafonneren
     type: chantier

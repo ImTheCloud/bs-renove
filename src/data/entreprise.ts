@@ -24,8 +24,7 @@ export const entreprise = {
   /** Pour le lien WhatsApp (sans + ni espaces). */
   whatsappNumero: '32485384390',
 
-  /** Pas encore communiqué : voir docs/contenu-manquant.md. */
-  email: null as string | null,
+  email: 'Bivol.sergiu@hotmail.com' as string | null,
 } as const;
 
 /** Adresse sur une ligne, pour le pied de page. */

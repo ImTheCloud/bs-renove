@@ -11,16 +11,18 @@ Mis à jour le 21 septembre 2026 (fin de la phase 2).
 
 | # | Ce qui manque | Où ça sert | État |
 |---|---|---|---|
-| 1 | **Adresse email** de l'entreprise | bloc contact, pied de page, mentions légales, vie privée | ❌ absent |
-| 2 | **Logo en fichier** (SVG de préférence) + le vrai bleu du logo | partout | ❌ logo texte provisoire |
-| 3 | **Adresse définitive du site** (domaine acheté chez Wix) | `astro.config.mjs`, `robots.txt`, sitemap, balises canoniques, **et la redirection du formulaire de devis** | ⚠️ provisoire : `bs-renove.pages.dev` |
-| 4 | **Relecture néerlandaise par un natif** | tout le site | ❌ jamais relu |
+| 1 | **Logo en fichier** (SVG de préférence) + le vrai bleu du logo | partout | ❌ logo texte provisoire |
+| 2 | **Adresse définitive du site** (domaine acheté chez Wix) | `astro.config.mjs`, `robots.txt`, sitemap, balises canoniques, **et la redirection du formulaire de devis** | ⚠️ provisoire : `bs-renove.pages.dev` |
+| 3 | **Relecture néerlandaise par un natif** | tout le site | ❌ jamais relu |
 
 ### Détail
 
-**1. Email.** Aucun email n'a été communiqué. Il est obligatoire dans les mentions légales
-et dans la page vie privée (contact pour les droits RGPD). Pour l'instant `entreprise.email`
-vaut `null` dans `src/data/entreprise.ts` : aucun email inventé n'apparaît nulle part.
+**1. Email — ✅ reçu le 22 septembre 2026** : `Bivol.sergiu@hotmail.com`, renseigné dans
+`src/data/entreprise.ts`. Comme tout le site lit cette seule valeur, il n'y avait qu'un
+fichier à modifier : les 8 endroits qui affichaient `[À CONFIRMER : email]` l'affichent
+maintenant automatiquement (bloc contact, pied de page, mentions légales, vie privée…).
+C'est une adresse personnelle (Hotmail) plutôt qu'une adresse professionnelle : à voir avec
+Sergiu s'il préfère en créer une dédiée à l'entreprise plus tard.
 
 **2. Logo.** En attendant, `src/components/Logo.astro` affiche « BS Renove » en texte,
 avec « Entreprise générale » dessous. Pour le remplacer : coller le SVG dans ce fichier,
@@ -290,25 +292,15 @@ efface à la compression). Triées en plusieurs temps : analyse technique (nette
 doublons) sur les 872, puis classification visuelle par lecture réelle des photos,
 dossier par dossier.
 
-### Fait : 6 projets ont maintenant de vraies photos
+### Fait le 21 septembre : 6 projets avaient de vraies photos — **annulé depuis**
 
-| Projet | Commune | Couverture | Avant/après | Galerie |
-|---|---|---|---|---|
-| `salle-de-bain-knokke` | Knokke | ✅ | ✅ 1 paire | 4 photos |
-| `cuisine-ixelles` | Ixelles | ✅ | — | 5 photos |
-| `toiture-woluwe-saint-pierre` | Woluwe-Saint-Pierre | ✅ | — | 5 photos |
-| `renovation-interieure-ostende` | Ostende | ✅ | — | 5 photos |
-| `salle-de-bain-watermael-boitsfort` | Watermael-Boitsfort | ✅ | — | 4 photos |
-| `renovation-woluwe-saint-pierre` **(nouveau)** | Woluwe-Saint-Pierre | ✅ | — | 4 photos |
+Sergiu a jugé cette première sélection automatique inutilisable (« il n'y a rien
+qui va ») : trop de chantiers en désordre, pas assez de résultats finis et soignés.
+**Toutes les photos de cette première passe ont été retirées des 7 projets** (retour
+à l'état `[À CONFIRMER]` partout). Voir § 13 pour ce qui les remplace.
 
-Le brief prévoyait 5 projets candidats ; les photos reçues en montrent en réalité
-**7** (Watermael-Boitsfort et Woluwe-Saint-Pierre ont chacun deux chantiers
-distincts). Le récit de chaque projet (`recit.depart/travaux/resultat`, durée en
-semaines) reste à écrire avec Sergiu : je ne peux pas l'inventer à partir des photos.
-
-**Une photo a été écartée et supprimée** : elle montrait le numéro de la maison sur
-la façade, ainsi qu'un email personnel sur la camionnette. Vérifié à l'œil sur
-chaque photo de couverture et sur les photos extérieures ; aucune autre trouvée.
+**Une photo avait été écartée et supprimée à cette occasion** : elle montrait le
+numéro de la maison sur la façade, ainsi qu'un email personnel sur la camionnette.
 
 ### Reste à trier : 632 photos, dans 9 dossiers sans commune connue
 
@@ -334,3 +326,88 @@ Toujours dans `~/Downloads`, intactes. Rien n'a été supprimé de ce dossier : 
 9 dossiers non triés en ont encore besoin, et même les 7 dossiers déjà traités
 gardent leurs photos non retenues, au cas où un meilleur choix serait souhaité
 plus tard (par exemple une fois le récit de chaque projet connu).
+
+---
+
+## 13. Tri par tags Finder (22 septembre 2026)
+
+Après le rejet de la première sélection (§ 12), Sergiu a proposé une meilleure
+méthode : il classe lui-même les photos avec des tags Finder (couleur, puis noms
+personnalisés par pièce/type de travaux) directement sur son Mac, et je les lis
+par programme pour construire le contenu. Deux outils permanents ont été écrits
+pour ça, dans `scripts/` :
+
+- `scanner-tags-finder.mjs` : parcourt un dossier et liste chaque photo taguée
+  avec ses tags.
+- `decoder-tags-finder.mjs` : lit le tag Finder d'un fichier (format binaire
+  propriétaire d'Apple, que `plutil` ne sait pas lire).
+
+**À réutiliser telles quelles la prochaine fois que Sergiu tague de nouvelles
+photos** : `node scripts/scanner-tags-finder.mjs ~/Downloads sortie.json`.
+
+### Découverte : deux gros dossiers non triés en faisaient partie
+
+Les dossiers « Rénovation intérieur 2 » et « Rénovation intérieur extérieur »
+(198 photos, listés comme « à examiner » au § 12) sont en réalité **le même
+chantier** que le petit dossier tagué « Avenue Manoir d'Anjou, Woluwe-Saint-Pierre » :
+Sergiu l'a confirmé en taguant les trois dossiers ensemble. Un des plus gros
+blocages du tri précédent est donc résolu.
+
+### 14 tags traités → 2 projets enrichis
+
+| Projet | Tags utilisés | Couverture | Avant/après | Galerie |
+|---|---|---|---|---|
+| `renovation-woluwe-saint-pierre` | Plomberie, Electriciter, Sale De Bain, Toilette, Chambres, Escaliers, Escalier Garage, Plafond, CuisinesInterieur, Terasse exterieur, TerrasseGarage, ToitPorte | ✅ | ✅ 6 paires | 9 photos |
+| `cuisine-ixelles` | Orange (chambre avec le même parquet que la cuisine, même adresse) | — *(inchangée)* | — | +3 photos |
+
+Le récit (`recit.depart/travaux/resultat`), la description de la photo de
+couverture (`couvertureAlt`) et la durée du chantier restent `[À CONFIRMER]`
+pour `renovation-woluwe-saint-pierre` : je peux décrire ce qu'une photo montre,
+pas raconter le chantier vu par le propriétaire. `cuisine-ixelles` n'a toujours
+aucune photo de la cuisine elle-même (seulement de la chambre voisine, avec le
+même parquet) : sa couverture, son récit et sa légende avant/après restent donc
+`[À CONFIRMER]` aussi, en attendant de vraies photos de la cuisine.
+
+Un 14ᵉ tag (« Parquet/fenetre/vitre/plafond », posé sur un chantier sans adresse
+connue) a servi de photo d'illustration pour le service **Rénovation complète**
+(`src/data/services-photos.ts`) plutôt que pour un projet : impossible de le
+présenter comme une réalisation sans savoir où c'est.
+
+### Photos écartées pour la vie privée (7 au total, ce round)
+
+Repérées à l'œil, une par une, avant tout import — jamais seulement à partir du
+texte généré automatiquement :
+
+- **Terasse exterieur** (5 photos) : numéro de maison « 58 » visible sur la
+  façade (3 photos), plaques d'immatriculation lisibles et numéro de téléphone
+  de l'entreprise affiché sur une camionnette (1 photo), personne et véhicule
+  visibles au loin (1 photo).
+- **Parquet/fenetre/vitre/plafond** (4 photos) : sacs de gravats d'un fournisseur
+  avec coordonnées lisibles (1 photo), plan du logement scotché sur une porte,
+  visible en arrière-plan (3 photos).
+
+Les paires avant/après qui utilisaient une de ces photos ont été écartées avec ;
+des photos propres du même tag ont servi à la place quand c'était possible
+(c'est le cas pour la terrasse et pour le parquet, tous deux présents dans la
+galerie finale avec d'autres clichés).
+
+### Reste à faire
+
+- Les **5 projets de la première sélection** (Knokke, Ostende, toiture Woluwe,
+  Watermael-Boitsfort) sont toujours sans aucune photo : à retraiter avec la
+  méthode des tags Finder quand Sergiu aura le temps de les taguer.
+- Les **9 dossiers sans commune connue** du § 12 (632 photos) n'ont pas bougé.
+- `cuisine-ixelles` a besoin de vraies photos de la cuisine elle-même.
+- Le récit de `renovation-woluwe-saint-pierre` (au départ / travaux / résultat)
+  et sa durée en semaines, à écrire avec Sergiu.
+- **Sergiu a prévenu qu'il continuerait à taguer des photos au fil de l'eau** :
+  relancer le même pipeline (scanner → lecture visuelle personnelle → sélection →
+  `sharp` pour nettoyer les métadonnées → import) à chaque nouveau lot.
+
+### ⚠ Blocage technique du poste, sans rapport avec le site (contourné)
+
+Sur cette machine, la commande `git` du système (`/usr/bin/git`) échoue avec
+*« You have not agreed to the Xcode license agreements »* tant que personne n'a
+lancé `sudo xcodebuild -license accept` dans un Terminal (mot de passe requis).
+En attendant, le git livré avec Xcode fonctionne directement sans ce blocage :
+`/Applications/Xcode.app/Contents/Developer/usr/bin/git`.
