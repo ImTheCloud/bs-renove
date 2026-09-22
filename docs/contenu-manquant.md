@@ -88,14 +88,17 @@ Rien de tout ceci n'est écrit sur le site tant que le client ne l'a pas confirm
 
 ## 3. Photos
 
+*(Tableau d'origine, avant qu'aucune photo n'existe. Mis à jour le 22 septembre —
+voir §§ 12 à 14 pour le détail de ce qui a été ajouté depuis.)*
+
 | Photo | Où | État |
 |---|---|---|
-| Photo principale du hero (la plus belle réalisation, format horizontal) | accueil | ❌ manquante |
-| Photo de Sergiu sur un chantier | section « Pourquoi BS Renove » | ❌ manquante |
-| Une photo par service (8 services) | accueil et page services | ❌ manquantes |
-| Paires avant / après, même angle | accueil, pages projets | ❌ manquantes |
-| Photos de détails et de chantier | pages projets | ❌ manquantes |
-| Image de partage (réseaux sociaux, 1200×630) | balises Open Graph | ❌ manquante |
+| ~~Photo principale du hero~~ | accueil | ✅ celle de Woluwe-Saint-Pierre |
+| Photo de Sergiu sur un chantier | section « Pourquoi BS Renove » | ❌ toujours manquante |
+| ~~Une photo par service~~ | accueil et page services | ✅ 6 services sur 8 ; les 2 restants sont masqués plutôt que d'afficher un cadre vide (§ 15) |
+| ~~Paires avant / après~~ | accueil, pages projets | ✅ plusieurs, sur 4 des 5 projets publiés |
+| ~~Photos de détails et de chantier~~ | pages projets | ✅ une centaine au total |
+| ~~Image de partage~~ | balises Open Graph | ✅ générée (provisoire : logo + couleurs, pas une vraie photo) |
 
 **Deux règles pour les photos :**
 
