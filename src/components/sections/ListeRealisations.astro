@@ -53,7 +53,7 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
               <CurseurAvantApres
                 langue={langue}
                 id={`curseur-${paire.projetId}-${index}`}
-                ratio="4 / 3"
+                ratio="3 / 2"
                 precision={paire.legende[langue]}
               >
                 <PhotoProjet
@@ -61,7 +61,7 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
                   image={paire.avant}
                   alt={textes.photos.avant}
                   langue={langue}
-                  ratio="4 / 3"
+                  ratio="3 / 2"
                   ton="moyen"
                   prioritaire={index === 0}
                 />
@@ -70,7 +70,7 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
                   image={paire.apres}
                   alt={textes.photos.apres}
                   langue={langue}
-                  ratio="4 / 3"
+                  ratio="3 / 2"
                   ton="fonce"
                   prioritaire={index === 0}
                 />
@@ -184,11 +184,12 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
   .liste__paires {
     display: flex;
     flex-direction: column;
-    gap: 64px;
+    gap: 40px;
   }
 
   .paire {
-    margin: 0;
+    max-width: 780px;
+    margin: 0 auto;
   }
 
   .paire__legende {
@@ -235,11 +236,11 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
 
   @media (min-width: 900px) {
     .liste__paires {
-      gap: 96px;
+      gap: 56px;
     }
 
     .paire__texte {
-      font-size: 28px;
+      font-size: 22px;
     }
   }
 </style>

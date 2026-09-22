@@ -27,15 +27,15 @@ const lienProjet = projet ? `${chemin('realisations', langue)}${projet.id}/` : c
 
 {
   projet && paire && (
-    <section id="realisations" class="avant-apres">
+    <section id="realisations" class="wrap avant-apres">
       <div class="avant-apres__curseur">
-        <CurseurAvantApres langue={langue} id="curseur-accueil" ratio="4 / 3" precision={paire.legende[langue]}>
+        <CurseurAvantApres langue={langue} id="curseur-accueil" ratio="16 / 9" precision={paire.legende[langue]}>
           <PhotoProjet
             slot="avant"
             image={paire.avant}
             alt={textes.photos.avant}
             langue={langue}
-            ratio="4 / 3"
+            ratio="16 / 9"
             ton="moyen"
             prioritaire
           />
@@ -44,14 +44,14 @@ const lienProjet = projet ? `${chemin('realisations', langue)}${projet.id}/` : c
             image={paire.apres}
             alt={textes.photos.apres}
             langue={langue}
-            ratio="4 / 3"
+            ratio="16 / 9"
             ton="fonce"
             prioritaire
           />
         </CurseurAvantApres>
       </div>
 
-      <div class="wrap avant-apres__infos">
+      <div class="avant-apres__infos">
         <div class="avant-apres__projet">
           <span class="surtitre">{bloc.surtitre}</span>
           <h2 class="avant-apres__titre">
@@ -76,10 +76,6 @@ const lienProjet = projet ? `${chemin('realisations', langue)}${projet.id}/` : c
 <style>
   .avant-apres {
     padding-block: var(--section-gap) 0;
-  }
-
-  .avant-apres__curseur :global(.curseur) {
-    border-radius: 0;
   }
 
   .avant-apres__infos {
@@ -135,11 +131,5 @@ const lienProjet = projet ? `${chemin('realisations', langue)}${projet.id}/` : c
     font-size: var(--size-tiny);
     font-weight: 600;
     color: var(--color-ink);
-  }
-
-  @media (min-width: 700px) {
-    .avant-apres__curseur :global(.curseur) {
-      --ratio: 16 / 8;
-    }
   }
 </style>
