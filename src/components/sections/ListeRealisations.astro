@@ -79,7 +79,7 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
                 <span class="paire__categorie">{nomCategorie(paire.categorie, langue)}</span>
                 <span class="paire__texte">{paire.legende[langue]}</span>
                 <a href={`${chemin('realisations', langue)}${paire.projetId}/`} class="paire__lien">
-                  {bloc.voirLeProjet} · {paire.commune[langue]}
+                  {bloc.voirLeProjet}
                 </a>
               </figcaption>
             </figure>

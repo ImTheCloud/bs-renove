@@ -7,7 +7,8 @@
 import Bouton from '../Bouton.astro';
 import CurseurAvantApres from '../CurseurAvantApres.astro';
 import PhotoProjet from '../PhotoProjet.astro';
-import { nomService, projetMisEnAvant } from '~/data/projets';
+import { nomCategorie } from '~/data/categories';
+import { projetMisEnAvant } from '~/data/projets';
 import { chemin, t, type Langue } from '~/i18n';
 
 interface Props {
@@ -18,10 +19,11 @@ const { langue } = Astro.props;
 const textes = t(langue);
 const bloc = textes.accueil.avantApres;
 
-// Le projet mis en avant vient de src/content/projets/, plus d'un texte en dur.
+// Le projet mis en avant vient de src/content/projets/. Le titre affiché dit
+// ce que c'est (la pièce), jamais où c'est — pas de commune, pas de nom de projet.
 const projet = await projetMisEnAvant();
-const service = projet ? nomService(projet.data.service, langue) : undefined;
 const paire = projet?.data.avantApres[0];
+const titre = paire ? nomCategorie(paire.categorie, langue) : undefined;
 const lienProjet = projet ? `${chemin('realisations', langue)}${projet.id}/` : chemin('realisations', langue);
 ---
 
@@ -55,14 +57,9 @@ const lienProjet = projet ? `${chemin('realisations', langue)}${projet.id}/` : c
         <div class="avant-apres__projet">
           <span class="surtitre">{bloc.surtitre}</span>
           <h2 class="avant-apres__titre">
-            <a href={lienProjet}>{projet.data.titre[langue]}</a>
+            <a href={lienProjet}>{titre}</a>
           </h2>
-          {(service || paire) && (
-            <ul class="avant-apres__pastilles">
-              {service && <li>{service}</li>}
-              <li>{paire.legende[langue]}</li>
-            </ul>
-          )}
+          <p class="avant-apres__legende">{paire.legende[langue]}</p>
         </div>
 
         <Bouton href={chemin('realisations', langue)} variante="secondaire" iconeApres="fleche">
@@ -122,21 +119,8 @@ const lienProjet = projet ? `${chemin('realisations', langue)}${projet.id}/` : c
     text-decoration: underline;
   }
 
-  .avant-apres__pastilles {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin: 4px 0 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .avant-apres__pastilles li {
-    padding: 8px 16px;
-    background: var(--color-surface);
-    border-radius: var(--radius-pill);
-    font-size: var(--size-tiny);
-    font-weight: 600;
-    color: var(--color-ink);
+  .avant-apres__legende {
+    font-size: var(--size-small);
+    color: var(--color-text);
   }
 </style>

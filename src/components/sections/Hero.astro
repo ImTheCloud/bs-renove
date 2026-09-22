@@ -3,6 +3,7 @@ import Bouton from '../Bouton.astro';
 import Icon from '../Icon.astro';
 import PhotoProjet from '../PhotoProjet.astro';
 import { entreprise, lienDevis, lienWhatsApp } from '~/data/entreprise';
+import { nomCategorie } from '~/data/categories';
 import { projetMisEnAvant } from '~/data/projets';
 import { t, type Langue } from '~/i18n';
 
@@ -14,11 +15,10 @@ const { langue } = Astro.props;
 const textes = t(langue);
 const hero = textes.accueil.hero;
 
-// L'étiquette de la photo vient du projet mis en avant, pas d'un texte en dur.
+// L'étiquette de la photo dit ce que c'est (la pièce), jamais où c'est.
 const projet = await projetMisEnAvant();
-const etiquette = projet
-  ? `${projet.data.titre[langue]} · ${projet.data.commune[langue]}`
-  : undefined;
+const categorie = projet?.data.avantApres[0]?.categorie;
+const etiquette = categorie ? nomCategorie(categorie, langue) : undefined;
 ---
 
 <section class="wrap hero">
