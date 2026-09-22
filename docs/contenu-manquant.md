@@ -25,14 +25,11 @@ C'est une adresse personnelle (Hotmail) plutôt qu'une adresse professionnelle :
 Sergiu s'il préfère en créer une dédiée à l'entreprise plus tard.
 
 **2. Logo — ✅ reçu le 22 septembre 2026**, `src/assets/marque/icone-logo.png`, affiché
-via `src/components/Logo.astro` à côté du nom « BS Renove ». **Limite technique** : le
-fichier reçu est un PNG à fond blanc opaque (pas transparent), donc il n'est affiché que
-sur fond clair (en-tête, pied de page) — nulle part actuellement sur fond ink, donc pas
-de souci pour l'instant, mais à garder en tête si on veut le poser sur un fond coloré plus
-tard. Une version en SVG ou en PNG à fond transparent réglerait ça, si Sergiu en a une.
-Le bleu `--color-accent: #2f5bd3` de `src/styles/tokens.css` reste provisoire : le bleu du
-logo reçu semble assez proche, mais pas encore calé dessus au pixel — une seule ligne à
-changer si besoin.
+via `src/components/Logo.astro` à côté du nom « BS Renove », en-tête et pied de page.
+Le fichier reçu avait un fond blanc opaque ; détouré (fond transparent) le même jour à
+la demande de Sergiu, s'affiche maintenant proprement sur n'importe quel fond. La couleur
+`--color-accent: #0066b4` de `src/styles/tokens.css` est calée sur le bleu du logo
+(mesurée directement sur le fichier).
 
 **3. Adresse du site.** Le domaine est acheté chez Wix mais pas encore branché.
 Valeur provisoire à trois endroits : la constante `SITE` dans `astro.config.mjs`,
