@@ -706,3 +706,26 @@ Deux retours de Sergiu après avoir vu le site fini :
 **À faire à chaque nouvelle paire avant/après ajoutée** : penser à
 renseigner `categorie:` dans le fichier YAML du projet — le build échoue
 sinon (comme pour `service:`).
+
+---
+
+## 18. Vraie page À propos, et vérification de la couleur bleue (23 septembre 2026)
+
+**Nouvelle page `/a-propos/` (`/nl/over-ons/`)** : avant, le lien « À propos »
+du menu renvoyait juste à la section « Pourquoi BS Renove » de l'accueil.
+Sergiu voulait un vrai endroit qui montre tout ce que l'entreprise sait
+faire. La nouvelle page reprend les 8 services et leurs exemples déjà
+écrits dans `src/data/services.ts` (rien d'inventé, même contenu que la
+page Services, présenté différemment : un mur de compétences en grille au
+lieu de fiches photo), plus la section « Pourquoi BS Renove » existante.
+L'accueil garde sa section résumée, avec un lien « À propos » vers la
+page complète.
+
+**Vérification de la couleur bleue** : Sergiu avait l'impression que le
+site utilisait plusieurs bleus différents (boutons vs autres endroits).
+Vérifié dans le code : une seule valeur existe, `--color-accent: #0066b4`
+(`src/styles/tokens.css`), utilisée partout — boutons, liens, pastilles,
+numéros. La seule variante est `--color-accent-dark`, une version plus
+foncée utilisée uniquement au survol d'un bouton (normal, pas un bleu
+différent). Si un bleu différent est encore visible quelque part, ce
+serait à un endroit précis à signaler — pas un problème général de code.

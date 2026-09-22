@@ -1,7 +1,7 @@
 ---
 import Icon from '../Icon.astro';
 import PhotoAVenir from '../PhotoAVenir.astro';
-import { t, type Langue } from '~/i18n';
+import { chemin, t, type Langue } from '~/i18n';
 
 interface Props {
   langue: Langue;
@@ -39,6 +39,11 @@ const bloc = textes.accueil.pourquoi;
         ))
       }
     </ul>
+
+    <a href={chemin('apropos', langue)} class="pourquoi__lien">
+      {textes.nav.apropos}
+      <Icon nom="fleche" taille={18} />
+    </a>
   </div>
 </section>
 
@@ -100,6 +105,22 @@ const bloc = textes.accueil.pourquoi;
     background: var(--color-bg);
     border-radius: var(--radius-pill);
     color: var(--color-accent);
+  }
+
+  .pourquoi__lien {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: var(--tap-min);
+    margin-top: 4px;
+    font-size: var(--size-small);
+    font-weight: 600;
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .pourquoi__lien:hover {
+    text-decoration: underline;
   }
 
   @media (min-width: 600px) {

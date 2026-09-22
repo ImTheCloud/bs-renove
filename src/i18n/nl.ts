@@ -139,6 +139,16 @@ export const nl: Traductions = {
     filtrerAria: 'Filteren op type ruimte',
   },
 
+  aProposPage: {
+    surtitre: 'Over ons',
+    titre: 'Eén project. Eén aanspreekpunt.',
+    intro:
+      'BS Renove SRL is een algemene renovatieonderneming met zetel in Denderleeuw, actief in heel België. Of het nu om een volledige werf of één vakgebied gaat, wij coördineren alles zelf: u hebt maar één persoon nodig, van de eerste tot de laatste dag.',
+    capacitesTitre: 'Wat wij kunnen doen',
+    capacitesIntro:
+      'Alle vakgebieden van een renovatie, intern of met onze vertrouwde zelfstandigen.',
+  },
+
   projet: {
     retour: 'Alle realisaties',
     avantApres: 'Voor, na',
@@ -231,7 +241,12 @@ Alvast bedankt,`,
     contact: {
       titre: 'Contact en offerte · BS Renove',
       description:
-        'Leg ons uw project uit en ontvang een eerste raming. Via telefoon, WhatsApp of het formulier.',
+        'Leg ons uw project uit en ontvang een eerste raming. Via telefoon, WhatsApp of email.',
+    },
+    apropos: {
+      titre: 'Over ons · BS Renove',
+      description:
+        'Algemene renovatieonderneming in Denderleeuw, actief in heel België: alle vakgebieden, één aanspreekpunt.',
     },
     mentionsLegales: {
       titre: 'Juridische informatie · BS Renove',

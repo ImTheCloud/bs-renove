@@ -27,6 +27,7 @@ export const ROUTES = {
   accueil: { fr: '/', nl: '/nl/' },
   services: { fr: '/services/', nl: '/nl/diensten/' },
   realisations: { fr: '/realisations/', nl: '/nl/realisaties/' },
+  apropos: { fr: '/a-propos/', nl: '/nl/over-ons/' },
   contact: { fr: '/contact/', nl: '/nl/contact/' },
   mentionsLegales: { fr: '/mentions-legales/', nl: '/nl/juridische-informatie/' },
   viePrivee: { fr: '/vie-privee/', nl: '/nl/privacy/' },
@@ -70,7 +71,7 @@ export function liensNavigation(langue: Langue) {
   return [
     { libelle: textes.nav.services, href: chemin('services', langue) },
     { libelle: textes.nav.realisations, href: chemin('realisations', langue) },
-    { libelle: textes.nav.apropos, href: `${chemin('accueil', langue)}#apropos` },
+    { libelle: textes.nav.apropos, href: chemin('apropos', langue) },
     { libelle: textes.nav.contact, href: chemin('contact', langue) },
   ];
 }

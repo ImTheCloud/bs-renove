@@ -135,6 +135,16 @@ export const fr = {
     filtrerAria: 'Filtrer par type de pièce',
   },
 
+  aProposPage: {
+    surtitre: 'À propos',
+    titre: 'Un projet. Un seul interlocuteur.',
+    intro:
+      "BS Renove SRL est une entreprise générale de rénovation basée à Denderleeuw, active dans toute la Belgique. Que ce soit un chantier complet ou un seul métier, nous coordonnons tout nous-mêmes : vous n'avez qu'une seule personne à appeler du premier jour au dernier.",
+    capacitesTitre: 'Ce que nous savons faire',
+    capacitesIntro:
+      "Tous les corps de métier d'une rénovation, en interne ou avec nos indépendants de confiance.",
+  },
+
   projet: {
     retour: 'Toutes les réalisations',
     avantApres: 'Avant, après',
@@ -227,7 +237,12 @@ Merci d'avance,`,
     contact: {
       titre: 'Contact et devis · BS Renove',
       description:
-        'Expliquez-nous votre projet et recevez une première estimation. Par téléphone, WhatsApp ou formulaire.',
+        'Expliquez-nous votre projet et recevez une première estimation. Par téléphone, WhatsApp ou email.',
+    },
+    apropos: {
+      titre: 'À propos · BS Renove',
+      description:
+        "Entreprise générale de rénovation à Denderleeuw, active dans toute la Belgique : tous les corps de métier, un seul interlocuteur.",
     },
     mentionsLegales: {
       titre: 'Mentions légales · BS Renove',
