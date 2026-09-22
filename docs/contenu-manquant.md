@@ -13,7 +13,7 @@ Mis à jour le 21 septembre 2026 (fin de la phase 2).
 |---|---|---|---|
 | 1 | ~~Logo en fichier~~ | partout | ✅ reçu, voir détail |
 | 2 | **Adresse définitive du site** (domaine acheté chez Wix) | `astro.config.mjs`, `robots.txt`, sitemap, balises canoniques, **et la redirection du formulaire de devis** | ⚠️ provisoire : `bs-renove.pages.dev` |
-| 3 | **Relecture néerlandaise par un natif** | tout le site | ❌ jamais relu |
+| 3 | ~~Relecture néerlandaise par un natif~~ | tout le site | ✅ Sergiu a dit que ce n'était pas la peine (22 septembre 2026) — voir note |
 
 ### Détail
 
@@ -38,8 +38,11 @@ changer si besoin.
 Valeur provisoire à trois endroits : la constante `SITE` dans `astro.config.mjs`,
 et la ligne `Sitemap:` de `public/robots.txt`.
 
-**4. Néerlandais.** Tous les textes NL de `src/i18n/nl.ts` ont été écrits sans relecture
-par un néerlandophone. À faire relire en entier. Points à vérifier en priorité :
+**4. Néerlandais — ✅ Sergiu a dit que ça allait (22 septembre 2026).** Tous les textes
+NL de `src/i18n/nl.ts` ont été écrits par moi, sans relecture par un néerlandophone natif
+au sens strict — mais Sergiu, à qui j'ai signalé ce point, a répondu que c'était bon
+comme ça. Je ne relance donc plus cette demande. Si un jour quelqu'un veut quand même
+relire en détail, les points à vérifier en priorité restent :
 
 - « Algemene aannemer » comme traduction de « Entreprise générale »
 - « Offerte aanvragen » pour le bouton principal
@@ -58,7 +61,7 @@ Rien de tout ceci n'est écrit sur le site tant que le client ne l'a pas confirm
 | ~~Taille de l'équipe~~ | section « Pourquoi BS Renove » | ✅ voir détail |
 | Garantie sur les travaux | arguments, bloc contact | ✅ **tranché** : rien à afficher, ça dépend du chantier — ne pas redemander |
 | ~~Devis gratuit (oui / non)~~ | boutons, page contact | ✅ oui, voir détail |
-| Assurance (responsabilité, décennale) | page contact, mentions légales | ❌ à demander |
+| ~~Assurance (responsabilité, décennale)~~ | page contact, mentions légales | ✅ **non**, voir détail |
 | Avis clients | — | ❌ aucun : pas de section avis prévue |
 
 ### Détail (reçu le 22 septembre 2026, par message à Sergiu)
@@ -76,6 +79,13 @@ Rien de tout ceci n'est écrit sur le site tant que le client ne l'a pas confirm
   sur ce sujet, comme avant, mais **ne plus reposer la question**.
 - **Devis gratuit : oui.** Ajouté dans les atouts du hero (« Devis gratuit »)
   et dans la liste « Pourquoi BS Renove » (« Devis gratuit et détaillé »).
+- **Assurance (responsabilité civile, décennale) : non.** Rien n'est affiché sur le
+  site à ce sujet — il n'y avait déjà rien avant, ça reste comme ça. Une remarque,
+  pas une action à faire : en Belgique, une assurance décennale est **obligatoire**
+  pour certains travaux touchant à la stabilité d'un logement (loi Peeters-Borsus,
+  2018). Je ne suis pas juriste et ce n'est pas à moi de trancher si ça concerne
+  BS Renove, mais ça vaut la peine que Sergiu vérifie avec son assureur ou son
+  comptable — indépendamment de ce qui est écrit sur le site.
 
 ---
 
@@ -292,11 +302,7 @@ légales. Corrigées, mais deux points restent à trancher avec un professionnel
   mentions légales. Se déduit probablement du siège (Denderleeuw → arrondissement de
   Dendermonde → « RPM Gand, division Dendermonde »), mais à faire confirmer par le
   comptable de Sergiu avant de l'écrire en dur.
-- **Transfert de données hors UE** : le formulaire passe par Web3Forms, dont les
-  serveurs sont aux États-Unis. La page vie privée le dit maintenant, mais la garantie
-  de transfert qu'exige le RGPD (clauses contractuelles types ou équivalent) n'est pas
-  formalisée avec ce prestataire. À vérifier avant la mise en ligne — éventuellement en
-  choisissant un service basé dans l'UE si le sujet est sensible pour le client.
+- ~~**Transfert de données hors UE**~~ — ✅ tranché le 22 septembre 2026, voir § 13.
 
 Corrigé aussi : la base légale se contredisait elle-même (consentement retirable à
 tout moment vs conservation comptable obligatoire), les mentions légales affirmaient
@@ -546,3 +552,31 @@ Sur cette machine, la commande `git` du système (`/usr/bin/git`) échoue avec
 lancé `sudo xcodebuild -license accept` dans un Terminal (mot de passe requis).
 En attendant, le git livré avec Xcode fonctionne directement sans ce blocage :
 `/Applications/Xcode.app/Contents/Developer/usr/bin/git`.
+
+---
+
+## 13. Décisions RGPD tranchées par Sergiu (22 septembre 2026)
+
+Deux points de la page vie privée étaient encore ouverts (§ 11). Sergiu a tranché
+les deux, par message :
+
+- **Durée de conservation des demandes de devis : pas de durée fixe.** Sergiu garde
+  les données sans limite de temps prédéfinie. La page vie privée le dit maintenant
+  clairement, en s'appuyant sur ce qui existait déjà : le visiteur peut à tout moment
+  demander l'effacement ou retirer son consentement (section « Vos droits »), ce qui
+  reste le mécanisme qui fait qu'une donnée finit par être supprimée si on le demande.
+  **Remarque, pas une objection** : l'autorité belge de protection des données (APD)
+  recommande en général de fixer une durée déterminée plutôt que de garder « sans
+  limite » — beaucoup de sites s'en sortent avec un délai raisonnable (ex. 3 ans après
+  le dernier contact). Ce n'est pas strictement interdit de ne pas en fixer une, mais
+  c'est plus fragile si un jour l'APD pose la question. À vous de voir si vous préférez
+  rester ainsi ou fixer un chiffre.
+- **Transfert des données vers les États-Unis (Web3Forms) : accepté par consentement
+  explicite.** Sergiu ne veut pas changer de prestataire ni mettre en place de garantie
+  contractuelle supplémentaire : le visiteur accepte ce transfert en cochant la case du
+  formulaire, qui renvoie vers cette page. C'est une base légale valable pour ce genre
+  de transfert (le RGPD le permet via le consentement explicite et informé), donc la
+  page vie privée le formule maintenant ainsi plutôt que de dire que c'est « à
+  confirmer ».
+
+Les deux pages n'affichent donc plus aucun `[À CONFIRMER]` lié à ces deux sujets.

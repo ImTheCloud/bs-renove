@@ -134,12 +134,12 @@ export const viePrivee: BlocLegal[] = [
     titre: { fr: 'Par où passent-elles', nl: 'Langs waar gaan ze' },
     paragraphes: {
       fr: [
-        "Le formulaire est transmis par Web3Forms, un service qui transforme votre message en email et nous l'envoie. Web3Forms agit comme sous-traitant et traite les données sur des serveurs situés hors de l'Union européenne (États-Unis). Le service peut en conserver une copie technique limitée dans le temps ; il ne l'utilise pas à d'autres fins que cette transmission. [À CONFIRMER : la garantie de transfert requise par le RGPD avec ce prestataire n'est pas encore formalisée — voir docs/contenu-manquant.md.]",
+        "Le formulaire est transmis par Web3Forms, un service qui transforme votre message en email et nous l'envoie. Web3Forms agit comme sous-traitant et traite les données sur des serveurs situés hors de l'Union européenne (États-Unis). Le service peut en conserver une copie technique limitée dans le temps ; il ne l'utilise pas à d'autres fins que cette transmission. En cochant la case du formulaire, vous consentez expressément à ce transfert hors de l'Union européenne : c'est la base légale de ce transfert.",
         "Le message nous parvient ensuite par email, sur la boîte de l'entreprise.",
         "Si vous nous contactez par téléphone ou par WhatsApp plutôt que par le formulaire, cet échange (votre numéro, vos messages, vos éventuelles photos) passe par les services de l'opérateur téléphonique et de WhatsApp (Meta), selon leurs propres règles de confidentialité, et nous ne l'utilisons que pour répondre à votre demande.",
       ],
       nl: [
-        'Het formulier wordt doorgestuurd via Web3Forms, een dienst die uw bericht omzet in een e-mail en naar ons verstuurt. Web3Forms treedt op als verwerker en verwerkt de gegevens op servers buiten de Europese Unie (Verenigde Staten). De dienst kan een technische kopie gedurende beperkte tijd bewaren; hij gebruikt ze niet voor andere doeleinden dan deze verzending. [TE BEVESTIGEN: de door de AVG vereiste overdrachtsgarantie met deze leverancier is nog niet geformaliseerd — zie docs/contenu-manquant.md.]',
+        'Het formulier wordt doorgestuurd via Web3Forms, een dienst die uw bericht omzet in een e-mail en naar ons verstuurt. Web3Forms treedt op als verwerker en verwerkt de gegevens op servers buiten de Europese Unie (Verenigde Staten). De dienst kan een technische kopie gedurende beperkte tijd bewaren; hij gebruikt ze niet voor andere doeleinden dan deze verzending. Door het vakje van het formulier aan te vinken, geeft u uitdrukkelijk toestemming voor deze overdracht buiten de Europese Unie: dat is de rechtsgrond van deze overdracht.',
         'Het bericht komt vervolgens per e-mail bij ons toe, op de mailbox van de onderneming.',
         'Als u ons contacteert via telefoon of WhatsApp in plaats van het formulier, verloopt die uitwisseling (uw nummer, uw berichten, eventuele foto’s) via de diensten van de telefoonoperator en van WhatsApp (Meta), volgens hun eigen privacyregels, en gebruiken wij ze enkel om uw vraag te beantwoorden.',
       ],
@@ -149,10 +149,10 @@ export const viePrivee: BlocLegal[] = [
     titre: { fr: 'Combien de temps', nl: 'Hoe lang' },
     paragraphes: {
       fr: [
-        "[À CONFIRMER : durée de conservation]. Passé ce délai, les échanges sont supprimés. Si un devis débouche sur un chantier, les documents liés sont conservés selon les obligations comptables belges.",
+        "Nous n'avons pas fixé de durée de conservation automatique : vos données restent dans nos échanges jusqu'à ce que vous nous demandiez de les effacer ou que vous retiriez votre consentement (voir « Vos droits » ci-dessous). Si un devis débouche sur un chantier, les documents liés sont conservés selon les obligations comptables belges.",
       ],
       nl: [
-        '[TE BEVESTIGEN: bewaartermijn]. Na die termijn worden de uitwisselingen verwijderd. Als een offerte tot een werf leidt, worden de bijbehorende documenten bewaard volgens de Belgische boekhoudkundige verplichtingen.',
+        'Wij hebben geen automatische bewaartermijn vastgelegd: uw gegevens blijven in onze uitwisselingen tot u ons vraagt om ze te wissen of u uw toestemming intrekt (zie « Uw rechten » hieronder). Als een offerte tot een werf leidt, worden de bijbehorende documenten bewaard volgens de Belgische boekhoudkundige verplichtingen.',
       ],
     },
   },
