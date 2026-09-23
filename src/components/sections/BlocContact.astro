@@ -1,7 +1,7 @@
 ---
 import Bouton from '../Bouton.astro';
 import Icon from '../Icon.astro';
-import { adresseUneLigne, entreprise, lienDevis, lienWhatsApp } from '~/data/entreprise';
+import { entreprise, lienDevis, lienWhatsApp } from '~/data/entreprise';
 import { marqueurAConfirmer, t, type Langue } from '~/i18n';
 
 interface Props {
@@ -76,7 +76,6 @@ const emailAffiche = entreprise.email ?? marqueurAConfirmer(langue, bloc.labelEm
         <span class="tuile__icone"><Icon nom="carte" taille={20} /></span>
         <span class="tuile__label">{bloc.labelZone}</span>
         <span class="tuile__valeur">{bloc.valeurZone}</span>
-        <span class="tuile__detail">{adresseUneLigne}</span>
       </li>
     </ul>
   </div>
@@ -186,11 +185,6 @@ const emailAffiche = entreprise.email ?? marqueurAConfirmer(langue, bloc.labelEm
   .tuile__valeur--manquant {
     font-size: var(--size-small);
     color: var(--color-manquant);
-  }
-
-  .tuile__detail {
-    font-size: var(--size-tiny);
-    color: var(--color-on-ink-soft);
   }
 
   @media (min-width: 700px) {

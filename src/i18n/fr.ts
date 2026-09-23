@@ -74,16 +74,10 @@ export const fr = {
       titreFin: 'mains',
       texte:
         "Salles de bain, cuisines, carrelage, toiture et maçonnerie. On s'occupe de votre chantier du premier devis jusqu'à la dernière finition",
-      atouts: ['Devis gratuit', 'Un seul interlocuteur', 'Français · Nederlands'],
+      atouts: ['Devis gratuit', 'Français · Nederlands'],
       badgeUnite: 'ans',
       badgeTexte: 'de métier dans la construction',
 
-    },
-
-    services: {
-      surtitre: 'Nos services',
-      titre: 'Tout pour votre rénovation, au même endroit',
-      bouton: 'Tous nos services',
     },
 
     avantApres: {
