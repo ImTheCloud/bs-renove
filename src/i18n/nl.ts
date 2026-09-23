@@ -47,7 +47,8 @@ export const nl: Traductions = {
     tva: 'btw',
     mentionsLegales: 'Juridische informatie',
     viePrivee: 'Privacy',
-    droits: 'Alle rechten voorbehouden.',
+    rejoindre: 'Word lid van ons team',
+    droits: 'Alle rechten voorbehouden',
   },
 
   accessibilite: {
@@ -56,7 +57,7 @@ export const nl: Traductions = {
 
   enConstruction: {
     etiquette: 'In opbouw',
-    texte: 'Deze pagina komt binnenkort. Bel ons ondertussen of schrijf ons op WhatsApp.',
+    texte: 'Deze pagina komt binnenkort. Bel ons ondertussen of schrijf ons op WhatsApp',
   },
 
   aConfirmer: 'TE BEVESTIGEN',
@@ -74,9 +75,9 @@ export const nl: Traductions = {
     hero: {
       zone: 'Actief in heel België',
       titreDebut: 'Uw woning, in goede',
-      titreFin: 'handen.',
+      titreFin: 'handen',
       texte:
-        'Badkamers, keukens, tegelwerk, dakwerken en metselwerk. Wij begeleiden uw werf van de eerste offerte tot de laatste afwerking.',
+        'Badkamers, keukens, tegelwerk, dakwerken en metselwerk. Wij begeleiden uw werf van de eerste offerte tot de laatste afwerking',
       atouts: ['Gratis offerte', 'Eén aanspreekpunt', 'Nederlands · Français'],
       badgeUnite: 'jaar',
       badgeTexte: 'ervaring in de bouw',
@@ -85,7 +86,7 @@ export const nl: Traductions = {
 
     services: {
       surtitre: 'Onze diensten',
-      titre: 'Alles voor uw renovatie, op één plek.',
+      titre: 'Alles voor uw renovatie, op één plek',
       bouton: 'Al onze diensten',
     },
 
@@ -96,14 +97,14 @@ export const nl: Traductions = {
       avant: 'Voor',
       apres: 'Na',
       curseurLabel: 'Voor en na vergelijken',
-      curseurAide: 'Gebruik de pijltjestoetsen links en rechts om te vergelijken.',
+      curseurAide: 'Gebruik de pijltjestoetsen links en rechts om te vergelijken',
     },
 
     pourquoi: {
       surtitre: 'Waarom BS Renove',
-      titre: 'Eén project. Eén aanspreekpunt.',
+      titre: 'Eén project. Eén aanspreekpunt',
       texte:
-        'Wij begeleiden u bij elke stap van uw project, voor een duidelijke en efficiënte uitvoering, zonder onaangename verrassingen.',
+        'Wij begeleiden u bij elke stap van uw project, voor een duidelijke en efficiënte uitvoering, zonder onaangename verrassingen',
       points: [
         'Gratis en gedetailleerde offerte',
         'Opvolging van de werf',
@@ -114,9 +115,9 @@ export const nl: Traductions = {
     },
 
     contact: {
-      titre: 'Hebt u een project? Laten we erover praten.',
+      titre: 'Hebt u een project? Laten we erover praten',
       texte:
-        'Bouwen, renoveren of verbouwen: leg ons uw project uit en ontvang een eerste raming.',
+        'Bouwen, renoveren of verbouwen: leg ons uw project uit en ontvang een eerste raming',
       labelTelephone: 'Telefoon',
       labelEmail: 'E-mail',
       labelZone: 'Werkgebied',
@@ -126,27 +127,41 @@ export const nl: Traductions = {
 
   realisations: {
     surtitre: 'Realisaties',
-    titre: 'Werven, geen beloftes.',
+    titre: 'Werven, geen beloftes',
     intro:
-      'Versleep de schuifknop om het verschil te zien. Filter op ruimte om direct te vinden wat u zoekt.',
+      'Versleep de schuifknop om het verschil te zien. Filter op ruimte om direct te vinden wat u zoekt',
     voirLeProjet: 'Bekijk de volledige werf',
     commune: 'Gemeente',
     service: 'Type werken',
     duree: 'Duur',
     semaines: 'weken',
-    aucun: 'De eerste voor/na-foto’s volgen binnenkort.',
+    aucun: 'De eerste voor/na-foto’s volgen binnenkort',
     toutes: 'Alles bekijken',
     filtrerAria: 'Filteren op type ruimte',
   },
 
   aProposPage: {
     surtitre: 'Over ons',
-    titre: 'Eén project. Eén aanspreekpunt.',
+    titre: 'Eén project. Eén aanspreekpunt',
     intro:
-      'BS Renove SRL is een algemene renovatieonderneming met zetel in Denderleeuw, actief in heel België. Of het nu om een volledige werf of één vakgebied gaat, wij coördineren alles zelf: u hebt maar één persoon nodig, van de eerste tot de laatste dag.',
+      'BS Renove SRL is een algemene renovatieonderneming met zetel in Denderleeuw, actief in heel België. Of het nu om een volledige werf of één vakgebied gaat, wij coördineren alles zelf: u hebt maar één persoon nodig, van de eerste tot de laatste dag',
     capacitesTitre: 'Wat wij kunnen doen',
     capacitesIntro:
-      'Alle vakgebieden van een renovatie, intern of met onze vertrouwde zelfstandigen.',
+      'Alle vakgebieden van een renovatie, intern of met onze vertrouwde zelfstandigen',
+  },
+
+  rejoindreEquipe: {
+    surtitre: 'Word lid van ons team',
+    titre: 'Wilt u met ons werken',
+    intro:
+      'Stuur ons uw kandidatuur, met uw vak en uw ervaring. Wij nemen contact op als een profiel zoals het uwe ons interesseert',
+    candidatureTitre: 'Kandidatuur versturen per email',
+    candidatureTexte:
+      'Eén klik opent uw mailprogramma met een kant-en-klare email: u hoeft alleen nog uw gegevens en ervaring aan te vullen',
+    bouton: 'Mijn kandidatuur versturen',
+    sujetEmail: 'Kandidatuur',
+    corpsEmail:
+      'Hallo,\n\nIk wil graag bij het team van BS Renove komen werken.\n\nNaam: \nTelefoon: \nVak / ervaring: \nBeschikbaarheid: \n\n\nAlvast bedankt,',
   },
 
   projet: {
@@ -163,14 +178,16 @@ export const nl: Traductions = {
     suivante: 'Volgende foto',
     similaireTitre: 'Een gelijkaardig project?',
     similaireTexte:
-      'Vertel ons wat u in gedachten hebt, wij komen bij u terug met een eerste raming.',
+      'Vertel ons wat u in gedachten hebt, wij komen bij u terug met een eerste raming',
   },
 
   servicesPage: {
     surtitre: 'Onze diensten',
-    titre: 'Wat wij doen.',
+    titre: 'Wat wij doen',
     intro:
-      'Een algemene aannemer, dus één aanspreekpunt van de eerste offerte tot de laatste afwerking.',
+      'Een algemene aannemer, dus één aanspreekpunt van de eerste offerte tot de laatste afwerking',
+    grilleTitre: 'Al onze werken',
+    grilleIntro: 'Een overzicht van onze vakgebieden, klik op een kaart voor de details',
     exemplesTitre: 'Bijvoorbeeld',
     projetsLies: 'Bekijk de projecten',
     devisPour: 'Offerte aanvragen',
@@ -178,14 +195,14 @@ export const nl: Traductions = {
 
   contactPage: {
     surtitre: 'Contact',
-    titre: 'Laten we over uw project praten.',
+    titre: 'Laten we over uw project praten',
     intro:
-      'Beschrijf ons wat u in gedachten hebt. Wij komen bij u terug met een eerste raming.',
+      'Beschrijf ons wat u in gedachten hebt. Wij komen bij u terug met een eerste raming',
     devisTitre: 'Offerte aanvragen via email',
     devisTexte:
-      'Eén klik opent uw mailprogramma met een kant-en-klare email: u hoeft enkel uw gegevens en uw project te beschrijven.',
+      'Eén klik opent uw mailprogramma met een kant-en-klare email: u hoeft enkel uw gegevens en uw project te beschrijven',
     ouTitre: 'Sneller',
-    ouTexte: 'Telefoon en WhatsApp blijven het meest rechtstreeks.',
+    ouTexte: 'Telefoon en WhatsApp blijven het meest rechtstreeks',
   },
 
   /** Onderwerp en inhoud van de vooraf ingevulde mail achter elke "offerte"-knop. */
@@ -208,7 +225,7 @@ Alvast bedankt,`,
   legal: {
     aRelire: 'NA TE LEZEN',
     aRelireTexte:
-      'Deze teksten zijn een vertrekpunt. Ze moeten worden nagelezen en goedgekeurd vóór de publicatie.',
+      'Deze teksten zijn een vertrekpunt. Ze moeten worden nagelezen en goedgekeurd vóór de publicatie',
     identite: 'De onderneming',
     nomLegal: 'Benaming',
     formeJuridique: 'Rechtsvorm',
@@ -248,6 +265,10 @@ Alvast bedankt,`,
       description:
         'Algemene renovatieonderneming in Denderleeuw, actief in heel België: alle vakgebieden, één aanspreekpunt.',
     },
+    rejoindre: {
+      titre: 'Word lid van ons team · BS Renove',
+      description: 'Stuur uw kandidatuur naar BS Renove, algemene renovatieonderneming.',
+    },
     mentionsLegales: {
       titre: 'Juridische informatie · BS Renove',
       description: 'Juridische gegevens van BS Renove SRL.',
@@ -259,8 +280,8 @@ Alvast bedankt,`,
     erreur404: {
       titre: 'Pagina niet gevonden',
       description: 'Deze pagina bestaat niet of werd verplaatst.',
-      h1: 'Deze pagina bestaat niet.',
-      texte: 'De link is misschien verouderd, of het adres bevat een fout.',
+      h1: 'Deze pagina bestaat niet',
+      texte: 'De link is misschien verouderd, of het adres bevat een fout',
       retour: 'Terug naar de startpagina',
     },
   },

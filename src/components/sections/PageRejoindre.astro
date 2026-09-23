@@ -1,0 +1,81 @@
+---
+import Bouton from '../Bouton.astro';
+import { lienDevis } from '~/data/entreprise';
+import { t, type Langue } from '~/i18n';
+
+interface Props {
+  langue: Langue;
+}
+
+const { langue } = Astro.props;
+const textes = t(langue);
+const bloc = textes.rejoindreEquipe;
+---
+
+<div class="wrap rejoindre">
+  <header class="rejoindre__entete">
+    <span class="surtitre">{bloc.surtitre}</span>
+    <h1>{bloc.titre}</h1>
+    <p class="rejoindre__intro">{bloc.intro}</p>
+  </header>
+
+  <section class="rejoindre__carte">
+    <h2 class="rejoindre__sous-titre">{bloc.candidatureTitre}</h2>
+    <p class="rejoindre__texte">{bloc.candidatureTexte}</p>
+    <Bouton href={lienDevis(bloc.sujetEmail, bloc.corpsEmail)} variante="principal" icone="email" large>
+      {bloc.bouton}
+    </Bouton>
+  </section>
+</div>
+
+<style>
+  .rejoindre {
+    padding-block: 40px 0;
+  }
+
+  .rejoindre__entete {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 620px;
+    margin-bottom: 44px;
+  }
+
+  .surtitre {
+    font-size: var(--size-tiny);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .rejoindre__intro {
+    color: var(--color-text);
+  }
+
+  .rejoindre__carte {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 460px;
+    padding: 28px 24px;
+    background: var(--color-surface);
+    border-radius: var(--radius-card);
+  }
+
+  .rejoindre__sous-titre {
+    margin-bottom: 12px;
+    font-size: var(--size-h3);
+    letter-spacing: var(--tracking-h3);
+  }
+
+  .rejoindre__texte {
+    margin-bottom: 20px;
+    font-size: var(--size-small);
+    color: var(--color-text);
+  }
+
+  .rejoindre__carte :global(.bouton) {
+    width: 100%;
+  }
+</style>

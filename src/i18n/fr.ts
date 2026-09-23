@@ -41,7 +41,8 @@ export const fr = {
     tva: 'TVA',
     mentionsLegales: 'Mentions légales',
     viePrivee: 'Vie privée',
-    droits: 'Tous droits réservés.',
+    rejoindre: 'Rejoindre l’équipe',
+    droits: 'Tous droits réservés',
   },
 
   accessibilite: {
@@ -50,7 +51,7 @@ export const fr = {
 
   enConstruction: {
     etiquette: 'En construction',
-    texte: 'Cette page arrive bientôt. En attendant, appelez-nous ou écrivez-nous sur WhatsApp.',
+    texte: 'Cette page arrive bientôt. En attendant, appelez-nous ou écrivez-nous sur WhatsApp',
   },
 
   /** Marqueur visible tant qu'une information n'est pas confirmée par le client. */
@@ -70,9 +71,9 @@ export const fr = {
     hero: {
       zone: 'Intervient dans toute la Belgique',
       titreDebut: 'Votre maison, entre de bonnes',
-      titreFin: 'mains.',
+      titreFin: 'mains',
       texte:
-        "Salles de bain, cuisines, carrelage, toiture et maçonnerie. On s'occupe de votre chantier du premier devis jusqu'à la dernière finition.",
+        "Salles de bain, cuisines, carrelage, toiture et maçonnerie. On s'occupe de votre chantier du premier devis jusqu'à la dernière finition",
       atouts: ['Devis gratuit', 'Un seul interlocuteur', 'Français · Nederlands'],
       badgeUnite: 'ans',
       badgeTexte: 'de métier dans la construction',
@@ -81,7 +82,7 @@ export const fr = {
 
     services: {
       surtitre: 'Nos services',
-      titre: 'Tout pour votre rénovation, au même endroit.',
+      titre: 'Tout pour votre rénovation, au même endroit',
       bouton: 'Tous nos services',
     },
 
@@ -92,14 +93,14 @@ export const fr = {
       avant: 'Avant',
       apres: 'Après',
       curseurLabel: 'Comparer avant et après',
-      curseurAide: 'Utilisez les flèches gauche et droite pour comparer.',
+      curseurAide: 'Utilisez les flèches gauche et droite pour comparer',
     },
 
     pourquoi: {
       surtitre: 'Pourquoi BS Renove',
-      titre: 'Un projet. Un seul interlocuteur.',
+      titre: 'Un projet. Un seul interlocuteur',
       texte:
-        'Nous vous accompagnons à chaque étape de votre projet, pour une réalisation claire, efficace et sans mauvaises surprises.',
+        'Nous vous accompagnons à chaque étape de votre projet, pour une réalisation claire, efficace et sans mauvaises surprises',
       points: [
         'Devis gratuit et détaillé',
         'Suivi du chantier',
@@ -110,9 +111,9 @@ export const fr = {
     },
 
     contact: {
-      titre: 'Vous avez un projet ? Parlons-en.',
+      titre: 'Vous avez un projet ? Parlons-en',
       texte:
-        'Construction, rénovation ou transformation : expliquez-nous votre projet et recevez une première estimation.',
+        'Construction, rénovation ou transformation : expliquez-nous votre projet et recevez une première estimation',
       labelTelephone: 'Téléphone',
       labelEmail: 'Email',
       labelZone: "Zone d'intervention",
@@ -122,27 +123,41 @@ export const fr = {
 
   realisations: {
     surtitre: 'Réalisations',
-    titre: 'Des chantiers, pas des promesses.',
+    titre: 'Des chantiers, pas des promesses',
     intro:
-      'Faites glisser le curseur pour voir la différence. Filtrez par pièce pour aller droit à ce qui vous intéresse.',
+      'Faites glisser le curseur pour voir la différence. Filtrez par pièce pour aller droit à ce qui vous intéresse',
     voirLeProjet: 'Voir le chantier complet',
     commune: 'Commune',
     service: 'Type de travaux',
     duree: 'Durée',
     semaines: 'semaines',
-    aucun: 'Les premiers avant/après arrivent bientôt.',
+    aucun: 'Les premiers avant/après arrivent bientôt',
     toutes: 'Tout voir',
     filtrerAria: 'Filtrer par type de pièce',
   },
 
   aProposPage: {
     surtitre: 'À propos',
-    titre: 'Un projet. Un seul interlocuteur.',
+    titre: 'Un projet. Un seul interlocuteur',
     intro:
-      "BS Renove SRL est une entreprise générale de rénovation basée à Denderleeuw, active dans toute la Belgique. Que ce soit un chantier complet ou un seul métier, nous coordonnons tout nous-mêmes : vous n'avez qu'une seule personne à appeler du premier jour au dernier.",
+      "BS Renove SRL est une entreprise générale de rénovation basée à Denderleeuw, active dans toute la Belgique. Que ce soit un chantier complet ou un seul métier, nous coordonnons tout nous-mêmes : vous n'avez qu'une seule personne à appeler du premier jour au dernier",
     capacitesTitre: 'Ce que nous savons faire',
     capacitesIntro:
-      "Tous les corps de métier d'une rénovation, en interne ou avec nos indépendants de confiance.",
+      "Tous les corps de métier d'une rénovation, en interne ou avec nos indépendants de confiance",
+  },
+
+  rejoindreEquipe: {
+    surtitre: 'Rejoindre l’équipe',
+    titre: 'Vous voulez travailler avec nous',
+    intro:
+      'Envoyez-nous votre candidature, avec votre métier et votre expérience. Nous revenons vers vous si un profil comme le vôtre nous intéresse',
+    candidatureTitre: 'Envoyer une candidature par email',
+    candidatureTexte:
+      'Un clic ouvre votre messagerie avec un email déjà prêt : il ne reste qu’à compléter vos coordonnées et votre parcours',
+    bouton: 'Envoyer ma candidature',
+    sujetEmail: 'Candidature',
+    corpsEmail:
+      'Bonjour,\n\nJe souhaite rejoindre l’équipe BS Renove.\n\nNom : \nTéléphone : \nMétier / expérience : \nDisponibilité : \n\n\nMerci d’avance,',
   },
 
   projet: {
@@ -159,14 +174,16 @@ export const fr = {
     suivante: 'Photo suivante',
     similaireTitre: 'Un projet similaire ?',
     similaireTexte:
-      'Expliquez-nous ce que vous avez en tête, nous revenons vers vous avec une première estimation.',
+      'Expliquez-nous ce que vous avez en tête, nous revenons vers vous avec une première estimation',
   },
 
   servicesPage: {
     surtitre: 'Nos services',
-    titre: 'Ce que nous faisons.',
+    titre: 'Ce que nous faisons',
     intro:
-      'Une entreprise générale, donc un seul interlocuteur du premier devis à la dernière finition.',
+      'Une entreprise générale, donc un seul interlocuteur du premier devis à la dernière finition',
+    grilleTitre: 'Tous nos travaux',
+    grilleIntro: 'Un aperçu de nos métiers, cliquez sur une carte pour les détails',
     exemplesTitre: 'Par exemple',
     projetsLies: 'Voir les projets',
     devisPour: 'Demander un devis',
@@ -174,14 +191,14 @@ export const fr = {
 
   contactPage: {
     surtitre: 'Contact',
-    titre: 'Parlons de votre projet.',
+    titre: 'Parlons de votre projet',
     intro:
-      'Décrivez-nous ce que vous avez en tête. Nous revenons vers vous avec une première estimation.',
+      'Décrivez-nous ce que vous avez en tête. Nous revenons vers vous avec une première estimation',
     devisTitre: 'Demander un devis par email',
     devisTexte:
-      'Un clic ouvre votre messagerie avec un email déjà prêt : il ne reste qu’à compléter vos coordonnées et le décrire.',
+      'Un clic ouvre votre messagerie avec un email déjà prêt : il ne reste qu’à compléter vos coordonnées et le décrire',
     ouTitre: 'Plus rapide',
-    ouTexte: 'Le téléphone et WhatsApp restent le plus direct.',
+    ouTexte: 'Le téléphone et WhatsApp restent le plus direct',
   },
 
   /** Le sujet et le corps du mail pré-rempli derrière chaque bouton « devis ». */
@@ -204,7 +221,7 @@ Merci d'avance,`,
   legal: {
     aRelire: 'À RELIRE',
     aRelireTexte:
-      'Ces textes sont un point de départ. Ils doivent être relus et validés avant la mise en ligne.',
+      'Ces textes sont un point de départ. Ils doivent être relus et validés avant la mise en ligne',
     identite: "L'entreprise",
     nomLegal: 'Dénomination',
     formeJuridique: 'Forme juridique',
@@ -244,6 +261,10 @@ Merci d'avance,`,
       description:
         "Entreprise générale de rénovation à Denderleeuw, active dans toute la Belgique : tous les corps de métier, un seul interlocuteur.",
     },
+    rejoindre: {
+      titre: 'Rejoindre l’équipe · BS Renove',
+      description: 'Envoyez votre candidature à BS Renove, entreprise générale de rénovation.',
+    },
     mentionsLegales: {
       titre: 'Mentions légales · BS Renove',
       description: 'Informations légales de BS Renove SRL.',
@@ -255,8 +276,8 @@ Merci d'avance,`,
     erreur404: {
       titre: 'Page introuvable',
       description: "Cette page n'existe pas ou a été déplacée.",
-      h1: 'Cette page n’existe pas.',
-      texte: 'Le lien est peut-être ancien, ou l’adresse comporte une erreur.',
+      h1: 'Cette page n’existe pas',
+      texte: 'Le lien est peut-être ancien, ou l’adresse comporte une erreur',
       retour: "Retour à l'accueil",
     },
   },

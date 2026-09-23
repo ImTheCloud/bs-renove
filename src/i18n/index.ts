@@ -31,6 +31,7 @@ export const ROUTES = {
   contact: { fr: '/contact/', nl: '/nl/contact/' },
   mentionsLegales: { fr: '/mentions-legales/', nl: '/nl/juridische-informatie/' },
   viePrivee: { fr: '/vie-privee/', nl: '/nl/privacy/' },
+  rejoindre: { fr: '/rejoindre-lequipe/', nl: '/nl/word-lid-van-ons-team/' },
 } as const satisfies Record<string, Record<Langue, string>>;
 
 export type PageCle = keyof typeof ROUTES;

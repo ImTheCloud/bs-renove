@@ -3,7 +3,6 @@ import Bouton from '../Bouton.astro';
 import Icon from '../Icon.astro';
 import PhotoProjet from '../PhotoProjet.astro';
 import { entreprise, lienDevis, lienWhatsApp } from '~/data/entreprise';
-import { nomCategorie } from '~/data/categories';
 import { projetMisEnAvant } from '~/data/projets';
 import { t, type Langue } from '~/i18n';
 
@@ -15,10 +14,7 @@ const { langue } = Astro.props;
 const textes = t(langue);
 const hero = textes.accueil.hero;
 
-// L'étiquette de la photo dit ce que c'est (la pièce), jamais où c'est.
 const projet = await projetMisEnAvant();
-const categorie = projet?.data.avantApres[0]?.categorie;
-const etiquette = categorie ? nomCategorie(categorie, langue) : undefined;
 ---
 
 <section class="wrap hero">
@@ -85,8 +81,6 @@ const etiquette = categorie ? nomCategorie(categorie, langue) : undefined;
       arrondi="var(--radius-photo)"
       prioritaire
     />
-
-    {etiquette && <span class="hero__etiquette">{etiquette}</span>}
 
     <div class="hero__badge">
       <span class="hero__badge-coche">
@@ -205,18 +199,6 @@ const etiquette = categorie ? nomCategorie(categorie, langue) : undefined;
   /* --- Le visuel --- */
   .hero__visuel {
     position: relative;
-  }
-
-  .hero__etiquette {
-    position: absolute;
-    top: 18px;
-    left: 18px;
-    padding: 8px 18px;
-    background: rgba(255, 255, 255, 0.92);
-    border-radius: var(--radius-pill);
-    font-size: var(--size-tiny);
-    font-weight: 600;
-    color: var(--color-ink);
   }
 
   .hero__badge {

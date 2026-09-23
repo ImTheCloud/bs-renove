@@ -1,6 +1,7 @@
 ---
 import Bouton from '../Bouton.astro';
 import Icon from '../Icon.astro';
+import PhotoAVenir from '../PhotoAVenir.astro';
 import PhotoProjet from '../PhotoProjet.astro';
 import { lienDevis } from '~/data/entreprise';
 import { listerProjets } from '~/data/projets';
@@ -33,6 +34,36 @@ for (const projet of projets) {
     <h1>{bloc.titre}</h1>
     <p class="services-page__intro">{bloc.intro}</p>
   </header>
+
+  <section class="grille-travaux" aria-labelledby="tous-nos-travaux">
+    <h2 id="tous-nos-travaux">{bloc.grilleTitre}</h2>
+    <p class="grille-travaux__intro">{bloc.grilleIntro}</p>
+
+    <div class="grille-travaux__cartes">
+      {
+        services.map((service) => {
+          const photos = photosServices[service.slug] ?? [];
+          const photo = photos[0];
+          const visuel = photo ? (
+            <PhotoProjet image={photo} alt={service.nom[langue]} langue={langue} ratio="4 / 3" arrondi="var(--radius-card-img)" />
+          ) : (
+            <PhotoAVenir langue={langue} ratio="4 / 3" arrondi="var(--radius-card-img)" />
+          );
+          return photo ? (
+            <a href={`#${service.slug}`} class="carte-travail">
+              {visuel}
+              <span class="carte-travail__nom">{service.nom[langue]}</span>
+            </a>
+          ) : (
+            <div class="carte-travail carte-travail--sans-lien">
+              {visuel}
+              <span class="carte-travail__nom">{service.nom[langue]}</span>
+            </div>
+          );
+        })
+      }
+    </div>
+  </section>
 
   <div class="services-page__liste">
     {
@@ -135,6 +166,52 @@ for (const projet of projets) {
     color: var(--color-text);
   }
 
+  .grille-travaux {
+    padding-bottom: var(--section-gap);
+    margin-bottom: var(--section-gap);
+    border-bottom: 1px solid var(--color-border-light);
+  }
+
+  .grille-travaux h2 {
+    font-size: var(--size-h3);
+    letter-spacing: var(--tracking-h3);
+  }
+
+  .grille-travaux__intro {
+    margin-top: 10px;
+    color: var(--color-muted);
+  }
+
+  .grille-travaux__cartes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-top: 28px;
+  }
+
+  .carte-travail {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a.carte-travail:hover .carte-travail__nom {
+    color: var(--color-accent);
+  }
+
+  .carte-travail--sans-lien {
+    opacity: 0.75;
+  }
+
+  .carte-travail__nom {
+    font-size: var(--size-small);
+    font-weight: 600;
+    color: var(--color-ink);
+    transition: color var(--speed) var(--ease);
+  }
+
   .services-page__liste {
     display: flex;
     flex-direction: column;
@@ -234,6 +311,10 @@ for (const projet of projets) {
     .metier__exemples ul {
       grid-template-columns: repeat(2, 1fr);
     }
+
+    .grille-travaux__cartes {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
   @media (min-width: 900px) {
@@ -246,6 +327,11 @@ for (const projet of projets) {
     /* Une section sur deux inverse photo et texte, pour rythmer la page. */
     .metier--inverse .metier__visuel {
       order: 2;
+    }
+
+    .grille-travaux__cartes {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
     }
   }
 </style>

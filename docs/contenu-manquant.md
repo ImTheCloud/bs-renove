@@ -804,3 +804,49 @@ Sergiu a terminé son tri sur les 5 projets (couverture, avant/après composés
 mécanisme de couverture (photo de mise en avant sur l'accueil et les fiches)
 n'a pas été retiré du site — ça aurait été un chantier bien plus lourd pour
 une phrase ambiguë. À reconfirmer avec lui si besoin.
+
+---
+
+## 21. Grille « Tous nos travaux », un seul bleu, page Rejoindre l'équipe (23 septembre 2026)
+
+**Un seul bleu, cette fois pour de bon** : le bloc « Vous avez un projet ? »
+(accueil, fiche projet, à propos) utilisait `--color-ink`, une marine très
+sombre — juste de la même famille de bleu que l'accent, mais assez foncée
+pour donner l'impression d'une couleur à part. Remplacé par
+`--color-accent-dark` (déjà utilisé pour le survol des boutons) : c'est
+maintenant littéralement le même bleu, vérifié lisible (contraste ≥ 4,5:1
+pour tous les textes dessus).
+
+**Étiquette retirée du hero de l'accueil** : elle indiquait la catégorie de
+la première paire avant/après du projet mis en avant, mais la photo du hero
+est la couverture du projet — qui peut être toute autre chose (ça l'a été
+pour Woluwe-Saint-Pierre après le tri de Sergiu, d'où le « Salle de bain »
+sur une photo de terrasse). Retirée entièrement plutôt que réparée, comme
+demandé.
+
+**Plus de points en fin de phrase** dans les textes courts du site (accueil,
+sections, cartes, page 404). Les paragraphes à plusieurs phrases gardent
+leurs points internes, seul le point final a été retiré. Les textes légaux
+et les récits de chantier (multi-phrases, plus formels) n'ont pas été
+touchés.
+
+**Page Services : grille « Tous nos travaux »** ajoutée en haut de la page,
+avant la liste détaillée existante — une carte par service (les 8 du brief
+§6, rien d'inventé), photo + nom, qui renvoie vers la section détaillée en
+dessous. Deux services n'ont pas encore de photo (Maçonnerie & façades,
+Peinture et finitions) : ils affichent un bloc « Photo à venir » et ne sont
+pas cliquables, en attendant une vraie photo de Sergiu. Sergiu a montré en
+exemple une grille d'un site concurrent avec ~19 métiers différents
+(éclairage, chauffage, isolation, gouttières séparées, etc.) — ces
+métiers-là ne sont pas dans les 8 services confirmés par le brief, donc pas
+ajoutés tels quels pour ne rien inventer. Certains existent déjà comme
+exemples de travaux dans un service plus large (ex. gouttières sous
+Toiture).
+
+**Nouvelle page « Rejoindre l'équipe »** (`/rejoindre-lequipe/`,
+lien uniquement dans le pied de page, pas dans le menu principal) : un
+texte générique invitant à envoyer une candidature spontanée, et un bouton
+qui ouvre un email pré-rempli (même système que le devis). Rien d'inventé
+sur des postes ouverts ou un process de recrutement — juste un canal de
+contact. **Textes NL à faire relire par un natif** : les nouveaux textes de
+cette page (`rejoindreEquipe` dans `src/i18n/nl.ts`) et de la page 404.
