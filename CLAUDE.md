@@ -70,7 +70,7 @@ Toutes les couleurs passent par ces variables : changer le bleu doit prendre une
 - Sur le bloc contact : principal fond blanc texte ink, secondaire contour blanc à 35 %.
 ### Icônes
  
-SVG au trait (épaisseur 1.8), jamais d'emoji. Pour WhatsApp, une icône bulle + combiné inspirée du logo (au trait, pas le logo plein officiel), sur fond vert `#0e8449` (plus sobre que le vert officiel, choisi aussi pour son contraste avec le texte blanc).
+SVG au trait (épaisseur 1.8), jamais d'emoji. Les boutons WhatsApp n'ont pas d'icône (juste le texte), sur fond vert `#0e8449` (plus sobre que le vert officiel, choisi aussi pour son contraste avec le texte blanc).
  
 ### Principes
  

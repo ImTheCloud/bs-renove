@@ -759,3 +759,48 @@ photo, projet par projet. Le lien a été envoyé séparément ; une fois son
 tri terminé, les photos marquées seront retirées du site (paires
 avant/après en entier si l'une des deux est marquée, la couverture d'un
 projet sera remplacée plutôt que juste enlevée).
+
+---
+
+## 20. Tri des photos appliqué, et refonte de finition (23 septembre 2026)
+
+Sergiu a terminé son tri sur les 5 projets (couverture, avant/après composés
+à la main, ordre de la galerie, photos à supprimer). Tout a été appliqué :
+
+- **56 photos inutilisées supprimées** de `src/assets/projets/` (fichiers
+  physiques retirés, pas juste enlevés des pages).
+- **Avant/après recomposés** selon ses choix : certaines paires d'origine
+  ont changé de photo d'un côté ou des deux (ex. Ostende, Woluwe), et 9
+  nouvelles paires ont été créées à partir de photos qui étaient avant en
+  galerie simple. Une légende et une catégorie ont été écrites à la main
+  pour chaque paire nouvelle ou modifiée, à partir de ce que montre la
+  photo — rien d'inventé.
+- **Couvertures** : gardées telles quelles pour Ostende, Watermael-Boitsfort
+  et la toiture de Woluwe-Saint-Pierre ; changées pour parquet/menuiseries
+  et Woluwe-Saint-Pierre suite au choix de Sergiu dans l'outil.
+- **`src/data/services-photos.ts`** : 3 photos qu'il utilisait (couverture,
+  détail cuisine, détail auvent de Woluwe) ont été supprimées par le tri —
+  remplacées par d'autres photos du même projet toujours présentes.
+
+**Suite à son retour après le tri, trois changements de fond sur le site :**
+
+1. **Plus aucune phrase sous une photo** (accueil, page Réalisations, fiche
+   projet, loupe de la galerie) : seule la catégorie (« Salle de bain »,
+   etc.) et le lien « Voir le chantier complet » restent. Le texte alternatif
+   (pour les lecteurs d'écran) est conservé sur chaque photo — ce n'est pas
+   affiché, donc ça ne compte pas comme une phrase visible.
+2. **Icône WhatsApp retirée partout** (boutons de l'accueil, du bloc contact,
+   de la page contact, de la barre mobile) : juste le mot « WhatsApp », plus
+   d'icône du tout. `CLAUDE.md` mis à jour pour refléter ce choix.
+3. **Hero de l'accueil allégé sur mobile** : avant, on pouvait appeler ou
+   écrire sur WhatsApp trois façons différentes sur un seul écran (bouton
+   WhatsApp du hero, numéro de téléphone en texte, puis la barre fixe en
+   bas avec Appeler et WhatsApp). Sur mobile, le hero ne garde plus que
+   « Demander un devis » — la barre du bas suffit pour Appeler/WhatsApp.
+   Sur desktop, où il n'y a pas de barre fixe, rien n'a changé.
+
+**Un point non tranché** : Sergiu a dit ne pas se servir des couvertures
+(« ça ne sert à rien »), mais en a quand même changé deux dans l'outil. Le
+mécanisme de couverture (photo de mise en avant sur l'accueil et les fiches)
+n'a pas été retiré du site — ça aurait été un chantier bien plus lourd pour
+une phrase ambiguë. À reconfirmer avec lui si besoin.

@@ -31,7 +31,6 @@ const projet = textes.projet;
               class="galerie__vignette"
               data-photo={index}
               aria-label={projet.agrandir}
-              data-legende-photo={photo.alt}
             >
               <PhotoProjet image={photo.image} alt={photo.alt} langue={langue} ratio="4 / 3" />
             </button>
@@ -65,7 +64,6 @@ const projet = textes.projet;
 
           <figure class="loupe__figure">
             <div class="loupe__image" data-image />
-            <figcaption class="loupe__legende" data-legende aria-live="polite" />
           </figure>
 
           {
@@ -90,10 +88,9 @@ const projet = textes.projet;
   document.querySelectorAll<HTMLElement>('[data-galerie]').forEach((galerie) => {
     const loupe = galerie.querySelector<HTMLDialogElement>('[data-loupe]');
     const zoneImage = galerie.querySelector<HTMLElement>('[data-image]');
-    const legende = galerie.querySelector<HTMLElement>('[data-legende]');
     const compte = galerie.querySelector<HTMLElement>('[data-compte]');
     const vignettes = Array.from(galerie.querySelectorAll<HTMLButtonElement>('[data-photo]'));
-    if (!loupe || !zoneImage || !legende || !compte || vignettes.length === 0) return;
+    if (!loupe || !zoneImage || !compte || vignettes.length === 0) return;
 
     let index = 0;
 
@@ -106,7 +103,6 @@ const projet = textes.projet;
       origine = source;
       const contenu = source.firstElementChild;
       zoneImage.replaceChildren(contenu ? contenu.cloneNode(true) : document.createTextNode(''));
-      legende.textContent = source.dataset.legendePhoto ?? '';
       compte.textContent = `${index + 1} / ${vignettes.length}`;
     };
 
@@ -225,12 +221,6 @@ const projet = textes.projet;
     margin: 0;
   }
 
-  .loupe__legende {
-    padding-top: 12px;
-    font-size: var(--size-small);
-    color: var(--color-text);
-    text-align: center;
-  }
 
   .loupe__fleche-gauche {
     display: inline-flex;

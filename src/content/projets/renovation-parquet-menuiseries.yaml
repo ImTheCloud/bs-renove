@@ -7,57 +7,24 @@ commune:
 service: renovation-complete
 ordre: 7
 misEnAvant: false
-couverture: ../../assets/projets/renovation-parquet-menuiseries/cover.jpg
+couverture: ../../assets/projets/renovation-parquet-menuiseries/detail-3.jpg
 couvertureAlt:
-  fr: Pièce lumineuse avec parquet neuf et deux portes-fenêtres neuves
-  nl: Lichte kamer met nieuw parket en twee nieuwe tuindeuren
+  fr: Parquet neuf et portes-fenêtres donnant sur le jardin
+  nl: Nieuw parket en tuindeuren naar de tuin
 recit:
   fr:
     depart: "[À CONFIRMER : l'état au départ, en une ou deux phrases.]"
-    travaux: "Remplacement du sol par du parquet, pose de nouvelles portes-fenêtres donnant sur le jardin, et reprise des murs et du plafond."
+    travaux: Remplacement du sol par du parquet, pose de nouvelles portes-fenêtres donnant sur le jardin, et reprise des murs et du plafond.
     resultat: "[À CONFIRMER : le résultat, vu par le propriétaire.]"
   nl:
     depart: "[TE BEVESTIGEN: de begintoestand, in één of twee zinnen.]"
-    travaux: "Vervanging van de vloer door parket, plaatsing van nieuwe tuindeuren, en vernieuwing van de muren en het plafond."
+    travaux: Vervanging van de vloer door parket, plaatsing van nieuwe tuindeuren, en vernieuwing van de muren en het plafond.
     resultat: "[TE BEVESTIGEN: het resultaat, gezien door de eigenaar.]"
-galerie:
-  - image: ../../assets/projets/renovation-parquet-menuiseries/chantier-1.jpg
-    alt:
-      fr: 'Démolition : gravats et mur à nu'
-      nl: 'Afbraak: puin en blote muur'
-    type: chantier
-  - image: ../../assets/projets/renovation-parquet-menuiseries/chantier-2.jpg
-    alt:
-      fr: 'Sous-plancher posé, ancien radiateur déposé'
-      nl: 'Onderlaag geplaatst, oude radiator verwijderd'
-    type: chantier
-  - image: ../../assets/projets/renovation-parquet-menuiseries/chantier-3.jpg
-    alt:
-      fr: 'Pose du parquet en cours'
-      nl: 'Plaatsing van het parket bezig'
-    type: chantier
-  - image: ../../assets/projets/renovation-parquet-menuiseries/detail-1.jpg
-    alt:
-      fr: 'Nouvelle porte-fenêtre installée'
-      nl: 'Nieuwe tuindeur geïnstalleerd'
-    type: detail
-  - image: ../../assets/projets/renovation-parquet-menuiseries/chantier-4.jpg
-    alt:
-      fr: Plafond avant peinture, ancienne fenêtre
-      nl: Plafond voor het schilderwerk, oud raam
-    type: chantier
-  - image: ../../assets/projets/renovation-parquet-menuiseries/detail-3.jpg
-    alt:
-      fr: 'Le même parquet, vu d''un autre angle'
-      nl: 'Hetzelfde parket, van een andere hoek'
-    type: detail
-  - image: ../../assets/projets/renovation-parquet-menuiseries/detail-4.jpg
-    alt:
-      fr: 'Deux nouvelles portes-fenêtres posées'
-      nl: 'Twee nieuwe tuindeuren geplaatst'
-    type: detail
-  - image: ../../assets/projets/renovation-parquet-menuiseries/detail-5.jpg
-    alt:
-      fr: 'Détail d''une des portes-fenêtres'
-      nl: 'Detail van een van de tuindeuren'
-    type: detail
+galerie: []
+avantApres:
+  - avant: ../../assets/projets/renovation-parquet-menuiseries/chantier-2.jpg
+    apres: ../../assets/projets/renovation-parquet-menuiseries/detail-3.jpg
+    legende:
+      fr: Sous-plancher posé, parquet terminé
+      nl: Onderlaag geplaatst, parket afgewerkt
+    categorie: sejour

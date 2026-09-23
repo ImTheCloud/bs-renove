@@ -21,43 +21,25 @@ recit:
     travaux: "Volledige binnenrenovatie: loodgieterij en structuur vernieuwd, nieuwe badkamer met douche en bad, en het dak volledig vernieuwd (afbraak, dakstructuur, nieuwe pannen)."
     resultat: "[TE BEVESTIGEN: het resultaat, gezien door de eigenaar.]"
 avantApres:
-  - avant: ../../assets/projets/renovation-interieure-ostende/avant-1.jpg
+  - avant: ../../assets/projets/renovation-interieure-ostende/chantier-3.jpg
     apres: ../../assets/projets/renovation-interieure-ostende/apres-1.jpg
     legende:
-      fr: Salle de bain, avant carrelage et terminée
-      nl: Badkamer, voor het tegelwerk en klaar
+      fr: Salle de bain, avant les travaux et terminée
+      nl: Badkamer, voor de werken en afgewerkt
+    categorie: salle-de-bain
+  - avant: ../../assets/projets/renovation-interieure-ostende/chantier-6.jpg
+    apres: ../../assets/projets/renovation-interieure-ostende/detail-5.jpg
+    legende:
+      fr: "Toiture : démolition et travaux en cours"
+      nl: "Dak: afbraak en werken in uitvoering"
+    categorie: toiture
+  - avant: ../../assets/projets/renovation-interieure-ostende/chantier-4.jpg
+    apres: ../../assets/projets/renovation-interieure-ostende/detail-1.jpg
+    legende:
+      fr: Douche, avant carrelage et terminée
+      nl: Douche, voor het tegelwerk en afgewerkt
     categorie: salle-de-bain
 galerie:
-  - image: ../../assets/projets/renovation-interieure-ostende/detail-1.jpg
-    alt:
-      fr: Douche terminée, robinetterie dorée
-      nl: Afgewerkte douche, gouden kraanwerk
-    type: detail
-  - image: ../../assets/projets/renovation-interieure-ostende/detail-2.jpg
-    alt:
-      fr: Vasque et miroir rond, détail
-      nl: Wastafel en ronde spiegel, detail
-    type: detail
-  - image: ../../assets/projets/renovation-interieure-ostende/detail-3.jpg
-    alt:
-      fr: Salle de bain et toilette, vue d'ensemble
-      nl: Badkamer en toilet, overzicht
-    type: detail
-  - image: ../../assets/projets/renovation-interieure-ostende/detail-4.jpg
-    alt:
-      fr: Façade en cours de restauration, échafaudage
-      nl: Gevel tijdens de restauratie, stelling
-    type: detail
-  - image: ../../assets/projets/renovation-interieure-ostende/detail-5.jpg
-    alt:
-      fr: Travaux de toiture, vue sur les toits d'Ostende
-      nl: Dakwerken, zicht over de daken van Oostende
-    type: detail
-  - image: ../../assets/projets/renovation-interieure-ostende/detail-6.jpg
-    alt:
-      fr: Pose de panneaux solaires et de velux
-      nl: Plaatsing van zonnepanelen en dakvensters
-    type: detail
   - image: ../../assets/projets/renovation-interieure-ostende/detail-7.jpg
     alt:
       fr: Détail de la façade restaurée
@@ -68,33 +50,8 @@ galerie:
       fr: Plomberie avant la pose du sous-plancher
       nl: Sanitair voor de plaatsing van de onderlaag
     type: chantier
-  - image: ../../assets/projets/renovation-interieure-ostende/chantier-2.jpg
+  - image: ../../assets/projets/renovation-interieure-ostende/detail-2.jpg
     alt:
-      fr: Ossature métallique, cloison en construction
-      nl: Metalen structuur, wand in opbouw
-    type: chantier
-  - image: ../../assets/projets/renovation-interieure-ostende/chantier-3.jpg
-    alt:
-      fr: Sous-plancher et évacuations avant la salle de bain
-      nl: Onderlaag en afvoeren voor de badkamer
-    type: chantier
-  - image: ../../assets/projets/renovation-interieure-ostende/chantier-4.jpg
-    alt:
-      fr: Membrane d'étanchéité avant le carrelage
-      nl: Waterdichtingsmembraan voor het tegelwerk
-    type: chantier
-  - image: ../../assets/projets/renovation-interieure-ostende/chantier-5.jpg
-    alt:
-      fr: Membrane d'étanchéité, autre angle
-      nl: Waterdichtingsmembraan, andere hoek
-    type: chantier
-  - image: ../../assets/projets/renovation-interieure-ostende/chantier-6.jpg
-    alt:
-      fr: Démolition de la toiture, charpente à nu
-      nl: Afbraak van het dak, blote dakstructuur
-    type: chantier
-  - image: ../../assets/projets/renovation-interieure-ostende/chantier-7.jpg
-    alt:
-      fr: Charpente et mur en briques à nu, sous les combles
-      nl: Dakstructuur en blote bakstenen muur, onder het dak
-    type: chantier
+      fr: Vasque et miroir rond, détail
+      nl: Wastafel en ronde spiegel, detail
+    type: detail

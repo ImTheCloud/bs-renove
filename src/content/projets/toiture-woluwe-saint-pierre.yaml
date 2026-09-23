@@ -20,20 +20,11 @@ recit:
     depart: "[TE BEVESTIGEN: de begintoestand, in één of twee zinnen.]"
     travaux: "Herstelling van het dak: onderdak en panlatten geplaatst, nieuwe pannen, en een dakkapel volledig afgewerkt."
     resultat: "[TE BEVESTIGEN: het resultaat, gezien door de eigenaar.]"
-avantApres: []
-galerie:
-  - image: ../../assets/projets/toiture-woluwe-saint-pierre/detail-1.jpg
-    alt:
-      fr: Lucarne habillée, autre angle
-      nl: Afgewerkte dakkapel, andere hoek
-    type: detail
-  - image: ../../assets/projets/toiture-woluwe-saint-pierre/chantier-1.jpg
-    alt:
-      fr: Sous-toiture posée, avant les tuiles
-      nl: Onderdak geplaatst, voor de pannen
-    type: chantier
-  - image: ../../assets/projets/toiture-woluwe-saint-pierre/chantier-2.jpg
-    alt:
-      fr: Liteaux et pose des tuiles en cours
-      nl: Panlatten en plaatsing van de pannen bezig
-    type: chantier
+avantApres:
+  - avant: ../../assets/projets/toiture-woluwe-saint-pierre/chantier-2.jpg
+    apres: ../../assets/projets/toiture-woluwe-saint-pierre/detail-1.jpg
+    legende:
+      fr: Toiture, pose des tuiles et lucarne terminée
+      nl: Dak, plaatsing van de pannen en afgewerkte dakkapel
+    categorie: toiture
+galerie: []

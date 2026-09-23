@@ -6,7 +6,6 @@
 export type NomIcone =
   | 'pin'
   | 'fleche'
-  | 'whatsapp'
   | 'telephone'
   | 'check'
   | 'menu'
@@ -35,39 +34,19 @@ const chemins: Partial<Record<NomIcone, string>> = {
   carte: '<path d="M9 4L3 6.5v13L9 17l6 3 6-2.5v-13L15 7 9 4z"/><path d="M9 4v13"/><path d="M15 7v13"/>',
 };
 
-// WhatsApp est le seul logo de marque du site : contrairement aux icônes
-// au trait ci-dessus (dessinées par nous, au même style), c'est un
-// pictogramme plein aux couleurs de WhatsApp, pour rester reconnaissable.
-const whatsapp =
-  '<path fill="#fff" d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4.2A8 8 0 1 1 20 11.5z"/>' +
-  '<path fill="#0e8449" d="M9.1 8.6c-.3-.6-.6-.6-.9-.6-.2 0-.5 0-.7.3-.3.3-1 1-1 2.3s1 2.7 1.2 2.9c.1.2 2.1 3.3 5.1 4.5 2.5 1 3 .8 3.5.8.5 0 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.4-.3-.1-1.7-.9-2-.9-.2-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.8-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C9.9 10 9.3 9 9.1 8.6z"/>';
 ---
 
-{
-  nom === 'whatsapp' ? (
-    <svg
-      width={taille}
-      height={taille}
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      focusable="false"
-      class={classe}
-      set:html={whatsapp}
-    />
-  ) : (
-    <svg
-      width={taille}
-      height={taille}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width={epaisseur}
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      aria-hidden="true"
-      focusable="false"
-      class={classe}
-      set:html={chemins[nom]}
-    />
-  )
-}
+<svg
+  width={taille}
+  height={taille}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width={epaisseur}
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+  class={classe}
+  set:html={chemins[nom]}
+/>

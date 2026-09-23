@@ -59,7 +59,6 @@ const lienProjet = projet ? `${chemin('realisations', langue)}${projet.id}/` : c
           <h2 class="avant-apres__titre">
             <a href={lienProjet}>{titre}</a>
           </h2>
-          <p class="avant-apres__legende">{paire.legende[langue]}</p>
         </div>
 
         <Bouton href={chemin('realisations', langue)} variante="secondaire" iconeApres="fleche">
@@ -119,8 +118,4 @@ const lienProjet = projet ? `${chemin('realisations', langue)}${projet.id}/` : c
     text-decoration: underline;
   }
 
-  .avant-apres__legende {
-    font-size: var(--size-small);
-    color: var(--color-text);
-  }
 </style>

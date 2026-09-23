@@ -43,16 +43,17 @@ const etiquette = categorie ? nomCategorie(categorie, langue) : undefined;
       >
         {textes.actions.devis}
       </Bouton>
-      <Bouton
-        href={lienWhatsApp(textes.whatsappMessage)}
-        variante="whatsapp"
-        icone="whatsapp"
-        large
-        target="_blank"
-        rel="noopener"
-      >
-        {textes.actions.whatsapp}
-      </Bouton>
+      <span class="hero__whatsapp-enveloppe">
+        <Bouton
+          href={lienWhatsApp(textes.whatsappMessage)}
+          variante="whatsapp"
+          large
+          target="_blank"
+          rel="noopener"
+        >
+          {textes.actions.whatsapp}
+        </Bouton>
+      </span>
     </div>
 
     <a href={`tel:${entreprise.telephoneLien}`} class="hero__appel">
@@ -145,9 +146,15 @@ const etiquette = categorie ? nomCategorie(categorie, langue) : undefined;
     gap: 12px;
   }
 
+  /* Sur mobile, la barre fixe en bas donne déjà Appeler et WhatsApp en
+     permanence : pas besoin de les répéter ici, un seul bouton suffit. */
+  .hero__whatsapp-enveloppe,
+  .hero__appel {
+    display: none;
+  }
+
   .hero__appel {
     min-height: var(--tap-min);
-    display: inline-flex;
     align-items: center;
     gap: 8px;
     font-size: var(--size-small);
@@ -264,6 +271,14 @@ const etiquette = categorie ? nomCategorie(categorie, langue) : undefined;
       align-items: center;
       gap: 56px;
       padding-block: 32px 48px;
+    }
+
+    .hero__whatsapp-enveloppe {
+      display: contents;
+    }
+
+    .hero__appel {
+      display: inline-flex;
     }
 
     .hero__badge {

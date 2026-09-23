@@ -77,7 +77,6 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
               </CurseurAvantApres>
               <figcaption class="paire__legende">
                 <span class="paire__categorie">{nomCategorie(paire.categorie, langue)}</span>
-                <span class="paire__texte">{paire.legende[langue]}</span>
                 <a href={`${chemin('realisations', langue)}${paire.projetId}/`} class="paire__lien">
                   {bloc.voirLeProjet}
                 </a>
@@ -210,14 +209,6 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
     color: var(--color-accent);
   }
 
-  .paire__texte {
-    font-family: var(--font-title);
-    font-size: var(--size-h3);
-    font-weight: 700;
-    letter-spacing: var(--tracking-h3);
-    color: var(--color-ink);
-  }
-
   .paire__lien {
     margin-left: auto;
     display: inline-flex;
@@ -237,10 +228,6 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
   @media (min-width: 900px) {
     .liste__paires {
       gap: 56px;
-    }
-
-    .paire__texte {
-      font-size: 22px;
     }
   }
 </style>
