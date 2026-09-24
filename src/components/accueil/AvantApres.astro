@@ -19,11 +19,10 @@ const { langue } = Astro.props;
 const textes = t(langue);
 const bloc = textes.accueil.avantApres;
 const vitrine = await paireVitrine();
-const lienProjet = vitrine ? `${chemin('realisations', langue)}${vitrine.projet.id}/` : '';
 ---
 
 {
-  vitrine && vitrine.paire.avant && vitrine.paire.apres && (
+  vitrine && (
     <section class="aa" data-aa aria-labelledby="aa-titre">
       <div class="aa__colle">
         <div class="wrap aa__interieur">
@@ -35,15 +34,12 @@ const lienProjet = vitrine ? `${chemin('realisations', langue)}${vitrine.projet.
             <p class="aa__intro" data-reveal>{bloc.texte}</p>
 
             <div class="aa__lieu" data-reveal>
-              <span class="aa__lieu-label">{vitrine.paire.legende[langue]}</span>
-              <span class="aa__lieu-commune">{vitrine.projet.data.commune[langue]}</span>
+              <span class="aa__lieu-label">{vitrine.legende[langue]}</span>
+              {vitrine.commune && <span class="aa__lieu-commune">{vitrine.commune[langue]}</span>}
             </div>
 
             <div class="aa__actions" data-reveal>
-              <Bouton href={lienProjet} variante="principal" iconeApres="fleche-diag">
-                {bloc.voirProjet}
-              </Bouton>
-              <Bouton href={chemin('realisations', langue)} variante="secondaire">
+              <Bouton href={chemin('realisations', langue)} variante="principal" iconeApres="fleche-diag">
                 {bloc.voirTout}
               </Bouton>
             </div>
@@ -56,10 +52,10 @@ const lienProjet = vitrine ? `${chemin('realisations', langue)}${vitrine.projet.
             </p>
 
             <div class="aa__cadre">
-              <CurseurAvantApres langue={langue} id="curseur-accueil" ratio="3 / 4" depart={100} precision={vitrine.paire.legende[langue]}>
+              <CurseurAvantApres langue={langue} id="curseur-accueil" ratio="3 / 4" depart={100} precision={vitrine.legende[langue]}>
                 <Image
                   slot="avant"
-                  src={vitrine.paire.avant}
+                  src={vitrine.avant}
                   alt={textes.photos.avant}
                   widths={[480, 720, 960, 1200]}
                   sizes="(min-width: 1024px) 44vw, 92vw"
@@ -67,7 +63,7 @@ const lienProjet = vitrine ? `${chemin('realisations', langue)}${vitrine.projet.
                 />
                 <Image
                   slot="apres"
-                  src={vitrine.paire.apres}
+                  src={vitrine.apres}
                   alt={textes.photos.apres}
                   widths={[480, 720, 960, 1200]}
                   sizes="(min-width: 1024px) 44vw, 92vw"
@@ -305,9 +301,7 @@ const lienProjet = vitrine ? `${chemin('realisations', langue)}${vitrine.projet.
       display: none;
     }
 
-    .aa__actions :global(.bouton--secondaire) {
-      display: none;
-    }
+
 
     .aa__visuel {
       max-width: min(420px, 50svh);

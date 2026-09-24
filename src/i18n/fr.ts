@@ -166,6 +166,9 @@ export const fr = {
       titreSerif: 'pas des promesses.',
       voirTout: 'Toutes les réalisations',
       glisser: 'glissez →',
+      aideSouris: 'Survolez une photo pour voir l’après',
+      aideToucher: 'Touchez une photo pour voir l’après',
+      basculer: 'Afficher avant ou après',
     },
 
     faq: {
@@ -360,7 +363,7 @@ export const fr = {
     grilleTitre: 'Tous nos travaux',
     grilleIntro: 'Un aperçu de nos métiers, cliquez sur une carte pour les détails',
     exemplesTitre: 'Par exemple',
-    projetsLies: 'Voir les projets',
+    projetsLies: 'Voir les avant/après',
     devisPour: 'Demander un devis',
   },
 

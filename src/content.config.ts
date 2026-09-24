@@ -39,6 +39,8 @@ const projets = defineCollection({
             apres: image().optional(),
             legende: bilingue,
             categorie: z.enum(categories.map((c) => c.slug) as [string, ...string[]]),
+            /** L'« après » montre un chantier pas encore fini : la paire n'est pas affichée. */
+            enCours: z.boolean().default(false),
           }),
         )
         .default([]),

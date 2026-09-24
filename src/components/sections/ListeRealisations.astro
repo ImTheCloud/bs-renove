@@ -9,7 +9,7 @@ import EntetePage from '../EntetePage.astro';
 import PhotoProjet from '../PhotoProjet.astro';
 import { categories, nomCategorie } from '~/data/categories';
 import { toutesLesPaires } from '~/data/projets';
-import { chemin, t, type Langue } from '~/i18n';
+import { t, type Langue } from '~/i18n';
 
 interface Props {
   langue: Langue;
@@ -49,7 +49,7 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
             <figure class="paire" data-categorie={paire.categorie}>
               <CurseurAvantApres
                 langue={langue}
-                id={`curseur-${paire.projetId}-${index}`}
+                id={`curseur-${paire.id}`}
                 ratio="3 / 4"
                 precision={paire.legende[langue]}
               >
@@ -74,9 +74,8 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
               </CurseurAvantApres>
               <figcaption class="paire__legende">
                 <span class="paire__categorie">{nomCategorie(paire.categorie, langue)}</span>
-                <a href={`${chemin('realisations', langue)}${paire.projetId}/`} class="paire__lien">
-                  {bloc.voirLeProjet}
-                </a>
+                {paire.commune && <span class="paire__commune">{paire.commune[langue]}</span>}
+                <span class="paire__texte">{paire.legende[langue]}</span>
               </figcaption>
             </figure>
           ))}
@@ -93,19 +92,30 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
     const galerie = groupe.nextElementSibling;
     const paires = Array.from(galerie?.querySelectorAll<HTMLElement>('.paire') ?? []);
 
+    const filtrer = (bouton: HTMLButtonElement) => {
+      boutons.forEach((b) => {
+        const actif = b === bouton;
+        b.classList.toggle('filtre--actif', actif);
+        b.setAttribute('aria-pressed', String(actif));
+      });
+      const cible = bouton.dataset.filtre;
+      paires.forEach((paire) => {
+        paire.hidden = cible !== 'toutes' && paire.dataset.categorie !== cible;
+      });
+      return cible;
+    };
+
     boutons.forEach((bouton) => {
       bouton.addEventListener('click', () => {
-        boutons.forEach((b) => {
-          const actif = b === bouton;
-          b.classList.toggle('filtre--actif', actif);
-          b.setAttribute('aria-pressed', String(actif));
-        });
-        const cible = bouton.dataset.filtre;
-        paires.forEach((paire) => {
-          paire.hidden = cible !== 'toutes' && paire.dataset.categorie !== cible;
-        });
+        const cible = filtrer(bouton);
+        // L'adresse garde le filtre : on peut partager « /realisations/#cuisine ».
+        history.replaceState(null, '', cible === 'toutes' ? location.pathname : `#${cible}`);
       });
     });
+
+    // Arrivée avec un filtre dans l'adresse (ex. depuis la page Services).
+    const depuisAdresse = boutons.find((b) => `#${b.dataset.filtre}` === location.hash);
+    if (depuisAdresse) filtrer(depuisAdresse);
   });
 </script>
 
@@ -178,8 +188,7 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
-    gap: 8px 14px;
+    gap: 6px 12px;
     padding-top: 14px;
   }
 
@@ -194,20 +203,18 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
     color: var(--color-ink);
   }
 
-  .paire__lien {
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-    font-size: var(--size-small);
-    font-weight: 650;
+  .paire__commune {
+    font-family: var(--font-title);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
     color: var(--color-ink);
-    text-decoration: underline;
-    text-decoration-color: var(--color-border);
-    text-underline-offset: 5px;
   }
 
-  .paire__lien:hover {
-    text-decoration-color: var(--color-ink);
+  .paire__texte {
+    flex-basis: 100%;
+    font-size: var(--size-small);
+    color: var(--color-muted);
   }
 
   @media (min-width: 700px) {

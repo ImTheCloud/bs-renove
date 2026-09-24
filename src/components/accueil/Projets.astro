@@ -1,13 +1,16 @@
 ---
 /**
- * Les réalisations en bande horizontale.
- * - Ordinateur : la section reste épinglée et les cartes défilent de côté
- *   pendant qu'on descend.
- * - Téléphone : on fait glisser la bande au doigt.
+ * Les réalisations de l'accueil : une bande de cartes avant/après.
+ * - Chaque carte montre l'avant, puis bascule d'elle-même vers l'après
+ *   (effet de volet) la première fois qu'elle apparaît en entier.
+ * - Survol (souris) ou toucher (téléphone) : on rebascule à volonté.
+ * - Ordinateur : la section reste épinglée et la bande défile de côté.
+ *   Téléphone : on fait glisser la bande au doigt.
  */
 import { Image } from 'astro:assets';
 import Icon from '../Icon.astro';
-import { listerProjets, nomService } from '~/data/projets';
+import { nomCategorie } from '~/data/categories';
+import { pairesAccueil } from '~/data/projets';
 import { chemin, t, type Langue } from '~/i18n';
 
 interface Props {
@@ -17,13 +20,12 @@ interface Props {
 const { langue } = Astro.props;
 const textes = t(langue);
 const bloc = textes.accueil.projets;
-
-// Sur l'accueil, seulement les projets dont la commune est confirmée.
-const projets = (await listerProjets()).filter((projet) => !projet.data.commune[langue].startsWith('['));
+const aa = textes.accueil.avantApres;
+const paires = await pairesAccueil();
 ---
 
 {
-  projets.length > 0 && (
+  paires.length > 0 && (
     <section class="projets" data-projets aria-labelledby="projets-titre">
       <div class="projets__colle">
         <div class="wrap projets__entete">
@@ -34,40 +36,62 @@ const projets = (await listerProjets()).filter((projet) => !projet.data.commune[
             </h2>
           </div>
           <div class="projets__compteur" aria-hidden="true">
-            <span class="manuscrit projets__glisser">{bloc.glisser}</span>
+            <span class="manuscrit projets__glisser">
+              <span class="aide-souris">{bloc.aideSouris}</span>
+              <span class="aide-toucher">{bloc.aideToucher}</span>
+            </span>
             <span class="projets__barre"><span data-barre /></span>
           </div>
         </div>
 
         <div class="projets__fenetre" data-fenetre>
           <ul class="projets__piste" data-piste>
-            {projets.map((projet, i) => (
-              <li class="carte">
-                <a href={`${chemin('realisations', langue)}${projet.id}/`} class="carte__lien">
-                  <span class="carte__image">
-                    {projet.data.couverture && (
+            {paires.map((paire, i) => {
+              const piece = nomCategorie(paire.categorie, langue) ?? '';
+              const titre = paire.commune ? `${piece} · ${paire.commune[langue]}` : piece;
+              return (
+                <li class="carte">
+                  <button
+                    type="button"
+                    class="carte__bouton"
+                    aria-pressed="false"
+                    aria-label={`${bloc.basculer} : ${titre}`}
+                    data-bascule
+                  >
+                    <span class="carte__image">
                       <Image
-                        src={projet.data.couverture}
-                        alt={projet.data.couvertureAlt[langue]}
+                        src={paire.avant}
+                        alt={`${aa.avant} : ${paire.legende[langue]}`}
                         widths={[400, 640, 880]}
                         sizes="(min-width: 1024px) 30vw, 78vw"
                         loading="lazy"
                       />
-                    )}
-                  </span>
-                  <span class="carte__num">{String(i + 1).padStart(2, '0')}</span>
-                  <span class="carte__infos">
-                    <span class="carte__service">{nomService(projet.data.service, langue)}</span>
-                    <span class="carte__commune">{projet.data.commune[langue]}</span>
-                  </span>
-                  <span class="carte__fleche" aria-hidden="true">
-                    <Icon nom="fleche-diag" taille={20} epaisseur={2} />
-                  </span>
-                </a>
-              </li>
-            ))}
+                    </span>
+                    <span class="carte__image carte__image--apres">
+                      <Image
+                        src={paire.apres}
+                        alt={`${aa.apres} : ${paire.legende[langue]}`}
+                        widths={[400, 640, 880]}
+                        sizes="(min-width: 1024px) 30vw, 78vw"
+                        loading="lazy"
+                      />
+                    </span>
+                    <span class="carte__trait" aria-hidden="true" />
+                    <span class="carte__etat" aria-hidden="true">
+                      <span class="carte__etat-avant">{aa.avant}</span>
+                      <span class="carte__etat-apres">{aa.apres}</span>
+                    </span>
+                    <span class="carte__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                    <span class="carte__infos">
+                      <span class="carte__service">{piece}</span>
+                      {paire.commune && <span class="carte__commune">{paire.commune[langue]}</span>}
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
             <li class="carte carte--fin">
-              <a href={chemin('realisations', langue)} class="carte__lien carte__lien--fin">
+              <a href={chemin('realisations', langue)} class="carte__lien--fin">
                 <span class="carte__fin-texte">{bloc.voirTout}</span>
                 <span class="carte__fin-rond" aria-hidden="true">
                   <Icon nom="fleche" taille={30} epaisseur={2} />
@@ -89,8 +113,56 @@ const projets = (await listerProjets()).filter((projet) => !projet.data.commune[
   const fenetre = section?.querySelector<HTMLElement>('[data-fenetre]');
   const barre = section?.querySelector<HTMLElement>('[data-barre]');
   const grandEcran = window.matchMedia('(min-width: 1024px)');
+  const souris = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   if (section && piste && fenetre) {
+    /* --- Bascule avant / après --- */
+    // Chaque carte a un état « au repos » (avant ou après). Le survol montre
+    // l'autre état ; un clic (ou Entrée au clavier, ou un toucher) change l'état au repos.
+    const bascules = Array.from(section.querySelectorAll<HTMLButtonElement>('[data-bascule]')).map((carte) => {
+      let repos = false;
+      let survol = false;
+      const afficher = () => carte.setAttribute('aria-pressed', String(survol ? !repos : repos));
+      carte.addEventListener('click', () => {
+        repos = !repos;
+        afficher();
+      });
+      if (souris) {
+        carte.addEventListener('pointerenter', () => {
+          survol = true;
+          afficher();
+        });
+        carte.addEventListener('pointerleave', () => {
+          survol = false;
+          afficher();
+        });
+      }
+      return {
+        carte,
+        passerALApres: () => {
+          repos = true;
+          afficher();
+        },
+      };
+    });
+
+    // La première fois qu'une carte est entièrement visible, elle passe d'elle-même à l'après.
+    if (!mouvementReduit) {
+      const observateur = new IntersectionObserver(
+        (entrees) => {
+          for (const entree of entrees) {
+            if (!entree.isIntersecting) continue;
+            observateur.unobserve(entree.target);
+            const bascule = bascules.find(({ carte }) => carte === entree.target);
+            window.setTimeout(() => bascule?.passerALApres(), 500);
+          }
+        },
+        { threshold: 0.95 },
+      );
+      bascules.forEach(({ carte }) => observateur.observe(carte));
+    }
+
+    /* --- Défilement horizontal --- */
     let distance = 0;
 
     const mesurer = () => {
@@ -116,11 +188,14 @@ const projets = (await listerProjets()).filter((projet) => !projet.data.commune[
       }
     });
 
-    // Sur mobile, la barre suit le glissement au doigt.
-    fenetre.addEventListener('scroll', () => {
-      const max = fenetre.scrollWidth - fenetre.clientWidth;
-      barre?.style.setProperty('--t', String(max > 0 ? fenetre.scrollLeft / max : 0));
-    }, { passive: true });
+    fenetre.addEventListener(
+      'scroll',
+      () => {
+        const max = fenetre.scrollWidth - fenetre.clientWidth;
+        barre?.style.setProperty('--t', String(max > 0 ? fenetre.scrollLeft / max : 0));
+      },
+      { passive: true },
+    );
   }
 </script>
 
@@ -158,14 +233,28 @@ const projets = (await listerProjets()).filter((projet) => !projet.data.commune[
   .projets__compteur {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
     gap: 10px;
   }
 
   .projets__glisser {
     font-size: 24px;
     color: var(--color-accent);
-    transform: rotate(-3deg);
+    transform: rotate(-2deg);
+  }
+
+  .aide-souris {
+    display: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .aide-souris {
+      display: inline;
+    }
+
+    .aide-toucher {
+      display: none;
+    }
   }
 
   .projets__barre {
@@ -212,15 +301,21 @@ const projets = (await listerProjets()).filter((projet) => !projet.data.commune[
     scroll-snap-align: center;
   }
 
-  .carte__lien {
+  /* --- Une carte avant / après --- */
+  .carte__bouton {
     position: relative;
     display: block;
+    width: 100%;
     aspect-ratio: 3 / 4;
+    padding: 0;
+    border: 0;
     border-radius: var(--radius-card);
     overflow: hidden;
-    color: #fff;
-    text-decoration: none;
     background: var(--color-surface);
+    color: #fff;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
     isolation: isolate;
   }
 
@@ -230,26 +325,100 @@ const projets = (await listerProjets()).filter((projet) => !projet.data.commune[
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 1200ms var(--ease-out);
   }
 
-  .carte__lien:hover .carte__image :global(img) {
-    transform: scale(1.06);
+  /* L'après se dévoile de gauche à droite, comme un volet. */
+  .carte__image--apres {
+    position: absolute;
+    inset: 0;
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 900ms var(--ease-out);
   }
 
-  .carte__lien::after {
+  .carte__bouton[aria-pressed='true'] .carte__image--apres {
+    clip-path: inset(0 0 0 0);
+  }
+
+  /* Le trait jaune qui suit le bord du volet. */
+  .carte__trait {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    width: 4px;
+    margin-left: -2px;
+    background: var(--color-signal);
+    opacity: 0;
+    transition:
+      left 900ms var(--ease-out),
+      opacity 300ms var(--ease) 700ms;
+  }
+
+  .carte__bouton[aria-pressed='true'] .carte__trait {
+    left: 100%;
+  }
+
+  .carte__bouton:hover .carte__trait,
+  .carte__bouton:active .carte__trait {
+    opacity: 1;
+    transition:
+      left 900ms var(--ease-out),
+      opacity 150ms var(--ease);
+  }
+
+  .carte__bouton::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(18, 20, 24, 0.35) 0%, transparent 28%, transparent 50%, rgba(18, 20, 24, 0.82) 100%);
     z-index: 1;
+    background: linear-gradient(180deg, rgba(18, 20, 24, 0.3) 0%, transparent 25%, transparent 55%, rgba(18, 20, 24, 0.8) 100%);
+    pointer-events: none;
+  }
+
+  .carte__etat {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 3;
+    display: grid;
+    padding: 7px 14px;
+    border-radius: var(--radius-pill);
+    background: rgba(245, 242, 236, 0.94);
+    color: var(--color-ink);
+    font-size: 12px;
+    font-weight: 750;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: background-color 400ms var(--ease);
+  }
+
+  .carte__etat > span {
+    grid-area: 1 / 1;
+    transition: opacity 300ms var(--ease);
+  }
+
+  .carte__etat-apres {
+    opacity: 0;
+  }
+
+  .carte__bouton[aria-pressed='true'] .carte__etat {
+    background: var(--color-signal);
+  }
+
+  .carte__bouton[aria-pressed='true'] .carte__etat-avant {
+    opacity: 0;
+  }
+
+  .carte__bouton[aria-pressed='true'] .carte__etat-apres {
+    opacity: 1;
   }
 
   .carte__num {
     position: absolute;
     top: 18px;
     left: 20px;
-    z-index: 2;
+    z-index: 3;
     font-family: var(--font-title);
     font-size: 15px;
     font-weight: 700;
@@ -258,12 +427,12 @@ const projets = (await listerProjets()).filter((projet) => !projet.data.commune[
   .carte__infos {
     position: absolute;
     left: 20px;
-    right: 80px;
+    right: 20px;
     bottom: 22px;
-    z-index: 2;
+    z-index: 3;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
   }
 
   .carte__service {
@@ -280,44 +449,28 @@ const projets = (await listerProjets()).filter((projet) => !projet.data.commune[
 
   .carte__commune {
     font-family: var(--font-title);
-    font-size: clamp(26px, 2.4vw, 36px);
+    font-size: clamp(24px, 2.2vw, 34px);
     font-weight: 700;
     line-height: 1.05;
     letter-spacing: -0.035em;
   }
 
-  .carte__fleche {
-    position: absolute;
-    right: 18px;
-    bottom: 22px;
-    z-index: 2;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: rgba(245, 242, 236, 0.95);
-    color: var(--color-ink);
-    transition: transform 500ms var(--ease-out);
+  .carte__bouton:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 3px;
   }
 
-  .carte__lien:hover .carte__fleche {
-    transform: rotate(45deg);
-  }
-
-  /* La dernière carte : « toutes les réalisations ». */
+  /* La dernière carte : « tous les avant/après ». */
   .carte__lien--fin {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    aspect-ratio: 3 / 4;
     padding: 28px;
+    border-radius: var(--radius-card);
     background: var(--color-signal);
     color: var(--color-ink);
-  }
-
-  .carte__lien--fin::after {
-    display: none;
+    text-decoration: none;
   }
 
   .carte__fin-texte {
@@ -370,12 +523,23 @@ const projets = (await listerProjets()).filter((projet) => !projet.data.commune[
   }
 
   .projets--epingle .carte {
-    width: min(30vw, 58svh * 0.75);
+    width: min(26vw, 58svh * 0.75);
   }
 
   @media (min-width: 1024px) {
     .projets__piste {
       gap: 24px;
+    }
+
+    .projets__compteur {
+      align-items: flex-end;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .carte__image--apres,
+    .carte__trait {
+      transition: none;
     }
   }
 </style>

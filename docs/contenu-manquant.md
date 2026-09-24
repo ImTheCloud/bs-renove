@@ -144,6 +144,9 @@ et le récit en trois parties (au départ · les travaux · le résultat), en FR
 
 ## 7. Ajouté en phase 3 : les pages réalisations
 
+> **Obsolète depuis le 25 septembre 2026 (§ 18)** : il n'y a plus de page par chantier.
+> Les récits, durées, légendes de galerie et couvertures ci-dessous ne sont plus demandés.
+
 Les 5 projets existent en fichiers (`src/content/projets/`), mais **tout leur contenu
 est provisoire**. Chaque `[À CONFIRMER]` visible à l'écran correspond à une ligne ici.
 
@@ -896,3 +899,37 @@ simple lien email du § 16, **à valider avec Sergiu** qui avait préféré l'em
 - La page Vie privée a été remise dans sa version « avec Web3Forms » (celle d'avant le
   22 septembre). Elle devient exacte dès que la clé est configurée ; tant que ce n'est pas
   le cas, elle décrit un service qui n'est pas encore utilisé. **À vérifier avant la mise en ligne.**
+
+---
+
+## 18. Réalisations : uniquement des avant/après (25 septembre 2026)
+
+Décision de Claudiu : plus de page par chantier. Certaines pages montraient deux fois la
+même photo (Watermael-Boitsfort : la couverture était la photo « après »), et les photos
+isolées de chantier n'apportaient rien. Chaque avant/après est désormais indépendant,
+avec sa pièce et sa commune (détail dans `docs/brief.md` § 7).
+
+**Conséquence heureuse : on n'a plus besoin de demander à Sergiu les récits de chantier**
+(au départ · les travaux · le résultat), ni les durées, ni les légendes de galerie.
+
+### 14 avant/après affichés, 3 masqués
+
+Les 3 paires masquées montrent un « après » encore en chantier. Elles portent
+`enCours: true` dans leur fichier ; retirer cette ligne suffit à les réafficher.
+
+| Paire masquée | Pourquoi |
+|---|---|
+| Ostende, toiture (`chantier-6` → `detail-5`) | ouvrier sur le toit, démolition en cours |
+| Woluwe-Saint-Pierre, escalier principal (`avant-5` → `chantier-26`) | habillage des marches en cours |
+| Woluwe-Saint-Pierre, salle de bain (`chantier-18` → `chantier-17`) | carrelage pas fini, scotch orange |
+
+### À savoir
+
+- Les anciennes adresses `/realisations/<chantier>/` n'existent plus. Le site n'étant pas
+  encore en ligne, aucune redirection n'est nécessaire.
+- Aucune photo n'a été supprimée : celles qui ne font partie d'aucune paire restent dans
+  `src/assets/`, simplement plus affichées (et donc plus publiées).
+- `salle-de-bain-knokke` et `cuisine-ixelles` n'ont aucun avant/après : ils n'apparaissent
+  nulle part. Un avant/après de la cuisine d'Ixelles serait bienvenu.
+- Métiers sans avant/après : Électricité, Peinture et finitions, Maçonnerie & façades
+  (panneau illustré à la place). Une paire pour l'un d'eux apparaîtrait automatiquement.

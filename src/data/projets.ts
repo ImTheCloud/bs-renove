@@ -1,99 +1,102 @@
+/**
+ * Les réalisations, vues comme des avant/après indépendants.
+ *
+ * Il n'y a plus de page par chantier : chaque comparaison avant/après vit
+ * seule, avec sa pièce et sa commune. Les fichiers de `src/content/projets/`
+ * servent seulement à ranger les paires par chantier d'origine (et à donner
+ * la commune) ; leurs autres photos et leur récit ne sont plus affichés.
+ */
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { services } from './services';
 import type { Langue } from '~/i18n';
 
 export type Projet = CollectionEntry<'projets'>;
+type PaireBrute = Projet['data']['avantApres'][number];
 
-/**
- * Tous les projets publiables, dans l'ordre choisi dans les fichiers.
- *
- * Un projet est publiable dès qu'il a une vraie photo de couverture. En
- * attendant, il reste dans `src/content/projets/` (rien n'est perdu) mais
- * n'apparaît nulle part sur le site public : mieux vaut ne rien montrer
- * qu'une page presque vide sur laquelle on peut tomber en cliquant.
- * Il suffit d'ajouter une couverture pour qu'il apparaisse automatiquement.
- */
-export async function listerProjets(): Promise<Projet[]> {
-  const projets = await getCollection('projets');
-  return projets
-    .filter((projet) => projet.data.couverture !== undefined)
-    .sort((a, b) => a.data.ordre - b.data.ordre);
-}
-
-/** Le projet mis en avant sur l'accueil. À défaut, le premier de la liste. */
-export async function projetMisEnAvant(): Promise<Projet | undefined> {
-  const projets = await listerProjets();
-  return projets.find((projet) => projet.data.misEnAvant) ?? projets[0];
-}
-
-/** Les autres projets, pour la liste « Autres projets ». */
-export async function autresProjets(sauf: string, combien = 3): Promise<Projet[]> {
-  const projets = await listerProjets();
-  return projets.filter((projet) => projet.id !== sauf).slice(0, combien);
-}
-
-/** Le nom lisible du service lié à un projet. */
-export function nomService(slug: string, langue: Langue): string | undefined {
-  return services.find((service) => service.slug === slug)?.nom[langue];
-}
-
-/** Les photos de la galerie, détails d'abord puis chantier. */
-export function galerieOrdonnee(projet: Projet) {
-  const ordre = { detail: 0, chantier: 1 } as const;
-  return [...projet.data.galerie].sort((a, b) => ordre[a.type] - ordre[b.type]);
-}
-
-export interface PaireAvecProjet {
-  projetId: string;
-  projetTitre: Record<Langue, string>;
-  commune: Record<Langue, string>;
-  avant: NonNullable<Projet['data']['avantApres'][number]['avant']>;
-  apres: NonNullable<Projet['data']['avantApres'][number]['apres']>;
+export interface Paire {
+  /** Identifiant stable : `<fichier du chantier>-<numéro de la paire>`. */
+  id: string;
+  avant: NonNullable<PaireBrute['avant']>;
+  apres: NonNullable<PaireBrute['apres']>;
   legende: Record<Langue, string>;
   categorie: string;
+  /** Absente tant que la commune n'est pas confirmée : on n'affiche rien plutôt qu'un marqueur. */
+  commune?: Record<Langue, string>;
 }
 
 /**
- * Toutes les paires avant/après de tous les projets publiés, peu importe
- * le chantier d'origine — sert à les regrouper par type de pièce sur la
- * page Réalisations. Seules les paires avec une vraie photo des deux
- * côtés sont retenues (une légende seule, sans photo, ne sert à rien ici).
+ * Toutes les paires affichables : une vraie photo des deux côtés, et un
+ * « après » qui montre un travail fini (les paires `enCours` sont masquées).
  */
-export async function toutesLesPaires(): Promise<PaireAvecProjet[]> {
-  const projets = await listerProjets();
-  const paires: PaireAvecProjet[] = [];
+export async function toutesLesPaires(): Promise<Paire[]> {
+  const projets = (await getCollection('projets')).sort((a, b) => a.data.ordre - b.data.ordre);
+  const paires: Paire[] = [];
   for (const projet of projets) {
-    for (const paire of projet.data.avantApres) {
-      if (!paire.avant || !paire.apres) continue;
+    const communeConnue = !projet.data.commune.fr.startsWith('[');
+    projet.data.avantApres.forEach((paire, index) => {
+      if (!paire.avant || !paire.apres || paire.enCours) return;
       paires.push({
-        projetId: projet.id,
-        projetTitre: projet.data.titre,
-        commune: projet.data.commune,
+        id: `${projet.id}-${index}`,
         avant: paire.avant,
         apres: paire.apres,
         legende: paire.legende,
         categorie: paire.categorie,
+        commune: communeConnue ? projet.data.commune : undefined,
       });
-    }
+    });
   }
   return paires;
 }
 
-/**
- * La comparaison avant/après en vitrine sur l'accueil. On choisit ici la
- * paire la plus parlante (même pièce, même angle, écart spectaculaire),
- * indépendamment du projet « mis en avant ».
- */
-const PAIRE_VITRINE = { projet: 'salle-de-bain-watermael-boitsfort', index: 0 };
+/** La comparaison en grand sur l'accueil : la plus spectaculaire. */
+const ID_VITRINE = 'salle-de-bain-watermael-boitsfort-0';
 
-export async function paireVitrine(): Promise<{ projet: Projet; paire: Projet['data']['avantApres'][number] } | undefined> {
-  const projets = await listerProjets();
-  const choisi = projets.find((projet) => projet.id === PAIRE_VITRINE.projet);
-  const paire = choisi?.data.avantApres[PAIRE_VITRINE.index];
-  if (choisi && paire?.avant && paire.apres) return { projet: choisi, paire };
+/** Celles de la bande « réalisations » de l'accueil, dans cet ordre. */
+const IDS_ACCUEIL = [
+  'renovation-woluwe-saint-pierre-7',
+  'renovation-interieure-ostende-0',
+  'renovation-woluwe-saint-pierre-8',
+  'toiture-woluwe-saint-pierre-0',
+  'renovation-woluwe-saint-pierre-6',
+  'renovation-woluwe-saint-pierre-3',
+  'renovation-interieure-ostende-2',
+  'renovation-parquet-menuiseries-0',
+];
 
-  // À défaut, la première paire complète du projet mis en avant.
-  const secours = await projetMisEnAvant();
-  const paireSecours = secours?.data.avantApres.find((p) => p.avant && p.apres);
-  return secours && paireSecours ? { projet: secours, paire: paireSecours } : undefined;
+export async function paireVitrine(): Promise<Paire | undefined> {
+  const paires = await toutesLesPaires();
+  return paires.find((paire) => paire.id === ID_VITRINE) ?? paires[0];
+}
+
+export async function pairesAccueil(): Promise<Paire[]> {
+  const paires = await toutesLesPaires();
+  const choisies = IDS_ACCUEIL.map((id) => paires.find((paire) => paire.id === id)).filter(
+    (paire): paire is Paire => paire !== undefined,
+  );
+  // Si la sélection ne trouve plus rien (fichiers renommés), on prend les premières.
+  return choisies.length > 0 ? choisies : paires.filter((paire) => paire.id !== ID_VITRINE).slice(0, 8);
+}
+
+/** Quels types de pièce illustrent chaque métier. */
+const CATEGORIES_PAR_SERVICE: Record<string, string[]> = {
+  'renovation-complete': ['sejour', 'chambre'],
+  'salles-de-bain': ['salle-de-bain', 'toilette'],
+  cuisines: ['cuisine'],
+  carrelage: ['exterieur', 'escalier'],
+  toiture: ['toiture'],
+  'maconnerie-facades': ['facade'],
+  electricite: [],
+  'peinture-finitions': [],
+};
+
+/** Les avant/après d'un métier, la vitrine en premier si elle en fait partie. */
+export async function pairesDuService(slug: string): Promise<Paire[]> {
+  const categories = CATEGORIES_PAR_SERVICE[slug] ?? [];
+  const paires = (await toutesLesPaires()).filter((paire) => categories.includes(paire.categorie));
+  return paires.sort((a, b) => Number(b.id === ID_VITRINE) - Number(a.id === ID_VITRINE));
+}
+
+/** Le nom lisible d'un service. */
+export function nomService(slug: string, langue: Langue): string | undefined {
+  return services.find((service) => service.slug === slug)?.nom[langue];
 }

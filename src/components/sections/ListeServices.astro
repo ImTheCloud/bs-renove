@@ -1,18 +1,20 @@
 ---
 /**
  * La page Services : un sommaire, puis une section par métier.
- * Un métier sans photo affiche un panneau illustré (son icône en grand)
- * plutôt qu'un bloc « photo à venir » : les 8 métiers ont tous leur section,
- * ce qui permet aux liens de la maison dessinée de toujours aboutir.
+ * Chaque métier montre un de ses avant/après (le curseur à tirer). Un métier
+ * sans avant/après affiche un panneau illustré (son icône en grand) : les
+ * 8 métiers ont tous leur section, pour que les liens de la maison dessinée
+ * aboutissent toujours.
  */
 import { Image } from 'astro:assets';
 import Bouton from '../Bouton.astro';
+import CurseurAvantApres from '../CurseurAvantApres.astro';
 import EntetePage from '../EntetePage.astro';
 import Icon from '../Icon.astro';
 import { lienDevis } from '~/data/entreprise';
-import { listerProjets } from '~/data/projets';
+import { nomCategorie } from '~/data/categories';
+import { pairesDuService } from '~/data/projets';
 import { iconeService, services } from '~/data/services';
-import { photosServices } from '~/data/services-photos';
 import { chemin, t, type Langue } from '~/i18n';
 
 interface Props {
@@ -23,14 +25,8 @@ const { langue } = Astro.props;
 const textes = t(langue);
 const bloc = textes.servicesPage;
 
-// Chaque service affiche les projets qui lui sont liés, s'il y en a.
-const projets = await listerProjets();
-const projetsParService = new Map<string, typeof projets>();
-for (const projet of projets) {
-  const liste = projetsParService.get(projet.data.service) ?? [];
-  liste.push(projet);
-  projetsParService.set(projet.data.service, liste);
-}
+const aa = textes.accueil.avantApres;
+const pairesParService = await Promise.all(services.map((service) => pairesDuService(service.slug)));
 ---
 
 <EntetePage surtitre={bloc.surtitre} titre={bloc.titre} intro={bloc.intro}>
@@ -49,23 +45,22 @@ for (const projet of projets) {
 <div class="wrap services">
   {
     services.map((service, index) => {
-      const lies = projetsParService.get(service.slug) ?? [];
-      const photos = (photosServices[service.slug] ?? []).slice(0, 3);
+      const paires = pairesParService[index];
+      const paire = paires[0];
       return (
         <section id={service.slug} class:list={['service', { 'service--inverse': index % 2 === 1 }]} aria-labelledby={`titre-${service.slug}`}>
-          <div class:list={['service__visuel', `service__visuel--${Math.max(photos.length, 1)}`]} data-reveal>
-            {photos.length > 0 ? (
-              photos.map((photo, i) => (
-                <div class="service__photo">
-                  <Image
-                    src={photo}
-                    alt={photos.length > 1 ? `${service.nom[langue]} ${i + 1}/${photos.length}` : service.nom[langue]}
-                    widths={[400, 700, 1000]}
-                    sizes={i === 0 ? '(min-width: 1024px) 34vw, 90vw' : '(min-width: 1024px) 17vw, 45vw'}
-                    loading="lazy"
-                  />
-                </div>
-              ))
+          <div class="service__visuel" data-reveal>
+            {paire ? (
+              <figure class="service__comparaison">
+                <CurseurAvantApres langue={langue} id={`curseur-${service.slug}`} ratio="3 / 4" precision={paire.legende[langue]}>
+                  <Image slot="avant" src={paire.avant} alt={`${aa.avant} : ${paire.legende[langue]}`} widths={[400, 700, 1000]} sizes="(min-width: 1024px) 30vw, 90vw" loading="lazy" />
+                  <Image slot="apres" src={paire.apres} alt={`${aa.apres} : ${paire.legende[langue]}`} widths={[400, 700, 1000]} sizes="(min-width: 1024px) 30vw, 90vw" loading="lazy" />
+                </CurseurAvantApres>
+                <figcaption class="service__legende">
+                  {nomCategorie(paire.categorie, langue)}
+                  {paire.commune && <span> · {paire.commune[langue]}</span>}
+                </figcaption>
+              </figure>
             ) : (
               <div class="service__illustration" aria-hidden="true">
                 <Icon nom={iconeService(service.slug)} taille={120} epaisseur={1.1} />
@@ -95,17 +90,9 @@ for (const projet of projets) {
               <Bouton href={lienDevis(langue)} variante="principal" iconeApres="fleche-diag">
                 {bloc.devisPour}
               </Bouton>
-              {lies.length > 0 && (
-                <Bouton
-                  href={lies.length === 1 ? `${chemin('realisations', langue)}${lies[0].id}/` : chemin('realisations', langue)}
-                  variante="secondaire"
-                  aria-label={
-                    lies.length === 1
-                      ? `${textes.realisations.voirLeProjet} : ${lies[0].data.titre[langue]}`
-                      : `${bloc.projetsLies} : ${service.nom[langue]}`
-                  }
-                >
-                  {lies.length === 1 ? textes.realisations.voirLeProjet : bloc.projetsLies}
+              {paires.length > 1 && (
+                <Bouton href={`${chemin('realisations', langue)}#${paire?.categorie}`} variante="secondaire">
+                  {bloc.projetsLies} ({paires.length})
                 </Bouton>
               )}
             </div>
@@ -171,39 +158,28 @@ for (const projet of projets) {
     gap: 10px;
   }
 
-  .service__visuel--2,
-  .service__visuel--3 {
-    grid-template-columns: 1fr 1fr;
+  .service__comparaison {
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
   }
 
-  .service__visuel--3 .service__photo:first-child {
-    grid-column: 1 / -1;
-  }
-
-  .service__photo {
-    position: relative;
-    aspect-ratio: 4 / 3;
-    border-radius: var(--radius-card-img);
-    overflow: hidden;
-    background: var(--color-surface);
-  }
-
-  .service__visuel--1 .service__photo,
-  .service__visuel--3 .service__photo:first-child {
-    aspect-ratio: 16 / 11;
-  }
-
-  .service__photo :global(img) {
-    position: absolute;
-    inset: 0;
+  .service__comparaison :global(.curseur img) {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 1200ms var(--ease-out);
   }
 
-  .service__photo:hover :global(img) {
-    transform: scale(1.04);
+  .service__legende {
+    padding-top: 12px;
+    font-size: var(--size-small);
+    font-weight: 650;
+    color: var(--color-ink);
+  }
+
+  .service__legende span {
+    font-weight: 500;
+    color: var(--color-muted);
   }
 
   .service__illustration {

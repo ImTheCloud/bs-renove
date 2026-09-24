@@ -33,6 +33,7 @@ avantApres:
       fr: "Toiture : démolition et travaux en cours"
       nl: "Dak: afbraak en werken in uitvoering"
     categorie: toiture
+    enCours: true
   - avant: ../../assets/projets/renovation-interieure-ostende/chantier-4.jpg
     apres: ../../assets/projets/renovation-interieure-ostende/detail-1.jpg
     legende:

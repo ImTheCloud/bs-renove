@@ -40,24 +40,27 @@ Action principale sur tout le site : **« Demander un devis »**.
 | Accueil | `/` | `/nl/` |
 | Services | `/services/` | `/nl/diensten/` |
 | Réalisations | `/realisations/` | `/nl/realisaties/` |
-| Page projet | `/realisations/[slug]/` | `/nl/realisaties/[slug]/` |
 | Contact et devis | `/contact/` | `/nl/contact/` |
 | Mentions légales | `/mentions-legales/` | `/nl/juridische-informatie/` |
+| À propos | `/a-propos/` | `/nl/over-ons/` |
+| Rejoindre l’équipe | `/rejoindre-lequipe/` | `/nl/word-lid-van-ons-team/` |
 | Vie privée | `/vie-privee/` | `/nl/privacy/` |
  
 Plus une page 404 dans les deux langues.
  
-## 5. Accueil, section par section (comme la maquette C)
- 
-1. **En-tête** : logo, liens (Services, Réalisations, À propos → section « Pourquoi », Contact), sélecteur FR/NL en pilule, bouton « Demander un devis ». Sur mobile : menu et bouton d'appel.
-2. **Hero** :
-   - À gauche : pastille « Denderleeuw · partout en Belgique », titre « Votre maison, entre de bonnes mains. », texte « Salles de bain, cuisines, carrelage, toiture et maçonnerie. On s'occupe de votre chantier du premier devis jusqu'à la dernière finition. », boutons « Demander un devis » et « Écrire sur WhatsApp », ligne « ou appelez le 0485 38 43 90 », trois pastilles : Devis détaillé · Un seul interlocuteur · Français · Nederlands.
-   - À droite : grande photo arrondie (la plus belle réalisation), badge flottant « [X] ans de métier dans la construction », étiquette du projet (ex. « Salle de bain · Knokke »).
-3. **Services** : titre « Tout pour votre rénovation, au même endroit. », 8 cartes (photo, titre, une phrase), 4 par ligne sur desktop, bouton « Tous nos services ».
-4. **Avant / après** : grand curseur avant/après dans un conteneur gris clair arrondi. À droite : titre du projet, 2-3 phrases, pastilles (durée, types de travaux), liste « Autres projets » avec miniatures.
-5. **Pourquoi BS Renove** : photo de Sergiu sur un chantier, titre « Un projet. Un seul interlocuteur. », texte « Nous vous accompagnons à chaque étape de votre projet, pour une réalisation claire, efficace et sans mauvaises surprises. », quatre points : Devis détaillé · Suivi du chantier · Interlocuteur unique · Matériaux de qualité.
-6. **Bloc contact** (fond ink, grands coins arrondis) : titre « Vous avez un projet ? Parlons-en. », texte « Construction, rénovation ou transformation : expliquez-nous votre projet et recevez une première estimation. », boutons devis, WhatsApp et appeler, trois tuiles : téléphone, email, zone d'intervention.
-7. **Pied de page** : nom légal, adresse du siège, numéro de TVA, liens mentions légales et vie privée, sélecteur de langue.
+## 5. Accueil, section par section (refonte de septembre 2026)
+
+1. **En-tête flottant** : logo, Services, Réalisations, À propos, Contact, sélecteur FR/NL, bouton « Demander un devis ». Sur mobile : bouton « Menu » (panneau plein écran) et dock flottant en bas (Appeler, WhatsApp, Devis).
+2. **Hero** : « Votre maison, *refaite* de A à Z. », texte, boutons Devis et WhatsApp, faits confirmés (12 ans de métier · Devis gratuit · Français · Nederlands). À droite : **la maison dessinée en coupe**, chaque pièce mène à son service. En dessous : les 8 métiers en pastilles.
+3. **Bandeau** qui défile (les métiers, façon rubalise de chantier).
+4. **Avant/après en vitrine**, piloté par le défilement (salle de bain de Watermael-Boitsfort).
+5. **Nos métiers** : grande liste des 8 services.
+6. **Chapitre sombre** : chiffres confirmés, puis « Comment ça se passe » en 4 étapes.
+7. **Réalisations** : bande de cartes avant/après qui basculent de l'avant à l'après.
+8. **FAQ** (5 questions, réponses tirées de faits confirmés).
+9. **Devis** : titre, contacts directs, formulaire en 3 étapes.
+10. **Pied de page** : infos légales, liens, grande signature « BS Renove ».
+
 ## 6. Services
  
 | Service | Phrase courte (FR) |
@@ -73,25 +76,24 @@ Plus une page 404 dans les deux langues.
  
 Page Services : une section par service (photo, court texte, exemples de travaux, lien vers les projets liés, bouton devis). Textes sobres, sans promesse inventée.
  
-## 7. Réalisations
- 
-Chaque projet est un fichier dans `src/content/projets/` avec :
- 
-- slug, titre FR/NL, commune, service lié, durée (optionnelle)
-- récit FR/NL en trois parties : au départ · les travaux · le résultat
-- photo de couverture, paires avant/après, photos de détails, photos de chantier
-- ordre d'affichage, projet mis en avant (oui/non)
-Photos dans `src/assets/projets/<slug>/`, nommées `cover.jpg`, `avant-1.jpg`, `apres-1.jpg`, `detail-1.jpg`, `chantier-1.jpg`…
- 
-Projets candidats, en attendant la sélection finale (créer les fichiers avec placeholders) :
- 
-- Salle de bain · Knokke
-- Rénovation intérieure · Ostende
-- Toiture · Woluwe-Saint-Pierre
-- Cuisine · Ixelles
-- Salle de bain · Watermael-Boitsfort
-**Page projet** : grande photo, un curseur avant/après par paire, le récit, une galerie (détails et chantier) avec agrandissement accessible, bouton « Un projet similaire ? Demander un devis ».
- 
+## 7. Réalisations : des avant/après indépendants
+
+Décision du 25 septembre 2026 : **plus de page par chantier**. Les photos isolées
+(détails, chantier en cours) n'intéressaient pas, et certaines pages montraient deux
+fois la même image. Chaque comparaison avant/après vit seule, avec sa pièce et sa
+commune, même quand plusieurs viennent du même chantier.
+
+- Les paires sont rangées dans `src/content/projets/<chantier>.yaml` (champ `avantApres`) :
+  photo avant, photo après, légende FR/NL, type de pièce (`src/data/categories.ts`).
+  Le fichier du chantier donne la commune, affichée à côté de chaque paire.
+- Une paire dont l'« après » n'est pas fini porte `enCours: true` : elle n'est pas affichée.
+- Les autres champs de ces fichiers (récit, galerie, couverture, durée) ne sont plus affichés.
+- **Page Réalisations** : le mur de tous les avant/après, filtrable par pièce ; le filtre
+  se lit dans l'adresse (`/realisations/#salle-de-bain`).
+- **Accueil** : une paire en vitrine + une sélection de 8 (liste dans `src/data/projets.ts`).
+- **Services** : chaque métier montre ses avant/après (correspondance métier → pièces dans
+  `src/data/projets.ts`) ; sans avant/après, un panneau illustré.
+
 ## 8. Curseur avant/après
  
 - Deux photos superposées ; la photo « après » se dévoile selon la position de la poignée.

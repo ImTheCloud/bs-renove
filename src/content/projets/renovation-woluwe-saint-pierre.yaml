@@ -51,6 +51,7 @@ avantApres:
       fr: Escalier principal, avant et pendant les travaux
       nl: Hoofdtrap, voor en tijdens de werken
     categorie: escalier
+    enCours: true
   - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-6.jpg
     apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-6.jpg
     legende:
@@ -81,6 +82,7 @@ avantApres:
       fr: Salle de bain, panneau étanche puis carrelage en cours
       nl: Badkamer, waterdicht paneel en tegelwerk in uitvoering
     categorie: salle-de-bain
+    enCours: true
   - avant: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-20.jpg
     apres: ../../assets/projets/renovation-woluwe-saint-pierre/detail-16.jpg
     legende:

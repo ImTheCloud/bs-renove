@@ -8,7 +8,7 @@ import { Image } from 'astro:assets';
 import Bouton from '../Bouton.astro';
 import Icon from '../Icon.astro';
 import { iconeService, services } from '~/data/services';
-import { photosServices } from '~/data/services-photos';
+import { pairesDuService } from '~/data/projets';
 import { chemin, t, type Langue } from '~/i18n';
 
 interface Props {
@@ -18,6 +18,9 @@ interface Props {
 const { langue } = Astro.props;
 const textes = t(langue);
 const bloc = textes.accueil.services;
+
+// Pour chaque métier, la photo « après » de son premier avant/après.
+const photos = await Promise.all(services.map(async (service) => (await pairesDuService(service.slug))[0]?.apres));
 
 ---
 
@@ -34,7 +37,7 @@ const bloc = textes.accueil.services;
     <ol class="metiers__liste">
       {
         services.map((service, i) => {
-          const photo = photosServices[service.slug]?.[0];
+          const photo = photos[i];
           return (
             <li data-reveal style={`--delai: ${i * 40}ms`}>
               <a href={`${chemin('services', langue)}#${service.slug}`} class="metier" data-index={i}>
@@ -69,7 +72,7 @@ const bloc = textes.accueil.services;
   <div class="flottant" aria-hidden="true" data-flottant>
     {
       services.map((service, i) => {
-        const photo = photosServices[service.slug]?.[0];
+        const photo = photos[i];
         return (
           <div class="flottant__image" data-image={i}>
             {photo ? (

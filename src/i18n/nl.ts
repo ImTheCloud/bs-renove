@@ -170,6 +170,9 @@ export const nl: Traductions = {
       titreSerif: 'geen beloftes.',
       voirTout: 'Alle realisaties',
       glisser: 'schuif →',
+      aideSouris: 'Beweeg over een foto om het resultaat te zien',
+      aideToucher: 'Tik op een foto om het resultaat te zien',
+      basculer: 'Voor of na tonen',
     },
 
     faq: {
@@ -363,7 +366,7 @@ export const nl: Traductions = {
     grilleTitre: 'Al onze werken',
     grilleIntro: 'Een overzicht van onze vakgebieden, klik op een kaart voor de details',
     exemplesTitre: 'Bijvoorbeeld',
-    projetsLies: 'Bekijk de projecten',
+    projetsLies: 'Bekijk de voor/na-foto’s',
     devisPour: 'Offerte aanvragen',
   },
 
