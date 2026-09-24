@@ -46,6 +46,9 @@ export const fr = {
     rejoindre: 'Rejoindre l’équipe',
     droits: 'Tous droits réservés',
     projet: 'Un projet en tête ?',
+    parlons: 'Parlons-en.',
+    zone: 'de Denderleeuw à toute la Belgique',
+    entreprise: 'L’entreprise',
   },
 
   accessibilite: {
@@ -102,9 +105,9 @@ export const fr = {
       titreDebut: 'Même pièce.',
       titreSerif: 'Autre vie.',
       texte:
-        'Faites défiler, ou attrapez la poignée : la salle de bain d’origine laisse place à celle d’aujourd’hui.',
-      noteAvant: 'le jour où on arrive…',
-      noteApres: '… et le jour où on part !',
+        'Faites défiler, ou attrapez la poignée : la salle de bain en plein chantier laisse place au résultat.',
+      noteAvant: 'en plein chantier…',
+      noteApres: '… et presque terminée !',
       voirProjet: 'Voir ce chantier',
       voirTout: 'Tous les avant/après',
       autresProjets: 'Autres projets',
@@ -128,8 +131,8 @@ export const fr = {
       items: [
         { valeur: 12, prefixe: '', suffixe: '', texte: 'ans de métier dans la construction' },
         { valeur: 12, prefixe: '±', suffixe: '', texte: 'personnes sur nos chantiers, avec nos indépendants' },
-        { valeur: 8, prefixe: '', suffixe: '', texte: 'métiers, de la toiture à la peinture' },
-        { valeur: 0, prefixe: '', suffixe: ' €', texte: 'pour le devis : il est gratuit et détaillé' },
+        { valeur: 2, prefixe: '', suffixe: '', texte: 'langues : on vous répond en français ou en néerlandais' },
+        { valeur: 0, prefixe: '', suffixe: '', mot: 'Gratuit', texte: 'votre devis, détaillé' },
       ],
     },
 

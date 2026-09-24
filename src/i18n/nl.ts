@@ -52,6 +52,9 @@ export const nl: Traductions = {
     rejoindre: 'Word lid van ons team',
     droits: 'Alle rechten voorbehouden',
     projet: 'Een project in gedachten?',
+    parlons: 'Laten we praten.',
+    zone: 'van Denderleeuw tot heel België',
+    entreprise: 'De onderneming',
   },
 
   accessibilite: {
@@ -106,9 +109,9 @@ export const nl: Traductions = {
       titreDebut: 'Dezelfde ruimte.',
       titreSerif: 'Een nieuw leven.',
       texte:
-        'Scroll verder, of neem de schuifknop vast: de oude badkamer maakt plaats voor die van vandaag.',
-      noteAvant: 'de dag dat we aankomen…',
-      noteApres: '… en de dag dat we vertrekken!',
+        'Scroll verder, of neem de schuifknop vast: de badkamer midden in de werken maakt plaats voor het resultaat.',
+      noteAvant: 'midden in de werken…',
+      noteApres: '… en bijna klaar!',
       voirProjet: 'Bekijk deze werf',
       voirTout: 'Alle voor/na-foto’s',
       autresProjets: 'Andere projecten',
@@ -132,8 +135,8 @@ export const nl: Traductions = {
       items: [
         { valeur: 12, prefixe: '', suffixe: '', texte: 'jaar ervaring in de bouw' },
         { valeur: 12, prefixe: '±', suffixe: '', texte: 'mensen op onze werven, met onze zelfstandigen' },
-        { valeur: 8, prefixe: '', suffixe: '', texte: 'vakgebieden, van dak tot schilderwerk' },
-        { valeur: 0, prefixe: '', suffixe: ' €', texte: 'voor de offerte: gratis en gedetailleerd' },
+        { valeur: 2, prefixe: '', suffixe: '', texte: 'talen: wij antwoorden in het Nederlands of in het Frans' },
+        { valeur: 0, prefixe: '', suffixe: '', mot: 'Gratis', texte: 'uw offerte, gedetailleerd' },
       ],
     },
 

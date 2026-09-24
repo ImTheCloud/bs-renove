@@ -19,7 +19,7 @@ const { surFonce = false } = Astro.props;
 <span class:list={['logo', { 'logo--fonce': surFonce }]}>
   <Image src={icone} alt="" height={64} class="logo__icone" />
   <span class="logo__nom" aria-hidden="true">
-    <span class="logo__bs">BS</span><span class="logo__renove">Renove</span>
+    <span class="logo__bs">BS</span>{' '}<span class="logo__renove">Renove</span>
   </span>
   <span class="sr-only">{entreprise.nomLegal}</span>
 </span>
@@ -38,10 +38,9 @@ const { surFonce = false } = Astro.props;
     flex-shrink: 0;
   }
 
+  /* Pas de flex ici : l'espace entre « BS » et « Renove » doit rester une vraie espace. */
   .logo__nom {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 0.14em;
+    display: inline-block;
     font-size: 27px;
     white-space: nowrap;
   }
@@ -61,6 +60,15 @@ const { surFonce = false } = Astro.props;
     letter-spacing: -0.02em;
     color: var(--color-accent);
     transition: color 400ms var(--ease);
+  }
+
+  .logo--fonce .logo__icone,
+  :global(.entete--sur-fonce:not(.entete--defile)) .logo__icone,
+  :global(body.menu-ouvert .entete) .logo__icone {
+    padding: 4px 6px;
+    box-sizing: content-box;
+    background: var(--color-on-ink);
+    border-radius: 10px;
   }
 
   .logo--fonce .logo__bs {

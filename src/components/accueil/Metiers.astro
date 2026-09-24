@@ -1,14 +1,12 @@
 ---
 /**
  * Les métiers en grande liste typographique.
- * Au survol (souris), une photo du métier flotte et suit le curseur.
- * Sur mobile, chaque ligne montre une petite vignette.
+ * Pas de photo ici : chaque ligne a l'icône de son métier. Les photos sont
+ * réservées aux avant/après.
  */
-import { Image } from 'astro:assets';
 import Bouton from '../Bouton.astro';
 import Icon from '../Icon.astro';
 import { iconeService, services } from '~/data/services';
-import { pairesDuService } from '~/data/projets';
 import { chemin, t, type Langue } from '~/i18n';
 
 interface Props {
@@ -19,12 +17,9 @@ const { langue } = Astro.props;
 const textes = t(langue);
 const bloc = textes.accueil.services;
 
-// Pour chaque métier, la photo « après » de son premier avant/après.
-const photos = await Promise.all(services.map(async (service) => (await pairesDuService(service.slug))[0]?.apres));
-
 ---
 
-<section class="metiers" aria-labelledby="metiers-titre" data-metiers>
+<section class="metiers" aria-labelledby="metiers-titre">
   <div class="wrap">
     <div class="metiers__entete">
       <p class="etiquette-section">{bloc.surtitre}</p>
@@ -37,17 +32,12 @@ const photos = await Promise.all(services.map(async (service) => (await pairesDu
     <ol class="metiers__liste">
       {
         services.map((service, i) => {
-          const photo = photos[i];
           return (
             <li data-reveal style={`--delai: ${i * 40}ms`}>
               <a href={`${chemin('services', langue)}#${service.slug}`} class="metier" data-index={i}>
                 <span class="metier__num">{String(i + 1).padStart(2, '0')}</span>
                 <span class="metier__vignette" aria-hidden="true">
-                  {photo ? (
-                    <Image src={photo} alt="" width={120} height={120} loading="lazy" />
-                  ) : (
-                    <Icon nom={iconeService(service.slug)} taille={26} />
-                  )}
+                  <Icon nom={iconeService(service.slug)} taille={26} />
                 </span>
                 <span class="metier__nom">{service.nom[langue]}</span>
                 <span class="metier__phrase">{service.phrase[langue]}</span>
@@ -68,77 +58,7 @@ const photos = await Promise.all(services.map(async (service) => (await pairesDu
     </div>
   </div>
 
-  <!-- La photo qui suit le curseur (souris uniquement). -->
-  <div class="flottant" aria-hidden="true" data-flottant>
-    {
-      services.map((service, i) => {
-        const photo = photos[i];
-        return (
-          <div class="flottant__image" data-image={i}>
-            {photo ? (
-              <Image src={photo} alt="" width={440} height={560} loading="lazy" />
-            ) : (
-              <div class="flottant__icone">
-                <Icon nom={iconeService(service.slug)} taille={96} epaisseur={1.2} />
-              </div>
-            )}
-          </div>
-        );
-      })
-    }
-  </div>
 </section>
-
-<script>
-  const section = document.querySelector<HTMLElement>('[data-metiers]');
-  const flottant = section?.querySelector<HTMLElement>('[data-flottant]');
-  const souris = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  const calme = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (section && flottant && souris && !calme) {
-    let x = 0;
-    let y = 0;
-    let cx = 0;
-    let cy = 0;
-    let actif = false;
-
-    const suivre = () => {
-      cx += (x - cx) * 0.16;
-      cy += (y - cy) * 0.16;
-      const inclinaison = Math.max(-10, Math.min(10, (x - cx) * 0.08));
-      flottant.style.transform = `translate(${cx}px, ${cy}px) rotate(${inclinaison}deg)`;
-      if (actif) requestAnimationFrame(suivre);
-    };
-
-    section.querySelectorAll<HTMLElement>('.metier').forEach((ligne) => {
-      ligne.addEventListener('pointerenter', (e) => {
-        const index = ligne.dataset.index;
-        flottant.querySelectorAll<HTMLElement>('[data-image]').forEach((img) => {
-          img.classList.toggle('visible', img.dataset.image === index);
-        });
-        x = e.clientX;
-        y = e.clientY;
-        if (!actif) {
-          cx = x;
-          cy = y;
-          actif = true;
-          requestAnimationFrame(suivre);
-        }
-        flottant.classList.add('flottant--on');
-      });
-    });
-
-    section.querySelector('.metiers__liste')?.addEventListener('pointerleave', () => {
-      flottant.classList.remove('flottant--on');
-      actif = false;
-    });
-
-    window.addEventListener('pointermove', (e) => {
-      x = e.clientX;
-      y = e.clientY;
-    }, { passive: true });
-  }
-</script>
 
 <style>
   .metiers {
@@ -224,12 +144,6 @@ const photos = await Promise.all(services.map(async (service) => (await pairesDu
     color: var(--color-ink);
   }
 
-  .metier__vignette :global(img) {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
   .metier__nom {
     grid-area: nom;
     font-family: var(--font-title);
@@ -270,58 +184,6 @@ const photos = await Promise.all(services.map(async (service) => (await pairesDu
 
   .metiers__pied {
     margin-top: 40px;
-  }
-
-  /* --- La photo flottante --- */
-  .flottant {
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 40;
-    width: 260px;
-    height: 330px;
-    margin: -165px 0 0 -130px;
-    pointer-events: none;
-    opacity: 0;
-    scale: 0.6;
-    transition:
-      opacity 300ms var(--ease),
-      scale 500ms var(--ease-out);
-  }
-
-  .flottant--on {
-    opacity: 1;
-    scale: 1;
-  }
-
-  .flottant__image {
-    position: absolute;
-    inset: 0;
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: var(--shadow-float);
-    opacity: 0;
-    transition: opacity 250ms var(--ease);
-  }
-
-  .flottant__image.visible {
-    opacity: 1;
-  }
-
-  .flottant__image :global(img) {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .flottant__icone {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    background: var(--color-ink);
-    color: var(--color-signal);
   }
 
   @media (min-width: 900px) {

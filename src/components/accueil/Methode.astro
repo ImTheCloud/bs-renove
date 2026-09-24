@@ -24,13 +24,17 @@ const iconesEtapes: NomIcone[] = ['discussion', 'casque', 'devis', 'check'];
       {
         chiffres.items.map((item, i) => (
           <li class="chiffre" data-reveal style={`--delai: ${i * 90}ms`}>
-            <span class="chiffre__valeur" aria-hidden="true">
-              {item.prefixe}
-              <span data-compteur={item.valeur}>{item.valeur}</span>
-              {item.suffixe}
-            </span>
+            {'mot' in item && item.mot ? (
+              <span class="chiffre__valeur chiffre__valeur--mot">{item.mot}</span>
+            ) : (
+              <span class="chiffre__valeur" aria-hidden="true">
+                {item.prefixe}
+                <span data-compteur={item.valeur}>{item.valeur}</span>
+                {item.suffixe}
+              </span>
+            )}
             <span class="chiffre__texte">
-              <span class="sr-only">{item.prefixe}{item.valeur}{item.suffixe} </span>
+              {!('mot' in item && item.mot) && <span class="sr-only">{item.prefixe}{item.valeur}{item.suffixe} </span>}
               {item.texte}
             </span>
           </li>
@@ -156,6 +160,13 @@ const iconesEtapes: NomIcone[] = ['discussion', 'casque', 'devis', 'check'];
     letter-spacing: -0.06em;
     color: var(--color-on-ink);
     font-variant-numeric: tabular-nums;
+  }
+
+  .chiffre__valeur--mot {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.03em;
   }
 
   .chiffre:nth-child(odd) .chiffre__valeur {

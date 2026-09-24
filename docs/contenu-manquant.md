@@ -880,9 +880,9 @@ BS Renove tromperait les clients. À la place :
 | « On regarde ensemble… **sur place si c'est nécessaire** » | accueil et À propos, étape 2 de « Comment ça se passe » | suppose que Sergiu se déplace avant le devis |
 | « Vous recevez un devis clair, **sans engagement** » | étape 3 | formulation commerciale, à confirmer |
 | « ±12 personnes sur nos chantiers, avec nos indépendants » | chiffres de l'accueil | reprend « une douzaine de personnes » (22 septembre) |
-| « 0 € pour le devis » | chiffres de l'accueil | reprend « devis gratuit : oui » (22 septembre) |
+| « Gratuit : votre devis, détaillé » | chiffres de l'accueil | reprend « devis gratuit : oui » (22 septembre) ; remplace « 0 € », qui faisait penser à un chiffre d'affaires |
 | Les 5 questions et réponses de la FAQ | accueil | toutes tirées de faits déjà confirmés, mais c'est un nouveau texte |
-| « le jour où on arrive… et le jour où on part ! » | annotation de l'avant/après | ton plus familier que le reste du site |
+| « en plein chantier… et presque terminée ! » | annotation de l'avant/après | corrigé par Claudiu le 25 septembre : la photo « avant » est prise pendant les travaux, la photo « après » juste avant la fin |
 | Maçonnerie & façades, Peinture et finitions | accueil et page Services | de nouveau visibles (panneau illustré au lieu d'une photo) ; rappel § 9 : électricité et peinture ne figurent pas dans les activités enregistrées |
 
 ### Formulaire de devis : de retour
