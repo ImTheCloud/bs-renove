@@ -29,8 +29,8 @@ export const services: Service[] = [
       nl: 'Huis of appartement, wij pakken alles aan van A tot Z',
     },
     texte: {
-      fr: "Vous achetez un bien à remettre en état, ou vous voulez repenser votre logement en entier. Nous prenons le chantier du début à la fin, et nous coordonnons les corps de métier pour que vous n'ayez qu'un seul interlocuteur",
-      nl: 'U koopt een pand dat opgeknapt moet worden, of u wilt uw woning volledig heraanleggen. Wij nemen de werf van begin tot einde op ons en coördineren de vakmensen, zodat u maar één aanspreekpunt hebt',
+      fr: "Vous achetez un bien à remettre en état, ou vous voulez repenser votre logement en entier. Nous prenons le chantier du début à la fin et nous coordonnons tous les corps de métier",
+      nl: 'U koopt een pand dat opgeknapt moet worden, of u wilt uw woning volledig heraanleggen. Wij nemen de werf van begin tot einde op ons en coördineren alle vakmensen',
     },
     exemples: {
       fr: ['Démolition et évacuation', 'Cloisons et plafonds', 'Sols et revêtements', 'Coordination des corps de métier'],

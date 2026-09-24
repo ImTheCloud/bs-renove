@@ -116,6 +116,7 @@ commune, même quand plusieurs viennent du même chantier.
 - Pas de superlatifs vides (« leader », « n°1 », « le meilleur »).
 - Parler de ce que le propriétaire obtient, pas du jargon du métier.
 - Néerlandais : néerlandais standard de Belgique, vouvoiement avec « u ».
+- **Ne pas écrire « un seul interlocuteur »** (ni « interlocuteur unique », « une seule personne à appeler », NL « één aanspreekpunt ») : retiré de tout le site le 25 septembre 2026, jugé sans valeur ajoutée.
 ## 11. Plan de travail (une phase à la fois)
  
 1. **Mise en place** : projet Astro, tokens, polices, layout, en-tête, pied de page, FR/NL, composant Logo, `docs/contenu-manquant.md`.

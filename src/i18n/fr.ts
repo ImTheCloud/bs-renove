@@ -77,7 +77,7 @@ export const fr = {
       titreSerif: 'refaite',
       titreFin: 'de A à Z.',
       texte:
-        'Salle de bain, cuisine, toiture, carrelage… Un seul interlocuteur pour tout votre chantier, du premier devis à la dernière finition.',
+        'Salle de bain, cuisine, toiture, carrelage… Nous prenons en charge tout votre chantier, du premier devis à la dernière finition.',
       faits: ['12 ans de métier', 'Devis gratuit', 'Français · Nederlands'],
       maisonAria: 'Dessin d’une maison en coupe : chaque pièce mène au service correspondant',
       maisonAide: 'Touchez une pièce',
@@ -128,7 +128,7 @@ export const fr = {
       items: [
         { valeur: 12, prefixe: '', suffixe: '', texte: 'ans de métier dans la construction' },
         { valeur: 12, prefixe: '±', suffixe: '', texte: 'personnes sur nos chantiers, avec nos indépendants' },
-        { valeur: 1, prefixe: '', suffixe: '', texte: 'seul interlocuteur, du devis à la finition' },
+        { valeur: 8, prefixe: '', suffixe: '', texte: 'métiers, de la toiture à la peinture' },
         { valeur: 0, prefixe: '', suffixe: ' €', texte: 'pour le devis : il est gratuit et détaillé' },
       ],
     },
@@ -153,7 +153,7 @@ export const fr = {
           texte: 'Vous recevez un devis clair, sans engagement, pour décider en connaissance de cause.',
         },
         {
-          titre: 'Un seul interlocuteur',
+          titre: 'Le chantier, jusqu’au bout',
           texte:
             'Nous coordonnons tous les corps de métier et suivons le chantier jusqu’à la dernière finition.',
         },
@@ -187,7 +187,7 @@ export const fr = {
         },
         {
           q: 'Faut-il plusieurs entreprises pour une rénovation complète ?',
-          r: 'Non. BS Renove est une entreprise générale : nous coordonnons tous les corps de métier, en interne ou avec nos indépendants. Vous n’avez qu’un seul interlocuteur du début à la fin.',
+          r: 'Non. BS Renove est une entreprise générale : nous coordonnons tous les corps de métier, en interne ou avec nos indépendants.',
         },
         {
           q: 'Parlez-vous néerlandais ?',
@@ -211,13 +211,12 @@ export const fr = {
 
     pourquoi: {
       surtitre: 'Pourquoi BS Renove',
-      titre: 'Un projet. Un seul interlocuteur',
+      titre: 'Du premier devis à la dernière finition',
       texte:
         'Nous vous accompagnons à chaque étape de votre projet, pour une réalisation claire, efficace et sans mauvaises surprises',
       points: [
         'Devis gratuit et détaillé',
         'Suivi du chantier',
-        'Interlocuteur unique',
         'Matériaux de qualité',
         "Équipe d'une douzaine de personnes",
       ],
@@ -316,9 +315,9 @@ export const fr = {
 
   aProposPage: {
     surtitre: 'À propos',
-    titre: 'Un projet. Un seul interlocuteur',
+    titre: 'Rénover, c’est notre métier',
     intro:
-      "BS Renove SRL est une entreprise générale de rénovation basée à Denderleeuw, active dans toute la Belgique. Que ce soit un chantier complet ou un seul métier, nous coordonnons tout nous-mêmes : vous n'avez qu'une seule personne à appeler du premier jour au dernier",
+      "BS Renove SRL est une entreprise générale de rénovation basée à Denderleeuw, active dans toute la Belgique. Que ce soit un chantier complet ou un seul métier, nous coordonnons tout nous-mêmes, du premier jour au dernier",
     capacitesTitre: 'Ce que nous savons faire',
     capacitesIntro:
       "Tous les corps de métier d'une rénovation, en interne ou avec nos indépendants de confiance",
@@ -359,7 +358,7 @@ export const fr = {
     surtitre: 'Nos services',
     titre: 'Ce que nous faisons',
     intro:
-      'Une entreprise générale, donc un seul interlocuteur du premier devis à la dernière finition',
+      'Une entreprise générale : tous les corps de métier d’une rénovation, du premier devis à la dernière finition',
     grilleTitre: 'Tous nos travaux',
     grilleIntro: 'Un aperçu de nos métiers, cliquez sur une carte pour les détails',
     exemplesTitre: 'Par exemple',
@@ -437,7 +436,7 @@ Merci d'avance,`,
     apropos: {
       titre: 'À propos · BS Renove',
       description:
-        "Entreprise générale de rénovation à Denderleeuw, active dans toute la Belgique : tous les corps de métier, un seul interlocuteur.",
+        "Entreprise générale de rénovation à Denderleeuw, active dans toute la Belgique : tous les corps de métier d’une rénovation.",
     },
     rejoindre: {
       titre: 'Rejoindre l’équipe · BS Renove',

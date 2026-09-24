@@ -81,7 +81,7 @@ export const nl: Traductions = {
       titreSerif: 'vernieuwd',
       titreFin: 'van A tot Z.',
       texte:
-        'Badkamer, keuken, dak, tegelwerk… Eén aanspreekpunt voor uw hele werf, van de eerste offerte tot de laatste afwerking.',
+        'Badkamer, keuken, dak, tegelwerk… Wij nemen uw hele werf voor onze rekening, van de eerste offerte tot de laatste afwerking.',
       faits: ['12 jaar ervaring', 'Gratis offerte', 'Nederlands · Français'],
       maisonAria: 'Tekening van een huis in doorsnede: elke ruimte leidt naar de bijhorende dienst',
       maisonAide: 'Tik op een ruimte',
@@ -132,7 +132,7 @@ export const nl: Traductions = {
       items: [
         { valeur: 12, prefixe: '', suffixe: '', texte: 'jaar ervaring in de bouw' },
         { valeur: 12, prefixe: '±', suffixe: '', texte: 'mensen op onze werven, met onze zelfstandigen' },
-        { valeur: 1, prefixe: '', suffixe: '', texte: 'aanspreekpunt, van offerte tot afwerking' },
+        { valeur: 8, prefixe: '', suffixe: '', texte: 'vakgebieden, van dak tot schilderwerk' },
         { valeur: 0, prefixe: '', suffixe: ' €', texte: 'voor de offerte: gratis en gedetailleerd' },
       ],
     },
@@ -157,7 +157,7 @@ export const nl: Traductions = {
           texte: 'U krijgt een duidelijke offerte, vrijblijvend, om met kennis van zaken te beslissen.',
         },
         {
-          titre: 'Eén aanspreekpunt',
+          titre: 'De werf, tot het einde',
           texte:
             'Wij coördineren alle vakmensen en volgen de werf op tot de laatste afwerking.',
         },
@@ -191,7 +191,7 @@ export const nl: Traductions = {
         },
         {
           q: 'Heb ik meerdere aannemers nodig voor een volledige renovatie?',
-          r: 'Nee. BS Renove is een algemene aannemer: wij coördineren alle vakmensen, intern of met onze zelfstandigen. U hebt één aanspreekpunt van begin tot einde.',
+          r: 'Nee. BS Renove is een algemene aannemer: wij coördineren alle vakmensen, intern of met onze zelfstandigen.',
         },
         {
           q: 'Spreekt u Nederlands?',
@@ -215,13 +215,12 @@ export const nl: Traductions = {
 
     pourquoi: {
       surtitre: 'Waarom BS Renove',
-      titre: 'Eén project. Eén aanspreekpunt',
+      titre: 'Van de eerste offerte tot de laatste afwerking',
       texte:
         'Wij begeleiden u bij elke stap van uw project, voor een duidelijke en efficiënte uitvoering, zonder onaangename verrassingen',
       points: [
         'Gratis en gedetailleerde offerte',
         'Opvolging van de werf',
-        'Eén aanspreekpunt',
         'Kwaliteitsmaterialen',
         'Team van een twaalftal mensen',
       ],
@@ -319,9 +318,9 @@ export const nl: Traductions = {
 
   aProposPage: {
     surtitre: 'Over ons',
-    titre: 'Eén project. Eén aanspreekpunt',
+    titre: 'Renoveren is ons vak',
     intro:
-      'BS Renove SRL is een algemene renovatieonderneming met zetel in Denderleeuw, actief in heel België. Of het nu om een volledige werf of één vakgebied gaat, wij coördineren alles zelf: u hebt maar één persoon nodig, van de eerste tot de laatste dag',
+      'BS Renove SRL is een algemene renovatieonderneming met zetel in Denderleeuw, actief in heel België. Of het nu om een volledige werf of één vakgebied gaat, wij coördineren alles zelf, van de eerste tot de laatste dag',
     capacitesTitre: 'Wat wij kunnen doen',
     capacitesIntro:
       'Alle vakgebieden van een renovatie, intern of met onze vertrouwde zelfstandigen',
@@ -362,7 +361,7 @@ export const nl: Traductions = {
     surtitre: 'Onze diensten',
     titre: 'Wat wij doen',
     intro:
-      'Een algemene aannemer, dus één aanspreekpunt van de eerste offerte tot de laatste afwerking',
+      'Een algemene aannemer: alle vakgebieden van een renovatie, van de eerste offerte tot de laatste afwerking',
     grilleTitre: 'Al onze werken',
     grilleIntro: 'Een overzicht van onze vakgebieden, klik op een kaart voor de details',
     exemplesTitre: 'Bijvoorbeeld',
@@ -440,7 +439,7 @@ Alvast bedankt,`,
     apropos: {
       titre: 'Over ons · BS Renove',
       description:
-        'Algemene renovatieonderneming in Denderleeuw, actief in heel België: alle vakgebieden, één aanspreekpunt.',
+        'Algemene renovatieonderneming in Denderleeuw, actief in heel België: alle vakgebieden van een renovatie.',
     },
     rejoindre: {
       titre: 'Word lid van ons team · BS Renove',
