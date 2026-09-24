@@ -130,16 +130,21 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
   }
 
   .liste__filtres {
-    position: sticky;
-    top: calc(var(--header-h) + 4px);
-    z-index: 5;
     display: flex;
     gap: 8px;
     margin: 0 calc(var(--gutter) * -1) 32px;
-    padding: 10px var(--gutter);
+    padding: 4px var(--gutter);
     overflow-x: auto;
     scrollbar-width: none;
-    background: linear-gradient(var(--color-bg) 70%, transparent);
+  }
+
+  @media (min-width: 900px) {
+    .liste__filtres {
+      flex-wrap: wrap;
+      margin-inline: 0;
+      padding-inline: 0;
+      overflow: visible;
+    }
   }
 
   .liste__filtres::-webkit-scrollbar {

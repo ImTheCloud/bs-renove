@@ -28,7 +28,7 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
 <header class:list={['entete', { 'entete--sur-fonce': surFonce }]} data-entete>
   <div class="entete__barre">
     <a href={chemin('accueil', langue)} class="entete__logo" aria-label={textes.entete.accueilAria}>
-      <Logo langue={langue} />
+      <Logo />
     </a>
 
     <nav class="entete__nav" aria-label={textes.entete.menuAria}>
@@ -352,14 +352,13 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
   }
 
   /* --- Sur un fond sombre, tant qu'on n'a pas défilé --- */
-  .entete--sur-fonce:not(.entete--defile) :global(.logo__nom),
+  .entete--sur-fonce:not(.entete--defile) :global(.logo__bs),
   .entete--sur-fonce:not(.entete--defile) .entete__nav a {
     color: var(--color-on-ink);
   }
 
-  .entete--sur-fonce:not(.entete--defile) :global(.logo__nom-suite),
-  .entete--sur-fonce:not(.entete--defile) :global(.logo__tagline) {
-    color: var(--color-on-ink-label);
+  .entete--sur-fonce:not(.entete--defile) :global(.logo__renove) {
+    color: var(--color-accent-vif);
   }
 
   .entete--sur-fonce:not(.entete--defile) :global(.entete__devis) {
@@ -372,8 +371,12 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
     color: var(--color-ink);
   }
 
-  :global(body.menu-ouvert) .entete :global(.logo__nom) {
+  :global(body.menu-ouvert) .entete :global(.logo__bs) {
     color: var(--color-on-ink);
+  }
+
+  :global(body.menu-ouvert) .entete :global(.logo__renove) {
+    color: var(--color-accent-vif);
   }
 
   :global(body.menu-ouvert) .entete__barre {

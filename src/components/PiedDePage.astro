@@ -1,9 +1,10 @@
 ---
 /**
- * Pied de page : les infos utiles, puis le nom de l'entreprise en très grand,
- * comme une signature en bas de chaque page.
+ * Pied de page : un appel au devis, les liens et infos utiles, puis le logo
+ * et les mentions légales.
  */
 import Icon from './Icon.astro';
+import Logo from './Logo.astro';
 import SelecteurLangue from './SelecteurLangue.astro';
 import { adresseUneLigne, entreprise, lienDevis, lienWhatsApp } from '../data/entreprise';
 import { chemin, liensNavigation, t, type Langue } from '../i18n';
@@ -54,11 +55,10 @@ const annee = 2026;
     </div>
   </div>
 
-  <div class="pied__signature" aria-hidden="true">
-    <span>BS<span class="serif"> Renove</span></span>
-  </div>
-
   <div class="wrap pied__bas">
+    <a href={chemin('accueil', langue)} class="pied__logo" aria-label={textes.entete.accueilAria}>
+      <Logo />
+    </a>
     <p>© {annee} {entreprise.nomLegal}. {textes.piedDePage.droits}</p>
     <nav class="pied__legal" aria-label={textes.piedDePage.mentionsLegales}>
       <a href={chemin('mentionsLegales', langue)}>{textes.piedDePage.mentionsLegales}</a>
@@ -70,6 +70,7 @@ const annee = 2026;
 <style>
   .pied {
     position: relative;
+    margin-top: 64px;
     padding-top: 72px;
     padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
     border-top: 1px solid var(--color-border);
@@ -97,7 +98,7 @@ const annee = 2026;
     gap: 16px;
     margin-top: 8px;
     font-family: var(--font-title);
-    font-size: clamp(34px, 4.4vw, 64px);
+    font-size: clamp(32px, 3.4vw, 48px);
     font-weight: 700;
     line-height: 1;
     letter-spacing: -0.045em;
@@ -173,38 +174,34 @@ const annee = 2026;
     margin-top: 12px;
   }
 
-  .pied__signature {
-    margin-top: 72px;
-    padding-inline: calc(var(--gutter) * 0.5);
-    font-family: var(--font-title);
-    font-size: 23.5vw;
-    font-weight: 800;
-    line-height: 0.78;
-    letter-spacing: -0.065em;
-    color: var(--color-ink);
-    white-space: nowrap;
-    user-select: none;
-  }
-
-  .pied__signature .serif {
-    font-weight: 400;
-    letter-spacing: -0.05em;
-    color: var(--color-accent);
-  }
-
   .pied__bas {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 12px 24px;
-    padding-top: 28px;
+    align-items: center;
+    gap: 12px 28px;
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--color-border);
     font-size: var(--size-tiny);
     color: var(--color-muted);
+  }
+
+  .pied__logo {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-min);
+    text-decoration: none;
   }
 
   .pied__legal {
     display: flex;
     gap: 20px;
+  }
+
+  @media (min-width: 700px) {
+    .pied__legal {
+      margin-left: auto;
+    }
   }
 
   .pied__legal a {
@@ -220,7 +217,8 @@ const annee = 2026;
 
   @media (min-width: 900px) {
     .pied {
-      padding-top: 120px;
+      margin-top: 96px;
+      padding-top: 96px;
     }
 
     .pied__haut {
@@ -239,9 +237,6 @@ const annee = 2026;
       font-size: 34px;
     }
 
-    .pied__signature {
-      margin-top: 96px;
-    }
   }
 
   @media (min-width: 1024px) {

@@ -1,91 +1,83 @@
 ---
-/** Logo de l'entreprise : icône (fond transparent) + nom. */
+/**
+ * Le logo : l'icône de l'entreprise (recadrée au plus près pour rester
+ * lisible en petit) suivie du nom en logotype, dans le style des titres
+ * du site : « BS » en gras, « Renove » en italique bleu.
+ */
 import { Image } from 'astro:assets';
-import icone from '~/assets/marque/icone-logo.png';
+import icone from '~/assets/marque/icone-logo-serre.png';
 import { entreprise } from '../data/entreprise';
-import { t, type Langue } from '../i18n';
 
 interface Props {
-  langue: Langue;
-  /** Sur fond ink (bloc contact, pied de page), le texte passe en blanc. */
+  /** Sur fond encre, le texte passe en clair. */
   surFonce?: boolean;
 }
 
-const { langue, surFonce = false } = Astro.props;
-const textes = t(langue);
+const { surFonce = false } = Astro.props;
 ---
 
 <span class:list={['logo', { 'logo--fonce': surFonce }]}>
-  <Image src={icone} alt="" width={96} height={96} class="logo__icone" />
-  <span class="logo__texte">
-    <span class="logo__nom">
-      BS <span class="logo__nom-suite">Renove</span>
-    </span>
-    <span class="logo__tagline">{textes.entete.tagline}</span>
+  <Image src={icone} alt="" height={64} class="logo__icone" />
+  <span class="logo__nom" aria-hidden="true">
+    <span class="logo__bs">BS</span><span class="logo__renove">Renove</span>
   </span>
   <span class="sr-only">{entreprise.nomLegal}</span>
 </span>
 
 <style>
   .logo {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 10px;
     line-height: 1;
   }
 
   .logo__icone {
-    width: 40px;
-    height: 40px;
+    width: auto;
+    height: 30px;
     flex-shrink: 0;
   }
 
-  .logo__texte {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
+  .logo__nom {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.14em;
+    font-size: 27px;
+    white-space: nowrap;
   }
 
-  .logo__nom {
+  .logo__bs {
     font-family: var(--font-title);
-    font-size: 21px;
-    font-weight: 750;
-    letter-spacing: -0.035em;
+    font-weight: 800;
+    letter-spacing: -0.05em;
     color: var(--color-ink);
     transition: color 400ms var(--ease);
   }
 
-  .logo__nom-suite {
-    font-weight: 500;
-    color: inherit;
-    opacity: 0.62;
-  }
-
-  .logo__tagline {
-    font-size: 10.5px;
-    font-weight: 650;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-muted);
+  .logo__renove {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.12em;
+    letter-spacing: -0.02em;
+    color: var(--color-accent);
     transition: color 400ms var(--ease);
   }
 
-  .logo--fonce .logo__nom {
+  .logo--fonce .logo__bs {
     color: var(--color-on-ink);
   }
 
-  .logo--fonce .logo__tagline {
-    color: var(--color-on-ink-label);
+  .logo--fonce .logo__renove {
+    color: var(--color-accent-vif);
   }
 
   @media (min-width: 900px) {
     .logo__icone {
-      width: 44px;
-      height: 44px;
+      height: 34px;
     }
 
     .logo__nom {
-      font-size: 23px;
+      font-size: 30px;
     }
   }
 </style>
