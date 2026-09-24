@@ -22,13 +22,16 @@ import woluweDoubleVasque from '~/assets/projets/renovation-woluwe-saint-pierre/
 import woluweDoucheFinie from '~/assets/projets/renovation-woluwe-saint-pierre/apres-1.jpg';
 import woluweCuisineEnsemble from '~/assets/projets/renovation-woluwe-saint-pierre/detail-3.jpg';
 import woluweAuventFini from '~/assets/projets/renovation-woluwe-saint-pierre/apres-3.jpg';
+import woluweTerrasse from '~/assets/projets/renovation-woluwe-saint-pierre/detail-5.jpg';
+import watermaelMarbre from '~/assets/projets/salle-de-bain-watermael-boitsfort/apres-1.jpg';
+import ostendeSalleDeBain from '~/assets/projets/renovation-interieure-ostende/cover.jpg';
 import woluweGainesElec from '~/assets/projets/renovation-woluwe-saint-pierre/chantier-3.jpg';
 
 export const photosServices: Partial<Record<string, ImageMetadata[]>> = {
   'renovation-complete': [exempleRenovationComplete, woluweSejourFini, exempleRenovationComplete2, exempleRenovationComplete3],
-  'salles-de-bain': [exempleSallesDeBain, woluweDoucheFinie, woluweDoubleVasque],
+  'salles-de-bain': [ostendeSalleDeBain, woluweDoubleVasque, watermaelMarbre, exempleSallesDeBain, woluweDoucheFinie],
   cuisines: [woluweCuisineEnsemble],
-  carrelage: [exempleCarrelage1, exempleCarrelage2, exempleCarrelage3, exempleCarrelage4],
+  carrelage: [woluweTerrasse, watermaelMarbre, exempleCarrelage4, exempleCarrelage3, exempleCarrelage2, exempleCarrelage1],
   toiture: [woluweAuventFini, exempleToiture1, exempleToiture2],
   electricite: [exempleElectricite, woluweGainesElec],
 };

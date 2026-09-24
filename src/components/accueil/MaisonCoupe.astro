@@ -1,0 +1,588 @@
+---
+/**
+ * La maison dessinée en coupe, comme sur un plan d'architecte.
+ *
+ * - Les traits se dessinent à l'arrivée (coupé si « réduire les animations »).
+ * - Chaque pièce est un vrai lien vers le service correspondant.
+ * - Une petite visite guidée éclaire les pièces une à une, avec une
+ *   annotation à la main, jusqu'à ce que la personne touche le dessin.
+ *
+ * Tout est dessiné ici, en SVG : aucune photo, aucune image générée.
+ */
+import { chemin, t, type Langue } from '~/i18n';
+
+interface Props {
+  langue: Langue;
+}
+
+const { langue } = Astro.props;
+const textes = t(langue);
+const hero = textes.accueil.hero;
+const pieces = hero.pieces;
+const lien = (slug: string) => `${chemin('services', langue)}#${slug}`;
+
+/** L'ordre de la visite guidée. */
+const visite = [
+  'toiture',
+  'salles-de-bain',
+  'electricite',
+  'peinture-finitions',
+  'cuisines',
+  'carrelage',
+  'maconnerie-facades',
+  'renovation-complete',
+];
+---
+
+<figure class="maison" data-maison data-visite={visite.join(',')}>
+  <svg
+    class="maison__svg"
+    viewBox="0 0 720 620"
+    role="group"
+    aria-label={hero.maisonAria}
+  >
+    <defs>
+      <pattern id="hachures" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <line x1="0" y1="0" x2="0" y2="7" class="hachure" />
+      </pattern>
+      <pattern id="carreaux" width="14" height="14" patternUnits="userSpaceOnUse" x="176" y="336">
+        <path d="M14 0H0V14" class="joint" />
+      </pattern>
+    </defs>
+
+    <!-- ===================== Le dessin (décoratif) ===================== -->
+    <g class="dessin" aria-hidden="true">
+      <!-- Soleil -->
+      <g class="t-groupe" style="--d: 1900">
+        <circle cx="96" cy="74" r="20" pathLength="1" class="t" />
+        <path d="M96 38v-10M96 120v-10M60 74H50M142 74h-10M71 49l-7-7M128 106l-7-7M71 99l-7 7M128 42l-7 7" pathLength="1" class="t t--fin" />
+      </g>
+
+      <!-- Sol -->
+      <g class="t-groupe" style="--d: 0">
+        <path d="M8 560H150M570 560H712" pathLength="1" class="t" />
+        <rect x="140" y="560" width="440" height="18" class="mur-plein" />
+        <rect x="140" y="560" width="440" height="18" pathLength="1" class="t" />
+        <path d="M22 560l4-9M30 560l-2-8M596 560l3-8M604 560l-3-9M676 560l4-9M684 560l-2-7M44 560l3-7" pathLength="1" class="t t--fin" />
+      </g>
+
+      <!-- Murs porteurs (hachurés : la maçonnerie coupée) -->
+      <g class="t-groupe" style="--d: 150">
+        <rect x="150" y="300" width="14" height="260" class="mur-plein" />
+        <rect x="556" y="300" width="14" height="260" class="mur-plein" />
+        <rect x="150" y="300" width="14" height="260" pathLength="1" class="t" />
+        <rect x="556" y="300" width="14" height="260" pathLength="1" class="t" />
+      </g>
+
+      <!-- Dalles et cloisons -->
+      <g class="t-groupe" style="--d: 450">
+        <rect x="164" y="300" width="392" height="10" pathLength="1" class="t" />
+        <rect x="164" y="428" width="392" height="10" pathLength="1" class="t" />
+        <rect x="360" y="310" width="8" height="52" pathLength="1" class="t" />
+        <rect x="378" y="438" width="8" height="54" pathLength="1" class="t" />
+      </g>
+
+      <!-- Toiture et charpente -->
+      <g class="t-groupe" style="--d: 650">
+        <path d="M130 302L360 118L590 302" pathLength="1" class="t t--epais" />
+        <path d="M164 300L360 143L556 300" pathLength="1" class="t" />
+        <path d="M147 301L360 130.5L573 301" pathLength="1" class="t t--tuiles" />
+        <path d="M250 231H470M360 143V231" pathLength="1" class="t t--fin" />
+        <rect x="-16" y="-6" width="32" height="12" transform="translate(250 205) rotate(-38.66)" pathLength="1" class="t" />
+      </g>
+
+      <!-- Cheminée et fumée -->
+      <g class="t-groupe" style="--d: 900">
+        <path d="M480 214V176H510V238" pathLength="1" class="t" />
+        <path d="M474 176H516M480 188H510M480 200H510M495 176v12M488 188v12M502 188v12" pathLength="1" class="t t--fin" />
+        <path d="M494 166c-8-16 12-26 2-42s6-26 0-38" pathLength="1" class="t t--fin fumee" />
+      </g>
+
+      <!-- Salle de bain -->
+      <g class="t-groupe" style="--d: 1050">
+        <rect x="176" y="336" width="100" height="56" class="carreaux" />
+        <rect x="176" y="336" width="100" height="56" pathLength="1" class="t t--fin" />
+        <rect x="172" y="392" width="110" height="26" rx="10" pathLength="1" class="t" />
+        <path d="M186 418v8M268 418v8" pathLength="1" class="t" />
+        <path d="M262 318v18M250 336h24" pathLength="1" class="t" />
+        <path d="M254 344v8M262 346v10M270 344v8" pathLength="1" class="t t--eau" />
+        <path d="M298 384h48q-2 18-24 18t-24-18z" pathLength="1" class="t" />
+        <path d="M322 402v26" pathLength="1" class="t" />
+        <ellipse cx="322" cy="350" rx="14" ry="20" pathLength="1" class="t" />
+      </g>
+
+      <!-- Chambre : lit, lampe, mur fraîchement peint -->
+      <g class="t-groupe" style="--d: 1250">
+        <rect x="482" y="318" width="70" height="110" class="peint" />
+        <rect x="380" y="404" width="90" height="16" rx="3" pathLength="1" class="t" />
+        <rect x="386" y="394" width="24" height="10" rx="4" pathLength="1" class="t" />
+        <path d="M376 384v44M386 420v8M464 420v8" pathLength="1" class="t" />
+        <path d="M420 310v18M408 340l6-12h12l6 12z" pathLength="1" class="t" />
+        <rect x="492" y="340" width="28" height="12" rx="4" pathLength="1" class="t" />
+        <path d="M520 346h6v18l-10 8v56" pathLength="1" class="t" />
+        <rect x="556" y="330" width="14" height="60" class="vitre" />
+        <path d="M556 330h14v60h-14zM563 330v60" pathLength="1" class="t t--fin" />
+      </g>
+
+      <!-- Cuisine -->
+      <g class="t-groupe" style="--d: 1400">
+        <rect x="172" y="452" width="90" height="30" pathLength="1" class="t" />
+        <path d="M217 452v30" pathLength="1" class="t t--fin" />
+        <path d="M274 438v28h16v-28M264 478l10-12h16l10 12z" pathLength="1" class="t" />
+        <path d="M168 514h166" pathLength="1" class="t t--epais" />
+        <rect x="172" y="514" width="158" height="46" pathLength="1" class="t" />
+        <path d="M224 514v46M276 514v46M214 526v10M234 526v10M286 526v10" pathLength="1" class="t t--fin" />
+        <path d="M272 496v14h20v-14M268 496h28" pathLength="1" class="t" />
+        <path d="M278 488c-4-6 4-8 0-14M288 488c-4-6 4-8 0-14" pathLength="1" class="t t--fin fumee" />
+        <rect x="338" y="470" width="34" height="90" rx="3" pathLength="1" class="t" />
+        <path d="M338 500h34M366 478v12M366 508v14" pathLength="1" class="t t--fin" />
+      </g>
+
+      <!-- Séjour : escalier, sol carrelé, tableau électrique -->
+      <g class="t-groupe" style="--d: 1550">
+        <rect x="386" y="548" width="170" height="12" class="sol-carrele" />
+        <path d="M386 548h170M403 548v12M420 548v12M437 548v12M454 548v12M471 548v12M488 548v12M505 548v12M522 548v12M539 548v12" pathLength="1" class="t t--fin" />
+        <path d="M548 548v-13.75h-16v-13.75h-16v-13.75h-16v-13.75h-16v-13.75h-16v-13.75h-16v-13.75h-16V438" pathLength="1" class="t" />
+        <path d="M436 440l112 108" pathLength="1" class="t t--fin" />
+        <rect x="394" y="452" width="24" height="26" rx="2" pathLength="1" class="t" />
+        <path d="M409 456l-7 10h6l-4 8" pathLength="1" class="t t--fin" />
+        <path d="M406 452v-8h64v8" pathLength="1" class="t t--cable" />
+        <path d="M420 310v-6h60v6" pathLength="1" class="t t--cable" />
+        <circle cx="470" cy="458" r="6" pathLength="1" class="t" />
+      </g>
+
+      <!-- Jardin -->
+      <g class="t-groupe" style="--d: 1750">
+        <path d="M70 560v-72M70 516l-14-14M70 504l14-14" pathLength="1" class="t" />
+        <path d="M70 438c20 0 34 14 34 32s-14 30-34 30-34-12-34-30 14-32 34-32z" pathLength="1" class="t" />
+        <path d="M600 560a26 22 0 0 1 52 0" pathLength="1" class="t" />
+      </g>
+    </g>
+
+    <!-- ===================== Les pièces (liens) ===================== -->
+    <g class="pieces">
+      <a href={lien('renovation-complete')} class="piece" data-piece="renovation-complete" aria-label={textes.nav.services}>
+        <path class="zone" d="M150 560V302L360 118L570 302V560Z" />
+        <text x="16" y="186" class="note">{hero.maisonTout}</text>
+        <path class="fleche" d="M60 196c20 30 50 50 96 64" pathLength="1" />
+      </a>
+
+      <a href={lien('toiture')} class="piece" data-piece="toiture" aria-label={pieces.toiture}>
+        <path class="zone" d="M164 300L360 143L556 300Z" />
+        <circle class="point" cx="410" cy="212" r="11" />
+        <text x="560" y="98" class="note">{pieces.toiture}</text>
+        <path class="fleche" d="M572 110c-30 34-100 76-150 96" pathLength="1" />
+      </a>
+
+      <a href={lien('salles-de-bain')} class="piece" data-piece="salles-de-bain" aria-label={pieces['salles-de-bain']}>
+        <rect class="zone" x="164" y="310" width="196" height="118" />
+        <circle class="point" cx="226" cy="364" r="11" />
+        <text x="10" y="262" class="note">{pieces['salles-de-bain']}</text>
+        <path class="fleche" d="M90 274c28 46 76 78 122 88" pathLength="1" />
+      </a>
+
+      <a href={lien('electricite')} class="piece" data-piece="electricite" aria-label={pieces.electricite}>
+        <path class="zone" d="M408 340h24l38 88H370z" />
+        <circle class="point" cx="420" cy="364" r="11" />
+        <text x="576" y="288" class="note">{pieces.electricite}</text>
+        <path class="fleche" d="M590 298c-40 10-106 34-152 60" pathLength="1" />
+      </a>
+
+      <a href={lien('peinture-finitions')} class="piece" data-piece="peinture-finitions" aria-label={pieces['peinture-finitions']}>
+        <rect class="zone" x="482" y="318" width="70" height="110" />
+        <circle class="point" cx="510" cy="394" r="11" />
+        <text x="588" y="440" class="note">{pieces['peinture-finitions']}</text>
+        <path class="fleche" d="M600 420c-20-18-44-24-72-24" pathLength="1" />
+      </a>
+
+      <a href={lien('cuisines')} class="piece" data-piece="cuisines" aria-label={pieces.cuisines}>
+        <rect class="zone" x="164" y="438" width="214" height="122" />
+        <circle class="point" cx="250" cy="537" r="11" />
+        <text x="40" y="610" class="note">{pieces.cuisines}</text>
+        <path class="fleche" d="M150 590c30-8 60-24 86-44" pathLength="1" />
+      </a>
+
+      <a href={lien('carrelage')} class="piece" data-piece="carrelage" aria-label={pieces.carrelage}>
+        <rect class="zone" x="386" y="548" width="170" height="12" />
+        <rect class="zone" x="176" y="336" width="100" height="56" />
+        <circle class="point" cx="455" cy="554" r="11" />
+        <text x="470" y="612" class="note">{pieces.carrelage}</text>
+        <path class="fleche" d="M476 592c-6-8-10-14-14-22" pathLength="1" />
+      </a>
+
+      <a href={lien('maconnerie-facades')} class="piece" data-piece="maconnerie-facades" aria-label={pieces['maconnerie-facades']}>
+        <rect class="zone" x="150" y="300" width="14" height="260" />
+        <rect class="zone" x="556" y="300" width="14" height="260" />
+        <path class="zone" d="M480 214V176H510V238Z" />
+        <circle class="point" cx="157" cy="470" r="11" />
+        <text x="8" y="404" class="note">{pieces['maconnerie-facades']}</text>
+        <path class="fleche" d="M66 416c30 10 56 28 80 46" pathLength="1" />
+      </a>
+    </g>
+  </svg>
+
+  <figcaption class="maison__aide manuscrit" aria-hidden="true">
+    <span class="maison__aide-touch">{hero.maisonAide}</span>
+    <span class="maison__aide-souris">{hero.maisonAideSouris}</span>
+    <svg width="34" height="24" viewBox="0 0 34 24" fill="none"><path d="M2 20C10 20 24 16 30 4M30 4l-8 2M30 4l1 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+  </figcaption>
+</figure>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-maison]').forEach((maison) => {
+    const pieces = new Map<string, Element>();
+    maison.querySelectorAll('[data-piece]').forEach((el) => pieces.set(el.getAttribute('data-piece') ?? '', el));
+    const ordre = (maison.dataset.visite ?? '').split(',').filter((slug) => pieces.has(slug));
+    const calme = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let courant = -1;
+    let minuterie: number | undefined;
+    let enPause = false;
+
+    const activer = (slug: string | null) => {
+      pieces.forEach((el, cle) => el.classList.toggle('actif', cle === slug));
+      maison.classList.toggle('a-une-piece', slug !== null);
+      maison.dispatchEvent(new CustomEvent('piece', { detail: slug, bubbles: true }));
+    };
+
+    const suivante = () => {
+      if (enPause) return;
+      courant = (courant + 1) % ordre.length;
+      activer(ordre[courant]);
+    };
+
+    const demarrer = () => {
+      window.clearInterval(minuterie);
+      if (calme) return;
+      minuterie = window.setInterval(suivante, 2400);
+    };
+
+    // La visite commence quand le dessin est terminé.
+    maison.classList.add('pret');
+    if (!calme) window.setTimeout(() => { suivante(); demarrer(); }, 2600);
+
+    // Survol ou focus : la personne prend la main, la visite s'arrête.
+    pieces.forEach((el, slug) => {
+      const prendre = () => {
+        enPause = true;
+        window.clearInterval(minuterie);
+        courant = ordre.indexOf(slug);
+        activer(slug);
+      };
+      el.addEventListener('pointerenter', prendre);
+      el.addEventListener('focus', prendre);
+    });
+
+    maison.addEventListener('pointerleave', () => {
+      if (!enPause) return;
+      enPause = false;
+      demarrer();
+    });
+
+    // Les puces de services à côté du dessin pilotent aussi la maison.
+    document.querySelectorAll<HTMLElement>('[data-vers-piece]').forEach((puce) => {
+      const slug = puce.dataset.versPiece ?? '';
+      puce.addEventListener('pointerenter', () => {
+        enPause = true;
+        window.clearInterval(minuterie);
+        activer(slug);
+      });
+      puce.addEventListener('pointerleave', () => {
+        enPause = false;
+        demarrer();
+      });
+    });
+
+    // Hors de l'écran, on arrête de tourner pour rien.
+    new IntersectionObserver(([entree]) => {
+      if (entree.isIntersecting) {
+        if (!enPause && courant >= 0) demarrer();
+      } else {
+        window.clearInterval(minuterie);
+      }
+    }).observe(maison);
+  });
+</script>
+
+<style>
+  .maison {
+    position: relative;
+    margin: 0;
+  }
+
+  .maison__svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  /* --- Les traits --- */
+  .t {
+    fill: none;
+    stroke: var(--color-ink);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .t--epais {
+    stroke-width: 3;
+  }
+
+  .t--fin {
+    stroke-width: 1.4;
+  }
+
+  .t--tuiles {
+    stroke-width: 1.4;
+    stroke-dasharray: 0.012 0.01;
+  }
+
+  .t--eau {
+    stroke: var(--color-accent);
+    stroke-width: 1.6;
+  }
+
+  .t--cable {
+    stroke: var(--color-accent);
+    stroke-width: 1.6;
+    stroke-dasharray: 0.04 0.03;
+  }
+
+  .hachure {
+    stroke: var(--color-ink);
+    stroke-width: 1.1;
+  }
+
+  .joint {
+    fill: none;
+    stroke: var(--color-ink);
+    stroke-width: 0.8;
+    opacity: 0.55;
+  }
+
+  .mur-plein {
+    fill: url(#hachures);
+  }
+
+  .carreaux {
+    fill: url(#carreaux);
+  }
+
+  .peint {
+    fill: var(--color-accent);
+    opacity: 0.12;
+  }
+
+  .vitre {
+    fill: #dfeaf5;
+  }
+
+  .sol-carrele {
+    fill: var(--color-surface-2);
+  }
+
+  /* --- Les pièces cliquables --- */
+  .piece {
+    cursor: pointer;
+    outline: none;
+  }
+
+  .zone {
+    fill: var(--color-signal);
+    opacity: 0;
+    transition: opacity 500ms var(--ease);
+  }
+
+  .piece.actif .zone {
+    opacity: 0.55;
+  }
+
+  .point {
+    fill: var(--color-ink);
+    stroke: var(--color-signal);
+    stroke-width: 4;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 400ms var(--ease-out), fill 300ms var(--ease);
+  }
+
+  .piece.actif .point {
+    fill: var(--color-accent);
+    transform: scale(1.25);
+  }
+
+  .piece:focus-visible .zone {
+    opacity: 0.55;
+    stroke: var(--color-accent);
+    stroke-width: 3;
+  }
+
+  .note {
+    font-family: var(--font-main);
+    font-size: 31px;
+    font-weight: 650;
+    fill: var(--color-accent);
+    opacity: 0;
+    transform: translateY(6px);
+    transform-box: fill-box;
+    transition:
+      opacity 400ms var(--ease),
+      transform 500ms var(--ease-out);
+  }
+
+  .fleche {
+    fill: none;
+    stroke: var(--color-accent);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 600ms var(--ease-out);
+  }
+
+  @media (max-width: 599px) {
+    .note {
+      font-size: 42px;
+    }
+  }
+
+  .piece.actif .note {
+    opacity: 1;
+    transform: none;
+  }
+
+  .piece.actif .fleche {
+    stroke-dashoffset: 0;
+    transition-delay: 120ms;
+  }
+
+  /* Les autres pièces s'effacent un peu quand l'une est éclairée. */
+  .maison.a-une-piece .dessin {
+    opacity: 0.88;
+  }
+
+  /* --- L'aide « touchez une pièce » --- */
+  .maison__aide {
+    position: absolute;
+    right: 2%;
+    bottom: -6px;
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    font-size: 22px;
+    color: var(--color-muted);
+    transform: rotate(-3deg);
+  }
+
+  .maison__aide-souris {
+    display: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .maison__aide-touch {
+      display: none;
+    }
+
+    .maison__aide-souris {
+      display: inline;
+    }
+  }
+
+  /* --- Le dessin qui se trace à l'arrivée --- */
+  @media (prefers-reduced-motion: no-preference) {
+    .js .t {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: tracer 1400ms var(--ease-out) forwards;
+      animation-delay: calc(var(--d, 0) * 1ms + 300ms);
+    }
+
+    .js .t.t--tuiles {
+      stroke-dasharray: 0.012 0.01;
+      stroke-dashoffset: 0;
+      animation-name: apparaitre;
+    }
+
+    .js .t.t--cable {
+      stroke-dasharray: 0.04 0.03;
+      stroke-dashoffset: 0;
+      animation-name: apparaitre;
+    }
+
+    .js .mur-plein,
+    .js .carreaux,
+    .js .peint,
+    .js .vitre,
+    .js .sol-carrele {
+      animation: apparaitre 900ms var(--ease) backwards;
+      animation-delay: calc(var(--d, 0) * 1ms + 1100ms);
+    }
+
+    .js .point {
+      animation: surgir 600ms var(--ease-out) backwards;
+      animation-delay: 2300ms;
+    }
+
+    .js .t.fumee {
+      transform-box: fill-box;
+      animation:
+        tracer 1400ms var(--ease-out) forwards,
+        flotter 4s ease-in-out 2.5s infinite;
+    }
+
+    .point {
+      animation: pulser 2.4s ease-in-out 3s infinite;
+    }
+
+    .js .point {
+      animation:
+        surgir 600ms var(--ease-out) 2300ms backwards,
+        pulser 2.4s ease-in-out 3s infinite;
+    }
+
+    @keyframes tracer {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @keyframes apparaitre {
+      from {
+        opacity: 0;
+      }
+    }
+
+    @keyframes surgir {
+      from {
+        transform: scale(0);
+      }
+    }
+
+    @keyframes pulser {
+      0%,
+      100% {
+        stroke-width: 4;
+      }
+      50% {
+        stroke-width: 9;
+      }
+    }
+
+    @keyframes flotter {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-4px);
+      }
+    }
+  }
+
+  /* Les pointillés gardent leur rythme une fois tracés. */
+  .t--tuiles {
+    stroke-dashoffset: 0;
+  }
+</style>

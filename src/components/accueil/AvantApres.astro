@@ -1,0 +1,364 @@
+---
+/**
+ * L'avant/après de l'accueil, piloté par le défilement :
+ * la section reste « épinglée » à l'écran et, à mesure qu'on descend,
+ * la salle de bain d'origine laisse place à celle d'aujourd'hui.
+ * La poignée reste utilisable à la main (souris, doigt, clavier).
+ */
+import { Image } from 'astro:assets';
+import Bouton from '../Bouton.astro';
+import CurseurAvantApres from '../CurseurAvantApres.astro';
+import { paireVitrine } from '~/data/projets';
+import { chemin, t, type Langue } from '~/i18n';
+
+interface Props {
+  langue: Langue;
+}
+
+const { langue } = Astro.props;
+const textes = t(langue);
+const bloc = textes.accueil.avantApres;
+const vitrine = await paireVitrine();
+const lienProjet = vitrine ? `${chemin('realisations', langue)}${vitrine.projet.id}/` : '';
+---
+
+{
+  vitrine && vitrine.paire.avant && vitrine.paire.apres && (
+    <section class="aa" data-aa aria-labelledby="aa-titre">
+      <div class="aa__colle">
+        <div class="wrap aa__interieur">
+          <div class="aa__texte">
+            <p class="etiquette-section">{bloc.surtitre}</p>
+            <h2 id="aa-titre" data-mots>
+              {bloc.titreDebut}{' '}<span class="serif">{bloc.titreSerif}</span>
+            </h2>
+            <p class="aa__intro" data-reveal>{bloc.texte}</p>
+
+            <div class="aa__lieu" data-reveal>
+              <span class="aa__lieu-label">{vitrine.paire.legende[langue]}</span>
+              <span class="aa__lieu-commune">{vitrine.projet.data.commune[langue]}</span>
+            </div>
+
+            <div class="aa__actions" data-reveal>
+              <Bouton href={lienProjet} variante="principal" iconeApres="fleche-diag">
+                {bloc.voirProjet}
+              </Bouton>
+              <Bouton href={chemin('realisations', langue)} variante="secondaire">
+                {bloc.voirTout}
+              </Bouton>
+            </div>
+          </div>
+
+          <div class="aa__visuel">
+            <p class="aa__note aa__note--avant manuscrit" aria-hidden="true">
+              {bloc.noteAvant}
+              <svg width="60" height="46" viewBox="0 0 60 46" fill="none"><path d="M4 4c18 2 38 12 48 34M52 38l-10-3M52 38l2-10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" /></svg>
+            </p>
+
+            <div class="aa__cadre">
+              <CurseurAvantApres langue={langue} id="curseur-accueil" ratio="3 / 4" depart={100} precision={vitrine.paire.legende[langue]}>
+                <Image
+                  slot="avant"
+                  src={vitrine.paire.avant}
+                  alt={textes.photos.avant}
+                  widths={[480, 720, 960, 1200]}
+                  sizes="(min-width: 1024px) 44vw, 92vw"
+                  loading="lazy"
+                />
+                <Image
+                  slot="apres"
+                  src={vitrine.paire.apres}
+                  alt={textes.photos.apres}
+                  widths={[480, 720, 960, 1200]}
+                  sizes="(min-width: 1024px) 44vw, 92vw"
+                  loading="lazy"
+                />
+              </CurseurAvantApres>
+              <div class="aa__jauge" aria-hidden="true"><span data-jauge></span></div>
+            </div>
+
+            <p class="aa__note aa__note--apres manuscrit" aria-hidden="true">
+              <svg width="60" height="46" viewBox="0 0 60 46" fill="none"><path d="M56 42C40 40 18 30 8 8M8 8l10 3M8 8L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" /></svg>
+              {bloc.noteApres}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<script>
+  import { mouvementReduit, surDefilement } from '~/scripts/site';
+
+  const section = document.querySelector<HTMLElement>('[data-aa]');
+  const range = section?.querySelector<HTMLInputElement>('[data-range]');
+  const jauge = section?.querySelector<HTMLElement>('[data-jauge]');
+
+  if (section && range && !mouvementReduit) {
+    section.classList.add('aa--pilote');
+    let alaMain = false;
+
+    // Dès que la personne attrape la poignée, le défilement ne la déplace plus.
+    const prendreLaMain = () => {
+      alaMain = true;
+    };
+    range.addEventListener('pointerdown', prendreLaMain);
+    range.addEventListener('keydown', prendreLaMain);
+
+    surDefilement(section, (progression) => {
+      // Un peu de marge au début et à la fin : on voit bien l'avant, puis bien l'après.
+      const t = Math.min(1, Math.max(0, (progression - 0.12) / 0.7));
+      jauge?.style.setProperty('--t', String(t));
+      section.classList.toggle('aa--fini', t >= 1);
+      section.classList.toggle('aa--debut', t <= 0);
+      if (alaMain) return;
+      range.value = String(Math.round(100 - t * 96));
+      range.dispatchEvent(new Event('input'));
+    });
+
+    // En sortant de la section, on rend la main au défilement.
+    new IntersectionObserver(([entree]) => {
+      if (!entree.isIntersecting) alaMain = false;
+    }).observe(section);
+  }
+</script>
+
+<style>
+  .aa {
+    position: relative;
+    padding-block: var(--section-gap) 0;
+  }
+
+  .aa__interieur {
+    display: grid;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .aa__texte {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .aa__texte h2 .serif {
+    color: var(--color-accent);
+  }
+
+  .aa__intro {
+    max-width: 38ch;
+    font-size: var(--size-lead);
+    line-height: 1.5;
+  }
+
+  .aa__lieu {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-left: 16px;
+    border-left: 3px solid var(--color-signal);
+  }
+
+  .aa__lieu-label {
+    font-weight: 650;
+    color: var(--color-ink);
+  }
+
+  .aa__lieu-commune {
+    font-size: var(--size-small);
+    color: var(--color-muted);
+  }
+
+  .aa__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .aa__visuel {
+    position: relative;
+    justify-self: center;
+    width: 100%;
+    max-width: 520px;
+  }
+
+  .aa__cadre {
+    position: relative;
+  }
+
+  .aa__cadre :global(.curseur) {
+    box-shadow: var(--shadow-float);
+  }
+
+  .aa__cadre :global(.curseur img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .aa__jauge {
+    position: relative;
+    height: 3px;
+    margin: 16px 8% 0;
+    background: var(--color-border);
+    border-radius: 3px;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 400ms var(--ease);
+  }
+
+  .aa--pilote .aa__jauge {
+    opacity: 1;
+  }
+
+  .aa__jauge span {
+    position: absolute;
+    inset: 0;
+    background: var(--color-ink);
+    transform-origin: left;
+    transform: scaleX(var(--t, 0));
+  }
+
+  .aa__note {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    margin: 0 0 8px;
+    font-size: 26px;
+    color: var(--color-accent);
+    transition:
+      opacity 500ms var(--ease),
+      transform 500ms var(--ease-out);
+  }
+
+  .aa__note--avant {
+    transform: rotate(-3deg);
+  }
+
+  .aa__note--apres {
+    justify-content: flex-end;
+    align-items: flex-start;
+    margin: 8px 0 0;
+    transform: rotate(-2deg);
+  }
+
+  /* Pendant le pilotage : l'annotation qui correspond s'allume. */
+  .aa--pilote .aa__note--apres {
+    opacity: 0.25;
+  }
+
+  .aa--pilote.aa--fini .aa__note--apres {
+    opacity: 1;
+  }
+
+  .aa--pilote:not(.aa--debut) .aa__note--avant {
+    opacity: 0.25;
+  }
+
+  /* --- Épinglage : la section reste à l'écran pendant qu'on défile --- */
+  @media (prefers-reduced-motion: no-preference) {
+    .aa {
+      height: 260vh;
+      padding: 0;
+    }
+
+    .aa__colle {
+      position: sticky;
+      top: 0;
+      height: 100svh;
+      display: flex;
+      align-items: center;
+      padding-top: var(--header-h);
+    }
+
+    .aa__visuel {
+      max-width: min(520px, 46svh);
+    }
+
+    .aa__texte {
+      gap: 18px;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) and (max-width: 1023px) {
+    .aa {
+      height: 230vh;
+    }
+
+    /* Sur mobile, on garde surtout la photo à l'écran. */
+    .aa__interieur {
+      gap: 12px;
+    }
+
+    .aa__texte {
+      gap: 10px;
+    }
+
+    .aa__texte h2 {
+      font-size: clamp(34px, 9vw, 48px);
+    }
+
+    .aa__intro,
+    .aa__lieu {
+      display: none;
+    }
+
+    .aa__actions :global(.bouton--secondaire) {
+      display: none;
+    }
+
+    .aa__visuel {
+      max-width: min(420px, 50svh);
+    }
+
+    .aa__note {
+      font-size: 21px;
+    }
+
+    .aa__note svg {
+      width: 40px;
+      height: 32px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .aa__interieur {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 64px;
+    }
+
+    .aa__note {
+      position: absolute;
+      z-index: 2;
+      margin: 0;
+      font-size: 30px;
+      white-space: nowrap;
+    }
+
+    .aa__note--avant,
+    .aa__note--apres {
+      right: calc(100% + 20px);
+      width: 230px;
+      flex-direction: column;
+      align-items: flex-end;
+      text-align: right;
+      white-space: normal;
+      line-height: 1.05;
+    }
+
+    .aa__note--avant {
+      top: 6%;
+    }
+
+    .aa__note--apres {
+      bottom: 12%;
+    }
+
+    .aa__note--apres svg {
+      order: 2;
+      transform: scaleX(-1);
+    }
+  }
+</style>

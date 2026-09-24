@@ -34,6 +34,8 @@ export const nl: Traductions = {
     ouvrirMenu: 'Menu openen',
     fermerMenu: 'Menu sluiten',
     menuAria: 'Hoofdmenu',
+    menu: 'Menu',
+    contactDirect: 'Contacteer ons',
   },
 
   langues: {
@@ -49,6 +51,7 @@ export const nl: Traductions = {
     viePrivee: 'Privacy',
     rejoindre: 'Word lid van ons team',
     droits: 'Alle rechten voorbehouden',
+    projet: 'Een project in gedachten?',
   },
 
   accessibilite: {
@@ -73,25 +76,138 @@ export const nl: Traductions = {
 
   accueil: {
     hero: {
-      zone: 'Actief in heel België',
-      titreDebut: 'Uw woning, in goede',
-      titreFin: 'handen',
+      surtitre: 'Algemene aannemer · Heel België',
+      titreDebut: 'Uw woning,',
+      titreSerif: 'vernieuwd',
+      titreFin: 'van A tot Z.',
       texte:
-        'Badkamers, keukens, tegelwerk, dakwerken en metselwerk. Wij begeleiden uw werf van de eerste offerte tot de laatste afwerking',
-      atouts: ['Gratis offerte', 'Nederlands · Français'],
-      badgeUnite: 'jaar',
-      badgeTexte: 'ervaring in de bouw',
-
+        'Badkamer, keuken, dak, tegelwerk… Eén aanspreekpunt voor uw hele werf, van de eerste offerte tot de laatste afwerking.',
+      faits: ['12 jaar ervaring', 'Gratis offerte', 'Nederlands · Français'],
+      maisonAria: 'Tekening van een huis in doorsnede: elke ruimte leidt naar de bijhorende dienst',
+      maisonAide: 'Tik op een ruimte',
+      maisonAideSouris: 'Beweeg over een ruimte',
+      maisonTout: 'en al de rest!',
+      pieces: {
+        toiture: 'het dak',
+        'salles-de-bain': 'de badkamer',
+        cuisines: 'de keuken',
+        carrelage: 'het tegelwerk',
+        electricite: 'de elektriciteit',
+        'peinture-finitions': 'het schilderwerk',
+        'maconnerie-facades': 'muren & gevels',
+      },
+      defiler: 'Scrollen',
     },
+
+    bandeauAria: 'Onze vakgebieden',
 
     avantApres: {
       surtitre: 'Voor, na',
-      voirTout: 'Bekijk al onze voor/na-foto’s',
+      titreDebut: 'Dezelfde ruimte.',
+      titreSerif: 'Een nieuw leven.',
+      texte:
+        'Scroll verder, of neem de schuifknop vast: de oude badkamer maakt plaats voor die van vandaag.',
+      noteAvant: 'de dag dat we aankomen…',
+      noteApres: '… en de dag dat we vertrekken!',
+      voirProjet: 'Bekijk deze werf',
+      voirTout: 'Alle voor/na-foto’s',
       autresProjets: 'Andere projecten',
       avant: 'Voor',
       apres: 'Na',
       curseurLabel: 'Voor en na vergelijken',
       curseurAide: 'Gebruik de pijltjestoetsen links en rechts om te vergelijken',
+    },
+
+    services: {
+      surtitre: 'Onze vakgebieden',
+      titreDebut: 'Alles wat een huis',
+      titreSerif: 'nodig heeft.',
+      texte:
+        'Eén vak of het hele huis: wij coördineren de vakmensen, intern of met onze vertrouwde zelfstandigen.',
+      voirTout: 'Al onze diensten',
+    },
+
+    chiffres: {
+      surtitre: 'In een paar cijfers',
+      items: [
+        { valeur: 12, prefixe: '', suffixe: '', texte: 'jaar ervaring in de bouw' },
+        { valeur: 12, prefixe: '±', suffixe: '', texte: 'mensen op onze werven, met onze zelfstandigen' },
+        { valeur: 1, prefixe: '', suffixe: '', texte: 'aanspreekpunt, van offerte tot afwerking' },
+        { valeur: 0, prefixe: '', suffixe: ' €', texte: 'voor de offerte: gratis en gedetailleerd' },
+      ],
+    },
+
+    methode: {
+      surtitre: 'Hoe het verloopt',
+      titreDebut: 'Eenvoudig,',
+      titreSerif: 'van begin tot einde.',
+      etapes: [
+        {
+          titre: 'U vertelt ons uw plan',
+          texte:
+            'Via telefoon, WhatsApp of het formulier. Een paar foto’s van de ruimte helpen ons al enorm.',
+        },
+        {
+          titre: 'We bekijken het samen',
+          texte:
+            'We overlopen wat u wilt en in welke staat de ruimte is, ter plaatse als dat nodig is.',
+        },
+        {
+          titre: 'Gratis, gedetailleerde offerte',
+          texte: 'U krijgt een duidelijke offerte, vrijblijvend, om met kennis van zaken te beslissen.',
+        },
+        {
+          titre: 'Eén aanspreekpunt',
+          texte:
+            'Wij coördineren alle vakmensen en volgen de werf op tot de laatste afwerking.',
+        },
+      ],
+    },
+
+    projets: {
+      surtitre: 'Realisaties',
+      titreDebut: 'Werven,',
+      titreSerif: 'geen beloftes.',
+      voirTout: 'Alle realisaties',
+      glisser: 'schuif →',
+    },
+
+    faq: {
+      surtitre: 'Veelgestelde vragen',
+      titreDebut: 'Uw vragen,',
+      titreSerif: 'onze antwoorden.',
+      autreQuestion: 'Een andere vraag? Bel ons op',
+      items: [
+        {
+          q: 'Werkt u ook in mijn buurt?',
+          r: 'Wij zijn gevestigd in Denderleeuw en werken in heel België.',
+        },
+        {
+          q: 'Is de offerte betalend?',
+          r: 'Nee, de offerte is gratis en gedetailleerd. Om ze op te maken helpt het vooral als u de werken beschrijft en, indien mogelijk, een paar foto’s stuurt.',
+        },
+        {
+          q: 'Heb ik meerdere aannemers nodig voor een volledige renovatie?',
+          r: 'Nee. BS Renove is een algemene aannemer: wij coördineren alle vakmensen, intern of met onze zelfstandigen. U hebt één aanspreekpunt van begin tot einde.',
+        },
+        {
+          q: 'Spreekt u Nederlands?',
+          r: 'Ja. U kunt ons aanspreken in het Nederlands of in het Frans, via telefoon, WhatsApp of e-mail.',
+        },
+        {
+          q: 'Hoe stuur ik foto’s van mijn werf?',
+          r: 'Het eenvoudigst is via WhatsApp. Foto’s van de ruimte en een paar afmetingen helpen ons uw project te begrijpen, nog voor we elkaar zien.',
+        },
+      ],
+    },
+
+    devis: {
+      surtitre: 'Gratis offerte',
+      titreDebut: 'Laten we praten over',
+      titreSerif: 'uw project.',
+      texte:
+        'Drie korte stappen, twee minuten. Haast? Bel ons of schrijf ons rechtstreeks.',
+      direct: 'Rechtstreeks',
     },
 
     pourquoi: {
@@ -116,6 +232,70 @@ export const nl: Traductions = {
       labelEmail: 'E-mail',
       labelZone: 'Werkgebied',
       valeurZone: 'Heel België',
+    },
+  },
+
+  formulaire: {
+    etape: 'Stap',
+    sur: 'van',
+    etapes: ['Uw werken', 'Uw project', 'Uw gegevens'],
+
+    q1: 'Aan welke werken denkt u?',
+    q1Aide: 'Meerdere keuzes mogelijk',
+    autre: 'Iets anders',
+
+    q2: 'Vertel ons over uw project',
+    commune: 'Gemeente van de werf',
+    communeAide: 'Enkel de gemeente, geen adres nodig',
+    delai: 'Wanneer wilt u beginnen?',
+    delais: ['Zo snel mogelijk', 'Binnen 3 maanden', 'Binnen 6 maanden', 'Nog niet beslist'],
+    message: 'Uw project in een paar woorden',
+    messageAide: 'Niet verplicht, maar het helpt ons de offerte voor te bereiden',
+    messageExemple:
+      'Bv.: de badkamer boven vernieuwen, ongeveer 6 m², een inloopdouche in plaats van het bad…',
+
+    q3: 'Waar kunnen we u antwoorden?',
+    nom: 'Uw naam',
+    telephone: 'Telefoon',
+    email: 'E-mail',
+    consentement: 'Ik ga ermee akkoord dat mijn gegevens gebruikt worden om mijn vraag te beantwoorden.',
+    consentementLien: 'Privacy',
+
+    suivant: 'Verder',
+    precedent: 'Terug',
+    envoyer: 'Mijn aanvraag versturen',
+    envoiEnCours: 'Versturen…',
+    obligatoire: 'verplicht',
+    facultatif: 'niet verplicht',
+
+    erreurChoix: 'Kies minstens één type werken.',
+    erreurChamp: 'Dit veld is verplicht.',
+    erreurEmail: 'Dit e-mailadres lijkt niet volledig.',
+    erreurConsentement: 'Vink het vakje aan zodat wij u kunnen antwoorden.',
+
+    merciTitre: 'Bedankt, het is verstuurd!',
+    merciTexte:
+      'Uw aanvraag is goed vertrokken. Hebt u foto’s van de werf? Stuur ze via WhatsApp, dat helpt het meest om de offerte voor te bereiden.',
+    merciWhatsApp: 'Foto’s versturen',
+    recommencer: 'Nieuwe aanvraag',
+
+    secoursTitre: 'Bijna klaar!',
+    secoursLien: 'E-mail openen',
+    secoursTexte:
+      'Uw mailprogramma opent met uw aanvraag al ingevuld: u hoeft ze enkel nog te versturen. Opent er niets? Bel ons of schrijf ons op WhatsApp.',
+
+    erreurTitre: 'Het versturen is mislukt.',
+    erreurTexte: 'U kunt het opnieuw proberen, of ons rechtstreeks bellen op',
+
+    sujetEmail: 'Offerteaanvraag via de website',
+    recap: {
+      travaux: 'Werken',
+      commune: 'Gemeente',
+      delai: 'Gewenste start',
+      message: 'Project',
+      nom: 'Naam',
+      telephone: 'Telefoon',
+      email: 'E-mail',
     },
   },
 

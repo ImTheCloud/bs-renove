@@ -850,3 +850,49 @@ qui ouvre un email pré-rempli (même système que le devis). Rien d'inventé
 sur des postes ouverts ou un process de recrutement — juste un canal de
 contact. **Textes NL à faire relire par un natif** : les nouveaux textes de
 cette page (`rejoindreEquipe` dans `src/i18n/nl.ts`) et de la page 404.
+
+---
+
+## 17. Refonte complète du site (24 septembre 2026, branche `refonte`)
+
+Claudiu a demandé de repartir de zéro côté design : le site « fond blanc » a été
+remplacé par la direction « Atelier » (papier crème, encre, bleu du logo, jaune
+marqueur, annotations à la main). Détail des choix dans `CLAUDE.md`, section Design.
+La structure technique (Astro, FR/NL, projets, SEO, pages légales) n'a pas changé.
+
+### Photos et images générées par IA
+
+Idée de départ : remplacer les photos par des images générées par IA. **Non retenu**
+pour ce qui ressemble à un chantier : une image générée présentée comme un travail de
+BS Renove tromperait les clients. À la place :
+
+- le haut de l'accueil est une **maison dessinée en coupe** (SVG, fait main dans le code) ;
+- les métiers sans photo ont un **panneau illustré** (icône en grand) ;
+- les vraies photos restent là où elles prouvent quelque chose (avant/après, réalisations).
+
+### À faire valider par Sergiu (nouveaux textes, FR et NL)
+
+| Texte | Où | Pourquoi le valider |
+|---|---|---|
+| « On regarde ensemble… **sur place si c'est nécessaire** » | accueil et À propos, étape 2 de « Comment ça se passe » | suppose que Sergiu se déplace avant le devis |
+| « Vous recevez un devis clair, **sans engagement** » | étape 3 | formulation commerciale, à confirmer |
+| « ±12 personnes sur nos chantiers, avec nos indépendants » | chiffres de l'accueil | reprend « une douzaine de personnes » (22 septembre) |
+| « 0 € pour le devis » | chiffres de l'accueil | reprend « devis gratuit : oui » (22 septembre) |
+| Les 5 questions et réponses de la FAQ | accueil | toutes tirées de faits déjà confirmés, mais c'est un nouveau texte |
+| « le jour où on arrive… et le jour où on part ! » | annotation de l'avant/après | ton plus familier que le reste du site |
+| Maçonnerie & façades, Peinture et finitions | accueil et page Services | de nouveau visibles (panneau illustré au lieu d'une photo) ; rappel § 9 : électricité et peinture ne figurent pas dans les activités enregistrées |
+
+### Formulaire de devis : de retour
+
+Claudiu a demandé un vrai formulaire (type de travaux, message…). Il remplace le
+simple lien email du § 16, **à valider avec Sergiu** qui avait préféré l'email le 22 septembre.
+
+- 3 étapes : travaux (plusieurs choix), projet (commune, délai, message), coordonnées.
+- **Clé Web3Forms à recréer** : l'ancienne a été supprimée le 22 septembre. La mettre
+  dans `.env` (`WEB3FORMS_KEY=…`) et chez l'hébergeur.
+- **En attendant la clé**, le formulaire ne perd rien : à l'envoi, il ouvre la messagerie
+  du visiteur avec un email déjà rempli (toutes ses réponses), et un bouton « Ouvrir
+  l'email » reste affiché si la messagerie ne s'ouvre pas.
+- La page Vie privée a été remise dans sa version « avec Web3Forms » (celle d'avant le
+  22 septembre). Elle devient exacte dès que la clé est configurée ; tant que ce n'est pas
+  le cas, elle décrit un service qui n'est pas encore utilisé. **À vérifier avant la mise en ligne.**

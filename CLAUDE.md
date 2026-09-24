@@ -10,7 +10,7 @@ Site vitrine de BS Renove SRL, entreprise générale de rénovation belge (sièg
 Objectif : qu'un propriétaire qui arrive sur le site ait confiance et prenne contact, par téléphone, WhatsApp ou formulaire de devis.
  
 - Contenu, pages, textes et plan de travail : `docs/brief.md`
-- Maquette de référence : `docs/maquette-c.html` (direction « C · Artisan, fond blanc », page d'accueil desktop). Lis son code pour les couleurs, tailles et formes exactes. Elle montre le style, pas chaque détail. Si elle contredit le brief (par exemple le nombre de services), **le brief gagne**. Il n'y a pas de maquette mobile : l'adapter selon la règle « Mobile d'abord » plus bas.
+- Ancienne maquette : `docs/maquette-c.html`, **abandonnée** depuis la refonte (voir « Design »). Ne plus s'en servir comme référence.
 - Infos manquantes : `docs/contenu-manquant.md` (à créer et tenir à jour)
 ## Règles non négociables
  
@@ -29,56 +29,48 @@ Objectif : qu'un propriétaire qui arrive sur le site ait confiance et prenne co
 - **CSS** : variables CSS dans `src/styles/tokens.css` + styles scoped des composants Astro. Pas de framework CSS lourd, pas de librairie de composants.
 - **Langues** : routage i18n intégré d'Astro. FR par défaut sans préfixe (`/`), NL sous `/nl/`. Textes d'interface dans `src/i18n/fr.ts` et `src/i18n/nl.ts`. Balises `hreflang`. Le sélecteur FR/NL mène à la même page dans l'autre langue.
 - **Projets** : content collection Astro, un fichier par projet avec les champs FR et NL.
-- **Formulaire** : service externe (Web3Forms ou Formspree), clé dans une variable d'environnement, champ anti-spam caché.
-- **JavaScript** : vanilla et minimal. Seuls éléments interactifs : curseur avant/après, menu mobile, formulaire, agrandissement des photos.
-- **Polices** : Fontsource (ou fichiers woff2 locaux).
+- **Formulaire de devis** : 3 étapes, Web3Forms (clé `WEB3FORMS_KEY` dans `.env` et chez l'hébergeur), champ anti-spam caché. Sans clé, il ouvre un email pré-rempli avec toutes les réponses.
+- **JavaScript** : vanilla, plus Lenis pour le défilement fluide. Le moteur commun est dans `src/scripts/site.ts` (apparitions, scènes pilotées par le défilement).
+- **Polices** : Fontsource (Bricolage Grotesque, Figtree, Instrument Serif, Caveat), hébergées sur le site.
 - **Sitemap** : `@astrojs/sitemap`.
 - **Hébergement** : Cloudflare Pages ou Netlify, déployé depuis Git.
-## Design : direction C, fond blanc
- 
+## Design : direction « Atelier » (refonte de septembre 2026)
+
+La maquette `docs/maquette-c.html` (direction C, fond blanc) est **abandonnée** : le site a été entièrement refait. Référence aimée par le client : https://ark-eng.be (annotations manuscrites, fond crème, surlignages).
+
 ### Couleurs
- 
-```css
---color-bg: #FFFFFF;        /* fond de page */
---color-surface: #F3F5F8;   /* cartes, pastilles, points forts */
---color-surface-2: #EEF1F5; /* conteneurs secondaires, sélecteur de langue */
---color-ink: #1D2A4A;       /* titres, texte fort, bloc contact */
---color-accent: #2F5BD3;    /* boutons principaux, liens (provisoire : à caler sur le logo) */
---color-text: #4B5160;      /* texte courant */
---color-muted: #5F6573;     /* texte secondaire */
---color-border: #D5DAE1;
-/* Sur le bloc contact (fond ink) : texte secondaire #D6DCEA, petits labels #B9C3DA */
-```
- 
-Toutes les couleurs passent par ces variables : changer le bleu doit prendre une ligne.
- 
+
+Toutes dans `src/styles/tokens.css` : changer une couleur prend une ligne.
+
+- Papier `#F5F2EC` (fond), surfaces `#ECE7DE` / `#E3DDD1`
+- Encre `#121418` (titres, sections sombres, bouton principal)
+- Bleu du logo `#0066B4` (mots en italique, liens, annotations) ; `#7CBCFF` sur fond sombre
+- Jaune marqueur `#FFD447` (surlignages, pastilles de flèche, états actifs) : jamais comme couleur de texte sur fond clair
+- WhatsApp `#0E8449`
+
 ### Typographie
- 
-- **Bricolage Grotesque** pour les titres, graisse 700 à 800, interlettrage serré (-0.02em à -0.035em).
-- **Figtree** pour le texte, graisse 400 à 700.
-- Tailles desktop → mobile : H1 76px → 44px · H2 58px → 36px · H3 26px → 22px · texte 17-19px → 16-17px · petits textes 14-15px.
-### Formes
- 
-- Boutons et pastilles : 999px (pilules). Hauteur 52-60px, jamais moins de 48px sur mobile.
-- Grandes photos : 32px · cartes : 28px · images dans les cartes : 20px · petits blocs : 18px · grands conteneurs : 36px.
-- Ombre uniquement pour ce qui flotte sur une photo : `0 12px 32px rgba(29,42,74,0.14)`.
-- Contenu max 1344px de large, marges latérales 48px sur desktop, 20px sur mobile.
-### Boutons
- 
-- Principal : fond accent, texte blanc.
-- Secondaire : fond blanc, bordure 1px `--color-border`, texte ink.
-- Sur le bloc contact : principal fond blanc texte ink, secondaire contour blanc à 35 %.
-### Icônes
- 
-SVG au trait (épaisseur 1.8), jamais d'emoji. Les boutons WhatsApp n'ont pas d'icône (juste le texte), sur fond vert `#0e8449` (plus sobre que le vert officiel, choisi aussi pour son contraste avec le texte blanc).
- 
-### Principes
- 
-- **L'élément marquant du site, c'est le curseur avant/après.** Le reste reste calme et propre.
-- **Mouvement** : un seul moment soigné, l'arrivée du hero. Pas d'animation d'apparition sur chaque section. Respecter `prefers-reduced-motion`.
-- **Mobile d'abord** : la plupart des visiteurs sont sur téléphone. Sur mobile, barre fixe en bas avec « Appeler » et « WhatsApp ».
-- **Accessibilité** : contraste AA minimum, focus clavier visible, vrais `<button>` et `<a>`, texte alternatif sur chaque photo, curseur avant/après utilisable au clavier.
-- **Performance** : Lighthouse ≥ 95 sur mobile, images en AVIF/WebP aux bonnes tailles, chargement différé sauf la photo du hero.
+
+- **Bricolage Grotesque** (titres, 700, interlettrage très serré), **Instrument Serif italique** (les derniers mots d'un titre, en bleu ou en jaune), **Figtree** (texte), **Caveat** (annotations écrites à la main, avec petites flèches).
+- Tailles fluides (`clamp`) dans les tokens.
+
+### Éléments signature
+
+- **Maison en coupe dessinée en SVG** dans le hero (`src/components/accueil/MaisonCoupe.astro`) : se trace à l'arrivée, visite guidée des pièces, chaque pièce mène au service.
+- **Avant/après piloté par le défilement** sur l'accueil (section épinglée).
+- Bandeau « rubalise » qui défile, liste des métiers avec photo qui suit la souris, chiffres qui comptent, réalisations en défilement horizontal, FAQ en accordéon, formulaire de devis en 3 étapes.
+- Grain de papier léger sur toute la page, fond millimétré derrière les en-têtes.
+
+### Mouvement
+
+- Animations au défilement autorisées (apparitions, titres mot par mot), défilement fluide (Lenis), transitions entre pages (`@view-transition`).
+- **Tout se coupe avec `prefers-reduced-motion`**, et tout le contenu reste visible et utilisable sans JavaScript.
+
+### Principes qui restent
+
+- Mobile d'abord : dock flottant en bas (Appeler, WhatsApp, Devis). Zones tactiles d'au moins 44-48px.
+- Accessibilité : contraste AA, focus clavier visible, vrais `<button>` et `<a>`, texte alternatif sur chaque photo, curseur avant/après au clavier.
+- Photos : **pas d'image générée par IA présentée comme un chantier**. Les vraies photos restent la preuve (réalisations, avant/après) ; ce qui manque est illustré en SVG (dessins, icônes), jamais inventé.
+
 ## Commandes
  
 - `npm run dev` : serveur local

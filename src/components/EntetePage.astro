@@ -1,0 +1,99 @@
+---
+/**
+ * Le haut des pages intérieures : petit libellé, grand titre dont la fin
+ * passe en italique, courte intro, sur un fond de papier millimétré.
+ */
+interface Props {
+  surtitre: string;
+  titre: string;
+  /** Combien de mots, à la fin du titre, passent en italique. */
+  serifMots?: number;
+  intro?: string;
+}
+
+const { surtitre, titre, serifMots = 1, intro } = Astro.props;
+const mots = titre.trim().split(/\s+/);
+const coupe = Math.max(0, mots.length - serifMots);
+const debut = mots.slice(0, coupe).join(' ');
+const fin = mots.slice(coupe).join(' ');
+---
+
+<header class="entete-page">
+  <div class="entete-page__grille" aria-hidden="true"></div>
+  <div class="wrap entete-page__interieur">
+    <p class="etiquette-section">{surtitre}</p>
+    <h1 class="entete-page__titre">
+      {debut}{debut && ' '}<span class="serif">{fin}.</span>
+    </h1>
+    {intro && <p class="entete-page__intro">{intro}</p>}
+    <slot />
+  </div>
+</header>
+
+<style>
+  .entete-page {
+    position: relative;
+    padding-top: calc(var(--header-h) + 48px);
+    padding-bottom: 48px;
+    overflow: hidden;
+  }
+
+  .entete-page__grille {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0, 102, 180, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 102, 180, 0.08) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 60% 90% at 85% 20%, #000 20%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 60% 90% at 85% 20%, #000 20%, transparent 75%);
+    pointer-events: none;
+  }
+
+  .entete-page__interieur {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 22px;
+  }
+
+  .entete-page__titre {
+    max-width: 14ch;
+    font-size: var(--size-h1);
+  }
+
+  .entete-page__titre .serif {
+    color: var(--color-accent);
+  }
+
+  .entete-page__intro {
+    max-width: 46ch;
+    font-size: var(--size-lead);
+    line-height: 1.5;
+  }
+
+  @media (min-width: 1024px) {
+    .entete-page {
+      padding-top: calc(var(--header-h) + 80px);
+      padding-bottom: 72px;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .entete-page__interieur > * {
+      animation: entete-monte 900ms var(--ease-out) backwards;
+    }
+
+    .entete-page__interieur > :nth-child(2) { animation-delay: 80ms; }
+    .entete-page__interieur > :nth-child(3) { animation-delay: 180ms; }
+    .entete-page__interieur > :nth-child(4) { animation-delay: 260ms; }
+
+    @keyframes entete-monte {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+    }
+  }
+</style>

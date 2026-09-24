@@ -1,0 +1,236 @@
+---
+/**
+ * Le bloc « Parlons de votre projet » : grand titre et contacts directs
+ * à gauche, formulaire de devis à droite, sur fond encre.
+ * Sert en bas de l'accueil et sur la page Contact.
+ */
+import FormulaireDevis from '../FormulaireDevis.astro';
+import Icon from '../Icon.astro';
+import { entreprise, lienWhatsApp } from '~/data/entreprise';
+import { t, type Langue } from '~/i18n';
+
+interface Props {
+  langue: Langue;
+  /** Sur la page Contact, le titre est le h1 de la page. */
+  titrePrincipal?: boolean;
+}
+
+const { langue, titrePrincipal = false } = Astro.props;
+const textes = t(langue);
+const bloc = textes.accueil.devis;
+const Titre = titrePrincipal ? 'h1' : 'h2';
+---
+
+<section class:list={['devis-section', { 'devis-section--page': titrePrincipal }]} id="devis" aria-labelledby="devis-titre">
+  <div class="wrap devis-section__interieur">
+    <div class="devis-section__texte">
+      <p class="etiquette-section devis-section__etiquette">{bloc.surtitre}</p>
+      <Titre id="devis-titre" class="devis-section__titre" data-mots={!titrePrincipal || undefined}>
+        {bloc.titreDebut}{' '}<span class="serif">{bloc.titreSerif}</span>
+      </Titre>
+      <p class="devis-section__intro">{bloc.texte}</p>
+
+      <div class="direct">
+        <span class="direct__label">{bloc.direct}</span>
+        <a class="direct__lien" href={`tel:${entreprise.telephoneLien}`}>
+          <span class="direct__rond"><Icon nom="telephone" taille={20} /></span>
+          <span>
+            <span class="direct__type">{textes.accueil.contact.labelTelephone}</span>
+            <span class="direct__valeur">{entreprise.telephoneAffiche}</span>
+          </span>
+        </a>
+        <a class="direct__lien" href={lienWhatsApp(textes.whatsappMessage)} target="_blank" rel="noopener">
+          <span class="direct__rond direct__rond--wa"><Icon nom="whatsapp" taille={20} /></span>
+          <span>
+            <span class="direct__type">WhatsApp</span>
+            <span class="direct__valeur">{entreprise.telephoneAffiche}</span>
+          </span>
+        </a>
+        {
+          entreprise.email && (
+            <a class="direct__lien" href={`mailto:${entreprise.email}`}>
+              <span class="direct__rond"><Icon nom="email" taille={20} /></span>
+              <span>
+                <span class="direct__type">{textes.accueil.contact.labelEmail}</span>
+                <span class="direct__valeur direct__valeur--email">{entreprise.email}</span>
+              </span>
+            </a>
+          )
+        }
+      </div>
+
+      <p class="devis-section__zone manuscrit" aria-hidden="true">
+        ✳ {textes.accueil.contact.labelZone} : {textes.accueil.contact.valeurZone}
+      </p>
+    </div>
+
+    <div class="devis-section__form" data-reveal="zoom">
+      <FormulaireDevis langue={langue} />
+    </div>
+  </div>
+</section>
+
+<style>
+  .devis-section {
+    position: relative;
+    margin-top: var(--section-gap);
+    padding-block: 72px 80px;
+    background: var(--color-ink);
+    color: var(--color-on-ink-soft);
+    border-radius: var(--radius-large);
+    margin-inline: 8px;
+    scroll-margin-top: 8px;
+  }
+
+  .devis-section--page {
+    margin-top: 0;
+    margin-inline: 0;
+    padding-top: calc(var(--header-h) + 56px);
+    border-radius: 0 0 var(--radius-large) var(--radius-large);
+  }
+
+  .devis-section__interieur {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 48px;
+  }
+
+  .devis-section__texte {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 22px;
+  }
+
+  .devis-section__etiquette {
+    color: var(--color-on-ink);
+  }
+
+  .devis-section__etiquette::before {
+    background: var(--color-signal);
+  }
+
+  .devis-section__titre {
+    font-size: var(--size-h1);
+    color: var(--color-on-ink);
+    line-height: 0.95;
+    letter-spacing: -0.045em;
+  }
+
+  .devis-section__titre .serif {
+    color: var(--color-signal);
+  }
+
+  .devis-section__intro {
+    max-width: 38ch;
+    font-size: var(--size-lead);
+    line-height: 1.5;
+  }
+
+  .direct {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    max-width: 420px;
+    margin-top: 12px;
+  }
+
+  .direct__label {
+    margin-bottom: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-on-ink-label);
+  }
+
+  .direct__lien {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 12px 10px 10px;
+    border: 1px solid var(--color-line-on-ink);
+    border-radius: var(--radius-pill);
+    color: var(--color-on-ink);
+    text-decoration: none;
+    transition:
+      background-color 300ms var(--ease),
+      border-color 300ms var(--ease);
+  }
+
+  .direct__lien:hover {
+    background: rgba(245, 242, 236, 0.06);
+    border-color: rgba(245, 242, 236, 0.3);
+  }
+
+  .direct__rond {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--color-signal);
+    color: var(--color-ink);
+  }
+
+  .direct__rond--wa {
+    background: var(--color-whatsapp);
+    color: #fff;
+  }
+
+  .direct__lien > span:last-child {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .direct__type {
+    font-size: 12px;
+    font-weight: 650;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-on-ink-label);
+  }
+
+  .direct__valeur {
+    font-size: 17px;
+    font-weight: 600;
+  }
+
+  .direct__valeur--email {
+    overflow-wrap: anywhere;
+  }
+
+  .devis-section__zone {
+    margin-top: 8px;
+    font-size: 24px;
+    color: var(--color-signal);
+    transform: rotate(-2deg);
+  }
+
+  @media (min-width: 1024px) {
+    .devis-section {
+      margin-inline: 16px;
+      padding-block: 120px;
+    }
+
+    .devis-section--page {
+      margin-inline: 0;
+      padding-top: calc(var(--header-h) + 72px);
+    }
+
+    .devis-section__interieur {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: 72px;
+      align-items: start;
+    }
+
+    .devis-section__texte {
+      position: sticky;
+      top: calc(var(--header-h) + 40px);
+    }
+  }
+</style>

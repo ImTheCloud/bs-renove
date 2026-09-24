@@ -1,8 +1,12 @@
 ---
-import Logo from './Logo.astro';
+/**
+ * Pied de page : les infos utiles, puis le nom de l'entreprise en très grand,
+ * comme une signature en bas de chaque page.
+ */
+import Icon from './Icon.astro';
 import SelecteurLangue from './SelecteurLangue.astro';
-import { adresseUneLigne, entreprise } from '../data/entreprise';
-import { chemin, t, type Langue } from '../i18n';
+import { adresseUneLigne, entreprise, lienDevis, lienWhatsApp } from '../data/entreprise';
+import { chemin, liensNavigation, t, type Langue } from '../i18n';
 
 interface Props {
   langue: Langue;
@@ -11,114 +15,238 @@ interface Props {
 
 const { langue, cheminActuel } = Astro.props;
 const textes = t(langue);
+const liens = liensNavigation(langue);
 const annee = 2026;
 ---
 
 <footer class="pied">
-  <div class="wrap pied__interieur">
-    <div class="pied__marque">
-      <a href={chemin('accueil', langue)} aria-label={textes.entete.accueilAria} class="pied__logo">
-        <Logo langue={langue} />
+  <div class="wrap pied__haut">
+    <div class="pied__appel">
+      <p class="pied__phrase">{textes.piedDePage.projet}</p>
+      <a href={lienDevis(langue)} class="pied__grand-lien">
+        {textes.actions.devis}
+        <span class="pied__fleche" aria-hidden="true"><Icon nom="fleche-diag" taille={26} epaisseur={2} /></span>
       </a>
-      <p class="pied__identite">
-        <span>{entreprise.nomLegal}</span>
-        <span aria-hidden="true">·</span>
-        <span>{adresseUneLigne}</span>
-        <span aria-hidden="true">·</span>
-        <span>{textes.piedDePage.tva} {entreprise.tva}</span>
-      </p>
     </div>
 
-    <div class="pied__bas">
-      <nav class="pied__liens" aria-label={textes.piedDePage.mentionsLegales}>
+    <div class="pied__colonnes">
+      <nav class="pied__col" aria-label={textes.entete.menuAria}>
+        <span class="pied__titre">Menu</span>
+        {liens.map((lien) => <a href={lien.href}>{lien.libelle}</a>)}
         <a href={chemin('rejoindre', langue)}>{textes.piedDePage.rejoindre}</a>
-        <a href={chemin('mentionsLegales', langue)}>{textes.piedDePage.mentionsLegales}</a>
-        <a href={chemin('viePrivee', langue)}>{textes.piedDePage.viePrivee}</a>
       </nav>
-      <SelecteurLangue langue={langue} cheminActuel={cheminActuel} />
-    </div>
 
-    <p class="pied__droits">© {annee} {entreprise.nomLegal}. {textes.piedDePage.droits}</p>
+      <div class="pied__col">
+        <span class="pied__titre">{textes.entete.contactDirect}</span>
+        <a href={`tel:${entreprise.telephoneLien}`}>{entreprise.telephoneAffiche}</a>
+        <a href={lienWhatsApp(textes.whatsappMessage)} target="_blank" rel="noopener">WhatsApp ↗</a>
+        {entreprise.email && <a href={`mailto:${entreprise.email}`} class="pied__email">{entreprise.email}</a>}
+      </div>
+
+      <div class="pied__col">
+        <span class="pied__titre">{entreprise.nomLegal}</span>
+        <span>{adresseUneLigne}</span>
+        <span>{textes.piedDePage.tva} {entreprise.tva}</span>
+        <div class="pied__langues">
+          <SelecteurLangue langue={langue} cheminActuel={cheminActuel} />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pied__signature" aria-hidden="true">
+    <span>BS<span class="serif"> Renove</span></span>
+  </div>
+
+  <div class="wrap pied__bas">
+    <p>© {annee} {entreprise.nomLegal}. {textes.piedDePage.droits}</p>
+    <nav class="pied__legal" aria-label={textes.piedDePage.mentionsLegales}>
+      <a href={chemin('mentionsLegales', langue)}>{textes.piedDePage.mentionsLegales}</a>
+      <a href={chemin('viePrivee', langue)}>{textes.piedDePage.viePrivee}</a>
+    </nav>
   </div>
 </footer>
 
 <style>
   .pied {
-    margin-top: var(--section-gap);
-    border-top: 1px solid var(--color-border-light);
-    padding-block: 40px;
+    position: relative;
+    padding-top: 72px;
+    padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--color-border);
+    overflow: hidden;
   }
 
-  .pied__interieur {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
+  .pied__haut {
+    display: grid;
+    gap: 56px;
   }
 
-  .pied__logo {
+  .pied__phrase {
+    font-family: var(--font-main);
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--color-accent);
+    transform: rotate(-2deg);
+    transform-origin: left;
+  }
+
+  .pied__grand-lien {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    margin-top: 8px;
+    font-family: var(--font-title);
+    font-size: clamp(34px, 4.4vw, 64px);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.045em;
+    color: var(--color-ink);
+    text-decoration: none;
+    background: linear-gradient(var(--color-signal), var(--color-signal)) no-repeat 0 88% / 0% 0.28em;
+    transition: background-size 600ms var(--ease-out);
+  }
+
+  .pied__grand-lien:hover {
+    background-size: 100% 0.28em;
+  }
+
+  .pied__fleche {
     display: inline-flex;
     align-items: center;
-    min-height: var(--tap-min);
-    text-decoration: none;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 0.9em;
+    height: 0.9em;
+    border-radius: 50%;
+    background: var(--color-ink);
+    color: var(--color-signal);
+    transition: transform 500ms var(--ease-out);
   }
 
-  .pied__marque {
+  .pied__grand-lien:hover .pied__fleche {
+    transform: rotate(45deg);
+  }
+
+  .pied__colonnes {
+    display: grid;
+    gap: 36px;
+  }
+
+  .pied__col {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    align-items: flex-start;
+    gap: 4px;
+    font-size: var(--size-small);
+    color: var(--color-text);
   }
 
-  .pied__identite {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    font-size: var(--size-tiny);
+  .pied__titre {
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
     color: var(--color-muted);
+  }
+
+  .pied__col a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+    color: var(--color-ink);
+    text-decoration: none;
+    background: linear-gradient(currentColor, currentColor) no-repeat 0 85% / 0% 1px;
+    transition: background-size 400ms var(--ease-out);
+  }
+
+  .pied__col a:hover {
+    background-size: 100% 1px;
+  }
+
+  .pied__email {
+    overflow-wrap: anywhere;
+  }
+
+  .pied__langues {
+    margin-top: 12px;
+  }
+
+  .pied__signature {
+    margin-top: 72px;
+    padding-inline: calc(var(--gutter) * 0.5);
+    font-family: var(--font-title);
+    font-size: 23.5vw;
+    font-weight: 800;
+    line-height: 0.78;
+    letter-spacing: -0.065em;
+    color: var(--color-ink);
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .pied__signature .serif {
+    font-weight: 400;
+    letter-spacing: -0.05em;
+    color: var(--color-accent);
   }
 
   .pied__bas {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
     justify-content: space-between;
-    gap: 20px;
-  }
-
-  .pied__liens {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 24px;
-  }
-
-  .pied__liens a {
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-    font-size: var(--size-tiny);
-    font-weight: 500;
-    color: var(--color-text);
-    text-decoration: none;
-  }
-
-  .pied__liens a:hover {
-    color: var(--color-ink);
-    text-decoration: underline;
-  }
-
-  .pied__droits {
+    gap: 12px 24px;
+    padding-top: 28px;
     font-size: var(--size-tiny);
     color: var(--color-muted);
   }
 
+  .pied__legal {
+    display: flex;
+    gap: 20px;
+  }
+
+  .pied__legal a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--color-muted);
+  }
+
+  .pied__legal a:hover {
+    color: var(--color-ink);
+  }
+
   @media (min-width: 900px) {
     .pied {
-      padding-block: 48px;
+      padding-top: 120px;
     }
 
-    .pied__marque {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
+    .pied__haut {
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 64px;
+    }
+
+    .pied__colonnes {
+      grid-template-columns: repeat(3, auto);
+      justify-content: end;
+      gap: 56px;
+    }
+
+    .pied__phrase {
+      font-size: 34px;
+    }
+
+    .pied__signature {
+      margin-top: 96px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .pied {
+      padding-bottom: 20px;
     }
   }
 </style>

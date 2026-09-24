@@ -16,7 +16,7 @@ const textes = t(langue);
 ---
 
 <span class:list={['logo', { 'logo--fonce': surFonce }]}>
-  <Image src={icone} alt="" width={60} height={60} class="logo__icone" />
+  <Image src={icone} alt="" width={96} height={96} class="logo__icone" />
   <span class="logo__texte">
     <span class="logo__nom">
       BS <span class="logo__nom-suite">Renove</span>
@@ -35,10 +35,9 @@ const textes = t(langue);
   }
 
   .logo__icone {
-    width: 46px;
-    height: 46px;
+    width: 40px;
+    height: 40px;
     flex-shrink: 0;
-    border-radius: var(--radius-small);
   }
 
   .logo__texte {
@@ -49,44 +48,44 @@ const textes = t(langue);
 
   .logo__nom {
     font-family: var(--font-title);
-    font-size: 26px;
-    font-weight: 800;
-    letter-spacing: -0.02em;
+    font-size: 21px;
+    font-weight: 750;
+    letter-spacing: -0.035em;
     color: var(--color-ink);
+    transition: color 400ms var(--ease);
   }
 
   .logo__nom-suite {
-    font-weight: 600;
-    color: var(--color-muted);
+    font-weight: 500;
+    color: inherit;
+    opacity: 0.62;
   }
 
   .logo__tagline {
-    font-size: 12px;
-    font-weight: 500;
+    font-size: 10.5px;
+    font-weight: 650;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
     color: var(--color-muted);
+    transition: color 400ms var(--ease);
   }
 
   .logo--fonce .logo__nom {
     color: var(--color-on-ink);
   }
 
-  .logo--fonce .logo__nom-suite,
   .logo--fonce .logo__tagline {
     color: var(--color-on-ink-label);
   }
 
   @media (min-width: 900px) {
     .logo__icone {
-      width: 56px;
-      height: 56px;
+      width: 44px;
+      height: 44px;
     }
 
     .logo__nom {
-      font-size: 28px;
-    }
-
-    .logo__tagline {
-      font-size: 13px;
+      font-size: 23px;
     }
   }
 </style>

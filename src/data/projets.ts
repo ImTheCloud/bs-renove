@@ -78,3 +78,22 @@ export async function toutesLesPaires(): Promise<PaireAvecProjet[]> {
   }
   return paires;
 }
+
+/**
+ * La comparaison avant/après en vitrine sur l'accueil. On choisit ici la
+ * paire la plus parlante (même pièce, même angle, écart spectaculaire),
+ * indépendamment du projet « mis en avant ».
+ */
+const PAIRE_VITRINE = { projet: 'salle-de-bain-watermael-boitsfort', index: 0 };
+
+export async function paireVitrine(): Promise<{ projet: Projet; paire: Projet['data']['avantApres'][number] } | undefined> {
+  const projets = await listerProjets();
+  const choisi = projets.find((projet) => projet.id === PAIRE_VITRINE.projet);
+  const paire = choisi?.data.avantApres[PAIRE_VITRINE.index];
+  if (choisi && paire?.avant && paire.apres) return { projet: choisi, paire };
+
+  // À défaut, la première paire complète du projet mis en avant.
+  const secours = await projetMisEnAvant();
+  const paireSecours = secours?.data.avantApres.find((p) => p.avant && p.apres);
+  return secours && paireSecours ? { projet: secours, paire: paireSecours } : undefined;
+}

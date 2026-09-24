@@ -1,6 +1,6 @@
 ---
 /**
- * Sélecteur FR / NL en pilule.
+ * Sélecteur FR / NL.
  * Mène toujours à la MÊME page dans l'autre langue, jamais à l'accueil
  * (sauf si la page n'existe pas dans l'autre langue).
  */
@@ -45,9 +45,8 @@ const options = LANGUES.map((code) => ({
   .langues {
     display: inline-flex;
     align-items: center;
-    gap: 2px;
-    padding: 4px;
-    background: var(--color-surface-2);
+    padding: 3px;
+    border: 1px solid rgba(18, 20, 24, 0.14);
     border-radius: var(--radius-pill);
   }
 
@@ -57,13 +56,16 @@ const options = LANGUES.map((code) => ({
     justify-content: center;
     min-width: 44px;
     min-height: 44px;
-    padding: 0 12px;
+    padding: 0 10px;
     border-radius: var(--radius-pill);
-    font-size: var(--size-tiny);
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 650;
+    letter-spacing: 0.04em;
     color: var(--color-muted);
     text-decoration: none;
-    transition: background-color var(--speed) var(--ease);
+    transition:
+      background-color var(--speed) var(--ease),
+      color var(--speed) var(--ease);
   }
 
   .langues__lien:hover {
@@ -71,20 +73,46 @@ const options = LANGUES.map((code) => ({
   }
 
   .langues__lien--actif {
-    background: var(--color-bg);
-    color: var(--color-ink);
+    background: var(--color-ink);
+    color: var(--color-on-ink);
+  }
+
+  .langues__lien--actif:hover {
+    color: var(--color-on-ink);
   }
 
   .langues--fonce {
-    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--color-line-on-ink);
   }
 
   .langues--fonce .langues__lien {
     color: var(--color-on-ink-label);
   }
 
+  .langues--fonce .langues__lien:hover {
+    color: var(--color-on-ink);
+  }
+
   .langues--fonce .langues__lien--actif {
-    background: rgba(255, 255, 255, 0.16);
-    color: #fff;
+    background: var(--color-on-ink);
+    color: var(--color-ink);
+  }
+
+  .langues--fonce .langues__lien--actif:hover {
+    color: var(--color-ink);
+  }
+
+  /* En-tête sur fond sombre, avant défilement */
+  :global(.entete--sur-fonce:not(.entete--defile)) .langues {
+    border-color: var(--color-line-on-ink);
+  }
+
+  :global(.entete--sur-fonce:not(.entete--defile)) .langues__lien {
+    color: var(--color-on-ink-label);
+  }
+
+  :global(.entete--sur-fonce:not(.entete--defile)) .langues__lien--actif {
+    background: var(--color-on-ink);
+    color: var(--color-ink);
   }
 </style>

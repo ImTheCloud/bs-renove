@@ -150,3 +150,19 @@ export const services: Service[] = [
     },
   },
 ];
+
+/** L'icône au trait de chaque service (voir src/components/Icon.astro). */
+export const iconesServices = {
+  'renovation-complete': 'maison',
+  'salles-de-bain': 'bain',
+  cuisines: 'cuisine',
+  carrelage: 'carrelage',
+  toiture: 'toit',
+  'maconnerie-facades': 'brique',
+  electricite: 'eclair',
+  'peinture-finitions': 'rouleau',
+} as const satisfies Record<string, string>;
+
+export function iconeService(slug: string) {
+  return (iconesServices as Record<string, (typeof iconesServices)[keyof typeof iconesServices]>)[slug] ?? 'maison';
+}

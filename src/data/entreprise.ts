@@ -3,6 +3,8 @@
  * Ils ne changent pas d'une langue à l'autre.
  * Ne rien ajouter ici qui ne soit pas confirmé par le client.
  */
+import { chemin, type Langue } from '../i18n';
+
 export const entreprise = {
   nomLegal: 'BS Renove SRL',
   nomCourt: 'BS Renove',
@@ -28,6 +30,8 @@ export const entreprise = {
 
   /** Confirmé par Sergiu le 22 septembre 2026. */
   anneesExperience: 12,
+  /** « Une douzaine de personnes, avec des indépendants » : confirmé le 22 septembre 2026. */
+  tailleEquipe: 12,
 } as const;
 
 /** Adresse sur une ligne, pour le pied de page. */
@@ -39,10 +43,14 @@ export function lienWhatsApp(message: string): string {
 }
 
 /**
- * Construit un lien « mailto » avec le sujet et le corps déjà écrits :
- * un clic ouvre le client email du visiteur avec la demande de devis
- * prête à compléter et à envoyer. Pas de formulaire, pas de service tiers.
+ * Construit un lien « mailto » avec le sujet et le corps déjà écrits.
+ * Sert pour les candidatures, et en secours du formulaire de devis.
  */
-export function lienDevis(sujet: string, corps: string): string {
+export function lienEmail(sujet: string, corps: string): string {
   return `mailto:${entreprise.email ?? ''}?subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(corps)}`;
+}
+
+/** Tous les boutons « Demander un devis » mènent au formulaire de la page contact. */
+export function lienDevis(langue: Langue): string {
+  return `${chemin('contact', langue)}#devis`;
 }

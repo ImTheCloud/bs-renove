@@ -1,12 +1,18 @@
 ---
+/**
+ * La page Services : un sommaire, puis une section par métier.
+ * Un métier sans photo affiche un panneau illustré (son icône en grand)
+ * plutôt qu'un bloc « photo à venir » : les 8 métiers ont tous leur section,
+ * ce qui permet aux liens de la maison dessinée de toujours aboutir.
+ */
+import { Image } from 'astro:assets';
 import Bouton from '../Bouton.astro';
+import EntetePage from '../EntetePage.astro';
 import Icon from '../Icon.astro';
-import PhotoAVenir from '../PhotoAVenir.astro';
-import PhotoProjet from '../PhotoProjet.astro';
 import { lienDevis } from '~/data/entreprise';
 import { listerProjets } from '~/data/projets';
-import { services } from '~/data/services';
-import { photosServices, aUnePhoto } from '~/data/services-photos';
+import { iconeService, services } from '~/data/services';
+import { photosServices } from '~/data/services-photos';
 import { chemin, t, type Langue } from '~/i18n';
 
 interface Props {
@@ -16,7 +22,6 @@ interface Props {
 const { langue } = Astro.props;
 const textes = t(langue);
 const bloc = textes.servicesPage;
-const servicesAffiches = services.filter((service) => aUnePhoto(service.slug));
 
 // Chaque service affiche les projets qui lui sont liés, s'il y en a.
 const projets = await listerProjets();
@@ -28,310 +33,289 @@ for (const projet of projets) {
 }
 ---
 
-<div class="wrap services-page">
-  <header class="services-page__entete">
-    <span class="surtitre">{bloc.surtitre}</span>
-    <h1>{bloc.titre}</h1>
-    <p class="services-page__intro">{bloc.intro}</p>
-  </header>
-
-  <section class="grille-travaux" aria-labelledby="tous-nos-travaux">
-    <h2 id="tous-nos-travaux">{bloc.grilleTitre}</h2>
-    <p class="grille-travaux__intro">{bloc.grilleIntro}</p>
-
-    <div class="grille-travaux__cartes">
-      {
-        services.map((service) => {
-          const photos = photosServices[service.slug] ?? [];
-          const photo = photos[0];
-          const visuel = photo ? (
-            <PhotoProjet image={photo} alt={service.nom[langue]} langue={langue} ratio="4 / 3" arrondi="var(--radius-card-img)" />
-          ) : (
-            <PhotoAVenir langue={langue} ratio="4 / 3" arrondi="var(--radius-card-img)" />
-          );
-          return photo ? (
-            <a href={`#${service.slug}`} class="carte-travail">
-              {visuel}
-              <span class="carte-travail__nom">{service.nom[langue]}</span>
-            </a>
-          ) : (
-            <div class="carte-travail carte-travail--sans-lien">
-              {visuel}
-              <span class="carte-travail__nom">{service.nom[langue]}</span>
-            </div>
-          );
-        })
-      }
-    </div>
-  </section>
-
-  <div class="services-page__liste">
+<EntetePage surtitre={bloc.surtitre} titre={bloc.titre} intro={bloc.intro}>
+  <nav class="sommaire" aria-label={bloc.grilleTitre}>
     {
-      servicesAffiches.map((service, index) => {
-        const lies = projetsParService.get(service.slug) ?? [];
-        const photos = photosServices[service.slug] ?? [];
-        return (
-          <section id={service.slug} class:list={['metier', { 'metier--inverse': index % 2 === 1 }]}>
-            <div class:list={['metier__visuel', { 'metier__visuel--plusieurs': photos.length > 1 }]}>
-              {photos.length > 0 ? (
-                photos.map((photo, i) => (
-                  <PhotoProjet
-                    image={photo}
+      services.map((service, i) => (
+        <a href={`#${service.slug}`}>
+          <span class="sommaire__num">{String(i + 1).padStart(2, '0')}</span>
+          {service.nom[langue]}
+        </a>
+      ))
+    }
+  </nav>
+</EntetePage>
+
+<div class="wrap services">
+  {
+    services.map((service, index) => {
+      const lies = projetsParService.get(service.slug) ?? [];
+      const photos = (photosServices[service.slug] ?? []).slice(0, 3);
+      return (
+        <section id={service.slug} class:list={['service', { 'service--inverse': index % 2 === 1 }]} aria-labelledby={`titre-${service.slug}`}>
+          <div class:list={['service__visuel', `service__visuel--${Math.max(photos.length, 1)}`]} data-reveal>
+            {photos.length > 0 ? (
+              photos.map((photo, i) => (
+                <div class="service__photo">
+                  <Image
+                    src={photo}
                     alt={photos.length > 1 ? `${service.nom[langue]} ${i + 1}/${photos.length}` : service.nom[langue]}
-                    langue={langue}
-                    ratio="4 / 3"
-                    arrondi="var(--radius-photo)"
+                    widths={[400, 700, 1000]}
+                    sizes={i === 0 ? '(min-width: 1024px) 34vw, 90vw' : '(min-width: 1024px) 17vw, 45vw'}
+                    loading="lazy"
                   />
-                ))
-              ) : (
-                <PhotoProjet alt={service.nom[langue]} langue={langue} ratio="4 / 3" arrondi="var(--radius-photo)" />
+                </div>
+              ))
+            ) : (
+              <div class="service__illustration" aria-hidden="true">
+                <Icon nom={iconeService(service.slug)} taille={120} epaisseur={1.1} />
+                <span class="manuscrit service__illustration-note">{service.nom[langue]}</span>
+              </div>
+            )}
+          </div>
+
+          <div class="service__texte">
+            <span class="service__num">{String(index + 1).padStart(2, '0')} / {String(services.length).padStart(2, '0')}</span>
+            <h2 id={`titre-${service.slug}`}>{service.nom[langue]}</h2>
+            <p class="service__intro">{service.texte[langue]}</p>
+
+            <div class="service__exemples">
+              <span class="service__exemples-titre">{bloc.exemplesTitre}</span>
+              <ul>
+                {service.exemples[langue].map((exemple) => (
+                  <li>
+                    <Icon nom="check" taille={16} epaisseur={2.4} />
+                    {exemple}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="service__actions">
+              <Bouton href={lienDevis(langue)} variante="principal" iconeApres="fleche-diag">
+                {bloc.devisPour}
+              </Bouton>
+              {lies.length > 0 && (
+                <Bouton
+                  href={lies.length === 1 ? `${chemin('realisations', langue)}${lies[0].id}/` : chemin('realisations', langue)}
+                  variante="secondaire"
+                  aria-label={
+                    lies.length === 1
+                      ? `${textes.realisations.voirLeProjet} : ${lies[0].data.titre[langue]}`
+                      : `${bloc.projetsLies} : ${service.nom[langue]}`
+                  }
+                >
+                  {lies.length === 1 ? textes.realisations.voirLeProjet : bloc.projetsLies}
+                </Bouton>
               )}
             </div>
-
-            <div class="metier__texte">
-              <h2>{service.nom[langue]}</h2>
-              <p class="metier__intro">{service.texte[langue]}</p>
-
-              <div class="metier__exemples">
-                <span class="metier__exemples-titre">{bloc.exemplesTitre}</span>
-                <ul>
-                  {service.exemples[langue].map((exemple) => (
-                    <li>
-                      <span class="metier__coche">
-                        <Icon nom="check" taille={15} epaisseur={2.2} />
-                      </span>
-                      {exemple}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div class="metier__actions">
-                <Bouton
-                  href={lienDevis(textes.devisEmail.sujet, textes.devisEmail.corps)}
-                  variante="principal"
-                  iconeApres="fleche"
-                >
-                  {bloc.devisPour}
-                </Bouton>
-                {lies.length > 0 && (
-                  <a
-                    href={
-                      lies.length === 1
-                        ? `${chemin('realisations', langue)}${lies[0].id}/`
-                        : chemin('realisations', langue)
-                    }
-                    class="metier__lien"
-                    aria-label={
-                      lies.length === 1
-                        ? `${textes.realisations.voirLeProjet} : ${lies[0].data.titre[langue]}`
-                        : `${bloc.projetsLies} : ${service.nom[langue]}`
-                    }
-                  >
-                    {lies.length === 1 ? textes.realisations.voirLeProjet : bloc.projetsLies}
-                    <Icon nom="fleche" taille={18} />
-                  </a>
-                )}
-              </div>
-            </div>
-          </section>
-        );
-      })
-    }
-  </div>
+          </div>
+        </section>
+      );
+    })
+  }
 </div>
 
 <style>
-  .services-page {
-    padding-block: 40px 0;
-  }
-
-  .services-page__entete {
+  /* --- Sommaire --- */
+  .sommaire {
     display: flex;
-    flex-direction: column;
-    gap: 16px;
-    max-width: 620px;
-    margin-bottom: 48px;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
   }
 
-  .surtitre {
-    font-size: var(--size-tiny);
+  .sommaire a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 0 18px 0 14px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    background: rgba(245, 242, 236, 0.7);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-ink);
+    text-decoration: none;
+    transition: background-color 300ms var(--ease), border-color 300ms var(--ease);
+  }
+
+  .sommaire a:hover {
+    background: var(--color-signal);
+    border-color: var(--color-signal);
+  }
+
+  .sommaire__num {
+    font-size: 12px;
     font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-accent);
-  }
-
-  .services-page__intro {
-    color: var(--color-text);
-  }
-
-  .grille-travaux {
-    padding-bottom: var(--section-gap);
-    margin-bottom: var(--section-gap);
-    border-bottom: 1px solid var(--color-border-light);
-  }
-
-  .grille-travaux h2 {
-    font-size: var(--size-h3);
-    letter-spacing: var(--tracking-h3);
-  }
-
-  .grille-travaux__intro {
-    margin-top: 10px;
     color: var(--color-muted);
   }
 
-  .grille-travaux__cartes {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-    margin-top: 28px;
-  }
-
-  .carte-travail {
+  /* --- Un métier --- */
+  .services {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    color: inherit;
-    text-decoration: none;
   }
 
-  a.carte-travail:hover .carte-travail__nom {
-    color: var(--color-accent);
+  .service {
+    display: grid;
+    gap: 32px;
+    padding-block: 56px;
+    border-top: 1px solid var(--color-border);
+    scroll-margin-top: calc(var(--header-h) + 8px);
   }
 
-  .carte-travail--sans-lien {
-    opacity: 0.75;
+  .service__visuel {
+    display: grid;
+    gap: 10px;
   }
 
-  .carte-travail__nom {
-    font-size: var(--size-small);
-    font-weight: 600;
-    color: var(--color-ink);
-    transition: color var(--speed) var(--ease);
+  .service__visuel--2,
+  .service__visuel--3 {
+    grid-template-columns: 1fr 1fr;
   }
 
-  .services-page__liste {
+  .service__visuel--3 .service__photo:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .service__photo {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-card-img);
+    overflow: hidden;
+    background: var(--color-surface);
+  }
+
+  .service__visuel--1 .service__photo,
+  .service__visuel--3 .service__photo:first-child {
+    aspect-ratio: 16 / 11;
+  }
+
+  .service__photo :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1200ms var(--ease-out);
+  }
+
+  .service__photo:hover :global(img) {
+    transform: scale(1.04);
+  }
+
+  .service__illustration {
+    position: relative;
     display: flex;
-    flex-direction: column;
-    gap: var(--section-gap);
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 16 / 11;
+    border-radius: var(--radius-card);
+    background:
+      linear-gradient(rgba(255, 212, 71, 0.12) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 212, 71, 0.12) 1px, transparent 1px),
+      var(--color-ink);
+    background-size: 32px 32px, 32px 32px, auto;
+    color: var(--color-signal);
   }
 
-  .metier {
-    display: grid;
-    gap: 28px;
-    scroll-margin-top: 100px;
+  .service__illustration-note {
+    position: absolute;
+    left: 24px;
+    bottom: 20px;
+    font-size: 30px;
+    color: var(--color-on-ink);
+    transform: rotate(-3deg);
   }
 
-  .metier__visuel--plusieurs {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-
-  .metier__texte {
+  .service__texte {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
+    gap: 18px;
   }
 
-  .metier__intro {
-    color: var(--color-text);
-  }
-
-  .metier__exemples {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-  }
-
-  .metier__exemples-titre {
-    font-size: var(--size-tiny);
+  .service__num {
+    font-size: 13px;
     font-weight: 700;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.1em;
+    color: var(--color-muted);
+  }
+
+  .service__texte h2 {
+    font-size: clamp(36px, 4.2vw, 64px);
+  }
+
+  .service__intro {
+    max-width: 48ch;
+    font-size: var(--size-lead);
+    line-height: 1.5;
+  }
+
+  .service__exemples {
+    width: 100%;
+    padding: 20px 22px;
+    background: var(--color-surface);
+    border-radius: var(--radius-card-img);
+  }
+
+  .service__exemples-titre {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--color-muted);
   }
 
-  .metier__exemples ul {
+  .service__exemples ul {
     display: grid;
-    gap: 8px;
+    gap: 8px 20px;
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  .metier__exemples li {
+  .service__exemples li {
     display: flex;
     align-items: center;
     gap: 10px;
     font-size: var(--size-small);
+    font-weight: 550;
     color: var(--color-ink);
   }
 
-  .metier__coche {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
+  .service__exemples li :global(svg) {
     flex-shrink: 0;
-    background: var(--color-surface);
-    border-radius: var(--radius-pill);
     color: var(--color-accent);
   }
 
-  .metier__actions {
+  .service__actions {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    gap: 16px;
-    margin-top: 8px;
+    gap: 10px;
+    margin-top: 6px;
   }
 
-  .metier__lien {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    min-height: var(--tap-min);
-    font-size: var(--size-small);
-    font-weight: 600;
-    color: var(--color-accent);
-    text-decoration: none;
-  }
-
-  .metier__lien:hover {
-    text-decoration: underline;
-  }
-
-  @media (min-width: 560px) {
-    .metier__exemples ul {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .grille-travaux__cartes {
-      grid-template-columns: repeat(3, 1fr);
+  @media (min-width: 700px) {
+    .service__exemples ul {
+      grid-template-columns: 1fr 1fr;
     }
   }
 
-  @media (min-width: 900px) {
-    .metier {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  @media (min-width: 1024px) {
+    .service {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
       align-items: center;
-      gap: 56px;
+      gap: 72px;
+      padding-block: 96px;
     }
 
-    /* Une section sur deux inverse photo et texte, pour rythmer la page. */
-    .metier--inverse .metier__visuel {
+    .service--inverse .service__visuel {
       order: 2;
-    }
-
-    .grille-travaux__cartes {
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
     }
   }
 </style>

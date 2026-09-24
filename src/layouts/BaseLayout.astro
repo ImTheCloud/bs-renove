@@ -4,13 +4,15 @@
 // Polices hébergées sur le site : aucun appel à Google Fonts.
 import '@fontsource-variable/bricolage-grotesque';
 import '@fontsource-variable/figtree';
+import '@fontsource-variable/caveat';
+import '@fontsource/instrument-serif/400-italic.css';
 import '../styles/global.css';
 
 import BarreMobile from '../components/BarreMobile.astro';
-// Préchargées : sinon le navigateur ne les découvre qu'après avoir lu le CSS,
-// ce qui retarde l'affichage du texte.
+// Préchargées : sinon le navigateur ne les découvre qu'après avoir lu le CSS.
 import policeTitre from '@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2?url';
 import policeTexte from '@fontsource-variable/figtree/files/figtree-latin-wght-normal.woff2?url';
+import policeSerif from '@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff2?url';
 import imagePartage from '../assets/partage.png';
 import DonneesStructurees from '../components/DonneesStructurees.astro';
 import Entete from '../components/Entete.astro';
@@ -23,15 +25,16 @@ interface Props {
   description: string;
   /** Les pages légales et la 404 ne doivent pas remonter dans Google. */
   noindex?: boolean;
+  /** L'en-tête commence en clair sur un fond sombre (ex. page contact). */
+  enteteSurFonce?: boolean;
 }
 
-const { langue, titre, description, noindex = false } = Astro.props;
+const { langue, titre, description, noindex = false, enteteSurFonce = false } = Astro.props;
 const textes = t(langue);
 
 const cheminActuel = Astro.url.pathname;
 const canonique = new URL(cheminActuel, Astro.site);
 
-// Une balise hreflang par langue, plus x-default vers le français.
 const alternatives = LANGUES.map((code) => ({
   code,
   hreflang: t(code).htmlLang,
@@ -39,7 +42,6 @@ const alternatives = LANGUES.map((code) => ({
 }));
 const xDefault = alternatives.find((alternative) => alternative.code === 'fr');
 
-// Image affichée quand le site est partagé sur WhatsApp ou les réseaux.
 const urlPartage = new URL(imagePartage.src, Astro.site).href;
 ---
 
@@ -50,8 +52,12 @@ const urlPartage = new URL(imagePartage.src, Astro.site).href;
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="generator" content={Astro.generator} />
 
+    {/* Posé avant tout affichage : les animations d'apparition ne s'activent qu'avec JS. */}
+    <script is:inline>document.documentElement.classList.add('js');</script>
+
     <link rel="preload" href={policeTitre} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={policeTexte} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={policeSerif} as="font" type="font/woff2" crossorigin />
 
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -81,16 +87,15 @@ const urlPartage = new URL(imagePartage.src, Astro.site).href;
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={urlPartage} />
 
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#f5f2ec" />
 
-    {/* La fiche entreprise, une seule fois, sur l'accueil. */}
     {(cheminActuel === '/' || cheminActuel === '/nl/') && <DonneesStructurees langue={langue} />}
   </head>
 
   <body>
     <a class="skip-link" href="#contenu">{textes.accessibilite.allerAuContenu}</a>
 
-    <Entete langue={langue} cheminActuel={cheminActuel} />
+    <Entete langue={langue} cheminActuel={cheminActuel} surFonce={enteteSurFonce} />
 
     <main id="contenu">
       <slot />
@@ -98,5 +103,9 @@ const urlPartage = new URL(imagePartage.src, Astro.site).href;
 
     <PiedDePage langue={langue} cheminActuel={cheminActuel} />
     <BarreMobile langue={langue} />
+
+    <script>
+      import '~/scripts/site';
+    </script>
   </body>
 </html>

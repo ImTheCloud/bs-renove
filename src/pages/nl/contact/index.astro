@@ -1,5 +1,5 @@
 ---
-import PageContact from '~/components/sections/PageContact.astro';
+import SectionDevis from '~/components/accueil/SectionDevis.astro';
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import { t } from '~/i18n';
 
@@ -7,6 +7,6 @@ const langue = 'nl' as const;
 const page = t(langue).pages.contact;
 ---
 
-<BaseLayout langue={langue} titre={page.titre} description={page.description}>
-  <PageContact langue={langue} />
+<BaseLayout langue={langue} titre={page.titre} description={page.description} enteteSurFonce>
+  <SectionDevis langue={langue} titrePrincipal />
 </BaseLayout>

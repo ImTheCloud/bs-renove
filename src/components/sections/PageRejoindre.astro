@@ -1,6 +1,6 @@
 ---
 import Bouton from '../Bouton.astro';
-import { lienDevis } from '~/data/entreprise';
+import { lienEmail } from '~/data/entreprise';
 import { t, type Langue } from '~/i18n';
 
 interface Props {
@@ -22,7 +22,7 @@ const bloc = textes.rejoindreEquipe;
   <section class="rejoindre__carte">
     <h2 class="rejoindre__sous-titre">{bloc.candidatureTitre}</h2>
     <p class="rejoindre__texte">{bloc.candidatureTexte}</p>
-    <Bouton href={lienDevis(bloc.sujetEmail, bloc.corpsEmail)} variante="principal" icone="email" large>
+    <Bouton href={lienEmail(bloc.sujetEmail, bloc.corpsEmail)} variante="principal" icone="email" large>
       {bloc.bouton}
     </Bouton>
   </section>
@@ -30,7 +30,7 @@ const bloc = textes.rejoindreEquipe;
 
 <style>
   .rejoindre {
-    padding-block: 40px 0;
+    padding-block: calc(var(--header-h) + 48px) 0;
   }
 
   .rejoindre__entete {

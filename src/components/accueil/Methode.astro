@@ -1,0 +1,315 @@
+---
+/**
+ * Le chapitre sombre de l'accueil : quelques chiffres vérifiés
+ * (ils comptent à l'apparition), puis les quatre étapes d'un chantier.
+ */
+import Icon, { type NomIcone } from '../Icon.astro';
+import { t, type Langue } from '~/i18n';
+
+interface Props {
+  langue: Langue;
+}
+
+const { langue } = Astro.props;
+const textes = t(langue);
+const chiffres = textes.accueil.chiffres;
+const methode = textes.accueil.methode;
+const iconesEtapes: NomIcone[] = ['discussion', 'casque', 'devis', 'check'];
+---
+
+<section class="chapitre" aria-labelledby="methode-titre">
+  <div class="wrap">
+    <p class="etiquette-section chapitre__etiquette">{chiffres.surtitre}</p>
+    <ul class="chiffres">
+      {
+        chiffres.items.map((item, i) => (
+          <li class="chiffre" data-reveal style={`--delai: ${i * 90}ms`}>
+            <span class="chiffre__valeur" aria-hidden="true">
+              {item.prefixe}
+              <span data-compteur={item.valeur}>{item.valeur}</span>
+              {item.suffixe}
+            </span>
+            <span class="chiffre__texte">
+              <span class="sr-only">{item.prefixe}{item.valeur}{item.suffixe} </span>
+              {item.texte}
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="methode">
+      <div class="methode__entete">
+        <p class="etiquette-section chapitre__etiquette">{methode.surtitre}</p>
+        <h2 id="methode-titre" data-mots>
+          {methode.titreDebut}{' '}<span class="serif">{methode.titreSerif}</span>
+        </h2>
+        <svg class="methode__trace" viewBox="0 0 220 120" fill="none" aria-hidden="true">
+          <path d="M6 100C40 20 90 110 130 50S200 10 214 30" pathLength="1" />
+          <path d="M214 30l-12-2M214 30l-2 12" pathLength="1" />
+        </svg>
+      </div>
+
+      <ol class="etapes">
+        {
+          methode.etapes.map((etape, i) => (
+            <li class="etape" data-reveal>
+              <span class="etape__num">{String(i + 1).padStart(2, '0')}</span>
+              <span class="etape__icone" aria-hidden="true">
+                <Icon nom={iconesEtapes[i] ?? 'check'} taille={26} />
+              </span>
+              <h3 class="etape__titre">{etape.titre}</h3>
+              <p class="etape__texte">{etape.texte}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Les chiffres comptent jusqu'à leur valeur quand ils apparaissent.
+  const calme = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const compteurs = document.querySelectorAll<HTMLElement>('[data-compteur]');
+
+  if (!calme) {
+    const observateur = new IntersectionObserver((entrees) => {
+      for (const entree of entrees) {
+        if (!entree.isIntersecting) continue;
+        const el = entree.target as HTMLElement;
+        observateur.unobserve(el);
+        const cible = Number(el.dataset.compteur ?? 0);
+        const duree = 1600;
+        const debut = performance.now();
+        const pas = (maintenant: number) => {
+          const t = Math.min(1, (maintenant - debut) / duree);
+          const adouci = 1 - Math.pow(1 - t, 4);
+          el.textContent = String(Math.round(cible * adouci));
+          if (t < 1) requestAnimationFrame(pas);
+        };
+        el.textContent = '0';
+        requestAnimationFrame(pas);
+      }
+    }, { threshold: 0.6 });
+    compteurs.forEach((el) => {
+      if (Number(el.dataset.compteur) > 1) observateur.observe(el);
+    });
+  }
+</script>
+
+<style>
+  .chapitre {
+    position: relative;
+    margin-top: var(--section-gap);
+    padding-block: 80px;
+    background: var(--color-ink);
+    color: var(--color-on-ink-soft);
+    border-radius: var(--radius-large) var(--radius-large) 0 0;
+  }
+
+  .chapitre h2 {
+    color: var(--color-on-ink);
+  }
+
+  .chapitre h2 .serif {
+    color: var(--color-signal);
+  }
+
+  .chapitre__etiquette {
+    color: var(--color-on-ink);
+  }
+
+  .chapitre__etiquette::before {
+    background: var(--color-signal);
+  }
+
+  /* --- Chiffres --- */
+  .chiffres {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    margin: 28px 0 0;
+    padding: 0;
+    list-style: none;
+    background: var(--color-line-on-ink);
+    border-block: 1px solid var(--color-line-on-ink);
+  }
+
+  .chiffre {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 24px 16px 28px 0;
+    background: var(--color-ink);
+  }
+
+  .chiffre:nth-child(even) {
+    padding-left: 16px;
+  }
+
+  .chiffre__valeur {
+    font-family: var(--font-title);
+    font-size: clamp(56px, 8vw, 128px);
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: -0.06em;
+    color: var(--color-on-ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .chiffre:nth-child(odd) .chiffre__valeur {
+    color: var(--color-signal);
+  }
+
+  .chiffre__texte {
+    max-width: 24ch;
+    font-size: var(--size-small);
+    line-height: 1.4;
+  }
+
+  /* --- Méthode --- */
+  .methode {
+    display: grid;
+    gap: 40px;
+    margin-top: 96px;
+  }
+
+  .methode__entete {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .methode__trace {
+    width: 180px;
+    color: var(--color-signal);
+    stroke: currentColor;
+    stroke-width: 2.4;
+    stroke-linecap: round;
+  }
+
+  .etapes {
+    display: grid;
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .etape {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 18px;
+    row-gap: 6px;
+    padding: 26px 22px;
+    background: var(--color-ink-2);
+    border: 1px solid var(--color-line-on-ink);
+    border-radius: var(--radius-card);
+    transition:
+      border-color 400ms var(--ease),
+      transform 500ms var(--ease-out);
+  }
+
+  .etape:hover {
+    border-color: rgba(255, 212, 71, 0.5);
+  }
+
+  .etape__num {
+    position: absolute;
+    top: 18px;
+    right: 22px;
+    font-family: var(--font-title);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color-on-ink-label);
+  }
+
+  .etape__icone {
+    grid-row: span 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: var(--color-signal);
+    color: var(--color-ink);
+  }
+
+  .etape__titre {
+    align-self: end;
+    color: var(--color-on-ink);
+    padding-right: 32px;
+  }
+
+  .etape__texte {
+    font-size: var(--size-small);
+    line-height: 1.5;
+  }
+
+  @media (min-width: 700px) {
+    .chiffres {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .chiffre,
+    .chiffre:nth-child(even) {
+      padding: 32px 24px 36px;
+    }
+
+    .chiffre:first-child {
+      padding-left: 0;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .chapitre {
+      padding-block: 128px 140px;
+    }
+
+    .methode {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: 80px;
+      margin-top: 160px;
+    }
+
+    .methode__entete {
+      position: sticky;
+      top: calc(var(--header-h) + 40px);
+      align-self: start;
+    }
+
+    .etapes {
+      gap: 18px;
+    }
+
+    .etape {
+      padding: 36px 36px;
+      column-gap: 28px;
+    }
+
+    .etape:nth-child(even) {
+      margin-left: 56px;
+    }
+
+    .etape__icone {
+      width: 64px;
+      height: 64px;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .methode__trace path {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      transition: stroke-dashoffset 1400ms var(--ease-out) 400ms;
+    }
+
+    :global(.est-visible) ~ .methode__trace path,
+    .methode__entete:has(:global(.est-visible)) .methode__trace path {
+      stroke-dashoffset: 0;
+    }
+  }
+</style>

@@ -5,6 +5,7 @@
  * apprécié du site : ici il occupe toute la place, en grand.
  */
 import CurseurAvantApres from '../CurseurAvantApres.astro';
+import EntetePage from '../EntetePage.astro';
 import PhotoProjet from '../PhotoProjet.astro';
 import { categories, nomCategorie } from '~/data/categories';
 import { toutesLesPaires } from '~/data/projets';
@@ -22,13 +23,9 @@ const paires = await toutesLesPaires();
 const categoriesPresentes = categories.filter((c) => paires.some((p) => p.categorie === c.slug));
 ---
 
-<section class="wrap liste">
-  <header class="liste__entete">
-    <span class="surtitre">{bloc.surtitre}</span>
-    <h1>{bloc.titre}</h1>
-    <p class="liste__intro">{bloc.intro}</p>
-  </header>
+<EntetePage surtitre={bloc.surtitre} titre={bloc.titre} serifMots={3} intro={bloc.intro} />
 
+<section class="wrap liste">
   {
     paires.length === 0 ? (
       <p class="liste__vide">{bloc.aucun}</p>
@@ -53,7 +50,7 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
               <CurseurAvantApres
                 langue={langue}
                 id={`curseur-${paire.projetId}-${index}`}
-                ratio="3 / 2"
+                ratio="3 / 4"
                 precision={paire.legende[langue]}
               >
                 <PhotoProjet
@@ -61,7 +58,7 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
                   image={paire.avant}
                   alt={textes.photos.avant}
                   langue={langue}
-                  ratio="3 / 2"
+                  ratio="3 / 4"
                   ton="moyen"
                   prioritaire={index === 0}
                 />
@@ -70,7 +67,7 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
                   image={paire.apres}
                   alt={textes.photos.apres}
                   langue={langue}
-                  ratio="3 / 2"
+                  ratio="3 / 4"
                   ton="fonce"
                   prioritaire={index === 0}
                 />
@@ -114,27 +111,7 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
 
 <style>
   .liste {
-    padding-block: 40px 0;
-  }
-
-  .liste__entete {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    max-width: 680px;
-    margin-bottom: 36px;
-  }
-
-  .surtitre {
-    font-size: var(--size-tiny);
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-accent);
-  }
-
-  .liste__intro {
-    color: var(--color-text);
+    padding-bottom: 0;
   }
 
   .liste__vide {
@@ -143,20 +120,31 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
   }
 
   .liste__filtres {
+    position: sticky;
+    top: calc(var(--header-h) + 4px);
+    z-index: 5;
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 40px;
+    gap: 8px;
+    margin: 0 calc(var(--gutter) * -1) 32px;
+    padding: 10px var(--gutter);
+    overflow-x: auto;
+    scrollbar-width: none;
+    background: linear-gradient(var(--color-bg) 70%, transparent);
+  }
+
+  .liste__filtres::-webkit-scrollbar {
+    display: none;
   }
 
   .filtre {
-    min-height: var(--tap-min);
-    padding: 0 20px;
-    background: var(--color-bg);
+    flex-shrink: 0;
+    min-height: 44px;
+    padding: 0 18px;
+    background: transparent;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-pill);
     font-family: var(--font-text);
-    font-size: var(--size-small);
+    font-size: 15px;
     font-weight: 600;
     color: var(--color-ink);
     cursor: pointer;
@@ -167,67 +155,71 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
   }
 
   .filtre:hover {
-    background: var(--color-surface);
+    border-color: var(--color-ink);
   }
 
-  .filtre--actif {
-    background: var(--color-accent);
-    border-color: var(--color-accent);
-    color: #fff;
-  }
-
+  .filtre--actif,
   .filtre--actif:hover {
-    background: var(--color-accent-dark);
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-on-ink);
   }
 
   .liste__paires {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
+    display: grid;
+    gap: 40px 20px;
   }
 
   .paire {
-    max-width: 780px;
-    margin: 0 auto;
+    margin: 0;
   }
 
   .paire__legende {
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
+    align-items: center;
+    justify-content: space-between;
     gap: 8px 14px;
-    padding-top: 20px;
+    padding-top: 14px;
   }
 
   .paire__categorie {
-    padding: 5px 14px;
-    background: var(--color-surface);
+    padding: 5px 12px;
+    background: var(--color-signal);
     border-radius: var(--radius-pill);
-    font-size: var(--size-tiny);
-    font-weight: 700;
-    letter-spacing: 0.03em;
-    color: var(--color-accent);
+    font-size: 12px;
+    font-weight: 750;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-ink);
   }
 
   .paire__lien {
-    margin-left: auto;
     display: inline-flex;
     align-items: center;
-    min-height: var(--tap-min);
+    min-height: 44px;
     font-size: var(--size-small);
-    font-weight: 600;
-    color: var(--color-muted);
-    text-decoration: none;
+    font-weight: 650;
+    color: var(--color-ink);
+    text-decoration: underline;
+    text-decoration-color: var(--color-border);
+    text-underline-offset: 5px;
   }
 
   .paire__lien:hover {
-    color: var(--color-accent);
-    text-decoration: underline;
+    text-decoration-color: var(--color-ink);
   }
 
-  @media (min-width: 900px) {
+  @media (min-width: 700px) {
     .liste__paires {
-      gap: 56px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .liste__paires {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 56px 24px;
     }
   }
 </style>

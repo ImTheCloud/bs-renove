@@ -89,13 +89,31 @@ export const viePrivee: BlocLegal[] = [
     },
   },
   {
-    titre: { fr: 'Ce que nous recevons', nl: 'Wat wij ontvangen' },
+    titre: { fr: 'Ce que nous collectons', nl: 'Wat wij verzamelen' },
     paragraphes: {
       fr: [
-        "Ce site n'a ni formulaire ni base de données : il ne capte rien lui-même. Nous contacter se fait uniquement par un moyen que vous choisissez et déclenchez vous-même — téléphone, WhatsApp, ou un email (le bouton « Demander un devis » ouvre votre messagerie avec un texte pré-rempli, que vous complétez avant de l'envoyer vous-même). Nous ne recevons que ce que vous nous envoyez ainsi : par exemple votre nom, votre numéro, la commune du chantier et la description de votre projet, si vous les indiquez.",
+        'Uniquement ce que vous écrivez vous-même dans le formulaire de demande de devis :',
       ],
       nl: [
-        'Deze website heeft geen formulier en geen databank: hij verzamelt zelf niets. Ons contacteren gebeurt enkel via een middel dat u zelf kiest en zelf start — telefoon, WhatsApp, of een email (de knop "Offerte aanvragen" opent uw mailprogramma met een vooraf ingevulde tekst, die u zelf aanvult voor u ze verstuurt). Wij ontvangen enkel wat u ons zo zelf stuurt: bijvoorbeeld uw naam, uw nummer, de gemeente van de werf en de beschrijving van uw project, als u die vermeldt.',
+        'Enkel wat u zelf in het offerteformulier invult:',
+      ],
+    },
+    liste: {
+      fr: [
+        'votre nom',
+        'votre numéro de téléphone',
+        'votre adresse email',
+        'la commune du chantier',
+        'le type de travaux',
+        'le message que vous rédigez',
+      ],
+      nl: [
+        'uw naam',
+        'uw telefoonnummer',
+        'uw e-mailadres',
+        'de gemeente van de werf',
+        'het type werken',
+        'het bericht dat u schrijft',
       ],
     },
   },
@@ -103,10 +121,12 @@ export const viePrivee: BlocLegal[] = [
     titre: { fr: 'Pourquoi', nl: 'Waarom' },
     paragraphes: {
       fr: [
-        "Ces informations servent uniquement à vous répondre et à établir un devis. Elles ne sont ni vendues, ni louées, ni utilisées pour de la publicité.",
+        "Ces informations servent uniquement à répondre à votre demande et à établir un devis. Elles ne sont ni vendues, ni louées, ni utilisées pour de la publicité.",
+        "La base légale du formulaire est votre consentement, donné en cochant sa case : vous pouvez le retirer à tout moment, ce qui entraîne l'effacement de votre demande. Si un devis débouche sur un chantier, les documents liés à ce chantier reposent sur une autre base, une obligation légale (la comptabilité belge), qui ne dépend pas de ce consentement et ne peut pas être effacée sur demande.",
       ],
       nl: [
-        'Deze gegevens dienen uitsluitend om u te antwoorden en een offerte op te maken. Ze worden niet verkocht, niet verhuurd en niet voor reclame gebruikt.',
+        'Deze gegevens dienen uitsluitend om uw vraag te beantwoorden en een offerte op te maken. Ze worden niet verkocht, niet verhuurd en niet voor reclame gebruikt.',
+        'De rechtsgrond van het formulier is uw toestemming, gegeven door het vakje aan te vinken: u kunt ze op elk moment intrekken, wat leidt tot het wissen van uw aanvraag. Als een offerte tot een werf leidt, berusten de documenten van die werf op een andere grond, een wettelijke verplichting (de Belgische boekhouding), die niet van deze toestemming afhangt en niet op verzoek kan worden gewist.',
       ],
     },
   },
@@ -114,10 +134,14 @@ export const viePrivee: BlocLegal[] = [
     titre: { fr: 'Par où passent-elles', nl: 'Langs waar gaan ze' },
     paragraphes: {
       fr: [
-        "Aucun service tiers n'intervient entre vous et nous : votre appel passe par votre opérateur téléphonique, votre message WhatsApp par les services de Meta, et votre email par votre propre messagerie puis la nôtre — chacun selon ses propres règles de confidentialité. Nous n'utilisons ce que nous recevons que pour répondre à votre demande.",
+        "Le formulaire est transmis par Web3Forms, un service qui transforme votre message en email et nous l'envoie. Web3Forms agit comme sous-traitant et traite les données sur des serveurs situés hors de l'Union européenne (États-Unis). Le service peut en conserver une copie technique limitée dans le temps ; il ne l'utilise pas à d'autres fins que cette transmission. En cochant la case du formulaire, vous consentez expressément à ce transfert hors de l'Union européenne : c'est la base légale de ce transfert.",
+        "Le message nous parvient ensuite par email, sur la boîte de l'entreprise.",
+        "Si vous nous contactez par téléphone ou par WhatsApp plutôt que par le formulaire, cet échange (votre numéro, vos messages, vos éventuelles photos) passe par les services de l'opérateur téléphonique et de WhatsApp (Meta), selon leurs propres règles de confidentialité, et nous ne l'utilisons que pour répondre à votre demande.",
       ],
       nl: [
-        'Er komt geen enkele derde partij tussen u en ons: uw telefoontje verloopt via uw telefoonoperator, uw WhatsApp-bericht via de diensten van Meta, en uw email via uw eigen mailprogramma en vervolgens het onze — elk volgens hun eigen privacyregels. Wij gebruiken wat we ontvangen enkel om uw vraag te beantwoorden.',
+        'Het formulier wordt doorgestuurd via Web3Forms, een dienst die uw bericht omzet in een e-mail en naar ons verstuurt. Web3Forms treedt op als verwerker en verwerkt de gegevens op servers buiten de Europese Unie (Verenigde Staten). De dienst kan een technische kopie gedurende beperkte tijd bewaren; hij gebruikt ze niet voor andere doeleinden dan deze verzending. Door het vakje van het formulier aan te vinken, geeft u uitdrukkelijk toestemming voor deze overdracht buiten de Europese Unie: dat is de rechtsgrond van deze overdracht.',
+        'Het bericht komt vervolgens per e-mail bij ons toe, op de mailbox van de onderneming.',
+        'Als u ons contacteert via telefoon of WhatsApp in plaats van het formulier, verloopt die uitwisseling (uw nummer, uw berichten, eventuele foto’s) via de diensten van de telefoonoperator en van WhatsApp (Meta), volgens hun eigen privacyregels, en gebruiken wij ze enkel om uw vraag te beantwoorden.',
       ],
     },
   },
@@ -125,10 +149,10 @@ export const viePrivee: BlocLegal[] = [
     titre: { fr: 'Combien de temps', nl: 'Hoe lang' },
     paragraphes: {
       fr: [
-        "Nous gardons vos messages le temps utile pour traiter votre demande et assurer le suivi si un devis débouche sur un chantier. Vous pouvez à tout moment demander leur effacement (voir « Vos droits » ci-dessous). Si un devis débouche sur un chantier, les documents liés sont conservés selon les obligations comptables belges.",
+        "Nous n'avons pas fixé de durée de conservation automatique : vos données restent dans nos échanges jusqu'à ce que vous nous demandiez de les effacer ou que vous retiriez votre consentement (voir « Vos droits » ci-dessous). Si un devis débouche sur un chantier, les documents liés sont conservés selon les obligations comptables belges.",
       ],
       nl: [
-        'Wij bewaren uw berichten zolang nodig om uw vraag te behandelen en op te volgen als een offerte tot een werf leidt. U kunt op elk moment vragen om ze te wissen (zie "Uw rechten" hieronder). Als een offerte tot een werf leidt, worden de bijbehorende documenten bewaard volgens de Belgische boekhoudkundige verplichtingen.',
+        'Wij hebben geen automatische bewaartermijn vastgelegd: uw gegevens blijven in onze uitwisselingen tot u ons vraagt om ze te wissen of u uw toestemming intrekt (zie « Uw rechten » hieronder). Als een offerte tot een werf leidt, worden de bijbehorende documenten bewaard volgens de Belgische boekhoudkundige verplichtingen.',
       ],
     },
   },
@@ -160,6 +184,7 @@ export const viePrivee: BlocLegal[] = [
         'à les faire effacer',
         "à limiter ou à vous opposer à leur utilisation",
         'à les recevoir dans un format réutilisable',
+        'à retirer votre consentement',
       ],
       nl: [
         'de gegevens in te kijken die wij over u hebben',
@@ -167,6 +192,7 @@ export const viePrivee: BlocLegal[] = [
         'ze te laten wissen',
         'het gebruik ervan te beperken of u ertegen te verzetten',
         'ze te ontvangen in een herbruikbaar formaat',
+        'uw toestemming in te trekken',
       ],
     },
   },

@@ -1,14 +1,16 @@
 ---
 /**
- * La page À propos : présente tout ce que BS Renove sait faire, à partir
- * des mêmes données que la page Services (rien d'inventé), dans une mise
- * en page différente — un mur de compétences plutôt que des fiches photo.
+ * La page À propos : ce que BS Renove sait faire (mêmes données que la page
+ * Services, rien d'inventé), pourquoi la choisir, comment se passe un chantier,
+ * puis le formulaire de devis.
  */
 import Bouton from '../Bouton.astro';
+import EntetePage from '../EntetePage.astro';
 import Icon from '../Icon.astro';
-import PhotoAVenir from '../PhotoAVenir.astro';
-import { entreprise } from '~/data/entreprise';
-import { services } from '~/data/services';
+import Methode from '../accueil/Methode.astro';
+import SectionDevis from '../accueil/SectionDevis.astro';
+import { lienDevis } from '~/data/entreprise';
+import { iconeService, services } from '~/data/services';
 import { chemin, t, type Langue } from '~/i18n';
 
 interface Props {
@@ -21,285 +23,201 @@ const bloc = textes.aProposPage;
 const pourquoi = textes.accueil.pourquoi;
 ---
 
-<div class="wrap apropos">
-  <header class="apropos__entete">
-    <span class="surtitre">{bloc.surtitre}</span>
-    <h1>{bloc.titre}</h1>
-    <p class="apropos__intro">{bloc.intro}</p>
-    <div class="apropos__actions">
-      <Bouton href={chemin('contact', langue)} variante="principal" iconeApres="fleche" large>
-        {textes.actions.devis}
-      </Bouton>
-    </div>
-  </header>
+<EntetePage surtitre={bloc.surtitre} titre={bloc.titre} serifMots={2} intro={bloc.intro}>
+  <Bouton href={lienDevis(langue)} variante="principal" iconeApres="fleche-diag" large>
+    {textes.actions.devis}
+  </Bouton>
+</EntetePage>
 
-  <section class="apropos__capacites" aria-labelledby="capacites-titre">
-    <div class="apropos__capacites-entete">
-      <h2 id="capacites-titre">{bloc.capacitesTitre}</h2>
-      <p>{bloc.capacitesIntro}</p>
-    </div>
+<section class="wrap pourquoi" aria-labelledby="pourquoi-titre">
+  <p class="etiquette-section">{pourquoi.surtitre}</p>
+  <h2 id="pourquoi-titre" class="pourquoi__texte" data-mots>{pourquoi.texte}.</h2>
+  <ul class="pourquoi__points">
+    {
+      pourquoi.points.map((point, i) => (
+        <li data-reveal style={`--delai: ${i * 60}ms`}>
+          <span class="pourquoi__coche"><Icon nom="check" taille={18} epaisseur={2.6} /></span>
+          {point}
+        </li>
+      ))
+    }
+  </ul>
+</section>
 
-    <ul class="capacites__grille">
-      {
-        services.map((service, index) => (
-          <li class="capacite">
-            <span class="capacite__numero">{String(index + 1).padStart(2, '0')}</span>
+<section class="wrap capacites" aria-labelledby="capacites-titre">
+  <div class="capacites__entete">
+    <h2 id="capacites-titre" data-mots>{bloc.capacitesTitre}</h2>
+    <p>{bloc.capacitesIntro}</p>
+  </div>
+
+  <ul class="capacites__grille">
+    {
+      services.map((service, index) => (
+        <li data-reveal style={`--delai: ${(index % 4) * 70}ms`}>
+          <a class="capacite" href={`${chemin('services', langue)}#${service.slug}`}>
+            <span class="capacite__haut">
+              <span class="capacite__icone"><Icon nom={iconeService(service.slug)} taille={26} /></span>
+              <span class="capacite__numero">{String(index + 1).padStart(2, '0')}</span>
+            </span>
             <h3 class="capacite__nom">{service.nom[langue]}</h3>
             <ul class="capacite__liste">
               {service.exemples[langue].map((exemple) => (
-                <li>
-                  <Icon nom="check" taille={14} epaisseur={2.4} />
-                  {exemple}
-                </li>
+                <li>{exemple}</li>
               ))}
             </ul>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>
 
-  <section class="apropos__pourquoi">
-    <div class="apropos__pourquoi-visuel">
-      <PhotoAVenir langue={langue} legende={textes.photos.gerant} ratio="4 / 5" arrondi="var(--radius-photo)" />
-    </div>
-
-    <div class="apropos__pourquoi-texte">
-      <span class="surtitre">{pourquoi.surtitre}</span>
-      <p class="apropos__pourquoi-intro">{pourquoi.texte}</p>
-      <ul class="apropos__points">
-        {
-          pourquoi.points.map((point) => (
-            <li>
-              <span class="apropos__coche">
-                <Icon nom="check" taille={16} epaisseur={2.4} />
-              </span>
-              {point}
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
-
-  <section class="apropos__devis">
-    <div>
-      <h2>{textes.contactPage.devisTitre}</h2>
-      <p>{textes.contactPage.devisTexte}</p>
-    </div>
-    <Bouton href={chemin('contact', langue)} variante="ink-principal" iconeApres="fleche" large>
-      {textes.actions.devis}
-    </Bouton>
-  </section>
-</div>
+<Methode langue={langue} />
+<SectionDevis langue={langue} />
 
 <style>
-  .apropos {
-    padding-block: 40px 0;
-  }
-
-  .apropos__entete {
+  /* --- Pourquoi --- */
+  .pourquoi {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 18px;
-    max-width: 720px;
-    margin-bottom: var(--section-gap);
+    gap: 24px;
+    padding-top: 40px;
   }
 
-  .surtitre {
-    font-size: var(--size-tiny);
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-accent);
+  .pourquoi__texte {
+    max-width: 22ch;
+    font-size: clamp(30px, 3.6vw, 54px);
+    line-height: 1.05;
   }
 
-  .apropos__intro {
-    font-size: var(--size-body);
-    color: var(--color-text);
-  }
-
-  .apropos__actions {
-    margin-top: 8px;
-  }
-
-  .apropos__capacites {
-    padding-block: 0 0 var(--section-gap);
-  }
-
-  .apropos__capacites-entete {
+  .pourquoi__points {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: 10px;
-    max-width: 620px;
-    margin-bottom: 32px;
+    margin: 12px 0 0;
+    padding: 0;
+    list-style: none;
   }
 
-  .apropos__capacites-entete h2 {
-    font-size: var(--size-h2);
-    letter-spacing: var(--tracking-h2);
+  .pourquoi__points li {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 56px;
+    padding: 0 22px 0 8px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    font-weight: 650;
+    color: var(--color-ink);
   }
 
-  .apropos__capacites-entete p {
-    color: var(--color-text);
+  .pourquoi__coche {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--color-signal);
+  }
+
+  /* --- Capacités --- */
+  .capacites {
+    padding-top: var(--section-gap);
+  }
+
+  .capacites__entete {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 640px;
+    margin-bottom: 40px;
+  }
+
+  .capacites__entete p {
+    font-size: var(--size-lead);
+    line-height: 1.5;
   }
 
   .capacites__grille {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 12px;
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
   .capacite {
-    position: relative;
-    padding: 28px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    height: 100%;
+    padding: 24px;
     background: var(--color-surface);
     border-radius: var(--radius-card);
+    color: var(--color-text);
+    text-decoration: none;
+    transition:
+      background-color 400ms var(--ease),
+      transform 500ms var(--ease-out);
+  }
+
+  .capacite:hover {
+    background: var(--color-signal);
+    transform: translateY(-4px);
+  }
+
+  .capacite__haut {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .capacite__icone {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--color-bg);
+    color: var(--color-ink);
   }
 
   .capacite__numero {
-    display: block;
-    margin-bottom: 8px;
-    font-family: var(--font-title);
-    font-size: 15px;
-    font-weight: 800;
-    letter-spacing: -0.01em;
-    color: var(--color-accent);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-muted);
   }
 
   .capacite__nom {
-    margin-bottom: 16px;
-    font-size: var(--size-h3);
-    letter-spacing: var(--tracking-h3);
+    font-size: 24px;
   }
 
   .capacite__liste {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 6px;
     margin: 0;
     padding: 0;
     list-style: none;
-  }
-
-  .capacite__liste li {
-    display: flex;
-    align-items: center;
-    gap: 10px;
     font-size: var(--size-small);
-    color: var(--color-text);
   }
 
-  .capacite__liste :global(svg) {
-    flex-shrink: 0;
-    color: var(--color-accent);
+  .capacite__liste li::before {
+    content: '— ';
+    color: var(--color-muted);
   }
 
-  .apropos__pourquoi {
-    display: grid;
-    gap: 28px;
-    padding-block: var(--section-gap) 0;
-  }
-
-  .apropos__pourquoi-texte {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
-
-  .apropos__pourquoi-intro {
-    font-size: var(--size-h3);
-    letter-spacing: var(--tracking-h3);
-    color: var(--color-ink);
-  }
-
-  .apropos__points {
-    display: grid;
-    gap: 10px;
-    width: 100%;
-    margin: 8px 0 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .apropos__points li {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 20px;
-    background: var(--color-surface);
-    border-radius: var(--radius-small);
-    font-size: var(--size-small);
-    font-weight: 600;
-    color: var(--color-ink);
-  }
-
-  .apropos__coche {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    flex-shrink: 0;
-    background: var(--color-bg);
-    border-radius: var(--radius-pill);
-    color: var(--color-accent);
-  }
-
-  .apropos__devis {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 24px;
-    margin-top: var(--section-gap);
-    padding: 32px 24px;
-    background: var(--color-accent-dark);
-    border-radius: var(--radius-large);
-    color: var(--color-on-ink);
-  }
-
-  .apropos__devis h2 {
-    font-size: var(--size-h3);
-    color: var(--color-on-ink);
-    letter-spacing: var(--tracking-h3);
-  }
-
-  .apropos__devis p {
-    color: var(--color-on-ink-soft);
-  }
-
-  @media (min-width: 600px) {
+  @media (min-width: 700px) {
     .capacites__grille {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .apropos__points {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
-  @media (min-width: 900px) {
+  @media (min-width: 1100px) {
     .capacites__grille {
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    .apropos__pourquoi {
-      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
-      align-items: center;
-      gap: 64px;
-    }
-
-    .apropos__devis {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      gap: 40px;
-      padding: 44px 48px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
 </style>

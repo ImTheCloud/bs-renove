@@ -1,86 +1,95 @@
 /* ==========================================================================
    Les réglages du site, au même endroit.
-   Changer une valeur ici la change partout. Par exemple : le bleu.
+   Direction « Atelier » : papier chaud, encre presque noire, bleu du logo,
+   jaune de marqueur pour souligner, annotations écrites à la main.
+   Changer une valeur ici la change partout.
    ========================================================================== */
 
 :root {
   /* --- Couleurs -------------------------------------------------------- */
-  --color-bg: #ffffff;          /* fond de page */
-  --color-surface: #f3f5f8;     /* cartes, pastilles, points forts */
-  --color-surface-2: #eef1f5;   /* conteneurs secondaires, sélecteur de langue */
-  --color-ink: #002948;         /* titres, texte fort, bloc contact — même bleu que l'accent, plus foncé */
-  --color-ink-rgb: 0, 41, 72; /* pour les fonds semi-transparents */
-  --color-accent: #0066b4;      /* boutons principaux, liens — calé sur le bleu du logo */
-  --color-accent-dark: #005290; /* survol du bouton principal */
-  --color-text: #4b5160;        /* texte courant */
-  --color-muted: #5f6573;       /* texte secondaire */
-  --color-border: #d5dae1;      /* bordures */
-  --color-border-light: #e3e6eb;/* bordures discrètes (cartes) */
-  --color-border-field: #7d8595; /* bordure des champs de saisie : 3,7:1, lisible */
-  --color-erreur: #b3261e;       /* champ mal rempli */
-  --color-placeholder: #dde1e7; /* blocs « photo à venir » */
-  --color-placeholder-2: #c9ced6; /* second bloc, pour le curseur avant/après */
-  --color-manquant: #ffd48a;  /* information non confirmée, sur fond ink */
+  --color-bg: #f5f2ec;          /* papier : fond de page */
+  --color-surface: #ece7de;     /* cartes, pastilles */
+  --color-surface-2: #e3ddd1;   /* conteneurs secondaires */
+  --color-ink: #121418;         /* encre : titres, sections sombres */
+  --color-ink-2: #1c1f25;       /* cartes sur fond sombre */
+  --color-ink-rgb: 18, 20, 24;
+  --color-accent: #0066b4;      /* bleu du logo : liens, détails */
+  --color-accent-dark: #00528f;
+  --color-accent-vif: #7cbcff;  /* le même bleu, lisible sur fond sombre */
+  --color-signal: #ffd447;      /* marqueur jaune : surlignages, pastilles */
+  --color-text: #3a3d45;        /* texte courant */
+  --color-muted: #5d6068;       /* texte secondaire */
+  --color-border: #d6cfc2;      /* bordures */
+  --color-border-light: #e2dccf;
+  --color-border-field: #8a8578; /* bordure des champs : lisible */
+  --color-erreur: #b3261e;
+  --color-whatsapp: #0e8449;     /* vert sobre, 4,76:1 avec le blanc */
+  --color-whatsapp-dark: #0b6b3b;
+  --color-placeholder: #e3ddd1;
+  --color-placeholder-2: #d6cfc2;
+  --color-manquant: #ffd48a;
 
-  /* Sur le bloc contact (fond ink) */
-  --color-on-ink: #ffffff;
-  --color-on-ink-soft: #d6dcea;  /* texte secondaire */
-  --color-on-ink-label: #b9c3da; /* petits labels */
+  /* Sur fond encre */
+  --color-on-ink: #f5f2ec;
+  --color-on-ink-soft: #c2c5cc;
+  --color-on-ink-label: #9ea2ab;
+  --color-line-on-ink: rgba(245, 242, 236, 0.14);
 
   /* --- Polices --------------------------------------------------------- */
   --font-title: 'Bricolage Grotesque Variable', 'Trebuchet MS', sans-serif;
   --font-text: 'Figtree Variable', 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --font-main: 'Caveat Variable', 'Segoe Print', 'Bradley Hand', cursive;
 
-  /* --- Tailles de texte : mobile d'abord -------------------------------- */
-  --size-h1: 44px;
-  --size-h2: 36px;
-  --size-h3: 22px;
+  /* --- Tailles de texte : elles grandissent avec l'écran --------------- */
+  --size-display: clamp(48px, 6vw, 112px);
+  --size-h1: clamp(44px, 6.4vw, 100px);
+  --size-h2: clamp(38px, 5vw, 80px);
+  --size-h3: clamp(22px, 1.9vw, 30px);
+  --size-lead: clamp(18px, 1.45vw, 22px);
   --size-body: 17px;
   --size-small: 15px;
-  --size-tiny: 14px;
+  --size-tiny: 13px;
 
-  --tracking-h1: -0.03em;
-  --tracking-h2: -0.025em;
+  --tracking-h1: -0.045em;
+  --tracking-h2: -0.04em;
   --tracking-h3: -0.02em;
 
   /* --- Arrondis -------------------------------------------------------- */
-  --radius-pill: 999px;   /* boutons, pastilles */
-  --radius-photo: 32px;   /* grandes photos */
-  --radius-card: 28px;    /* cartes */
-  --radius-card-img: 20px;/* images dans les cartes */
-  --radius-small: 18px;   /* petits blocs */
-  --radius-mini: 12px;    /* vignettes */
-  --radius-large: 36px;   /* grands conteneurs */
+  --radius-pill: 999px;
+  --radius-photo: 28px;
+  --radius-card: 24px;
+  --radius-card-img: 18px;
+  --radius-small: 14px;
+  --radius-mini: 10px;
+  --radius-large: 36px;
 
-  /* --- Ombre : seulement pour ce qui flotte sur une photo --------------- */
-  --shadow-float: 0 12px 32px rgba(29, 42, 74, 0.14);
+  /* --- Ombres ---------------------------------------------------------- */
+  --shadow-float: 0 18px 50px -12px rgba(18, 20, 24, 0.28);
+  --shadow-soft: 0 10px 30px -14px rgba(18, 20, 24, 0.22);
 
   /* --- Gabarit --------------------------------------------------------- */
-  --content-max: 1344px;
-  --gutter: 20px;          /* marge latérale sur mobile */
-  --section-gap: 72px;     /* espace entre deux sections */
-  --tap-min: 48px;         /* jamais moins sur mobile */
+  --content-max: 1400px;
+  --gutter: 20px;
+  --section-gap: 96px;
+  --tap-min: 48px;
+  --header-h: 72px;
 
   /* --- Mouvement ------------------------------------------------------- */
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
-  --speed: 220ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --speed: 240ms;
+  --speed-slow: 900ms;
 }
 
-/* --- Desktop : on agrandit ------------------------------------------- */
 @media (min-width: 900px) {
   :root {
-    --size-h1: 76px;
-    --size-h2: 58px;
-    --size-h3: 26px;
     --size-body: 18px;
     --size-small: 16px;
-    --size-tiny: 15px;
-
-    --tracking-h1: -0.035em;
-    --tracking-h2: -0.03em;
-
-    --gutter: 48px;
-    --section-gap: 120px;
+    --size-tiny: 14px;
+    --gutter: 40px;
+    --section-gap: 160px;
+    --header-h: 88px;
   }
 }
 
@@ -88,5 +97,6 @@
 @media (prefers-reduced-motion: reduce) {
   :root {
     --speed: 0ms;
+    --speed-slow: 0ms;
   }
 }

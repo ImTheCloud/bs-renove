@@ -28,6 +28,8 @@ export const fr = {
     ouvrirMenu: 'Ouvrir le menu',
     fermerMenu: 'Fermer le menu',
     menuAria: 'Menu principal',
+    menu: 'Menu',
+    contactDirect: 'Nous joindre',
   },
 
   langues: {
@@ -43,6 +45,7 @@ export const fr = {
     viePrivee: 'Vie privée',
     rejoindre: 'Rejoindre l’équipe',
     droits: 'Tous droits réservés',
+    projet: 'Un projet en tête ?',
   },
 
   accessibilite: {
@@ -69,25 +72,138 @@ export const fr = {
 
   accueil: {
     hero: {
-      zone: 'Intervient dans toute la Belgique',
-      titreDebut: 'Votre maison, entre de bonnes',
-      titreFin: 'mains',
+      surtitre: 'Entreprise générale · Toute la Belgique',
+      titreDebut: 'Votre maison,',
+      titreSerif: 'refaite',
+      titreFin: 'de A à Z.',
       texte:
-        "Salles de bain, cuisines, carrelage, toiture et maçonnerie. On s'occupe de votre chantier du premier devis jusqu'à la dernière finition",
-      atouts: ['Devis gratuit', 'Français · Nederlands'],
-      badgeUnite: 'ans',
-      badgeTexte: 'de métier dans la construction',
-
+        'Salle de bain, cuisine, toiture, carrelage… Un seul interlocuteur pour tout votre chantier, du premier devis à la dernière finition.',
+      faits: ['12 ans de métier', 'Devis gratuit', 'Français · Nederlands'],
+      maisonAria: 'Dessin d’une maison en coupe : chaque pièce mène au service correspondant',
+      maisonAide: 'Touchez une pièce',
+      maisonAideSouris: 'Survolez une pièce',
+      maisonTout: 'et tout le reste !',
+      pieces: {
+        toiture: 'la toiture',
+        'salles-de-bain': 'la salle de bain',
+        cuisines: 'la cuisine',
+        carrelage: 'le carrelage',
+        electricite: 'l’électricité',
+        'peinture-finitions': 'la peinture',
+        'maconnerie-facades': 'murs & façades',
+      },
+      defiler: 'Défiler',
     },
+
+    bandeauAria: 'Nos métiers',
 
     avantApres: {
       surtitre: 'Avant, après',
-      voirTout: 'Voir tous nos avant/après',
+      titreDebut: 'Même pièce.',
+      titreSerif: 'Autre vie.',
+      texte:
+        'Faites défiler, ou attrapez la poignée : la salle de bain d’origine laisse place à celle d’aujourd’hui.',
+      noteAvant: 'le jour où on arrive…',
+      noteApres: '… et le jour où on part !',
+      voirProjet: 'Voir ce chantier',
+      voirTout: 'Tous les avant/après',
       autresProjets: 'Autres projets',
       avant: 'Avant',
       apres: 'Après',
       curseurLabel: 'Comparer avant et après',
       curseurAide: 'Utilisez les flèches gauche et droite pour comparer',
+    },
+
+    services: {
+      surtitre: 'Nos métiers',
+      titreDebut: 'Tout ce qu’une maison',
+      titreSerif: 'demande.',
+      texte:
+        'Un seul métier ou toute la maison : nous coordonnons les corps de métier, en interne ou avec nos indépendants de confiance.',
+      voirTout: 'Tous nos services',
+    },
+
+    chiffres: {
+      surtitre: 'En quelques chiffres',
+      items: [
+        { valeur: 12, prefixe: '', suffixe: '', texte: 'ans de métier dans la construction' },
+        { valeur: 12, prefixe: '±', suffixe: '', texte: 'personnes sur nos chantiers, avec nos indépendants' },
+        { valeur: 1, prefixe: '', suffixe: '', texte: 'seul interlocuteur, du devis à la finition' },
+        { valeur: 0, prefixe: '', suffixe: ' €', texte: 'pour le devis : il est gratuit et détaillé' },
+      ],
+    },
+
+    methode: {
+      surtitre: 'Comment ça se passe',
+      titreDebut: 'Simple,',
+      titreSerif: 'du début à la fin.',
+      etapes: [
+        {
+          titre: 'Vous nous racontez',
+          texte:
+            'Par téléphone, WhatsApp ou avec le formulaire. Quelques photos de la pièce nous aident déjà beaucoup.',
+        },
+        {
+          titre: 'On regarde ensemble',
+          texte:
+            'Nous faisons le point sur ce que vous voulez et sur l’état des lieux, sur place si c’est nécessaire.',
+        },
+        {
+          titre: 'Devis gratuit et détaillé',
+          texte: 'Vous recevez un devis clair, sans engagement, pour décider en connaissance de cause.',
+        },
+        {
+          titre: 'Un seul interlocuteur',
+          texte:
+            'Nous coordonnons tous les corps de métier et suivons le chantier jusqu’à la dernière finition.',
+        },
+      ],
+    },
+
+    projets: {
+      surtitre: 'Réalisations',
+      titreDebut: 'Des chantiers,',
+      titreSerif: 'pas des promesses.',
+      voirTout: 'Toutes les réalisations',
+      glisser: 'glissez →',
+    },
+
+    faq: {
+      surtitre: 'Questions fréquentes',
+      titreDebut: 'Vos questions,',
+      titreSerif: 'nos réponses.',
+      autreQuestion: 'Une autre question ? Appelez-nous au',
+      items: [
+        {
+          q: 'Intervenez-vous près de chez moi ?',
+          r: 'Nous sommes basés à Denderleeuw et nous intervenons dans toute la Belgique.',
+        },
+        {
+          q: 'Le devis est-il payant ?',
+          r: 'Non, le devis est gratuit et détaillé. Pour le préparer, le plus utile est de nous décrire les travaux et, si possible, de nous envoyer quelques photos.',
+        },
+        {
+          q: 'Faut-il plusieurs entreprises pour une rénovation complète ?',
+          r: 'Non. BS Renove est une entreprise générale : nous coordonnons tous les corps de métier, en interne ou avec nos indépendants. Vous n’avez qu’un seul interlocuteur du début à la fin.',
+        },
+        {
+          q: 'Parlez-vous néerlandais ?',
+          r: 'Oui. Vous pouvez nous parler en français ou en néerlandais, par téléphone, par WhatsApp ou par email.',
+        },
+        {
+          q: 'Comment vous envoyer des photos de mon chantier ?',
+          r: 'Le plus simple est WhatsApp. Des photos de la pièce et quelques mesures nous aident à comprendre votre projet avant même de nous voir.',
+        },
+      ],
+    },
+
+    devis: {
+      surtitre: 'Devis gratuit',
+      titreDebut: 'Parlons de',
+      titreSerif: 'votre projet.',
+      texte:
+        'Trois petites étapes, deux minutes. Plus pressé ? Appelez-nous ou écrivez-nous directement.',
+      direct: 'En direct',
     },
 
     pourquoi: {
@@ -112,6 +228,71 @@ export const fr = {
       labelEmail: 'Email',
       labelZone: "Zone d'intervention",
       valeurZone: 'Toute la Belgique',
+    },
+  },
+
+  /** Le formulaire de devis, en trois étapes. */
+  formulaire: {
+    etape: 'Étape',
+    sur: 'sur',
+    etapes: ['Vos travaux', 'Votre projet', 'Vos coordonnées'],
+
+    q1: 'Quels travaux avez-vous en tête ?',
+    q1Aide: 'Plusieurs choix possibles',
+    autre: 'Autre chose',
+
+    q2: 'Parlez-nous de votre projet',
+    commune: 'Commune du chantier',
+    communeAide: 'Seulement la commune, pas besoin de l’adresse',
+    delai: 'Quand souhaitez-vous commencer ?',
+    delais: ['Dès que possible', 'Dans les 3 mois', 'Dans les 6 mois', 'Pas encore décidé'],
+    message: 'Votre projet en quelques mots',
+    messageAide: 'Facultatif, mais ça nous aide à préparer le devis',
+    messageExemple:
+      'Ex. : refaire la salle de bain à l’étage, environ 6 m², une douche à l’italienne à la place de la baignoire…',
+
+    q3: 'Où pouvons-nous vous répondre ?',
+    nom: 'Votre nom',
+    telephone: 'Téléphone',
+    email: 'Email',
+    consentement: 'J’accepte que mes données soient utilisées pour répondre à ma demande.',
+    consentementLien: 'Vie privée',
+
+    suivant: 'Continuer',
+    precedent: 'Retour',
+    envoyer: 'Envoyer ma demande',
+    envoiEnCours: 'Envoi…',
+    obligatoire: 'obligatoire',
+    facultatif: 'facultatif',
+
+    erreurChoix: 'Choisissez au moins un type de travaux.',
+    erreurChamp: 'Ce champ est obligatoire.',
+    erreurEmail: 'Cette adresse email ne semble pas complète.',
+    erreurConsentement: 'Cochez la case pour que nous puissions vous répondre.',
+
+    merciTitre: 'Merci, c’est envoyé !',
+    merciTexte:
+      'Votre demande est bien partie. Vous avez des photos du chantier ? Envoyez-les par WhatsApp, c’est ce qui aide le plus à préparer le devis.',
+    merciWhatsApp: 'Envoyer des photos',
+    recommencer: 'Nouvelle demande',
+
+    secoursTitre: 'Presque fini !',
+    secoursLien: 'Ouvrir l’email',
+    secoursTexte:
+      'Votre messagerie s’ouvre avec votre demande déjà écrite : il ne reste qu’à l’envoyer. Rien ne s’ouvre ? Appelez-nous ou écrivez-nous sur WhatsApp.',
+
+    erreurTitre: 'L’envoi n’a pas fonctionné.',
+    erreurTexte: 'Vous pouvez réessayer, ou nous appeler directement au',
+
+    sujetEmail: 'Demande de devis via le site',
+    recap: {
+      travaux: 'Travaux',
+      commune: 'Commune',
+      delai: 'Début souhaité',
+      message: 'Projet',
+      nom: 'Nom',
+      telephone: 'Téléphone',
+      email: 'Email',
     },
   },
 

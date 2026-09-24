@@ -18,9 +18,11 @@ interface Props {
   ratio?: string;
   /** Précise de quoi parle la comparaison, quand il y en a plusieurs sur la page. */
   precision?: string;
+  /** Position de départ de la poignée, en %. */
+  depart?: number;
 }
 
-const { langue, id, ratio = '4 / 3', precision } = Astro.props;
+const { langue, id, ratio = '4 / 3', precision, depart = 50 } = Astro.props;
 const textes = t(langue);
 const avantApres = textes.accueil.avantApres;
 const aideId = `${id}-aide`;
@@ -30,7 +32,7 @@ const intitule = precision
   : avantApres.curseurLabel;
 ---
 
-<div class="curseur" data-curseur style={`--ratio: ${ratio};`}>
+<div class="curseur" data-curseur style={`--ratio: ${ratio}; --position: ${depart}%;`}>
   <!-- Fond : la photo « après ». Elle est visible à droite du trait. -->
   <div class="curseur__couche curseur__couche--apres">
     <slot name="apres" />
@@ -71,7 +73,7 @@ const intitule = precision
     class="curseur__range"
     min="0"
     max="100"
-    value="50"
+    value={String(depart)}
     step="1"
     aria-describedby={aideId}
     data-range
@@ -96,7 +98,6 @@ const intitule = precision
 
 <style>
   .curseur {
-    --position: 50%;
     position: relative;
     width: 100%;
     aspect-ratio: var(--ratio);
@@ -127,13 +128,16 @@ const intitule = precision
     position: absolute;
     top: 16px;
     z-index: 2;
-    padding: 7px 16px;
-    background: rgba(var(--color-ink-rgb), 0.72);
+    padding: 7px 14px;
+    background: rgba(245, 242, 236, 0.92);
     border-radius: var(--radius-pill);
-    font-size: var(--size-tiny);
-    font-weight: 600;
-    color: #fff;
+    font-size: 12px;
+    font-weight: 750;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-ink);
     pointer-events: none;
+    backdrop-filter: blur(6px);
   }
 
   .curseur__etiquette--avant {
@@ -163,13 +167,20 @@ const intitule = precision
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 56px;
-    height: 56px;
+    width: 60px;
+    height: 60px;
     transform: translate(-50%, -50%);
-    background: #fff;
+    background: var(--color-signal);
+    border: 3px solid #fff;
     border-radius: var(--radius-pill);
     color: var(--color-ink);
     box-shadow: var(--shadow-float);
+    transition: transform 300ms var(--ease-out);
+  }
+
+  .curseur:hover .curseur__poignee,
+  .curseur:has(.curseur__range:active) .curseur__poignee {
+    transform: translate(-50%, -50%) scale(1.1);
   }
 
   /*

@@ -1,0 +1,176 @@
+---
+/**
+ * Deux bandes croisées qui défilent, comme la rubalise d'un chantier :
+ * une noire avec les métiers, une jaune avec le nom de l'entreprise.
+ * Décoratif : la liste des métiers est lue une seule fois par les lecteurs d'écran.
+ */
+import { services } from '~/data/services';
+import { t, type Langue } from '~/i18n';
+
+interface Props {
+  langue: Langue;
+}
+
+const { langue } = Astro.props;
+const textes = t(langue);
+const metiers = services.map((service) => service.nom[langue]);
+const rubalise = [textes.entete.tagline, 'BS Renove', textes.accueil.hero.faits[1], 'BS Renove'];
+---
+
+<section class="bandeau" id="suite" aria-label={textes.accueil.bandeauAria}>
+  <p class="sr-only">{metiers.join(', ')}</p>
+
+  <div class="bande bande--jaune" aria-hidden="true">
+    <div class="bande__piste bande__piste--inverse">
+      {
+        [0, 1].map(() => (
+          <div class="bande__groupe">
+            {[...rubalise, ...rubalise].map((mot) => (
+              <span class="bande__mot bande__mot--petit">
+                {mot}
+                <span class="bande__rayure" />
+              </span>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="bande bande--noire" aria-hidden="true">
+    <div class="bande__piste">
+      {
+        [0, 1].map(() => (
+          <div class="bande__groupe">
+            {metiers.map((mot, i) => (
+              <span class:list={['bande__mot', { 'bande__mot--serif': i % 2 === 1 }]}>
+                {mot}
+                <svg class="bande__etoile" viewBox="0 0 24 24" width="28" height="28">
+                  <path d="M12 2v20M3.3 7l17.4 10M20.7 7L3.3 17" />
+                </svg>
+              </span>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .bandeau {
+    position: relative;
+    padding-block: 64px 40px;
+    overflow: hidden;
+  }
+
+  .bande {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .bande--noire {
+    background: var(--color-ink);
+    color: var(--color-on-ink);
+    padding-block: 18px;
+    transform: rotate(-3deg);
+    margin-inline: -2%;
+  }
+
+  .bande--jaune {
+    position: absolute;
+    left: -2%;
+    right: -2%;
+    top: 50%;
+    background: var(--color-signal);
+    color: var(--color-ink);
+    padding-block: 8px;
+    transform: translateY(-50%) rotate(3.4deg);
+    z-index: 1;
+    box-shadow: 0 6px 18px -8px rgba(18, 20, 24, 0.4);
+  }
+
+  .bande__piste {
+    display: flex;
+    flex-shrink: 0;
+    animation: defiler 42s linear infinite;
+  }
+
+  .bande__piste--inverse {
+    animation-direction: reverse;
+    animation-duration: 36s;
+  }
+
+  .bande__groupe {
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  .bande__mot {
+    display: inline-flex;
+    align-items: center;
+    gap: 28px;
+    padding-right: 28px;
+    font-family: var(--font-title);
+    font-size: clamp(34px, 5.4vw, 76px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+  }
+
+  .bande__mot--serif {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--color-accent-vif);
+  }
+
+  .bande__mot--petit {
+    gap: 22px;
+    padding-right: 22px;
+    font-family: var(--font-text);
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .bande__rayure {
+    width: 36px;
+    height: 14px;
+    background: repeating-linear-gradient(-45deg, var(--color-ink) 0 5px, transparent 5px 10px);
+  }
+
+  .bande__etoile {
+    fill: none;
+    stroke: var(--color-signal);
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    flex-shrink: 0;
+  }
+
+  @keyframes defiler {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bande__piste {
+      animation: none;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .bandeau {
+      padding-block: 96px 64px;
+    }
+
+    .bande--noire {
+      padding-block: 24px;
+    }
+  }
+</style>

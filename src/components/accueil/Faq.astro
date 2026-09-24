@@ -1,0 +1,203 @@
+---
+/**
+ * Questions fréquentes, en accordéon natif (<details>) :
+ * accessible au clavier et au lecteur d'écran sans une ligne de JavaScript.
+ * Les réponses ne reprennent que des faits confirmés.
+ */
+import { entreprise } from '~/data/entreprise';
+import { t, type Langue } from '~/i18n';
+
+interface Props {
+  langue: Langue;
+}
+
+const { langue } = Astro.props;
+const bloc = t(langue).accueil.faq;
+---
+
+<section class="wrap faq" aria-labelledby="faq-titre">
+  <div class="faq__entete">
+    <p class="etiquette-section">{bloc.surtitre}</p>
+    <h2 id="faq-titre" data-mots>
+      {bloc.titreDebut}{' '}<span class="serif">{bloc.titreSerif}</span>
+    </h2>
+    <p class="faq__appel" data-reveal>
+      {bloc.autreQuestion}{' '}
+      <a href={`tel:${entreprise.telephoneLien}`}>{entreprise.telephoneAffiche}</a>
+    </p>
+  </div>
+
+  <div class="faq__liste">
+    {
+      bloc.items.map((item, i) => (
+        <details class="question" name="faq" open={i === 0} data-reveal style={`--delai: ${i * 60}ms`}>
+          <summary>
+            <span class="question__num">{String(i + 1).padStart(2, '0')}</span>
+            <span class="question__texte">{item.q}</span>
+            <span class="question__plus" aria-hidden="true" />
+          </summary>
+          <p class="question__reponse">{item.r}</p>
+        </details>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .faq {
+    display: grid;
+    gap: 40px;
+    padding-top: var(--section-gap);
+  }
+
+  .faq__entete {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .faq__entete h2 .serif {
+    color: var(--color-accent);
+  }
+
+  .faq__appel {
+    color: var(--color-text);
+  }
+
+  .faq__appel a {
+    color: var(--color-ink);
+    font-weight: 650;
+    text-decoration-color: var(--color-signal);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 4px;
+    white-space: nowrap;
+  }
+
+  .faq__liste {
+    border-top: 1px solid var(--color-ink);
+  }
+
+  .question {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .question summary {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 16px;
+    min-height: 72px;
+    padding: 18px 0;
+    cursor: pointer;
+    list-style: none;
+    color: var(--color-ink);
+  }
+
+  .question summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .question__num {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-muted);
+  }
+
+  .question__texte {
+    font-family: var(--font-title);
+    font-size: clamp(19px, 1.7vw, 24px);
+    font-weight: 650;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+
+  .question__plus {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--color-surface);
+    transition:
+      background-color 300ms var(--ease),
+      transform 500ms var(--ease-out);
+  }
+
+  .question__plus::before,
+  .question__plus::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 14px;
+    height: 2px;
+    margin: -1px 0 0 -7px;
+    border-radius: 2px;
+    background: var(--color-ink);
+  }
+
+  .question__plus::after {
+    transform: rotate(90deg);
+    transition: transform 400ms var(--ease-out);
+  }
+
+  .question[open] .question__plus {
+    background: var(--color-signal);
+    transform: rotate(180deg);
+  }
+
+  .question[open] .question__plus::after {
+    transform: rotate(0deg);
+  }
+
+  .question summary:hover .question__plus {
+    background: var(--color-signal);
+  }
+
+  .question__reponse {
+    max-width: 60ch;
+    padding: 0 60px 26px 40px;
+    color: var(--color-text);
+  }
+
+  /* Ouverture en douceur, là où le navigateur sait le faire. */
+  @supports (interpolate-size: allow-keywords) {
+    .question {
+      interpolate-size: allow-keywords;
+    }
+
+    .question::details-content {
+      height: 0;
+      overflow: clip;
+      transition:
+        height 500ms var(--ease-out),
+        content-visibility 500ms allow-discrete;
+    }
+
+    .question[open]::details-content {
+      height: auto;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .faq {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: 80px;
+    }
+
+    .faq__entete {
+      position: sticky;
+      top: calc(var(--header-h) + 40px);
+      align-self: start;
+    }
+
+    .question summary {
+      gap: 24px;
+      min-height: 88px;
+    }
+
+    .question__reponse {
+      padding-left: 48px;
+    }
+  }
+</style>

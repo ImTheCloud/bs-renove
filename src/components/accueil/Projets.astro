@@ -1,0 +1,381 @@
+---
+/**
+ * Les réalisations en bande horizontale.
+ * - Ordinateur : la section reste épinglée et les cartes défilent de côté
+ *   pendant qu'on descend.
+ * - Téléphone : on fait glisser la bande au doigt.
+ */
+import { Image } from 'astro:assets';
+import Icon from '../Icon.astro';
+import { listerProjets, nomService } from '~/data/projets';
+import { chemin, t, type Langue } from '~/i18n';
+
+interface Props {
+  langue: Langue;
+}
+
+const { langue } = Astro.props;
+const textes = t(langue);
+const bloc = textes.accueil.projets;
+
+// Sur l'accueil, seulement les projets dont la commune est confirmée.
+const projets = (await listerProjets()).filter((projet) => !projet.data.commune[langue].startsWith('['));
+---
+
+{
+  projets.length > 0 && (
+    <section class="projets" data-projets aria-labelledby="projets-titre">
+      <div class="projets__colle">
+        <div class="wrap projets__entete">
+          <div>
+            <p class="etiquette-section">{bloc.surtitre}</p>
+            <h2 id="projets-titre" data-mots>
+              {bloc.titreDebut}{' '}<span class="serif">{bloc.titreSerif}</span>
+            </h2>
+          </div>
+          <div class="projets__compteur" aria-hidden="true">
+            <span class="manuscrit projets__glisser">{bloc.glisser}</span>
+            <span class="projets__barre"><span data-barre /></span>
+          </div>
+        </div>
+
+        <div class="projets__fenetre" data-fenetre>
+          <ul class="projets__piste" data-piste>
+            {projets.map((projet, i) => (
+              <li class="carte">
+                <a href={`${chemin('realisations', langue)}${projet.id}/`} class="carte__lien">
+                  <span class="carte__image">
+                    {projet.data.couverture && (
+                      <Image
+                        src={projet.data.couverture}
+                        alt={projet.data.couvertureAlt[langue]}
+                        widths={[400, 640, 880]}
+                        sizes="(min-width: 1024px) 30vw, 78vw"
+                        loading="lazy"
+                      />
+                    )}
+                  </span>
+                  <span class="carte__num">{String(i + 1).padStart(2, '0')}</span>
+                  <span class="carte__infos">
+                    <span class="carte__service">{nomService(projet.data.service, langue)}</span>
+                    <span class="carte__commune">{projet.data.commune[langue]}</span>
+                  </span>
+                  <span class="carte__fleche" aria-hidden="true">
+                    <Icon nom="fleche-diag" taille={20} epaisseur={2} />
+                  </span>
+                </a>
+              </li>
+            ))}
+            <li class="carte carte--fin">
+              <a href={chemin('realisations', langue)} class="carte__lien carte__lien--fin">
+                <span class="carte__fin-texte">{bloc.voirTout}</span>
+                <span class="carte__fin-rond" aria-hidden="true">
+                  <Icon nom="fleche" taille={30} epaisseur={2} />
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<script>
+  import { mouvementReduit, surDefilement } from '~/scripts/site';
+
+  const section = document.querySelector<HTMLElement>('[data-projets]');
+  const piste = section?.querySelector<HTMLElement>('[data-piste]');
+  const fenetre = section?.querySelector<HTMLElement>('[data-fenetre]');
+  const barre = section?.querySelector<HTMLElement>('[data-barre]');
+  const grandEcran = window.matchMedia('(min-width: 1024px)');
+
+  if (section && piste && fenetre) {
+    let distance = 0;
+
+    const mesurer = () => {
+      const epingle = grandEcran.matches && !mouvementReduit;
+      section.classList.toggle('projets--epingle', epingle);
+      if (!epingle) {
+        section.style.height = '';
+        piste.style.transform = '';
+        return;
+      }
+      distance = Math.max(0, piste.scrollWidth - fenetre.clientWidth);
+      section.style.height = `${window.innerHeight + distance}px`;
+    };
+
+    mesurer();
+    window.addEventListener('resize', mesurer);
+    window.addEventListener('load', mesurer);
+
+    surDefilement(section, (progression) => {
+      if (section.classList.contains('projets--epingle')) {
+        piste.style.transform = `translate3d(${-progression * distance}px, 0, 0)`;
+        barre?.style.setProperty('--t', String(progression));
+      }
+    });
+
+    // Sur mobile, la barre suit le glissement au doigt.
+    fenetre.addEventListener('scroll', () => {
+      const max = fenetre.scrollWidth - fenetre.clientWidth;
+      barre?.style.setProperty('--t', String(max > 0 ? fenetre.scrollLeft / max : 0));
+    }, { passive: true });
+  }
+</script>
+
+<style>
+  .projets {
+    position: relative;
+    margin-top: calc(var(--radius-large) * -1);
+    padding-top: calc(var(--section-gap) * 0.7);
+    background: var(--color-bg);
+    border-radius: var(--radius-large) var(--radius-large) 0 0;
+  }
+
+  .projets__colle {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+
+  .projets__entete {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .projets__entete h2 {
+    margin-top: 18px;
+  }
+
+  .projets__entete h2 .serif {
+    color: var(--color-accent);
+  }
+
+  .projets__compteur {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+  }
+
+  .projets__glisser {
+    font-size: 24px;
+    color: var(--color-accent);
+    transform: rotate(-3deg);
+  }
+
+  .projets__barre {
+    position: relative;
+    width: 160px;
+    height: 3px;
+    background: var(--color-border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .projets__barre span {
+    position: absolute;
+    inset: 0;
+    background: var(--color-ink);
+    transform-origin: left;
+    transform: scaleX(max(0.12, var(--t, 0)));
+    transition: transform 120ms linear;
+  }
+
+  /* --- La bande --- */
+  .projets__fenetre {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding-bottom: 8px;
+  }
+
+  .projets__fenetre::-webkit-scrollbar {
+    display: none;
+  }
+
+  .projets__piste {
+    display: flex;
+    gap: 14px;
+    width: max-content;
+    margin: 0;
+    padding: 0 var(--gutter);
+    list-style: none;
+  }
+
+  .carte {
+    width: min(78vw, 340px);
+    scroll-snap-align: center;
+  }
+
+  .carte__lien {
+    position: relative;
+    display: block;
+    aspect-ratio: 3 / 4;
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    color: #fff;
+    text-decoration: none;
+    background: var(--color-surface);
+    isolation: isolate;
+  }
+
+  .carte__image :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1200ms var(--ease-out);
+  }
+
+  .carte__lien:hover .carte__image :global(img) {
+    transform: scale(1.06);
+  }
+
+  .carte__lien::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(18, 20, 24, 0.35) 0%, transparent 28%, transparent 50%, rgba(18, 20, 24, 0.82) 100%);
+    z-index: 1;
+  }
+
+  .carte__num {
+    position: absolute;
+    top: 18px;
+    left: 20px;
+    z-index: 2;
+    font-family: var(--font-title);
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .carte__infos {
+    position: absolute;
+    left: 20px;
+    right: 80px;
+    bottom: 22px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .carte__service {
+    align-self: flex-start;
+    padding: 5px 12px;
+    border-radius: var(--radius-pill);
+    background: var(--color-signal);
+    color: var(--color-ink);
+    font-size: 12px;
+    font-weight: 750;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .carte__commune {
+    font-family: var(--font-title);
+    font-size: clamp(26px, 2.4vw, 36px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+  }
+
+  .carte__fleche {
+    position: absolute;
+    right: 18px;
+    bottom: 22px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(245, 242, 236, 0.95);
+    color: var(--color-ink);
+    transition: transform 500ms var(--ease-out);
+  }
+
+  .carte__lien:hover .carte__fleche {
+    transform: rotate(45deg);
+  }
+
+  /* La dernière carte : « toutes les réalisations ». */
+  .carte__lien--fin {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 28px;
+    background: var(--color-signal);
+    color: var(--color-ink);
+  }
+
+  .carte__lien--fin::after {
+    display: none;
+  }
+
+  .carte__fin-texte {
+    font-family: var(--font-title);
+    font-size: clamp(32px, 3vw, 44px);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  .carte__fin-rond {
+    align-self: flex-end;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background: var(--color-ink);
+    color: var(--color-signal);
+    transition: transform 500ms var(--ease-out);
+  }
+
+  .carte__lien--fin:hover .carte__fin-rond {
+    transform: translateX(8px);
+  }
+
+  /* --- Version épinglée (grand écran) --- */
+  .projets--epingle {
+    padding-top: 0;
+  }
+
+  .projets--epingle .projets__colle {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    justify-content: center;
+    padding-top: var(--header-h);
+    overflow: hidden;
+  }
+
+  .projets--epingle .projets__fenetre {
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .projets--epingle .projets__piste {
+    padding-inline: max(var(--gutter), calc((100vw - var(--content-max)) / 2));
+    will-change: transform;
+  }
+
+  .projets--epingle .carte {
+    width: min(30vw, 58svh * 0.75);
+  }
+
+  @media (min-width: 1024px) {
+    .projets__piste {
+      gap: 24px;
+    }
+  }
+</style>
