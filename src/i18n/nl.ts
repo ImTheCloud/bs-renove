@@ -132,15 +132,14 @@ export const nl: Traductions = {
     chiffres: {
       surtitre: 'In een paar cijfers',
       /*
-       * ⚠ PROVISOIRE : les trois derniers chiffres sont INVENTÉS, en attendant
-       * les vrais de Sergiu (docs/contenu-manquant.md § 19). À remplacer avant
-       * toute mise en ligne.
+       * ⚠ « 30+ werven » : waarde van Claudiu, door Sergiu te bevestigen vóór
+       * de publicatie (docs/contenu-manquant.md § 19).
        */
       items: [
-        { valeur: 12, prefixe: '', suffixe: '', texte: 'jaar ervaring in de bouw' },
-        { valeur: 150, prefixe: '', suffixe: '+', texte: 'afgewerkte werven' },
-        { valeur: 80, prefixe: '', suffixe: '+', texte: 'vernieuwde badkamers' },
-        { valeur: 6000, prefixe: '', suffixe: ' m²', texte: 'geplaatste tegels' },
+        { valeur: 12, prefixe: '', suffixe: '', mot: '', texte: 'jaar ervaring in de bouw' },
+        { valeur: 30, prefixe: '', suffixe: '+', mot: '', texte: 'afgewerkte werven' },
+        { valeur: 8, prefixe: '', suffixe: '', mot: '', texte: 'vakgebieden: tegelwerk, dakwerken, schilderwerk, elektriciteit…' },
+        { valeur: 0, prefixe: '', suffixe: '', mot: 'Gratis', texte: 'de offerte' },
       ],
     },
 

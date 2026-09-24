@@ -934,20 +934,19 @@ Les 3 paires masquées montrent un « après » encore en chantier. Elles porten
 
 ---
 
-## 19. ⚠ BLOQUANT : chiffres de l'accueil provisoires (25 septembre 2026)
+## 19. ⚠ BLOQUANT : un chiffre de l'accueil à confirmer (25 septembre 2026)
 
-Claudiu a demandé des chiffres plus parlants et m'a demandé d'en **mettre de provisoires**,
-qu'il fera confirmer ou corriger par Sergiu. **Ils sont inventés : à remplacer avant toute
-mise en ligne.** Ils sont dans `src/i18n/fr.ts` et `nl.ts` (`accueil.chiffres`), avec un
-commentaire d'avertissement.
+Les chiffres de l'accueil, choisis par Claudiu (`accueil.chiffres` dans `src/i18n/fr.ts` et `nl.ts`) :
 
 | Affiché | Statut | Question à poser à Sergiu |
 |---|---|---|
 | 12 ans de métier | ✅ confirmé (22 septembre) | — |
-| 150+ chantiers terminés | ❌ inventé | Combien de chantiers avez-vous terminés, à peu près ? |
-| 80+ salles de bain refaites | ❌ inventé | Combien de salles de bain avez-vous refaites ? |
-| 6 000 m² de carrelage posés | ❌ inventé | Combien de m² de carrelage posez-vous, à peu près (par an ou au total) ? |
+| 30+ chantiers terminés | ⚠ valeur donnée par Claudiu | Combien de chantiers avez-vous terminés, à peu près ? |
+| 8 métiers (carrelage, toiture, peinture, électricité…) | ✅ ce sont les 8 services du site | rappel § 9 : électricité et peinture hors activités enregistrées |
+| Gratuit : le devis | ✅ confirmé (22 septembre) | — |
 
-Si Sergiu ne peut pas donner un chiffre, mieux vaut retirer la case que garder un chiffre faux.
-Anciennes cases retirées à la demande de Claudiu : « ±12 personnes », « 2 langues » (évident),
-« Gratuit » (déjà dit dans le haut de l'accueil).
+**À confirmer avant la mise en ligne : « 30+ chantiers ».** Si le vrai chiffre est différent,
+il se change à un seul endroit par langue.
+
+Historique : « ±12 personnes », « 2 langues », « 0 € », puis des chiffres provisoires
+(150+ chantiers, 80+ salles de bain, 6 000 m² de carrelage) ont été essayés et retirés.

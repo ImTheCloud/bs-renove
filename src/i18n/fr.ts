@@ -128,15 +128,14 @@ export const fr = {
     chiffres: {
       surtitre: 'En quelques chiffres',
       /*
-       * ⚠ PROVISOIRE : les trois derniers chiffres sont INVENTÉS, en attendant
-       * les vrais de Sergiu (docs/contenu-manquant.md § 19). À remplacer avant
-       * toute mise en ligne.
+       * ⚠ « 30+ chantiers » : valeur donnée par Claudiu, à faire confirmer par
+       * Sergiu avant la mise en ligne (docs/contenu-manquant.md § 19).
        */
       items: [
-        { valeur: 12, prefixe: '', suffixe: '', texte: 'ans de métier dans la construction' },
-        { valeur: 150, prefixe: '', suffixe: '+', texte: 'chantiers terminés' },
-        { valeur: 80, prefixe: '', suffixe: '+', texte: 'salles de bain refaites' },
-        { valeur: 6000, prefixe: '', suffixe: ' m²', texte: 'de carrelage posés' },
+        { valeur: 12, prefixe: '', suffixe: '', mot: '', texte: 'ans de métier dans la construction' },
+        { valeur: 30, prefixe: '', suffixe: '+', mot: '', texte: 'chantiers terminés' },
+        { valeur: 8, prefixe: '', suffixe: '', mot: '', texte: 'métiers : carrelage, toiture, peinture, électricité…' },
+        { valeur: 0, prefixe: '', suffixe: '', mot: 'Gratuit', texte: 'le devis' },
       ],
     },
 
