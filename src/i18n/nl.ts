@@ -94,6 +94,7 @@ export const nl: Traductions = {
         'salles-de-bain': 'de badkamer',
         cuisines: 'de keuken',
         carrelage: 'het tegelwerk',
+        escaliers: 'de trap',
         electricite: 'de elektriciteit',
         'peinture-finitions': 'het schilderwerk',
         'maconnerie-facades': 'muren & gevels',
@@ -138,7 +139,7 @@ export const nl: Traductions = {
       items: [
         { valeur: 12, prefixe: '', suffixe: '', mot: '', texte: 'jaar ervaring in de bouw' },
         { valeur: 30, prefixe: '', suffixe: '+', mot: '', texte: 'afgewerkte werven' },
-        { valeur: 8, prefixe: '', suffixe: '', mot: '', texte: 'vakgebieden: tegelwerk, dakwerken, schilderwerk, elektriciteit…' },
+        { valeur: 9, prefixe: '', suffixe: '', mot: '', texte: 'vakgebieden: tegelwerk, trappen, dakwerken, schilderwerk…' },
         { valeur: 0, prefixe: '', suffixe: '', mot: 'Gratis', texte: 'de offerte' },
       ],
     },

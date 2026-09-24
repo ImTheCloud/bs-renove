@@ -86,6 +86,22 @@ export const services: Service[] = [
     },
   },
   {
+    slug: 'escaliers',
+    nom: { fr: 'Escaliers', nl: 'Trappen' },
+    phrase: {
+      fr: 'Rénovation et habillage d’escaliers',
+      nl: 'Renovatie en bekleding van trappen',
+    },
+    texte: {
+      fr: "Un escalier, on le voit dès qu'on entre. Nous rénovons et habillons les escaliers, à l'intérieur de la maison comme vers le garage ou la cave, avec des finitions assorties au reste du logement",
+      nl: 'Een trap ziet u meteen wanneer u binnenkomt. Wij renoveren en bekleden trappen, in de woning maar ook naar de garage of de kelder, met een afwerking die past bij de rest van de woning',
+    },
+    exemples: {
+      fr: ['Habillage des marches', "Rénovation d'un escalier existant", 'Escalier de garage ou de cave', 'Finitions et peinture'],
+      nl: ['Bekleding van de treden', 'Renovatie van een bestaande trap', 'Trap naar garage of kelder', 'Afwerking en schilderwerk'],
+    },
+  },
+  {
     slug: 'toiture',
     nom: { fr: 'Toiture', nl: 'Dakwerken' },
     phrase: {
@@ -157,6 +173,7 @@ export const iconesServices = {
   'salles-de-bain': 'bain',
   cuisines: 'cuisine',
   carrelage: 'carrelage',
+  escaliers: 'escalier',
   toiture: 'toit',
   'maconnerie-facades': 'brique',
   electricite: 'eclair',

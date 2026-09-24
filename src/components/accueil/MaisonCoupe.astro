@@ -29,6 +29,7 @@ const visite = [
   'peinture-finitions',
   'cuisines',
   'carrelage',
+  'escaliers',
   'maconnerie-facades',
   'renovation-complete',
 ];
@@ -200,6 +201,13 @@ const visite = [
         <circle class="point" cx="250" cy="537" r="11" />
         <text x="40" y="610" class="note">{pieces.cuisines}</text>
         <path class="fleche" d="M150 590c30-8 60-24 86-44" pathLength="1" />
+      </a>
+
+      <a href={lien('escaliers')} class="piece" data-piece="escaliers" aria-label={pieces.escaliers}>
+        <path class="zone" d="M548 548V534.25H532V520.5H516V506.75H500V493H484V479.25H468V465.5H452V451.75H436V438Z" />
+        <circle class="point" cx="494" cy="494" r="11" />
+        <text x="592" y="512" class="note">{pieces.escaliers}</text>
+        <path class="fleche" d="M596 520c-26 6-60 -2-86-18" pathLength="1" />
       </a>
 
       <a href={lien('carrelage')} class="piece" data-piece="carrelage" aria-label={pieces.carrelage}>

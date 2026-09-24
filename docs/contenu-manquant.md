@@ -942,7 +942,7 @@ Les chiffres de l'accueil, choisis par Claudiu (`accueil.chiffres` dans `src/i18
 |---|---|---|
 | 12 ans de métier | ✅ confirmé (22 septembre) | — |
 | 30+ chantiers terminés | ⚠ valeur donnée par Claudiu | Combien de chantiers avez-vous terminés, à peu près ? |
-| 8 métiers (carrelage, toiture, peinture, électricité…) | ✅ ce sont les 8 services du site | rappel § 9 : électricité et peinture hors activités enregistrées |
+| 9 métiers (carrelage, escaliers, toiture, peinture…) | ✅ ce sont les 9 services du site | rappel § 9 : électricité et peinture hors activités enregistrées |
 | Gratuit : le devis | ✅ confirmé (22 septembre) | — |
 
 **À confirmer avant la mise en ligne : « 30+ chantiers ».** Si le vrai chiffre est différent,
@@ -950,3 +950,20 @@ il se change à un seul endroit par langue.
 
 Historique : « ±12 personnes », « 2 langues », « 0 € », puis des chiffres provisoires
 (150+ chantiers, 80+ salles de bain, 6 000 m² de carrelage) ont été essayés et retirés.
+
+---
+
+## 20. Nouveau métier : Escaliers (25 septembre 2026)
+
+Ajouté à la demande de Claudiu : l'avant/après de l'escalier du garage (Woluwe-Saint-Pierre)
+illustrait jusqu'ici le Carrelage, alors que c'est surtout un travail d'escalier. Le chantier
+de Woluwe comprenait bien « deux escaliers (intérieur et garage) ».
+
+- Nouveau service `escaliers` (`src/data/services.ts`), avec son icône, sa pièce dans la
+  maison dessinée, sa tuile dans le formulaire, sa pastille dans le haut de l'accueil.
+- Les avant/après de type « escalier » s'affichent désormais sous Escaliers ; Carrelage garde
+  la terrasse.
+- Le chiffre « métiers » passe de 8 à 9.
+
+**À faire valider par Sergiu** (FR et NL) : la phrase courte, le texte et les 4 exemples de
+travaux du service Escaliers. Ils décrivent le métier sans promesse, mais c'est du nouveau texte.
