@@ -200,10 +200,6 @@ export const nl: Traductions = {
           r: 'Nee. BS Renove is een algemene aannemer: wij coördineren alle vakmensen, intern of met onze zelfstandigen.',
         },
         {
-          q: 'Spreekt u Nederlands?',
-          r: 'Ja. U kunt ons aanspreken in het Nederlands of in het Frans, via telefoon, WhatsApp of e-mail.',
-        },
-        {
           q: 'Hoe stuur ik foto’s van mijn werf?',
           r: 'Het eenvoudigst is via WhatsApp. Foto’s van de ruimte en een paar afmetingen helpen ons uw project te begrijpen, nog voor we elkaar zien.',
         },

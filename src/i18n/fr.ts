@@ -196,10 +196,6 @@ export const fr = {
           r: 'Non. BS Renove est une entreprise générale : nous coordonnons tous les corps de métier, en interne ou avec nos indépendants.',
         },
         {
-          q: 'Parlez-vous néerlandais ?',
-          r: 'Oui. Vous pouvez nous parler en français ou en néerlandais, par téléphone, par WhatsApp ou par email.',
-        },
-        {
           q: 'Comment vous envoyer des photos de mon chantier ?',
           r: 'Le plus simple est WhatsApp. Des photos de la pièce et quelques mesures nous aident à comprendre votre projet avant même de nous voir.',
         },

@@ -57,7 +57,7 @@ Plus une page 404 dans les deux langues.
 5. **Nos métiers** : grande liste des 8 services.
 6. **Chapitre sombre** : chiffres confirmés, puis « Comment ça se passe » en 4 étapes.
 7. **Réalisations** : bande de cartes avant/après qui basculent de l'avant à l'après.
-8. **FAQ** (5 questions, réponses tirées de faits confirmés).
+8. **FAQ** (4 questions, réponses tirées de faits confirmés).
 9. **Devis** : titre, contacts directs, formulaire en 3 étapes.
 10. **Pied de page** : infos légales, liens, grande signature « BS Renove ».
 
