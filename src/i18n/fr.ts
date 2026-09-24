@@ -46,7 +46,6 @@ export const fr = {
     rejoindre: 'Rejoindre l’équipe',
     droits: 'Tous droits réservés',
     projet: 'Un projet en tête ?',
-    parlons: 'Parlons-en.',
     zone: 'de Denderleeuw à toute la Belgique',
     entreprise: 'L’entreprise',
   },
@@ -128,11 +127,16 @@ export const fr = {
 
     chiffres: {
       surtitre: 'En quelques chiffres',
+      /*
+       * ⚠ PROVISOIRE : les trois derniers chiffres sont INVENTÉS, en attendant
+       * les vrais de Sergiu (docs/contenu-manquant.md § 19). À remplacer avant
+       * toute mise en ligne.
+       */
       items: [
         { valeur: 12, prefixe: '', suffixe: '', texte: 'ans de métier dans la construction' },
-        { valeur: 12, prefixe: '±', suffixe: '', texte: 'personnes sur nos chantiers, avec nos indépendants' },
-        { valeur: 2, prefixe: '', suffixe: '', texte: 'langues : on vous répond en français ou en néerlandais' },
-        { valeur: 0, prefixe: '', suffixe: '', mot: 'Gratuit', texte: 'votre devis, détaillé' },
+        { valeur: 150, prefixe: '', suffixe: '+', texte: 'chantiers terminés' },
+        { valeur: 80, prefixe: '', suffixe: '+', texte: 'salles de bain refaites' },
+        { valeur: 6000, prefixe: '', suffixe: ' m²', texte: 'de carrelage posés' },
       ],
     },
 

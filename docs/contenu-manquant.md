@@ -879,8 +879,6 @@ BS Renove tromperait les clients. À la place :
 |---|---|---|
 | « On regarde ensemble… **sur place si c'est nécessaire** » | accueil et À propos, étape 2 de « Comment ça se passe » | suppose que Sergiu se déplace avant le devis |
 | « Vous recevez un devis clair, **sans engagement** » | étape 3 | formulation commerciale, à confirmer |
-| « ±12 personnes sur nos chantiers, avec nos indépendants » | chiffres de l'accueil | reprend « une douzaine de personnes » (22 septembre) |
-| « Gratuit : votre devis, détaillé » | chiffres de l'accueil | reprend « devis gratuit : oui » (22 septembre) ; remplace « 0 € », qui faisait penser à un chiffre d'affaires |
 | Les 5 questions et réponses de la FAQ | accueil | toutes tirées de faits déjà confirmés, mais c'est un nouveau texte |
 | « en plein chantier… et presque terminée ! » | annotation de l'avant/après | corrigé par Claudiu le 25 septembre : la photo « avant » est prise pendant les travaux, la photo « après » juste avant la fin |
 | Maçonnerie & façades, Peinture et finitions | accueil et page Services | de nouveau visibles (panneau illustré au lieu d'une photo) ; rappel § 9 : électricité et peinture ne figurent pas dans les activités enregistrées |
@@ -933,3 +931,23 @@ Les 3 paires masquées montrent un « après » encore en chantier. Elles porten
   nulle part. Un avant/après de la cuisine d'Ixelles serait bienvenu.
 - Métiers sans avant/après : Électricité, Peinture et finitions, Maçonnerie & façades
   (panneau illustré à la place). Une paire pour l'un d'eux apparaîtrait automatiquement.
+
+---
+
+## 19. ⚠ BLOQUANT : chiffres de l'accueil provisoires (25 septembre 2026)
+
+Claudiu a demandé des chiffres plus parlants et m'a demandé d'en **mettre de provisoires**,
+qu'il fera confirmer ou corriger par Sergiu. **Ils sont inventés : à remplacer avant toute
+mise en ligne.** Ils sont dans `src/i18n/fr.ts` et `nl.ts` (`accueil.chiffres`), avec un
+commentaire d'avertissement.
+
+| Affiché | Statut | Question à poser à Sergiu |
+|---|---|---|
+| 12 ans de métier | ✅ confirmé (22 septembre) | — |
+| 150+ chantiers terminés | ❌ inventé | Combien de chantiers avez-vous terminés, à peu près ? |
+| 80+ salles de bain refaites | ❌ inventé | Combien de salles de bain avez-vous refaites ? |
+| 6 000 m² de carrelage posés | ❌ inventé | Combien de m² de carrelage posez-vous, à peu près (par an ou au total) ? |
+
+Si Sergiu ne peut pas donner un chiffre, mieux vaut retirer la case que garder un chiffre faux.
+Anciennes cases retirées à la demande de Claudiu : « ±12 personnes », « 2 langues » (évident),
+« Gratuit » (déjà dit dans le haut de l'accueil).

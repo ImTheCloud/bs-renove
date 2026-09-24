@@ -52,7 +52,6 @@ export const nl: Traductions = {
     rejoindre: 'Word lid van ons team',
     droits: 'Alle rechten voorbehouden',
     projet: 'Een project in gedachten?',
-    parlons: 'Laten we praten.',
     zone: 'van Denderleeuw tot heel België',
     entreprise: 'De onderneming',
   },
@@ -132,11 +131,16 @@ export const nl: Traductions = {
 
     chiffres: {
       surtitre: 'In een paar cijfers',
+      /*
+       * ⚠ PROVISOIRE : les trois derniers chiffres sont INVENTÉS, en attendant
+       * les vrais de Sergiu (docs/contenu-manquant.md § 19). À remplacer avant
+       * toute mise en ligne.
+       */
       items: [
         { valeur: 12, prefixe: '', suffixe: '', texte: 'jaar ervaring in de bouw' },
-        { valeur: 12, prefixe: '±', suffixe: '', texte: 'mensen op onze werven, met onze zelfstandigen' },
-        { valeur: 2, prefixe: '', suffixe: '', texte: 'talen: wij antwoorden in het Nederlands of in het Frans' },
-        { valeur: 0, prefixe: '', suffixe: '', mot: 'Gratis', texte: 'uw offerte, gedetailleerd' },
+        { valeur: 150, prefixe: '', suffixe: '+', texte: 'afgewerkte werven' },
+        { valeur: 80, prefixe: '', suffixe: '+', texte: 'vernieuwde badkamers' },
+        { valeur: 6000, prefixe: '', suffixe: ' m²', texte: 'geplaatste tegels' },
       ],
     },
 

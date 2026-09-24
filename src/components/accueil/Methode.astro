@@ -15,6 +15,8 @@ const textes = t(langue);
 const chiffres = textes.accueil.chiffres;
 const methode = textes.accueil.methode;
 const iconesEtapes: NomIcone[] = ['discussion', 'casque', 'devis', 'check'];
+/** 6000 → « 6 000 », à la belge. */
+const nombre = (valeur: number) => valeur.toLocaleString(textes.htmlLang);
 ---
 
 <section class="chapitre" aria-labelledby="methode-titre">
@@ -24,17 +26,13 @@ const iconesEtapes: NomIcone[] = ['discussion', 'casque', 'devis', 'check'];
       {
         chiffres.items.map((item, i) => (
           <li class="chiffre" data-reveal style={`--delai: ${i * 90}ms`}>
-            {'mot' in item && item.mot ? (
-              <span class="chiffre__valeur chiffre__valeur--mot">{item.mot}</span>
-            ) : (
-              <span class="chiffre__valeur" aria-hidden="true">
-                {item.prefixe}
-                <span data-compteur={item.valeur}>{item.valeur}</span>
-                {item.suffixe}
-              </span>
-            )}
+            <span class="chiffre__valeur" aria-hidden="true">
+              {item.prefixe}
+              <span data-compteur={item.valeur}>{nombre(item.valeur)}</span>
+              {item.suffixe.trim() === '+' ? item.suffixe : <span class="chiffre__unite">{item.suffixe}</span>}
+            </span>
             <span class="chiffre__texte">
-              {!('mot' in item && item.mot) && <span class="sr-only">{item.prefixe}{item.valeur}{item.suffixe} </span>}
+              <span class="sr-only">{item.prefixe}{nombre(item.valeur)}{item.suffixe} </span>
               {item.texte}
             </span>
           </li>
@@ -89,7 +87,7 @@ const iconesEtapes: NomIcone[] = ['discussion', 'casque', 'devis', 'check'];
         const pas = (maintenant: number) => {
           const t = Math.min(1, (maintenant - debut) / duree);
           const adouci = 1 - Math.pow(1 - t, 4);
-          el.textContent = String(Math.round(cible * adouci));
+          el.textContent = Math.round(cible * adouci).toLocaleString(document.documentElement.lang);
           if (t < 1) requestAnimationFrame(pas);
         };
         el.textContent = '0';
@@ -154,7 +152,7 @@ const iconesEtapes: NomIcone[] = ['discussion', 'casque', 'devis', 'check'];
 
   .chiffre__valeur {
     font-family: var(--font-title);
-    font-size: clamp(56px, 8vw, 128px);
+    font-size: clamp(52px, 6.8vw, 116px);
     font-weight: 700;
     line-height: 0.9;
     letter-spacing: -0.06em;
@@ -162,15 +160,18 @@ const iconesEtapes: NomIcone[] = ['discussion', 'casque', 'devis', 'check'];
     font-variant-numeric: tabular-nums;
   }
 
-  .chiffre__valeur--mot {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-weight: 400;
-    letter-spacing: -0.03em;
-  }
-
   .chiffre:nth-child(odd) .chiffre__valeur {
     color: var(--color-signal);
+  }
+
+  /* Une unité (« m² ») plus petite que le nombre, pour tenir sur une ligne. */
+  .chiffre__unite {
+    font-size: 0.42em;
+    letter-spacing: -0.02em;
+  }
+
+  .chiffre__valeur {
+    white-space: nowrap;
   }
 
   .chiffre__texte {
