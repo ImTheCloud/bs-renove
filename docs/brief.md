@@ -55,11 +55,11 @@ Plus une page 404 dans les deux langues.
 3. **Bandeau** qui défile (les métiers, façon rubalise de chantier).
 4. **Avant/après en vitrine**, piloté par le défilement (salle de bain de Watermael-Boitsfort).
 5. **Nos métiers** : grande liste des 8 services.
-6. **Chapitre sombre** : chiffres confirmés, puis « Comment ça se passe » en 4 étapes.
+6. **Chapitre sombre** : 4 chiffres (12 ans · 30+ chantiers, à confirmer · 8 métiers · devis gratuit), puis « Comment ça se passe » en 4 étapes.
 7. **Réalisations** : bande de cartes avant/après qui basculent de l'avant à l'après.
 8. **FAQ** (4 questions, réponses tirées de faits confirmés).
 9. **Devis** : titre, contacts directs, formulaire en 3 étapes.
-10. **Pied de page** : infos légales, liens, grande signature « BS Renove ».
+10. **Pied de page** (fond clair) : bande jaune « rubalise » qui défile, appel au devis et WhatsApp, colonnes d’infos, logo et mentions légales.
 
 ## 6. Services
  
@@ -97,7 +97,7 @@ commune, même quand plusieurs viennent du même chantier.
 ## 8. Curseur avant/après
  
 - Deux photos superposées ; la photo « après » se dévoile selon la position de la poignée.
-- Poignée ronde blanche avec deux flèches, trait vertical blanc.
+- Poignée ronde jaune avec deux flèches, trait vertical blanc.
 - Fonctionne à la souris, au doigt et au clavier (flèches gauche/droite). Basé sur un `<input type="range">` avec le libellé « Comparer avant et après ».
 - Étiquettes « Avant » / « Après » (NL : « Voor » / « Na »).
 - Position de départ : 50 %.
