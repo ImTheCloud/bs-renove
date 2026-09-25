@@ -6,7 +6,7 @@ Liste à jour après la refonte et le nettoyage du 25 septembre 2026. L'historiq
 
 | Quoi | Où | Action |
 |---|---|---|
-| **Adresse définitive du site** (domaine acheté chez Wix) | `SITE` dans `astro.config.mjs`, ligne `Sitemap:` de `public/robots.txt` | provisoire : `bs-renove.pages.dev` |
+| **Domaine** `bsrenovesrl.com` (acheté chez Wix, avec un forfait Premium Essentiel) | à brancher sur l'hébergeur ; couper le renouvellement du forfait Wix | `SITE` dans `astro.config.mjs` et `robots.txt` déjà à jour |
 | **Clé Web3Forms** | `.env` (`WEB3FORMS_KEY=…`) et chez l'hébergeur | à recréer ; sans clé, le formulaire ouvre un email pré-rempli |
 | **« 30+ chantiers terminés »** | chiffres de l'accueil (`accueil.chiffres` dans `src/i18n/fr.ts` et `nl.ts`) | valeur donnée par Claudiu, à confirmer par Sergiu |
 | **Relecture des textes juridiques** | pages Mentions légales et Vie privée (`[À RELIRE]`) | par Sergiu ou son comptable ; RPM/RPR (« RPM Gand, division Dendermonde » ?) et nom de l'hébergeur à ajouter |

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://bs-renove.pages.dev/sitemap-index.xml
+Sitemap: https://bsrenovesrl.com/sitemap-index.xml

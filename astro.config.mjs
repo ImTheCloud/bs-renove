@@ -3,9 +3,8 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import { LANGUES, memePageDansLaLangue } from './src/i18n/index.ts';
 
-// L'adresse définitive n'est pas connue (domaine acheté chez Wix, à brancher plus tard).
-// Valeur provisoire : voir docs/contenu-manquant.md.
-const SITE = 'https://bs-renove.pages.dev';
+// Le domaine de l'entreprise (acheté chez Wix).
+const SITE = 'https://bsrenovesrl.com';
 
 export default defineConfig({
   site: SITE,
