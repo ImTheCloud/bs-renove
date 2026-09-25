@@ -121,6 +121,7 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
       if (libelle) libelle.textContent = (ouvert ? bouton.dataset.fermer : bouton.dataset.ouvrir) ?? '';
       if (texteVisible) texteVisible.textContent = (ouvert ? texteVisible.dataset.texteFermer : texteVisible.dataset.texteMenu) ?? '';
       panneau.hidden = !ouvert;
+      if (ouvert) entete?.classList.remove('entete--cache');
       document.body.classList.toggle('menu-ouvert', ouvert);
       bloquerDefilement(ouvert);
       // Deux images d'attente : le panneau doit d'abord exister fermé pour que l'ouverture s'anime.
@@ -147,8 +148,15 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
 </script>
 
 <style is:global>
+  /* Menu ouvert : la page dessous ne bouge plus (iPhone compris), l'en-tête reste affiché. */
+  html:has(body.menu-ouvert),
   body.menu-ouvert {
     overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  body.menu-ouvert .entete {
+    transform: none;
   }
 </style>
 
@@ -267,7 +275,8 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
     flex-direction: column;
     justify-content: space-between;
     gap: 40px;
-    padding: calc(var(--header-h) + 40px) var(--gutter) calc(28px + env(safe-area-inset-bottom, 0px));
+    padding: calc(var(--header-h) + 36px) var(--gutter) calc(28px + env(safe-area-inset-bottom, 0px));
+    overscroll-behavior: contain;
     background: var(--color-bg);
     color: var(--color-ink);
     overflow-y: auto;

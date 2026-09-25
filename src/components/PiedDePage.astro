@@ -22,6 +22,9 @@ const pied = textes.piedDePage;
 const liens = liensNavigation(langue);
 const annee = 2026;
 const rubalise = [textes.actions.gratuit, 'BS Renove', textes.entete.tagline, pied.zone];
+
+/** Le concepteur du site (crédit en bas de page). */
+const CONCEPTEUR = { nom: 'Claudiu Popadiuc', email: 'claudiu.dev@outlook.com' };
 ---
 
 <footer class="pied">
@@ -90,6 +93,13 @@ const rubalise = [textes.actions.gratuit, 'BS Renove', textes.entete.tagline, pi
       <a href={chemin('mentionsLegales', langue)}>{pied.mentionsLegales}</a>
       <a href={chemin('viePrivee', langue)}>{pied.viePrivee}</a>
     </nav>
+    <!-- Le concepteur du site : discret, mais là pour un visiteur curieux. -->
+    <p class="pied__credit">
+      {pied.credit} <a href={`mailto:${CONCEPTEUR.email}?subject=${encodeURIComponent(pied.creditSujet)}`}>{CONCEPTEUR.nom}</a>{' '}
+      <span class="pied__credit-question">
+        · {pied.creditQuestion} <a href={`mailto:${CONCEPTEUR.email}?subject=${encodeURIComponent(pied.creditSujet)}`}>{CONCEPTEUR.email}</a>
+      </span>
+    </p>
   </div>
 </footer>
 
@@ -255,6 +265,30 @@ const rubalise = [textes.actions.gratuit, 'BS Renove', textes.entete.tagline, pi
 
   .pied__legal a:hover {
     color: var(--color-ink);
+  }
+
+  .pied__credit {
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .pied__credit a {
+    color: var(--color-muted);
+    text-decoration: underline;
+    text-decoration-color: var(--color-border);
+    text-underline-offset: 3px;
+    transition: color var(--speed) var(--ease), text-decoration-color var(--speed) var(--ease);
+  }
+
+  .pied__credit a:hover {
+    color: var(--color-ink);
+    text-decoration-color: var(--color-signal);
+  }
+
+  @media (min-width: 900px) {
+    .pied__credit {
+      margin-left: auto;
+    }
   }
 
   @media (max-width: 899px) {

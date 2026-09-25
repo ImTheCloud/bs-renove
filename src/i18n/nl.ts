@@ -54,6 +54,9 @@ export const nl: Traductions = {
     projet: 'Een project in gedachten?',
     zone: 'van Denderleeuw tot heel België',
     entreprise: 'De onderneming',
+    credit: 'Website ontworpen door',
+    creditQuestion: 'Een website zoals deze?',
+    creditSujet: 'Een website zoals die van BS Renove',
   },
 
   accessibilite: {

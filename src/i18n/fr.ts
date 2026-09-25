@@ -50,6 +50,9 @@ export const fr = {
     projet: 'Un projet en tête ?',
     zone: 'de Denderleeuw à toute la Belgique',
     entreprise: 'L’entreprise',
+    credit: 'Site conçu par',
+    creditQuestion: 'Un site comme celui-ci ?',
+    creditSujet: 'Un site comme celui de BS Renove',
   },
 
   accessibilite: {
