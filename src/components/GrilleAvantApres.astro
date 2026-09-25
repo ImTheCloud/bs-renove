@@ -12,21 +12,23 @@ import type { Langue } from '~/i18n';
 interface Props {
   langue: Langue;
   paires: Paire[];
+  /** La première paire est en haut de page : chargée en priorité. */
+  premierePrioritaire?: boolean;
 }
 
-const { langue, paires } = Astro.props;
+const { langue, paires, premierePrioritaire = false } = Astro.props;
 ---
 
 <div class="grille" data-galerie-paires>
   {
-    paires.map((paire) => (
+    paires.map((paire, i) => (
       <figure class:list={['paire', { 'paire--paysage': paire.paysage }]} data-categorie={paire.categorie}>
         <figcaption class="paire__legende">
           <span class="paire__categorie">{nomCategorie(paire.categorie, langue)}</span>
           <span class="paire__commune">{paire.commune[langue]}</span>
           <span class="paire__texte">{paire.legende[langue]}</span>
         </figcaption>
-        <CurseurAvantApres langue={langue} paire={paire} sizes="(min-width: 1100px) 30vw, (min-width: 700px) 46vw, 92vw" />
+        <CurseurAvantApres langue={langue} paire={paire} prioritaire={premierePrioritaire && i === 0} sizes="(min-width: 1100px) 30vw, (min-width: 700px) 46vw, 92vw" />
       </figure>
     ))
   }
