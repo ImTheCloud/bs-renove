@@ -26,7 +26,8 @@ export type NomIcone =
   | 'autre'
   | 'discussion'
   | 'devis'
-  | 'casque';
+  | 'casque'
+  | 'croix';
 
 interface Props {
   nom: NomIcone;
@@ -40,6 +41,7 @@ const { nom, taille = 20, epaisseur = 1.8, class: classe } = Astro.props;
 const chemins: Record<NomIcone, string> = {
   pin: '<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
   fleche: '<path d="M5 12h14"/><path d="M13 6l6 6-6 6"/>',
+  croix: '<path d="M6 6l12 12"/><path d="M18 6L6 18"/>',
   'fleche-diag': '<path d="M7 17L17 7"/><path d="M8 7h9v9"/>',
   'fleche-gauche': '<path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/>',
   telephone:

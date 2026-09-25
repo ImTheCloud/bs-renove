@@ -29,6 +29,12 @@ export function defilerVers(element: HTMLElement, decalage = 100) {
   else window.scrollTo({ top: y });
 }
 
+/** Fait défiler la page d'une distance donnée (en px), avec ou sans Lenis. */
+export function defilerDe(distance: number) {
+  if (lenis) lenis.scrollTo(window.scrollY + distance, { duration: 0.6 });
+  else window.scrollBy({ top: distance, behavior: 'smooth' });
+}
+
 /** Bloque le défilement de la page (menu ouvert). */
 export function bloquerDefilement(bloque: boolean) {
   if (!lenis) return;

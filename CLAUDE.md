@@ -54,7 +54,7 @@ Essayé et refusé par le client : tout passer au bleu du logo (trop sage).
 
 ### Éléments signature
 
-- **Maison en coupe (SVG)** dans le hero (`MaisonCoupe.astro`) : se trace à l'arrivée, visite guidée des pièces, chaque pièce mène à son métier ou à ses avant/après. Côté rue à gauche (porte, petite toiture, allée pavée), jardin à droite (terrasse, arbre), cave au sous-sol. **Mode nuit** au clic sur le soleil (lune, étoiles, fenêtres allumées, boutons jaunes, logo aux traits clairs).
+- **Maison en coupe (SVG)** dans le hero (`MaisonCoupe.astro`) : se trace à l'arrivée, visite guidée des pièces. **Un clic sur une pièce ouvre sa fiche sans changer de page** (métier, petit avant/après à faire glisser, « Voir ce métier », « Devis gratuit » qui coche le métier dans le formulaire). Ordinateur : fiche flottante à côté de la pièce ; téléphone : panneau qui monte du bas de l'écran. Sans JavaScript, chaque pièce reste un lien. Côté rue à gauche (porte, petite toiture, allée pavée), jardin à droite (terrasse, arbre), cave au sous-sol. **Mode nuit** au clic sur le soleil (lune, étoiles, fenêtres allumées, boutons jaunes, logo aux traits clairs).
 - **Hero** : « Demander un devis gratuit » + « 12 ans de métier » en grand. Pas de WhatsApp dans le hero.
 - **Curseurs avant/après partout** (accueil : une seule section, 4 au maximum ; page Réalisations : tous) : on fait glisser le trait soi-même. Pas d'animation pilotée par le défilement ni de défilement horizontal (refusés par le client). Chiffres qui comptent, FAQ en accordéon, formulaire en 2 étapes, pied de page avec bande « rubalise » jaune.
 
@@ -64,6 +64,7 @@ Apparitions au défilement, titres mot par mot, Lenis, transitions entre pages. 
 
 ### Principes
 
+- **Tous les téléphones** : chaque changement est testé sur Android (Chrome) **et** iPhone (Safari/WebKit), petits et grands écrans. Les curseurs avant/après ne bloquent jamais le défilement : geste vertical = la page défile, horizontal = la poignée bouge.
 - Mobile d'abord : dock flottant en bas (Appeler, WhatsApp, Devis). Menu mobile : panneau **clair** (papier) ; en-tête = logo à gauche, FR/NL, puis pilule bleu nuit « Menu » / « Fermer » écrit en entier avec pastille jaune. La barre d'en-tête passe toujours au-dessus du panneau (z-index), testé avec WebKit (Safari). Favicon rond blanc avec le logo (`public/favicon.png`). Zones tactiles ≥ 44 px.
 - Accessibilité : contraste AA, focus clavier visible, vrais `<button>`/`<a>`, texte alternatif, curseurs utilisables au clavier.
 - Performance : images en WebP aux bonnes tailles (qualité 70), chargement différé sauf le haut de page.

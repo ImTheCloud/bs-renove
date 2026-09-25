@@ -3,12 +3,21 @@
  * La maison dessinée en coupe, comme sur un plan d'architecte.
  *
  * - Les traits se dessinent à l'arrivée (coupé si « réduire les animations »).
- * - Chaque pièce est un vrai lien vers le service correspondant.
  * - Une petite visite guidée éclaire les pièces une à une, avec une
  *   annotation à la main, jusqu'à ce que la personne touche le dessin.
+ * - Un clic sur une pièce ouvre sa fiche (sans changer de page) : son métier,
+ *   un petit avant/après à faire glisser, puis « Voir ce métier » et « Devis ».
+ *   On passe d'une pièce à l'autre à volonté. Sans JavaScript, chaque pièce
+ *   reste un vrai lien vers son métier.
  *
  * Tout est dessiné ici, en SVG : aucune photo, aucune image générée.
  */
+import { Image } from 'astro:assets';
+import Bouton from '../Bouton.astro';
+import CurseurAvantApres from '../CurseurAvantApres.astro';
+import Icon from '../Icon.astro';
+import { nomCategorie } from '~/data/categories';
+import { pairesDeLaCategorie, pairesDuService, photoSeuleParService } from '~/data/projets';
 import { services } from '~/data/services';
 import { chemin, t, type Langue } from '~/i18n';
 
@@ -46,6 +55,37 @@ const visite = [
   'maconnerie-extensions',
   'renovation-complete',
 ];
+
+/*
+ * La fiche de chaque pièce. Les pièces qui ne sont pas un métier (cave, petite
+ * toiture, allée) montrent leurs avant/après et renvoient au métier concerné.
+ */
+const PIECES_HORS_METIER: Record<string, { categorie: string; metier: string }> = {
+  cave: { categorie: 'cave', metier: 'carrelage' },
+  auvent: { categorie: 'auvent', metier: 'toiture' },
+  allee: { categorie: 'allee', metier: 'terrasses' },
+};
+const fiches = (
+  await Promise.all(
+    visite.map(async (slug) => {
+      const horsMetier = PIECES_HORS_METIER[slug];
+      const metier = services.find((service) => service.slug === (horsMetier?.metier ?? slug));
+      if (!metier) return null;
+      const paires = horsMetier ? await pairesDeLaCategorie(horsMetier.categorie) : await pairesDuService(slug);
+      return {
+        slug,
+        metier: metier.slug,
+        surtitre: slug === 'renovation-complete' ? hero.maisonTout : (pieces as Record<string, string>)[slug],
+        titre: horsMetier ? (nomCategorie(horsMetier.categorie, langue) ?? metier.nom[langue]) : metier.nom[langue],
+        texte: horsMetier ? hero.fiches[slug as keyof typeof hero.fiches] : metier.phrase[langue],
+        paire: paires[0],
+        photo: photoSeuleParService[slug],
+        lien: horsMetier ? `${chemin('realisations', langue)}#${horsMetier.categorie}` : lien(slug),
+        lienTexte: horsMetier ? hero.ficheRealisations : hero.fichePlus,
+      };
+    }),
+  )
+).filter((fiche) => fiche !== null);
 ---
 
 <figure class="maison" data-maison data-visite={visite.filter((slug) => !['electricite', 'peinture-finitions'].includes(slug) || propose(slug)).join(',')}>
@@ -309,7 +349,6 @@ const visite = [
 
       <a href={lien('carrelage')} class="piece" data-piece="carrelage" aria-label={pieces.carrelage}>
         <rect class="zone" x="386" y="548" width="170" height="12" />
-        <rect class="zone" x="176" y="336" width="100" height="56" />
         <circle class="point" cx="455" cy="554" r="11" />
         <text x="582" y="612" class="note">{pieces.carrelage}</text>
         <path class="fleche" d="M590 590c-40 0-92-10-120-24" pathLength="1" />
@@ -358,6 +397,37 @@ const visite = [
 
   <p class="maison__legende manuscrit" aria-hidden="true" data-legende></p>
 
+  <!-- Les fiches des pièces (une seule visible à la fois) -->
+  <div class="fiches" data-fiches aria-live="polite">
+    {
+      fiches.map((fiche) => (
+        <section class="fiche" data-fiche={fiche.slug} hidden tabindex="-1" aria-labelledby={`fiche-${fiche.slug}`}>
+          <button type="button" class="fiche__fermer" data-fiche-fermer aria-label={hero.ficheFermer}>
+            <Icon nom="croix" taille={18} epaisseur={2.4} />
+          </button>
+          <p class="fiche__surtitre manuscrit">{fiche.surtitre}</p>
+          <h3 id={`fiche-${fiche.slug}`} class="fiche__titre">{fiche.titre}</h3>
+          <p class="fiche__texte">{fiche.texte}</p>
+          {fiche.paire ? (
+            <div class="fiche__photo">
+              <CurseurAvantApres langue={langue} paire={fiche.paire} idSuffixe={`-maison-${fiche.slug}`} sizes="320px" />
+            </div>
+          ) : fiche.photo ? (
+            <div class="fiche__photo fiche__photo--seule">
+              <Image src={fiche.photo.image} alt={fiche.photo.legende[langue]} widths={[400, 640]} width={640} quality={62} sizes="320px" loading="lazy" />
+              <span class="fiche__badge">{hero.fichePhotoSeule}</span>
+            </div>
+          ) : null}
+          <div class="fiche__actions">
+            <Bouton href={fiche.lien} variante="secondaire" iconeApres="fleche">{fiche.lienTexte}</Bouton>
+            <Bouton href="#devis" variante="principal" iconeApres="fleche-diag" data-preselection={fiche.metier}>{hero.ficheDevis}</Bouton>
+          </div>
+          <p class="fiche__astuce manuscrit" aria-hidden="true">{hero.ficheAutre}</p>
+        </section>
+      ))
+    }
+  </div>
+
   <figcaption class="maison__aide manuscrit" aria-hidden="true">
     <span class="maison__aide-touch">{hero.maisonAide}</span>
     <span class="maison__aide-souris">{hero.maisonAideSouris}</span>
@@ -386,6 +456,8 @@ const visite = [
 </script>
 
 <script>
+  import { defilerDe } from '~/scripts/site';
+
   /* --- Jour / nuit : le soleil (ou la lune) est un bouton --- */
   document.querySelectorAll<HTMLButtonElement>('[data-astre]').forEach((bouton) => {
     const hero = bouton.closest('.hero') ?? bouton.closest('[data-maison]');
@@ -437,23 +509,153 @@ const visite = [
     maison.classList.add('pret');
     if (!calme) window.setTimeout(() => { suivante(); demarrer(); }, 2600);
 
-    // Survol ou focus : la personne prend la main, la visite s'arrête.
+    /* --- Les fiches : un clic sur une pièce ouvre la sienne, sans changer de page --- */
+    const fiches = new Map<string, HTMLElement>();
+    maison.querySelectorAll<HTMLElement>('[data-fiche]').forEach((el) => fiches.set(el.dataset.fiche ?? '', el));
+    const grandEcran = window.matchMedia('(min-width: 1024px)');
+    let ouverte: string | null = null;
+
+    /** Ordinateur : la fiche flotte à côté de la pièce. Téléphone : elle se glisse sous le dessin. */
+    const placer = () => {
+      const fiche = ouverte ? fiches.get(ouverte) : null;
+      if (!fiche) return;
+      if (!grandEcran.matches) {
+        fiche.style.left = '';
+        fiche.style.top = '';
+        return;
+      }
+      const point = pieces.get(ouverte ?? '')?.querySelector('.point') ?? pieces.get(ouverte ?? '');
+      if (!point) return;
+      const cadre = maison.getBoundingClientRect();
+      const p = point.getBoundingClientRect();
+      const px = p.left + p.width / 2 - cadre.left;
+      const py = p.top + p.height / 2 - cadre.top;
+      const l = fiche.offsetWidth;
+      const h = fiche.offsetHeight;
+      const aDroite = px < cadre.width / 2;
+      const x = aDroite ? px + 28 : px - l - 28;
+      const y = Math.min(Math.max(py - h / 2, 0), Math.max(0, cadre.height - h));
+      fiche.style.left = `${Math.round(Math.min(Math.max(x, -40), cadre.width - l + 40))}px`;
+      fiche.style.top = `${Math.round(y)}px`;
+      fiche.classList.toggle('fiche--gauche', !aDroite);
+    };
+
+    /** Une onde part du point de la pièce touchée. */
+    const onde = (slug: string) => {
+      const point = pieces.get(slug)?.querySelector<SVGCircleElement>('.point');
+      if (!point || calme) return;
+      const cercle = point.cloneNode() as SVGCircleElement;
+      cercle.setAttribute('class', 'onde');
+      point.parentNode?.insertBefore(cercle, point);
+      window.setTimeout(() => cercle.remove(), 900);
+    };
+
+    const fermer = (rendreFocus = false) => {
+      if (!ouverte) return;
+      const piece = pieces.get(ouverte) as HTMLElement | undefined;
+      fiches.get(ouverte)?.setAttribute('hidden', '');
+      pieces.forEach((el) => el.classList.remove('choisi'));
+      maison.classList.remove('fiche-ouverte');
+      document.body.classList.remove('fiche-maison');
+      ouverte = null;
+      enPause = false;
+      activer(null);
+      if (rendreFocus) piece?.focus();
+      window.setTimeout(() => { if (!ouverte) demarrer(); }, 3000);
+    };
+
+    const ouvrir = (slug: string, auClavier: boolean) => {
+      const fiche = fiches.get(slug);
+      if (!fiche) return false;
+      if (ouverte === slug) {
+        fermer();
+        return true;
+      }
+      if (ouverte) fiches.get(ouverte)?.setAttribute('hidden', '');
+      enPause = true;
+      window.clearInterval(minuterie);
+      courant = ordre.indexOf(slug);
+      ouverte = slug;
+      activer(slug);
+      pieces.forEach((el, cle) => el.classList.toggle('choisi', cle === slug));
+      maison.classList.add('fiche-ouverte');
+      fiche.removeAttribute('hidden');
+      fiche.classList.remove('fiche--entre');
+      void fiche.offsetWidth; // relance l'animation d'apparition
+      fiche.classList.add('fiche--entre');
+      placer();
+      onde(slug);
+      if (auClavier) fiche.focus({ preventScroll: true });
+      // Téléphone : la fiche monte du bas de l'écran.
+      // À la première ouverture, la maison remonte en haut de l'écran (le plus de pièces visibles) ;
+      // ensuite elle ne bouge plus, sauf si la pièce touchée est cachée sous la fiche.
+      const premiere = !document.body.classList.contains('fiche-maison');
+      document.body.classList.toggle('fiche-maison', !grandEcran.matches);
+      if (!grandEcran.matches) {
+        requestAnimationFrame(() => {
+          const dessin = maison.querySelector('.maison__svg')?.getBoundingClientRect();
+          const point = pieces.get(slug)?.querySelector('.point')?.getBoundingClientRect();
+          const haut = fiche.getBoundingClientRect().top;
+          if (!dessin || !point) return;
+          let decalage = premiere ? dessin.top - 16 : 0;
+          const basDuPoint = point.bottom - decalage;
+          if (basDuPoint > haut - 24) decalage += basDuPoint - (haut - 48);
+          if (Math.abs(decalage) > 8) defilerDe(decalage);
+        });
+      }
+      return true;
+    };
+
+    // Survol (souris) : la pièce s'éclaire ; la fiche ouverte reste en place.
     pieces.forEach((el, slug) => {
-      const prendre = () => {
+      el.addEventListener('pointerenter', (e) => {
+        if ((e as PointerEvent).pointerType !== 'mouse') return;
         enPause = true;
         window.clearInterval(minuterie);
-        courant = ordre.indexOf(slug);
         activer(slug);
-      };
-      el.addEventListener('pointerenter', prendre);
-      el.addEventListener('focus', prendre);
+      });
+      el.addEventListener('focus', () => {
+        enPause = true;
+        window.clearInterval(minuterie);
+        activer(slug);
+      });
+      el.addEventListener('click', (e) => {
+        if (ouvrir(slug, (e as MouseEvent).detail === 0)) e.preventDefault();
+      });
     });
 
-    maison.addEventListener('pointerleave', () => {
+    maison.addEventListener('pointerleave', (e) => {
+      if ((e as PointerEvent).pointerType !== 'mouse') return;
+      if (ouverte) {
+        activer(ouverte);
+        return;
+      }
       if (!enPause) return;
       enPause = false;
       demarrer();
     });
+
+    // Fermer : la croix, la touche Échap, ou un clic en dehors de la maison.
+    maison.querySelectorAll('[data-fiche-fermer]').forEach((bouton) => bouton.addEventListener('click', () => fermer(true)));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && ouverte) fermer(true);
+    });
+    document.addEventListener('click', (e) => {
+      if (ouverte && !maison.contains(e.target as Node)) fermer();
+    });
+
+    // « Devis gratuit » : le métier est coché d'avance dans le formulaire.
+    maison.querySelectorAll<HTMLElement>('[data-preselection]').forEach((bouton) =>
+      bouton.addEventListener('click', () => {
+        window.dispatchEvent(new CustomEvent('devis:preselection', { detail: bouton.dataset.preselection }));
+      }),
+    );
+
+    // Un lien de la fiche referme la fiche (sinon, sur téléphone, elle cacherait le formulaire).
+    maison.querySelectorAll('[data-fiche] a').forEach((lien) => lien.addEventListener('click', () => fermer()));
+
+    window.addEventListener('resize', placer);
+    grandEcran.addEventListener('change', placer);
 
     // Les puces de services à côté du dessin pilotent aussi la maison.
     document.querySelectorAll<HTMLElement>('[data-vers-piece]').forEach((puce) => {
@@ -970,5 +1172,319 @@ const visite = [
   /* Les pointillés gardent leur rythme une fois tracés. */
   .t--tuiles {
     stroke-dashoffset: 0;
+  }
+
+  /* --- La pièce choisie (fiche ouverte) reste éclairée, les autres s'effacent --- */
+  .piece.choisi .zone {
+    opacity: 0.7;
+  }
+
+  .piece.choisi .point {
+    fill: var(--color-accent);
+    transform: scale(1.35);
+  }
+
+  .maison.fiche-ouverte .piece:not(.choisi):not(.actif) .point {
+    opacity: 0.55;
+  }
+
+  .maison.fiche-ouverte .note,
+  .maison.fiche-ouverte .fleche {
+    opacity: 0 !important;
+  }
+
+  .maison.fiche-ouverte .maison__legende,
+  .maison.fiche-ouverte .maison__aide {
+    visibility: hidden;
+  }
+
+  /* L'onde qui part du point touché. */
+  .onde {
+    fill: none;
+    stroke: var(--color-signal);
+    stroke-width: 3;
+    transform-box: fill-box;
+    transform-origin: center;
+    pointer-events: none;
+    animation: onde 850ms var(--ease-out) forwards;
+  }
+
+  @keyframes onde {
+    from {
+      transform: scale(1);
+      opacity: 1;
+    }
+    to {
+      transform: scale(4.5);
+      opacity: 0;
+    }
+  }
+
+  /* --- La fiche d'une pièce --- */
+  .fiche {
+    /* Couleurs fixes : la fiche reste claire, même quand la maison passe en mode nuit. */
+    --color-ink: #0f1626;
+    --color-on-ink: #f5f2ec;
+    --color-text: #3a3d45;
+    --color-muted: #5d6068;
+    --color-accent: #0066b4;
+    --color-border: #d6cfc2;
+    position: relative;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 18px 18px 16px;
+    background: #fbfaf7;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-float);
+    color: var(--color-text);
+    outline: none;
+    scroll-margin: 90px;
+  }
+
+  .fiche[hidden] {
+    display: none;
+  }
+
+  .fiche--entre {
+    animation: fiche-entre 420ms var(--ease-out);
+  }
+
+  @keyframes fiche-entre {
+    from {
+      opacity: 0;
+      transform: translateY(10px) scale(0.97);
+    }
+  }
+
+  .fiche__fermer {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+
+  .fiche__fermer:hover {
+    background: rgba(15, 22, 38, 0.06);
+  }
+
+  .fiche__fermer:focus-visible {
+    outline: 3px solid var(--color-accent);
+  }
+
+  .fiche__surtitre {
+    margin: 0;
+    font-size: 22px;
+    line-height: 1;
+    color: var(--color-accent);
+  }
+
+  .fiche__titre {
+    margin: 0;
+    padding-right: 40px;
+    font-size: 26px;
+    line-height: 1.05;
+    color: var(--color-ink);
+  }
+
+  .fiche__texte {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.45;
+  }
+
+  .fiche__photo {
+    position: relative;
+    margin-top: 2px;
+  }
+
+  .fiche__photo :global(.curseur) {
+    aspect-ratio: 4 / 3;
+    height: auto;
+    border-radius: 18px;
+  }
+
+  .fiche__photo :global(.curseur__poignee) {
+    width: 44px;
+    height: 44px;
+  }
+
+  .fiche__photo--seule :global(img) {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    height: auto;
+    object-fit: cover;
+    border-radius: 18px;
+  }
+
+  .fiche__badge {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    padding: 6px 12px;
+    background: rgba(245, 242, 236, 0.94);
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    font-weight: 650;
+    color: var(--color-ink);
+  }
+
+  .fiche__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .fiche__actions :global(.bouton) {
+    flex: 1 1 auto;
+    justify-content: space-between;
+  }
+
+  .fiche__astuce {
+    margin: 0;
+    font-size: 19px;
+    color: var(--color-accent);
+    text-align: right;
+    transform: rotate(-2deg);
+  }
+
+  /*
+    Téléphone et tablette : un panneau compact qui monte du bas de l'écran, au-dessus
+    du dock (masqué pendant ce temps). La page défile toujours dessous : on remonte
+    ou on descend la maison pour toucher une autre pièce.
+  */
+  @media (max-width: 1023px) {
+    .fiche {
+      position: fixed;
+      left: 8px;
+      right: 8px;
+      bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+      z-index: 58;
+      max-width: 520px;
+      margin: 0 auto;
+      gap: 6px;
+      padding: 14px 14px 12px;
+      border-radius: 24px;
+      box-shadow: 0 -8px 40px -8px rgba(15, 22, 38, 0.35);
+    }
+
+    .fiche--entre {
+      animation-name: fiche-monte;
+    }
+
+    @keyframes fiche-monte {
+      from {
+        transform: translateY(40px);
+        opacity: 0;
+      }
+    }
+
+    .fiche__fermer {
+      top: 4px;
+      right: 4px;
+    }
+
+    .fiche__surtitre {
+      font-size: 19px;
+    }
+
+    .fiche__titre {
+      font-size: 21px;
+    }
+
+    .fiche__texte {
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .fiche__photo :global(.curseur),
+    .fiche__photo--seule :global(img) {
+      aspect-ratio: 2 / 1;
+    }
+
+    .fiche__photo :global(.curseur__etiquette) {
+      top: 8px;
+      padding: 5px 10px;
+      font-size: 11px;
+    }
+
+    .fiche__photo :global(.curseur__poignee) {
+      width: 40px;
+      height: 40px;
+    }
+
+    .fiche__actions {
+      flex-wrap: nowrap;
+    }
+
+    .fiche__actions :global(.bouton) {
+      flex: 1 1 0;
+      min-width: 0;
+      min-height: 48px;
+      justify-content: center;
+      padding-inline: 12px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .fiche__actions :global(.bouton__pastille) {
+      display: none;
+    }
+
+    /* « Essayez une autre pièce ! » flotte au-dessus du panneau, vers la maison. */
+    .fiche__astuce {
+      position: absolute;
+      right: 18px;
+      bottom: calc(100% + 8px);
+      padding: 2px 10px;
+      background: rgba(245, 242, 236, 0.92);
+      border-radius: 999px;
+      font-size: 18px;
+      pointer-events: none;
+    }
+
+    :global(body.fiche-maison .dock) {
+      transform: translate(-50%, 140%) !important;
+    }
+  }
+
+  /* Téléphone couché (très peu de hauteur) : le panneau défile à l'intérieur. */
+  @media (max-width: 1023px) and (max-height: 520px) {
+    .fiche {
+      max-height: calc(100svh - 90px);
+      overflow-y: auto;
+    }
+
+    .fiche__astuce {
+      display: none;
+    }
+  }
+
+  /* Ordinateur : la fiche flotte à côté de la pièce (position calculée par le script). */
+  @media (min-width: 1024px) {
+    .fiche {
+      position: absolute;
+      width: 320px;
+      margin: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fiche--entre {
+      animation: none;
+    }
   }
 </style>

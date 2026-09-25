@@ -21,12 +21,14 @@ interface Props {
   depart?: number;
   /** En haut de page : chargé tout de suite, en priorité (sinon en différé). */
   prioritaire?: boolean;
+  /** Si la même paire apparaît deux fois sur la page (ex. dans la maison). */
+  idSuffixe?: string;
 }
 
-const { langue, paire, sizes, depart = paire.depart, prioritaire = false } = Astro.props;
+const { langue, paire, sizes, depart = paire.depart, prioritaire = false, idSuffixe = '' } = Astro.props;
 const avantApres = t(langue).accueil.avantApres;
 const dp = t(langue).deuxPoints;
-const id = `curseur-${paire.id.replace('/', '-')}`;
+const id = `curseur-${paire.id.replace('/', '-')}${idSuffixe}`;
 const aideId = `${id}-aide`;
 const legende = paire.legende[langue];
 const photo = {

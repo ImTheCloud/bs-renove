@@ -101,6 +101,11 @@ const VITRINE_PAR_SERVICE: Record<string, string> = {
   'maconnerie-extensions': 'extension-maison/apres-1',
 };
 
+/** Les avant/après d'un type de pièce (cave, allée…). */
+export async function pairesDeLaCategorie(categorie: string): Promise<Paire[]> {
+  return (await toutesLesPaires()).filter((paire) => paire.categorie === categorie);
+}
+
 /** Les avant/après d'un métier, sa vitrine en premier. */
 export async function pairesDuService(slug: string): Promise<Paire[]> {
   const toutes = await toutesLesPaires();

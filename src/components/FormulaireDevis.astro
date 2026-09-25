@@ -34,8 +34,8 @@ const action = cle ? 'https://api.web3forms.com/submit' : `mailto:${entreprise.e
 const sujet =
   langue === 'fr' ? 'Nouvelle demande de devis · site BS Renove' : 'Nieuwe offerteaanvraag · website BS Renove';
 const choix = [
-  ...services.map((service) => ({ valeur: service.nom[langue], icone: iconeService(service.slug) })),
-  { valeur: f.autre, icone: 'autre' as const },
+  ...services.map((service) => ({ valeur: service.nom[langue], icone: iconeService(service.slug), slug: service.slug })),
+  { valeur: f.autre, icone: 'autre' as const, slug: 'autre' },
 ];
 ---
 
@@ -91,7 +91,7 @@ const choix = [
         {
           choix.map((option) => (
             <label class="tuile">
-              <input type="checkbox" name="travaux" value={option.valeur} />
+              <input type="checkbox" name="travaux" value={option.valeur} data-metier={option.slug} />
               <span class="tuile__icone"><Icon nom={option.icone} taille={24} /></span>
               <span class="tuile__nom">{option.valeur}</span>
               <span class="tuile__coche" aria-hidden="true"><Icon nom="check" taille={14} epaisseur={3} /></span>
@@ -397,6 +397,18 @@ const choix = [
     });
 
     afficher(0, false);
+
+    // Pré-sélection d'un métier : depuis la maison de l'accueil (événement) ou l'adresse (?travaux=toiture).
+    const preselectionner = (slug: string | null) => {
+      if (!slug) return;
+      const tuile = form.querySelector<HTMLInputElement>(`input[name="travaux"][data-metier="${CSS.escape(slug)}"]`);
+      if (!tuile) return;
+      if (!form.hidden && courante !== 0) afficher(0, false);
+      tuile.checked = true;
+      montrerErreur('');
+    };
+    preselectionner(new URLSearchParams(location.search).get('travaux'));
+    window.addEventListener('devis:preselection', (e) => preselectionner((e as CustomEvent<string>).detail));
   });
 </script>
 
