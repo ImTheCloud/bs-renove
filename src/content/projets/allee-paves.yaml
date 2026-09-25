@@ -1,0 +1,33 @@
+# Photos du dossier « Carrelage sur plusieurs endroits » (commune inconnue) :
+# originaux WhatsApp 2026-09-20 at 10.58.48 (3) (avant) et 10.58.51 (1) (après).
+# Numéro de maison, plaque d'hydrant et sac d'un fournisseur (téléphone) masqués
+# par un aplat avant import. Tant que la commune n'est pas confirmée, elle n'est pas affichée.
+titre:
+  fr: Allée d'entrée en pavés
+  nl: Oprit in kasseien
+commune:
+  fr: "[À CONFIRMER : commune]"
+  nl: "[TE BEVESTIGEN: gemeente]"
+service: terrasses
+ordre: 10
+misEnAvant: false
+couvertureAlt:
+  fr: Allée d'entrée pavée devant la maison et le garage
+  nl: Bestrate oprit voor de woning en de garage
+recit:
+  fr:
+    depart: "[À CONFIRMER]"
+    travaux: "[À CONFIRMER]"
+    resultat: "[À CONFIRMER]"
+  nl:
+    depart: "[TE BEVESTIGEN]"
+    travaux: "[TE BEVESTIGEN]"
+    resultat: "[TE BEVESTIGEN]"
+galerie: []
+avantApres:
+  - avant: ../../assets/projets/allee-paves/avant-1.jpg
+    apres: ../../assets/projets/allee-paves/apres-1.jpg
+    legende:
+      fr: Allée d'entrée, du terrassement aux pavés posés
+      nl: Oprit, van grondwerk tot gelegde kasseien
+    categorie: allee

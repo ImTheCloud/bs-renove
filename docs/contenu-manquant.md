@@ -1100,3 +1100,13 @@ dalles grises. Même coin (mur blanchi, mur en pierre, caniveau). Nouveau fichie
 Idée de Claudiu : une porte d'entrée dans le mur de droite (rez-de-chaussée) avec sa petite
 toiture au-dessus. Son point « l'auvent » mène à l'avant/après de l'auvent de Woluwe
 (`/realisations/#auvent`). De nuit, la petite fenêtre de la porte s'allume.
+
+### Puis : une allée d'entrée en pavés, commune inconnue (même jour)
+
+Deux photos envoyées par Claudiu, dossier « Carrelage sur plusieurs endroits » (WhatsApp
+`10.58.48 (3)` avant, `10.58.51 (1)` après) : terrassement avec l'égouttage, puis pavés en
+béton gris posés sur sable, joints au sable. **Vie privée : le numéro de la maison était lisible
+sur les deux photos**, ainsi qu'une plaque d'hydrant et un sac de fournisseur avec un numéro de
+téléphone : les trois sont **masqués par un aplat de couleur** avant import (vérifié à l'œil).
+Nouvelle catégorie **Allée** (NL « Oprit »), rangée sous **Terrasses et jardins** ; exemple
+« Allées de jardin » devenu « Allées et pavage » (à valider par Sergiu). **Commune à demander.**

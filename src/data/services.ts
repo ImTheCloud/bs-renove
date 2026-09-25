@@ -97,8 +97,8 @@ export const services: Service[] = [
       nl: 'Een terras bereidt u voor zoals een binnenvloer, maar strenger: het ligt het hele jaar buiten. Wij bereiden de ondergrond voor en leggen de tegels van uw terras en tuinpaden',
     },
     exemples: {
-      fr: ['Terrasses carrelées', 'Allées de jardin', 'Chape et ferraillage', 'Joints et finitions'],
-      nl: ['Betegelde terrassen', 'Tuinpaden', 'Chape en wapening', 'Voegen en afwerking'],
+      fr: ['Terrasses carrelées', 'Allées et pavage', 'Chape et ferraillage', 'Joints et finitions'],
+      nl: ['Betegelde terrassen', 'Opritten en bestrating', 'Chape en wapening', 'Voegen en afwerking'],
     },
   },
   {

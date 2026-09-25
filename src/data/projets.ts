@@ -97,7 +97,7 @@ const CATEGORIES_PAR_SERVICE: Record<string, string[]> = {
   'salles-de-bain': ['salle-de-bain', 'douche', 'toilette'],
   cuisines: ['cuisine'],
   carrelage: ['cave'],
-  terrasses: ['exterieur'],
+  terrasses: ['exterieur', 'allee'],
   escaliers: ['escalier'],
   toiture: ['toiture', 'auvent'],
   'maconnerie-facades': ['facade'],
