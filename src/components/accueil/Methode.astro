@@ -50,10 +50,6 @@ const nombre = (valeur: number) => valeur.toLocaleString(textes.htmlLang);
         <h2 id="methode-titre" data-mots>
           {methode.titreDebut}{' '}<span class="serif">{methode.titreSerif}</span>
         </h2>
-        <svg class="methode__trace" viewBox="0 0 220 120" fill="none" aria-hidden="true">
-          <path d="M6 100C40 20 90 110 130 50S200 10 214 30" pathLength="1" />
-          <path d="M214 30l-12-2M214 30l-2 12" pathLength="1" />
-        </svg>
       </div>
 
       <ol class="etapes">
@@ -204,14 +200,6 @@ const nombre = (valeur: number) => valeur.toLocaleString(textes.htmlLang);
     gap: 20px;
   }
 
-  .methode__trace {
-    width: 180px;
-    color: var(--color-signal);
-    stroke: currentColor;
-    stroke-width: 2.4;
-    stroke-linecap: round;
-  }
-
   .etapes {
     display: grid;
     gap: 14px;
@@ -323,16 +311,4 @@ const nombre = (valeur: number) => valeur.toLocaleString(textes.htmlLang);
     }
   }
 
-  @media (prefers-reduced-motion: no-preference) {
-    .methode__trace path {
-      stroke-dasharray: 1;
-      stroke-dashoffset: 1;
-      transition: stroke-dashoffset 1400ms var(--ease-out) 400ms;
-    }
-
-    :global(.est-visible) ~ .methode__trace path,
-    .methode__entete:has(:global(.est-visible)) .methode__trace path {
-      stroke-dashoffset: 0;
-    }
-  }
 </style>
