@@ -56,6 +56,10 @@ export const fr = {
   aConfirmer: 'À CONFIRMER',
 
   accueil: {
+    intro: {
+      note: 'B comme Bivol, S comme Sergiu : le nom de notre gérant',
+    },
+
     hero: {
       surtitre: 'Entreprise générale · Toute la Belgique',
       titreDebut: 'Votre maison,',

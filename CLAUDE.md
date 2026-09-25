@@ -54,6 +54,7 @@ Essayé et refusé par le client : tout passer au bleu du logo (trop sage).
 ### Éléments signature
 
 - **Maison en coupe (SVG)** dans le hero (`MaisonCoupe.astro`) : se trace à l'arrivée, visite guidée des pièces, chaque pièce mène à son métier ou à ses avant/après. Côté rue à gauche (porte, petite toiture, allée pavée), jardin à droite (terrasse, arbre), cave au sous-sol. **Mode nuit** au clic sur le soleil (lune, étoiles, fenêtres allumées, boutons jaunes, logo aux traits clairs).
+- **Intro « BS »** : B comme Bivol, S comme Sergiu (le gérant). Une fois par visite, ~2 s, passable, coupée avec « réduire les animations ».
 - **Hero** : « Demander un devis gratuit » + « 12 ans de métier » en grand. Pas de WhatsApp dans le hero.
 - **Curseurs avant/après partout** (accueil : une seule section, 4 au maximum ; page Réalisations : tous) : on fait glisser le trait soi-même. Pas d'animation pilotée par le défilement ni de défilement horizontal (refusés par le client). Chiffres qui comptent, FAQ en accordéon, formulaire en 2 étapes, pied de page avec bande « rubalise » jaune.
 

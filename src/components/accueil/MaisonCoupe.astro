@@ -435,7 +435,12 @@ const visite = [
 
     // La visite commence quand le dessin est terminé.
     maison.classList.add('pret');
-    if (!calme) window.setTimeout(() => { suivante(); demarrer(); }, 2600);
+    const lancer = () => window.setTimeout(() => { suivante(); demarrer(); }, 2600);
+    if (!calme) {
+      // Si l'intro « BS » est à l'écran, la visite attend qu'elle se retire.
+      if (document.documentElement.classList.contains('intro-bs')) window.addEventListener('intro-finie', lancer, { once: true });
+      else lancer();
+    }
 
     // Survol ou focus : la personne prend la main, la visite s'arrête.
     pieces.forEach((el, slug) => {
@@ -878,40 +883,40 @@ const visite = [
 
   /* --- Le dessin qui se trace à l'arrivée --- */
   @media (prefers-reduced-motion: no-preference) {
-    .js .t {
+    :global(.js) .t {
       stroke-dasharray: 1;
       stroke-dashoffset: 1;
       animation: tracer 1400ms var(--ease-out) forwards;
       animation-delay: calc(var(--d, 0) * 1ms + 300ms);
     }
 
-    .js .t.t--tuiles {
+    :global(.js) .t.t--tuiles {
       stroke-dasharray: 0.012 0.01;
       stroke-dashoffset: 0;
       animation-name: apparaitre;
     }
 
-    .js .t.t--cable {
+    :global(.js) .t.t--cable {
       stroke-dasharray: 0.04 0.03;
       stroke-dashoffset: 0;
       animation-name: apparaitre;
     }
 
-    .js .mur-plein,
-    .js .carreaux,
-    .js .peint,
-    .js .vitre,
-    .js .sol-carrele {
+    :global(.js) .mur-plein,
+    :global(.js) .carreaux,
+    :global(.js) .peint,
+    :global(.js) .vitre,
+    :global(.js) .sol-carrele {
       animation: apparaitre 900ms var(--ease) backwards;
       animation-delay: calc(var(--d, 0) * 1ms + 1100ms);
     }
 
-    .js .point {
+    :global(.js) .point {
       animation: surgir 600ms var(--ease-out) backwards;
       animation-delay: 2300ms;
     }
 
-    .js .t.fumee {
+    :global(.js) .t.fumee {
       transform-box: fill-box;
       animation:
         tracer 1400ms var(--ease-out) forwards,
@@ -922,7 +927,7 @@ const visite = [
       animation: pulser 2.4s ease-in-out 3s infinite;
     }
 
-    .js .point {
+    :global(.js) .point {
       animation:
         surgir 600ms var(--ease-out) 2300ms backwards,
         pulser 2.4s ease-in-out 3s infinite;
