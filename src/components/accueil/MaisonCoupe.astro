@@ -372,7 +372,7 @@ const visite = [
     if (!svg) return;
     var cadrer = function () {
       var mobile = window.matchMedia('(max-width: 599px)').matches;
-      var vb = mobile ? [56, 36, 608, 660] : [0, 0, 720, 710];
+      var vb = mobile ? [40, 36, 624, 660] : [0, 0, 720, 710];
       svg.setAttribute('viewBox', vb.join(' '));
       var m = svg.closest('[data-maison]');
       m.style.setProperty('--vb-x', vb[0]);
@@ -814,6 +814,23 @@ const visite = [
     .maison__aide {
       bottom: auto;
       top: calc(100% - 34px);
+    }
+
+    /* « et la nuit ? » passe sous le soleil, dans le coin libre à gauche du toit. */
+    .maison__note-astre {
+      left: calc((96 - var(--vb-x, 0)) / var(--vb-w, 720) * 100% - 6px);
+      top: calc((74 - var(--vb-y, 0)) / var(--vb-h, 710) * 100% + 26px);
+      flex-direction: column;
+      gap: 0;
+      font-size: 19px;
+      transform: rotate(-3deg);
+    }
+
+    .maison__note-astre svg {
+      width: 22px;
+      height: 16px;
+      margin-left: 2px;
+      transform: rotate(40deg);
     }
   }
 

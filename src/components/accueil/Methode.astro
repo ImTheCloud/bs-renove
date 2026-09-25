@@ -133,29 +133,23 @@ const nombre = (valeur: number) => valeur.toLocaleString(textes.htmlLang);
   .chiffres {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1px;
-    margin: 28px 0 0;
+    gap: 36px 20px;
+    margin: 36px 0 0;
     padding: 0;
     list-style: none;
-    background: var(--color-line-on-ink);
-    border-block: 1px solid var(--color-line-on-ink);
   }
 
   .chiffre {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 24px 16px 28px 0;
-    background: var(--color-ink);
   }
 
-  .chiffre:nth-child(even) {
-    padding-left: 16px;
-  }
-
-  /* Dernier chiffre seul sur sa ligne : il prend toute la largeur. */
-  .chiffre:last-child:nth-child(odd) {
-    grid-column: 1 / -1;
+  /* Sur 2 colonnes, un dernier chiffre seul prend toute la largeur. */
+  @media (max-width: 699px) {
+    .chiffre:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+    }
   }
 
   .chiffre__valeur {
@@ -273,14 +267,6 @@ const nombre = (valeur: number) => valeur.toLocaleString(textes.htmlLang);
       grid-template-columns: repeat(var(--n), minmax(0, 1fr));
     }
 
-    .chiffre,
-    .chiffre:nth-child(even) {
-      padding: 32px 24px 36px;
-    }
-
-    .chiffre:first-child {
-      padding-left: 0;
-    }
   }
 
   @media (min-width: 1024px) {
