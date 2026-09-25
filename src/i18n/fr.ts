@@ -97,6 +97,7 @@ export const fr = {
         escaliers: 'l’escalier',
         terrasses: 'la terrasse',
         cave: 'la cave',
+        auvent: 'l’auvent',
         electricite: 'l’électricité',
         'peinture-finitions': 'la peinture',
         'maconnerie-facades': 'murs & façades',

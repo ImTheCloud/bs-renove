@@ -1094,3 +1094,9 @@ dalles grises. Même coin (mur blanchi, mur en pierre, caniveau). Nouveau fichie
 `src/content/projets/terrasse-jardin-carrelage.yaml`, catégorie **Terrasse**, rangée sous
 **Terrasses et jardins**. Pas lié à la salle de bain du même dossier (rien ne le prouve).
 **Commune à demander à Sergiu.**
+
+### Puis : porte d'entrée et auvent dans la maison dessinée (même jour)
+
+Idée de Claudiu : une porte d'entrée dans le mur de droite (rez-de-chaussée) avec sa petite
+toiture au-dessus. Son point « l'auvent » mène à l'avant/après de l'auvent de Woluwe
+(`/realisations/#auvent`). De nuit, la petite fenêtre de la porte s'allume.

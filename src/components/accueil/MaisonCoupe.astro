@@ -22,6 +22,8 @@ const pieces = hero.pieces;
 const lien = (slug: string) => `${chemin('services', langue)}#${slug}`;
 /** La cave n'est pas un métier : elle mène à son avant/après. */
 const lienCave = `${chemin('realisations', langue)}#cave`;
+/** La porte d'entrée et sa petite toiture mènent à l'avant/après de l'auvent. */
+const lienAuvent = `${chemin('realisations', langue)}#auvent`;
 
 /** L'ordre de la visite guidée. */
 const visite = [
@@ -34,6 +36,7 @@ const visite = [
   'escaliers',
   'terrasses',
   'cave',
+  'auvent',
   'maconnerie-facades',
   'renovation-complete',
 ];
@@ -112,6 +115,18 @@ const visite = [
         <rect x="556" y="300" width="14" height="260" class="mur-plein" />
         <rect x="150" y="300" width="14" height="260" pathLength="1" class="t" />
         <rect x="556" y="300" width="14" height="260" pathLength="1" class="t" />
+      </g>
+
+      <!-- Porte d'entrée (mur de droite) et sa petite toiture -->
+      <g class="t-groupe" style="--d: 1600">
+        <rect x="554" y="490" width="18" height="58" class="porte-fond" />
+        <rect x="554" y="490" width="18" height="58" pathLength="1" class="t" />
+        <rect x="559" y="498" width="8" height="14" class="lumiere" />
+        <rect x="559" y="498" width="8" height="14" pathLength="1" class="t t--fin" />
+        <circle cx="568" cy="522" r="1.6" class="poignee" />
+        <path d="M570 474l46 10v8l-46-4z" class="auvent-toit" />
+        <path d="M570 474l46 10v8l-46-4z" pathLength="1" class="t" />
+        <path d="M570 500l24-9" pathLength="1" class="t t--fin" />
       </g>
 
       <!-- Dalles et cloisons -->
@@ -283,6 +298,14 @@ const visite = [
         <circle class="point" cx="157" cy="470" r="11" />
         <text x="8" y="404" class="note">{pieces['maconnerie-facades']}</text>
         <path class="fleche" d="M66 416c30 10 56 28 80 46" pathLength="1" />
+      </a>
+
+      <a href={lienAuvent} class="piece" data-piece="auvent" aria-label={pieces.auvent}>
+        <path class="zone" d="M570 474l46 10v8l-46-4z" />
+        <rect class="zone" x="554" y="490" width="18" height="58" />
+        <circle class="point" cx="604" cy="458" r="11" />
+        <text x="716" y="424" text-anchor="end" class="note">{pieces.auvent}</text>
+        <path class="fleche" d="M662 432c-16 8-28 14-44 22" pathLength="1" />
       </a>
     </g>
   </svg>
@@ -474,6 +497,28 @@ const visite = [
 
   .vitre {
     fill: #dfeaf5;
+  }
+
+  .porte-fond {
+    fill: var(--color-bg);
+    transition: fill var(--speed-slow) var(--ease);
+  }
+
+  .auvent-toit {
+    fill: var(--color-surface-2);
+    transition: fill var(--speed-slow) var(--ease);
+  }
+
+  .poignee {
+    fill: var(--color-ink);
+  }
+
+  :global(.hero--nuit) .porte-fond {
+    fill: var(--color-nuit);
+  }
+
+  :global(.hero--nuit) .auvent-toit {
+    fill: rgba(245, 242, 236, 0.12);
   }
 
   /* --- Jour / nuit --- */

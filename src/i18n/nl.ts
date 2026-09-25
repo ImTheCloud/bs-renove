@@ -101,6 +101,7 @@ export const nl: Traductions = {
         escaliers: 'de trap',
         terrasses: 'het terras',
         cave: 'de kelder',
+        auvent: 'de luifel',
         electricite: 'de elektriciteit',
         'peinture-finitions': 'het schilderwerk',
         'maconnerie-facades': 'muren & gevels',
