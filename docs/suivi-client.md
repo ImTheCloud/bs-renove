@@ -19,6 +19,6 @@ Document interne (n'apparaît pas sur le site). Le site est en production sur `h
 - **Électricité et peinture** : affichées, mais pas encore enregistrées à la BCE (NACE 43.21 et 43.34), à ajouter via un guichet d'entreprises.
 - **Assurance décennale** : rien n'est affiché ; à voir avec son assureur (loi Peeters-Borsus).
 - **Email professionnel** (ex. `info@bsrenovesrl.com`) à la place du Hotmail : une ligne dans `src/data/entreprise.ts`.
-- **Photos** : un avant/après de plomberie en intérieur, un « après » pour l'électricité, une vraie image de partage, et pour les prochains avant/après deux photos prises du même endroit.
+- **Photos** : un avant/après de plomberie en intérieur, un « après » pour l'électricité, et pour les prochains avant/après deux photos prises du même endroit.
 - **Néerlandais** : une relecture par un néerlandophone rendrait les textes plus naturels.
 - **Lighthouse** : mesure à faire sur le site en ligne.

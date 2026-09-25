@@ -13,7 +13,8 @@ import BarreMobile from '../components/BarreMobile.astro';
 import policeTitre from '@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2?url';
 import policeTexte from '@fontsource-variable/figtree/files/figtree-latin-wght-normal.woff2?url';
 import policeSerif from '@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff2?url';
-import imagePartage from '../assets/partage.png';
+import imagePartageFr from '../assets/partage.jpg';
+import imagePartageNl from '../assets/partage-nl.jpg';
 import DonneesStructurees from '../components/DonneesStructurees.astro';
 import Entete from '../components/Entete.astro';
 import PiedDePage from '../components/PiedDePage.astro';
@@ -42,6 +43,8 @@ const alternatives = LANGUES.map((code) => ({
 }));
 const xDefault = alternatives.find((alternative) => alternative.code === 'fr');
 
+// Image de partage (WhatsApp, Facebook…) dans la langue de la page.
+const imagePartage = langue === 'nl' ? imagePartageNl : imagePartageFr;
 const urlPartage = new URL(imagePartage.src, Astro.site).href;
 ---
 
