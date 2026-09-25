@@ -200,12 +200,12 @@ const tousLesServices: Service[] = [
 ];
 
 /**
- * Métiers absents des activités enregistrées de l'entreprise à la BCE
- * (électricité NACE 43.21, peinture NACE 43.34). Tant qu'ils n'y sont pas
- * ajoutés, ils ne sont pas proposés sur le site. Pour les réafficher, retirer
- * leur slug de cette liste une fois l'inscription faite.
+ * Métiers à masquer du site (accueil, Services, formulaire, maison dessinée).
+ * Vide : tout est affiché. L'électricité (NACE 43.21) et la peinture (NACE 43.34)
+ * ne sont pas encore enregistrées à la BCE ; pour les masquer, ajouter ici
+ * 'electricite' et 'peinture-finitions'.
  */
-const NON_ENREGISTRES = ['electricite', 'peinture-finitions'];
+const NON_ENREGISTRES: string[] = [];
 
 /** Les métiers proposés sur le site (accueil, Services, formulaire, maison dessinée). */
 export const services = tousLesServices.filter((service) => !NON_ENREGISTRES.includes(service.slug));

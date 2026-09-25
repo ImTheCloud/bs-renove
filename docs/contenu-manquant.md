@@ -38,7 +38,7 @@ Ces avant/après s'affichent avec « Belgique ». Remplacer `[À CONFIRMER : com
 
 ## 4. À vérifier avec Sergiu
 
-- **Électricité et peinture** ne figurent pas dans les activités enregistrées : les fait-il lui-même, les sous-traite-t-il, ou faut-il retirer ces métiers ?
+- **Électricité et peinture** sont affichées sur le site (choix du 25 septembre 2026) mais ne figurent pas dans les activités enregistrées à la BCE : à ajouter via un guichet d'entreprises (NACE 43.21 et 43.34). Pour les masquer en attendant : `NON_ENREGISTRES` dans `src/data/services.ts`.
 - **Assurance décennale** : obligatoire en Belgique pour certains travaux (loi Peeters-Borsus, 2018). Rien n'est affiché, mais à vérifier avec son assureur ou comptable.
 - **Escalier principal de Woluwe** (`chantier-26`) : la photo « après » montre-t-elle bien le travail terminé ?
 - **Salle de bain avec baignoire** : les croisillons sont encore en place sur l'« après » ; une photo finie serait meilleure.
