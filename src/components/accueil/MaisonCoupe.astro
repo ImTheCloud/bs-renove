@@ -435,12 +435,7 @@ const visite = [
 
     // La visite commence quand le dessin est terminé.
     maison.classList.add('pret');
-    const lancer = () => window.setTimeout(() => { suivante(); demarrer(); }, 2600);
-    if (!calme) {
-      // Si l'intro « BS » est à l'écran, la visite attend qu'elle se retire.
-      if (document.documentElement.classList.contains('intro-bs')) window.addEventListener('intro-finie', lancer, { once: true });
-      else lancer();
-    }
+    if (!calme) window.setTimeout(() => { suivante(); demarrer(); }, 2600);
 
     // Survol ou focus : la personne prend la main, la visite s'arrête.
     pieces.forEach((el, slug) => {

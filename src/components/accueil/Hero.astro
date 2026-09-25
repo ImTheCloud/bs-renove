@@ -5,7 +5,6 @@
  */
 import Bouton from '../Bouton.astro';
 import Icon from '../Icon.astro';
-import IntroBS from './IntroBS.astro';
 import MaisonCoupe from './MaisonCoupe.astro';
 import { entreprise, lienDevis } from '~/data/entreprise';
 import { services } from '~/data/services';
@@ -19,8 +18,6 @@ const { langue } = Astro.props;
 const textes = t(langue);
 const hero = textes.accueil.hero;
 ---
-
-<IntroBS langue={langue} />
 
 <section class="hero">
   <div class="hero__grille" aria-hidden="true"></div>

@@ -62,10 +62,6 @@ export const nl: Traductions = {
   aConfirmer: 'TE BEVESTIGEN',
 
   accueil: {
-    intro: {
-      note: 'B van Bivol, S van Sergiu: de naam van onze zaakvoerder',
-    },
-
     hero: {
       surtitre: 'Algemene aannemer · Heel België',
       titreDebut: 'Uw woning,',
