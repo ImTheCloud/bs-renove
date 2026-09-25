@@ -50,6 +50,12 @@ const { langue, paires, premierePrioritaire = false } = Astro.props;
     margin: 0;
   }
 
+  /* Les paires plus bas ne sont préparées (et leurs photos téléchargées) qu'à l'approche : la 1re s'affiche plus vite en 4G. */
+  .paire:nth-child(n + 2) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 560px;
+  }
+
   .paire[hidden] {
     display: none;
   }
