@@ -43,9 +43,10 @@ La maquette `docs/maquette-c.html` (direction C, fond blanc) est **abandonnée**
 Toutes dans `src/styles/tokens.css` : changer une couleur prend une ligne.
 
 - Papier `#F5F2EC` (fond), surfaces `#ECE7DE` / `#E3DDD1`
-- Encre `#121418` (titres, sections sombres, bouton principal)
-- Bleu du logo `#0066B4` (mots en italique, liens, annotations) ; `#7CBCFF` sur fond sombre
-- Jaune marqueur `#FFD447` (surlignages, pastilles de flèche, états actifs) : jamais comme couleur de texte sur fond clair
+- **Bleu du logo `#0066B4` = couleur de marque** : boutons principaux, liens, mots en italique, états actifs, jauges ; `#7CBCFF` sur fond sombre
+- Bleu nuit `#0F1626` : tous les blocs sombres (chapitre « Comment ça se passe », devis, menu mobile, bandeau)
+- Encre `#121418` : uniquement le texte
+- Jaune marqueur `#FFD447` : une touche seulement (surlignage, pastilles de flèche, points de la maison) ; jamais comme couleur de texte sur fond clair
 - Bleu nuit `#0F1626` (mode nuit de l’accueil, bloc devis)
 - WhatsApp `#0E8449`
 
