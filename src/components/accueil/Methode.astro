@@ -153,6 +153,11 @@ const nombre = (valeur: number) => valeur.toLocaleString(textes.htmlLang);
     padding-left: 16px;
   }
 
+  /* Dernier chiffre seul sur sa ligne : il prend toute la largeur. */
+  .chiffre:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
   .chiffre__valeur {
     font-family: var(--font-title);
     font-size: clamp(52px, 6.8vw, 116px);

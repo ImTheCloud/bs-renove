@@ -406,6 +406,22 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
     z-index: 2;
   }
 
+  @media (max-width: 360px) {
+    .entete__barre {
+      gap: 8px;
+      padding-left: 10px;
+    }
+
+    .entete__burger {
+      padding-left: 14px;
+      gap: 8px;
+    }
+
+    .entete__logo :global(.logo__nom) {
+      font-size: 22px;
+    }
+  }
+
   @media (min-width: 1024px) {
     .entete {
       padding-top: 16px;

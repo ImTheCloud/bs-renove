@@ -38,10 +38,18 @@ const textes = t(langue);
 <script>
   const dock = document.querySelector<HTMLElement>('[data-dock]');
   if (dock) {
+    let surLeDevis = false;
     const mettreAJour = () => {
       const bas = window.innerHeight + window.scrollY >= document.body.scrollHeight - 40;
-      dock.classList.toggle('dock--visible', window.scrollY > window.innerHeight * 0.5 && !bas);
+      dock.classList.toggle('dock--visible', window.scrollY > window.innerHeight * 0.5 && !bas && !surLeDevis);
     };
+    const devis = document.getElementById('devis');
+    if (devis) {
+      new IntersectionObserver(([entree]) => {
+        surLeDevis = entree.isIntersecting;
+        mettreAJour();
+      }, { rootMargin: '0px 0px -30% 0px' }).observe(devis);
+    }
     window.addEventListener('scroll', mettreAJour, { passive: true });
     mettreAJour();
   }

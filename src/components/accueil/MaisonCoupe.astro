@@ -52,6 +52,7 @@ const visite = [
   <svg
     class="maison__svg"
     viewBox="0 0 720 710"
+    data-maison-svg
     role="group"
     aria-label={hero.maisonAria}
   >
@@ -355,12 +356,34 @@ const visite = [
     <span class="maison__note-jour">{hero.noteJour}</span>
   </span>
 
+  <p class="maison__legende manuscrit" aria-hidden="true" data-legende></p>
+
   <figcaption class="maison__aide manuscrit" aria-hidden="true">
     <span class="maison__aide-touch">{hero.maisonAide}</span>
     <span class="maison__aide-souris">{hero.maisonAideSouris}</span>
     <svg width="34" height="24" viewBox="0 0 34 24" fill="none"><path d="M2 20C10 20 24 16 30 4M30 4l-8 2M30 4l1 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
   </figcaption>
 </figure>
+
+<script is:inline>
+  // Sur mobile, le dessin est recadré sur la maison (plus grande), dès l'affichage.
+  (function () {
+    var svg = document.querySelector('[data-maison-svg]');
+    if (!svg) return;
+    var cadrer = function () {
+      var mobile = window.matchMedia('(max-width: 599px)').matches;
+      var vb = mobile ? [56, 36, 608, 660] : [0, 0, 720, 710];
+      svg.setAttribute('viewBox', vb.join(' '));
+      var m = svg.closest('[data-maison]');
+      m.style.setProperty('--vb-x', vb[0]);
+      m.style.setProperty('--vb-y', vb[1]);
+      m.style.setProperty('--vb-w', vb[2]);
+      m.style.setProperty('--vb-h', vb[3]);
+    };
+    cadrer();
+    window.matchMedia('(max-width: 599px)').addEventListener('change', cadrer);
+  })();
+</script>
 
 <script>
   /* --- Jour / nuit : le soleil (ou la lune) est un bouton --- */
@@ -389,8 +412,11 @@ const visite = [
     let minuterie: number | undefined;
     let enPause = false;
 
+    const legende = maison.querySelector<HTMLElement>('[data-legende]');
     const activer = (slug: string | null) => {
       pieces.forEach((el, cle) => el.classList.toggle('actif', cle === slug));
+      const note = slug ? pieces.get(slug)?.querySelector('.note')?.textContent : '';
+      if (legende) legende.textContent = note ? `→ ${note}` : '';
       maison.classList.toggle('a-une-piece', slug !== null);
       maison.dispatchEvent(new CustomEvent('piece', { detail: slug, bubbles: true }));
     };
@@ -653,8 +679,8 @@ const visite = [
   /* Le bouton transparent posé sur l'astre (centre du soleil : 96, 74 sur 720 × 710). */
   .maison__astre {
     position: absolute;
-    left: calc(96 / 720 * 100%);
-    top: calc(74 / 710 * 100%);
+    left: calc((96 - var(--vb-x, 0)) / var(--vb-w, 720) * 100%);
+    top: calc((74 - var(--vb-y, 0)) / var(--vb-h, 710) * 100%);
     z-index: 3;
     width: 76px;
     height: 76px;
@@ -678,8 +704,8 @@ const visite = [
 
   .maison__note-astre {
     position: absolute;
-    left: calc(96 / 720 * 100% + 44px);
-    top: calc(74 / 710 * 100% + 18px);
+    left: calc((96 - var(--vb-x, 0)) / var(--vb-w, 720) * 100% + 44px);
+    top: calc((74 - var(--vb-y, 0)) / var(--vb-h, 710) * 100% + 18px);
     z-index: 2;
     display: flex;
     align-items: flex-start;
@@ -765,9 +791,29 @@ const visite = [
     transition: stroke-dashoffset 600ms var(--ease-out);
   }
 
+  /* Mobile : pas d'annotation dans le dessin (elle sortirait de l'écran), elle s'écrit dessous. */
+  .maison__legende {
+    display: none;
+  }
+
   @media (max-width: 599px) {
-    .note {
-      font-size: 42px;
+    .note,
+    .fleche {
+      display: none;
+    }
+
+    .maison__legende {
+      display: block;
+      min-height: 1.2em;
+      margin: 4px 0 0 8%;
+      font-size: 30px;
+      color: var(--color-accent);
+      transform: rotate(-2deg);
+    }
+
+    .maison__aide {
+      bottom: auto;
+      top: calc(100% - 34px);
     }
   }
 

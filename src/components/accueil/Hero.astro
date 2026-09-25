@@ -253,9 +253,10 @@ const hero = textes.accueil.hero;
     color: var(--color-ink);
   }
 
+  /* Sur mobile, le dessin prend toute la largeur de l'écran. */
   .hero__visuel {
     position: relative;
-    margin-inline: -8px;
+    margin-inline: calc(var(--gutter) * -1 + 4px);
   }
 
   /* --- Bas du hero : puces de services et invitation à défiler --- */

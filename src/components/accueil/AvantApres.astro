@@ -51,7 +51,7 @@ const vitrine = await paireVitrine();
             </p>
 
             <div class="aa__cadre">
-              <CurseurAvantApres langue={langue} paire={vitrine} depart={100} sizes="(min-width: 1024px) 44vw, 92vw" />
+              <CurseurAvantApres langue={langue} paire={vitrine} depart={94} sizes="(min-width: 1024px) 44vw, 92vw" />
               <div class="aa__jauge" aria-hidden="true"><span data-jauge></span></div>
             </div>
 
@@ -91,7 +91,7 @@ const vitrine = await paireVitrine();
       // L'annotation du côté qui domine à l'écran s'allume.
       section.classList.toggle('aa--cote-apres', t >= 0.5);
       if (alaMain) return;
-      range.value = String(Math.round(100 - t * 96));
+      range.value = String(Math.round(94 - t * 90));
       range.dispatchEvent(new Event('input'));
     });
 
@@ -246,6 +246,7 @@ const vitrine = await paireVitrine();
       display: flex;
       align-items: center;
       padding-top: var(--header-h);
+      padding-bottom: 72px;
     }
 
     .aa__visuel {
@@ -283,7 +284,7 @@ const vitrine = await paireVitrine();
 
 
     .aa__visuel {
-      max-width: min(420px, 50svh);
+      max-width: min(420px, 44svh);
     }
 
     .aa__note {

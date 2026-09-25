@@ -74,7 +74,8 @@ const classes = [
     line-height: 1;
     letter-spacing: -0.005em;
     text-decoration: none;
-    white-space: nowrap;
+    max-width: 100%;
+    text-align: left;
     cursor: pointer;
     isolation: isolate;
     transition:
@@ -104,6 +105,7 @@ const classes = [
   }
 
   .bouton__pastille {
+    flex-shrink: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
