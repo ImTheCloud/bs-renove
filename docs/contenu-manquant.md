@@ -1164,3 +1164,10 @@ Photos de Claudiu, introuvables dans Téléchargements → « Belgique ». Ouvri
 ### Puis : extension de maison sur deux niveaux (même jour)
 
 `extension-maison.yaml` : avant = façade d’origine, après = extension terminée (grandes baies). Nouvelle catégorie **Extension**, sous **Maçonnerie & façades** ; en tête de la bande de l’accueil. Photos de Claudiu → « Belgique ». Ouvrier au loin (équipe).
+
+### Puis : métier Plomberie et égouttage (même jour)
+
+Nouveau service **Plomberie** (activité enregistrée, § 1 du brief) : textes FR/NL **à valider par
+Sergiu**. Premier avant/après : `egouttage-allee.yaml`, tranchée avec tuyaux d'égout → allée
+carrelée par-dessus (catégorie **Égouttage**). Photos de Claudiu → « Belgique ». Chiffre des
+métiers : 11.

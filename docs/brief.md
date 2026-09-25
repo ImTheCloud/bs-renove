@@ -73,6 +73,7 @@ Plus une page 404 dans les deux langues.
 | Escaliers | Rénovation et habillage d’escaliers. (ajouté le 25 septembre 2026) |
 | Toiture | Rénovation et réparation de toitures. |
 | Maçonnerie & façades | Gros œuvre, maçonnerie et rejointoiement. |
+| Plomberie | Arrivées d’eau, évacuations et égouttage. (ajouté le 25 septembre 2026, activité enregistrée) |
 | Électricité | Installation et rénovation électrique pour votre maison. |
 | Peinture et finitions | Peinture des murs et plafonds, et finitions intérieures. |
  

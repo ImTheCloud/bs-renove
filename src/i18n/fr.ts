@@ -143,7 +143,7 @@ export const fr = {
       items: [
         { valeur: 12, prefixe: '', suffixe: '', mot: '', texte: 'ans de métier dans la construction' },
         { valeur: 30, prefixe: '', suffixe: '+', mot: '', texte: 'chantiers terminés' },
-        { valeur: 10, prefixe: '', suffixe: '', mot: '', texte: 'métiers : carrelage, terrasses, escaliers, toiture…' },
+        { valeur: 11, prefixe: '', suffixe: '', mot: '', texte: 'métiers : carrelage, plomberie, escaliers, toiture…' },
         { valeur: 0, prefixe: '', suffixe: '', mot: 'Gratuit', texte: 'le devis' },
       ],
     },

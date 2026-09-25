@@ -30,6 +30,7 @@ export const categories: Categorie[] = [
   { slug: 'facade', nom: { fr: 'Façade', nl: 'Gevel' } },
   { slug: 'exterieur', nom: { fr: 'Terrasse', nl: 'Terras' } },
   { slug: 'allee', nom: { fr: 'Allée', nl: 'Oprit' } },
+  { slug: 'egouttage', nom: { fr: 'Égouttage', nl: 'Riolering' } },
 ];
 
 export function nomCategorie(slug: string, langue: Langue): string | undefined {

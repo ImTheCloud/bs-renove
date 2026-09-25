@@ -107,6 +107,7 @@ const CATEGORIES_PAR_SERVICE: Record<string, string[]> = {
   escaliers: ['escalier'],
   toiture: ['toiture', 'auvent'],
   'maconnerie-facades': ['extension', 'facade'],
+  plomberie: ['egouttage'],
   electricite: [],
   'peinture-finitions': ['sejour', 'chambre', 'couloir'],
 };

@@ -147,7 +147,7 @@ export const nl: Traductions = {
       items: [
         { valeur: 12, prefixe: '', suffixe: '', mot: '', texte: 'jaar ervaring in de bouw' },
         { valeur: 30, prefixe: '', suffixe: '+', mot: '', texte: 'afgewerkte werven' },
-        { valeur: 10, prefixe: '', suffixe: '', mot: '', texte: 'vakgebieden: tegelwerk, terrassen, trappen, dakwerken…' },
+        { valeur: 11, prefixe: '', suffixe: '', mot: '', texte: 'vakgebieden: tegelwerk, loodgieterij, trappen, dakwerken…' },
         { valeur: 0, prefixe: '', suffixe: '', mot: 'Gratis', texte: 'de offerte' },
       ],
     },

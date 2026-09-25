@@ -150,6 +150,22 @@ export const services: Service[] = [
     },
   },
   {
+    slug: 'plomberie',
+    nom: { fr: 'Plomberie', nl: 'Loodgieterij' },
+    phrase: {
+      fr: 'Arrivées d’eau, évacuations et égouttage',
+      nl: 'Wateraanvoer, afvoer en riolering',
+    },
+    texte: {
+      fr: "Ce qu'on ne voit plus une fois le chantier fini, mais qui doit être parfait : les arrivées d'eau, les évacuations et l'égouttage, posés avant les sols et les murs",
+      nl: 'Wat u na de werf niet meer ziet, maar perfect moet zijn: de wateraanvoer, de afvoer en de riolering, geplaatst vóór de vloeren en de muren',
+    },
+    exemples: {
+      fr: ['Arrivées d’eau et évacuations', 'Égouttage extérieur', 'Raccordements des sanitaires', 'Tuyauterie sous chape'],
+      nl: ['Wateraanvoer en afvoer', 'Buitenriolering', 'Aansluiting van het sanitair', 'Leidingen onder de chape'],
+    },
+  },
+  {
     slug: 'electricite',
     nom: { fr: 'Électricité', nl: 'Elektriciteit' },
     phrase: {
@@ -193,6 +209,7 @@ export const iconesServices = {
   escaliers: 'escalier',
   toiture: 'toit',
   'maconnerie-facades': 'brique',
+  plomberie: 'goutte',
   electricite: 'eclair',
   'peinture-finitions': 'rouleau',
 } as const satisfies Record<string, string>;
