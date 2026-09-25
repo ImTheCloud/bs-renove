@@ -6,7 +6,7 @@
  * - Une petite visite guidée éclaire les pièces une à une, avec une
  *   annotation à la main, jusqu'à ce que la personne touche le dessin.
  * - Un clic sur une pièce ouvre sa fiche (sans changer de page) : son métier,
- *   un petit avant/après à faire glisser, puis « Voir ce métier » et « Devis ».
+ *   un petit avant/après à faire glisser, puis « Voir ce métier ».
  *   On passe d'une pièce à l'autre à volonté. Sans JavaScript, chaque pièce
  *   reste un vrai lien vers son métier.
  *
@@ -58,7 +58,7 @@ const visite = [
 
 /*
  * La fiche de chaque pièce. Les pièces qui ne sont pas un métier (cave, petite
- * toiture, allée) montrent leurs avant/après et renvoient au métier concerné.
+ * toiture, allée) montrent leurs propres avant/après et renvoient au métier concerné.
  */
 const PIECES_HORS_METIER: Record<string, { categorie: string; metier: string }> = {
   cave: { categorie: 'cave', metier: 'carrelage' },
@@ -74,14 +74,12 @@ const fiches = (
       const paires = horsMetier ? await pairesDeLaCategorie(horsMetier.categorie) : await pairesDuService(slug);
       return {
         slug,
-        metier: metier.slug,
         surtitre: slug === 'renovation-complete' ? hero.maisonTout : (pieces as Record<string, string>)[slug],
         titre: horsMetier ? (nomCategorie(horsMetier.categorie, langue) ?? metier.nom[langue]) : metier.nom[langue],
         texte: horsMetier ? hero.fiches[slug as keyof typeof hero.fiches] : metier.phrase[langue],
         paire: paires[0],
         photo: photoSeuleParService[slug],
-        lien: horsMetier ? `${chemin('realisations', langue)}#${horsMetier.categorie}` : lien(slug),
-        lienTexte: horsMetier ? hero.ficheRealisations : hero.fichePlus,
+        lien: lien(metier.slug),
       };
     }),
   )
@@ -419,8 +417,7 @@ const fiches = (
             </div>
           ) : null}
           <div class="fiche__actions">
-            <Bouton href={fiche.lien} variante="secondaire" iconeApres="fleche">{fiche.lienTexte}</Bouton>
-            <Bouton href="#devis" variante="principal" iconeApres="fleche-diag" data-preselection={fiche.metier}>{hero.ficheDevis}</Bouton>
+            <Bouton href={fiche.lien} variante="principal" iconeApres="fleche">{hero.fichePlus}</Bouton>
           </div>
           <p class="fiche__astuce manuscrit" aria-hidden="true">{hero.ficheAutre}</p>
         </section>
@@ -644,14 +641,7 @@ const fiches = (
       if (ouverte && !maison.contains(e.target as Node)) fermer();
     });
 
-    // « Devis gratuit » : le métier est coché d'avance dans le formulaire.
-    maison.querySelectorAll<HTMLElement>('[data-preselection]').forEach((bouton) =>
-      bouton.addEventListener('click', () => {
-        window.dispatchEvent(new CustomEvent('devis:preselection', { detail: bouton.dataset.preselection }));
-      }),
-    );
-
-    // Un lien de la fiche referme la fiche (sinon, sur téléphone, elle cacherait le formulaire).
+    // Le lien de la fiche referme la fiche.
     maison.querySelectorAll('[data-fiche] a').forEach((lien) => lien.addEventListener('click', () => fermer()));
 
     window.addEventListener('resize', placer);
@@ -1431,17 +1421,8 @@ const fiches = (
     }
 
     .fiche__actions :global(.bouton) {
-      flex: 1 1 0;
-      min-width: 0;
-      min-height: 48px;
-      justify-content: center;
-      padding-inline: 12px;
-      font-size: 14px;
-      text-align: center;
-    }
-
-    .fiche__actions :global(.bouton__pastille) {
-      display: none;
+      min-height: 50px;
+      font-size: 15px;
     }
 
     /* « Essayez une autre pièce ! » flotte au-dessus du panneau, vers la maison. */

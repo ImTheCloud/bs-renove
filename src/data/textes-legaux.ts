@@ -99,12 +99,12 @@ export const viePrivee: BlocLegal[] = [
       fr: [
         'par le formulaire de devis : le type de travaux, votre nom, votre téléphone et, si vous les indiquez, votre email et la description de votre projet ;',
         'par téléphone, WhatsApp ou email : votre numéro ou votre adresse, vos messages et les photos que vous choisissez d’envoyer ;',
-        "par une candidature (page « Rejoindre l'équipe ») : les informations que vous mettez dans votre email.",
+        "par le formulaire de candidature (page « Rejoindre l'équipe ») : votre métier, votre expérience, votre statut, vos langues, votre permis, votre disponibilité, votre nom, votre téléphone et, si vous les indiquez, votre email, votre commune et votre parcours.",
       ],
       nl: [
         'via het offerteformulier: het type werken, uw naam, uw telefoonnummer en, als u ze invult, uw e-mailadres en de beschrijving van uw project;',
         "via telefoon, WhatsApp of e-mail: uw nummer of adres, uw berichten en de foto's die u zelf stuurt;",
-        'via een sollicitatie (pagina « Word lid van ons team »): de gegevens die u in uw e-mail zet.',
+        'via het sollicitatieformulier (pagina « Word lid van ons team »): uw vak, uw ervaring, uw statuut, uw talen, uw rijbewijs, uw beschikbaarheid, uw naam, uw telefoonnummer en, als u ze invult, uw e-mailadres, uw gemeente en uw loopbaan.',
       ],
     },
   },
@@ -126,11 +126,11 @@ export const viePrivee: BlocLegal[] = [
     si: 'web3forms',
     paragraphes: {
       fr: [
-        "Le formulaire est transmis par Web3Forms, un service qui transforme votre demande en email et nous l'envoie. Web3Forms agit comme sous-traitant et traite les données sur des serveurs situés hors de l'Union européenne (États-Unis). En cochant la case du formulaire, vous consentez expressément à ce transfert (article 49 du RGPD).",
+        "Les formulaires (devis et candidature) sont transmis par Web3Forms, un service qui transforme votre demande en email et nous l'envoie. Web3Forms agit comme sous-traitant et traite les données sur des serveurs situés hors de l'Union européenne (États-Unis). En cochant la case du formulaire, vous consentez expressément à ce transfert (article 49 du RGPD).",
         "Un appel passe par votre opérateur téléphonique, un message WhatsApp par les services de Meta, chacun selon ses propres règles de confidentialité.",
       ],
       nl: [
-        'Het formulier wordt doorgestuurd via Web3Forms, een dienst die uw aanvraag omzet in een e-mail en naar ons stuurt. Web3Forms treedt op als verwerker en verwerkt de gegevens op servers buiten de Europese Unie (Verenigde Staten). Door het vakje van het formulier aan te vinken, geeft u uitdrukkelijk toestemming voor deze doorgifte (artikel 49 van de AVG).',
+        'De formulieren (offerte en sollicitatie) worden doorgestuurd via Web3Forms, een dienst die uw aanvraag omzet in een e-mail en naar ons stuurt. Web3Forms treedt op als verwerker en verwerkt de gegevens op servers buiten de Europese Unie (Verenigde Staten). Door het vakje van het formulier aan te vinken, geeft u uitdrukkelijk toestemming voor deze doorgifte (artikel 49 van de AVG).',
         'Een telefoontje verloopt via uw telefoonoperator, een WhatsApp-bericht via de diensten van Meta, elk volgens hun eigen privacyregels.',
       ],
     },
@@ -140,11 +140,11 @@ export const viePrivee: BlocLegal[] = [
     si: 'email',
     paragraphes: {
       fr: [
-        "Le formulaire n'envoie rien lui-même : il ouvre votre messagerie avec la demande déjà écrite, et c'est vous qui l'envoyez, depuis votre propre adresse email, vers la nôtre. Aucun service tiers n'intervient entre vous et nous.",
+        "Les formulaires n'envoient rien eux-mêmes : ils ouvrent votre messagerie avec la demande déjà écrite, et c'est vous qui l'envoyez, depuis votre propre adresse email, vers la nôtre. Aucun service tiers n'intervient entre vous et nous.",
         "Un appel passe par votre opérateur téléphonique, un message WhatsApp par les services de Meta, chacun selon ses propres règles de confidentialité.",
       ],
       nl: [
-        'Het formulier verstuurt zelf niets: het opent uw mailprogramma met de aanvraag al ingevuld, en u verstuurt ze zelf, vanaf uw eigen e-mailadres, naar het onze. Er komt geen enkele derde dienst tussen u en ons.',
+        'De formulieren versturen zelf niets: ze openen uw mailprogramma met de aanvraag al ingevuld, en u verstuurt ze zelf, vanaf uw eigen e-mailadres, naar het onze. Er komt geen enkele derde dienst tussen u en ons.',
         'Een telefoontje verloopt via uw telefoonoperator, een WhatsApp-bericht via de diensten van Meta, elk volgens hun eigen privacyregels.',
       ],
     },

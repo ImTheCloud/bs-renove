@@ -20,5 +20,6 @@ Document interne (n'apparaît pas sur le site). Le site est en production sur `h
 - **Assurance décennale** : rien n'est affiché ; à voir avec son assureur (loi Peeters-Borsus).
 - **Email professionnel** (ex. `info@bsrenovesrl.com`) à la place du Hotmail : une ligne dans `src/data/entreprise.ts`.
 - **Photos** : un avant/après de plomberie en intérieur, un « après » pour l'électricité, et pour les prochains avant/après deux photos prises du même endroit.
+- **Textes à relire avec Sergiu** : les deux paragraphes ajoutés à chaque métier (page Services) et les questions du formulaire de candidature (expérience, statut, langues, permis, disponibilité).
 - **Néerlandais** : une relecture par un néerlandophone rendrait les textes plus naturels.
 - **Lighthouse** (mobile, 26 septembre 2026) : accessibilité, bonnes pratiques et SEO à 100 partout ; performance 94 à 97 (Réalisations 92-93, beaucoup de photos).

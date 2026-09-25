@@ -43,12 +43,19 @@ const textes = t(langue);
       const bas = window.innerHeight + window.scrollY >= document.body.scrollHeight - 40;
       dock.classList.toggle('dock--visible', window.scrollY > window.innerHeight * 0.5 && !bas && !surLeDevis);
     };
-    const devis = document.getElementById('devis');
-    if (devis) {
-      new IntersectionObserver(([entree]) => {
-        surLeDevis = entree.isIntersecting;
+    // Le dock se retire quand un formulaire (devis ou candidature) est à l'écran : il cacherait ses boutons.
+    const formulaires = ['devis', 'candidature'].map((id) => document.getElementById(id)).filter((el): el is HTMLElement => el !== null);
+    const visibles = new Set<Element>();
+    if (formulaires.length) {
+      const observateur = new IntersectionObserver((entrees) => {
+        for (const entree of entrees) {
+          if (entree.isIntersecting) visibles.add(entree.target);
+          else visibles.delete(entree.target);
+        }
+        surLeDevis = visibles.size > 0;
         mettreAJour();
-      }, { rootMargin: '0px 0px -30% 0px' }).observe(devis);
+      }, { rootMargin: '0px 0px -30% 0px' });
+      formulaires.forEach((el) => observateur.observe(el));
     }
     window.addEventListener('scroll', mettreAJour, { passive: true });
     mettreAJour();

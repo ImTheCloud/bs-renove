@@ -85,6 +85,10 @@ const pairesParService = await Promise.all(services.map((service) => pairesDuSer
           </div>
 
           <div class="service__texte service__detail">
+            <div class="service__en-detail">
+              {service.enDetail[langue].map((paragraphe) => <p>{paragraphe}</p>)}
+            </div>
+
             <div class="service__exemples">
               <span class="service__exemples-titre">{bloc.exemplesTitre}</span>
               <ul>
@@ -107,6 +111,15 @@ const pairesParService = await Promise.all(services.map((service) => pairesDuSer
                 </Bouton>
               )}
             </div>
+
+            <p class="service__rejoindre">
+              <span>{bloc.rejoindreQuestion}</span>
+              <a href={`${chemin('rejoindre', langue)}?metier=${service.slug}#candidature`}>
+                <Icon nom="casque" taille={18} />
+                {bloc.rejoindreBouton}
+                <Icon nom="fleche" taille={16} />
+              </a>
+            </p>
           </div>
         </section>
       );
@@ -271,6 +284,51 @@ const pairesParService = await Promise.all(services.map((service) => pairesDuSer
     max-width: 48ch;
     font-size: var(--size-lead);
     line-height: 1.5;
+  }
+
+  .service__en-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 56ch;
+    line-height: 1.6;
+  }
+
+  .service__en-detail p {
+    margin: 0;
+  }
+
+  /* « Vous exercez ce métier ? » : discret, sous les boutons. */
+  .service__rejoindre {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 12px;
+    margin: 6px 0 0;
+    padding-top: 16px;
+    border-top: 1px dashed var(--color-border);
+    width: 100%;
+    font-size: var(--size-small);
+    color: var(--color-muted);
+  }
+
+  .service__rejoindre a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 16px 0 12px;
+    border: 1.5px solid var(--color-ink);
+    border-radius: var(--radius-pill);
+    font-weight: 650;
+    color: var(--color-ink);
+    text-decoration: none;
+    transition: background-color var(--speed) var(--ease), color var(--speed) var(--ease);
+  }
+
+  .service__rejoindre a:hover {
+    background: var(--color-ink);
+    color: var(--color-on-ink);
   }
 
   .service__exemples {

@@ -32,6 +32,7 @@ Objectif : qu'un propriétaire qui arrive sur le site ait confiance et prenne co
 - **CSS** : variables dans `src/styles/tokens.css` + styles scoped des composants. Pas de framework CSS.
 - **Langues** : FR par défaut sans préfixe (`/`), NL sous `/nl/`. Textes dans `src/i18n/fr.ts` et `nl.ts` (même structure). Le sélecteur FR/NL mène à la même page dans l'autre langue (visible directement dans l'en-tête sur mobile). À l'arrivée sur le site, la langue suit celle de l'appareil (NL si réglé en néerlandais, sinon FR) ; un choix fait avec le sélecteur est retenu et prime (script dans `BaseLayout.astro`).
 - **Réalisations** : content collection `projets` (un fichier YAML par chantier), logique dans `src/data/projets.ts`.
+- **Formulaire de candidature** (`FormulaireCandidature.astro`, page Rejoindre l'équipe) : mini CV en une page (métiers, expérience, statut, langues, permis, disponibilité, coordonnées, parcours), même envoi Web3Forms que le devis ; CV et photos proposés ensuite par email ou WhatsApp. Chaque métier de la page Services a un bouton « Rejoindre l'équipe » qui coche le métier (`?metier=`).
 - **Formulaire de devis** : 2 étapes, Web3Forms (clé `WEB3FORMS_KEY` dans `.env` et chez l'hébergeur), champ anti-spam caché. Sans clé, il ouvre un email pré-rempli avec toutes les réponses.
 - **JavaScript** : vanilla + Lenis (défilement fluide). Moteur commun : `src/scripts/site.ts`.
 - **Polices** : Fontsource (Bricolage Grotesque, Figtree, Instrument Serif, Caveat).
@@ -54,7 +55,7 @@ Essayé et refusé par le client : tout passer au bleu du logo (trop sage).
 
 ### Éléments signature
 
-- **Maison en coupe (SVG)** dans le hero (`MaisonCoupe.astro`) : se trace à l'arrivée, visite guidée des pièces. **Un clic sur une pièce ouvre sa fiche sans changer de page** (métier, petit avant/après à faire glisser, « Voir ce métier », « Devis gratuit » qui coche le métier dans le formulaire). Ordinateur : fiche flottante à côté de la pièce ; téléphone : panneau qui monte du bas de l'écran. Sans JavaScript, chaque pièce reste un lien. Côté rue à gauche (porte, petite toiture, allée pavée), jardin à droite (terrasse, arbre), cave au sous-sol. **Mode nuit** au clic sur le soleil (lune, étoiles, fenêtres allumées, boutons jaunes, logo aux traits clairs).
+- **Maison en coupe (SVG)** dans le hero (`MaisonCoupe.astro`) : se trace à l'arrivée, visite guidée des pièces. **Un clic sur une pièce ouvre sa fiche sans changer de page** (métier, petit avant/après à faire glisser, un seul bouton « Voir ce métier »). Ordinateur : fiche flottante à côté de la pièce ; téléphone : panneau qui monte du bas de l'écran. Sans JavaScript, chaque pièce reste un lien. Côté rue à gauche (porte, petite toiture, allée pavée), jardin à droite (terrasse, arbre), cave au sous-sol. **Mode nuit** au clic sur le soleil (lune, étoiles, fenêtres allumées, boutons jaunes, logo aux traits clairs).
 - **Hero** : « Demander un devis gratuit » + « 12 ans de métier » en grand. Pas de WhatsApp dans le hero.
 - **Curseurs avant/après partout** (accueil : une seule section, 4 au maximum ; page Réalisations : tous) : on fait glisser le trait soi-même. Pas d'animation pilotée par le défilement ni de défilement horizontal (refusés par le client). Chiffres qui comptent, FAQ en accordéon, formulaire en 2 étapes, pied de page avec bande « rubalise » jaune.
 

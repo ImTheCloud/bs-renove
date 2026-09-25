@@ -30,7 +30,7 @@
 | Réalisations | `/realisations/` | `/nl/realisaties/` |
 | À propos | `/a-propos/` | `/nl/over-ons/` |
 | Contact et devis | `/contact/` | `/nl/contact/` |
-| Rejoindre l'équipe | `/rejoindre-lequipe/` | `/nl/word-lid-van-ons-team/` |
+| Rejoindre l'équipe (formulaire de candidature) | `/rejoindre-lequipe/` | `/nl/word-lid-van-ons-team/` |
 | Mentions légales | `/mentions-legales/` | `/nl/juridische-informatie/` |
 | Vie privée | `/vie-privee/` | `/nl/privacy/` |
 
@@ -52,7 +52,7 @@ Plus une page 404 dans les deux langues.
 
 Rénovation complète · Salles de bain · Cuisines · Carrelage · Terrasses et jardins · Escaliers · Toiture · Maçonnerie & extensions · Plomberie · Électricité · Peinture et finitions.
 
-Page Services : une section par métier (texte, exemples de travaux, devis) avec l'avant/après où son travail se voit le mieux. L'Électricité montre une photo seule (le travail disparaît sous la chape). Les façades (rejointoiement, nettoyage) n'ont pas d'avant/après : elles figurent seulement sur la page À propos (`autresSavoirFaire`).
+Page Services : une section par métier (texte, deux paragraphes « en détail », exemples de travaux, devis, « Rejoindre l'équipe » qui ouvre la candidature avec ce métier coché) avec l'avant/après où son travail se voit le mieux. L'Électricité montre une photo seule (le travail disparaît sous la chape). Les façades (rejointoiement, nettoyage) n'ont pas d'avant/après : elles figurent seulement sur la page À propos (`autresSavoirFaire`).
 
 ## 6. Réalisations : uniquement des avant/après
 

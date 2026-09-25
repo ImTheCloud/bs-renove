@@ -47,14 +47,6 @@ export function lienWhatsApp(message: string): string {
   return `https://wa.me/${entreprise.whatsappNumero}?text=${encodeURIComponent(message)}`;
 }
 
-/**
- * Construit un lien « mailto » avec le sujet et le corps déjà écrits.
- * Sert pour les candidatures, et en secours du formulaire de devis.
- */
-export function lienEmail(sujet: string, corps: string): string {
-  return `mailto:${entreprise.email ?? ''}?subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(corps)}`;
-}
-
 /** Tous les boutons « Demander un devis » mènent au formulaire de la page contact. */
 export function lienDevis(langue: Langue): string {
   return `${chemin('contact', langue)}#devis`;
