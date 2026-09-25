@@ -18,6 +18,9 @@ export const fr = {
   },
 
   /** Message déjà écrit quand on ouvre WhatsApp. */
+  /** Deux-points : espace avant en français, pas en néerlandais. */
+  deuxPoints: ' : ',
+
   whatsappMessage: 'Bonjour, je souhaiterais un devis pour…',
 
   entete: {
@@ -350,7 +353,7 @@ export const fr = {
     accueil: {
       titre: 'BS Renove · Entreprise générale de rénovation en Belgique',
       description:
-        "Salles de bain, cuisines, carrelage, toiture et maçonnerie. On s'occupe de votre chantier du premier devis jusqu'à la dernière finition.",
+        "Salles de bain, cuisines, carrelage, toiture et maçonnerie. Nous nous occupons de votre chantier, du premier devis jusqu'à la dernière finition.",
     },
     services: {
       titre: 'Nos services · BS Renove',
@@ -364,7 +367,7 @@ export const fr = {
     contact: {
       titre: 'Contact et devis · BS Renove',
       description:
-        'Expliquez-nous votre projet et recevez une première estimation. Par téléphone, WhatsApp ou email.',
+        'Expliquez-nous votre projet et recevez un devis gratuit. Par téléphone, WhatsApp ou email.',
     },
     apropos: {
       titre: 'À propos · BS Renove',

@@ -23,6 +23,7 @@ interface Props {
 
 const { langue, paire, sizes, depart = paire.depart } = Astro.props;
 const avantApres = t(langue).accueil.avantApres;
+const dp = t(langue).deuxPoints;
 const id = `curseur-${paire.id.replace('/', '-')}`;
 const aideId = `${id}-aide`;
 const legende = paire.legende[langue];
@@ -32,12 +33,12 @@ const photo = { widths: [480, 720, 960, 1200], width: 1200, quality: 70, sizes, 
 <div class="curseur" data-curseur style={`--ratio: ${paire.ratio}; --position: ${depart}%;`}>
   <!-- Fond : la photo « après ». Elle est visible à droite du trait. -->
   <div class="curseur__couche curseur__couche--apres">
-    <Image src={paire.apres} alt={`${avantApres.apres} : ${legende}`} style={`object-position: ${paire.cadrageApres}`} {...photo} />
+    <Image src={paire.apres} alt={`${avantApres.apres}${dp}${legende}`} style={`object-position: ${paire.cadrageApres}`} {...photo} />
   </div>
 
   <!-- Dessus : la photo « avant », rognée à gauche du trait. -->
   <div class="curseur__couche curseur__couche--avant">
-    <Image src={paire.avant} alt={`${avantApres.avant} : ${legende}`} style={`object-position: ${paire.cadrageAvant}`} {...photo} />
+    <Image src={paire.avant} alt={`${avantApres.avant}${dp}${legende}`} style={`object-position: ${paire.cadrageAvant}`} {...photo} />
   </div>
 
   <span class="curseur__etiquette curseur__etiquette--avant">{avantApres.avant}</span>

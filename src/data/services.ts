@@ -76,8 +76,8 @@ const tousLesServices: Service[] = [
       nl: 'Vloeren en muren, zowel binnen als buiten',
     },
     texte: {
-      fr: "Le carrelage est notre métier de base. Préparation du support, pose et joints : un sol bien posé se voit surtout quand il est mal fait",
-      nl: 'Tegelwerk is ons basisvak. Voorbereiding van de ondergrond, plaatsing en voegen: een goed geplaatste vloer valt vooral op wanneer hij slecht gelegd is',
+      fr: "Le carrelage est notre métier de base. Préparation du support, pose et joints : c'est ce qui fait qu'un sol reste beau et droit pendant des années",
+      nl: 'Tegelwerk is ons basisvak. Voorbereiding van de ondergrond, plaatsing en voegen: daardoor blijft een vloer jarenlang mooi en vlak',
     },
     exemples: {
       fr: ['Sols intérieurs', 'Faïence murale', 'Salles de bain et cuisines', 'Ragréage et préparation des supports'],
@@ -93,11 +93,11 @@ const tousLesServices: Service[] = [
     },
     texte: {
       fr: "Une terrasse se prépare comme un sol intérieur, en plus exigeant : elle vit dehors toute l'année. Nous préparons la base et posons le carrelage de votre terrasse et de vos allées de jardin",
-      nl: 'Een terras bereidt u voor zoals een binnenvloer, maar strenger: het ligt het hele jaar buiten. Wij bereiden de ondergrond voor en leggen de tegels van uw terras en tuinpaden',
+      nl: 'Een terras vraagt dezelfde voorbereiding als een binnenvloer, en nog meer zorg: het ligt het hele jaar buiten. Wij bereiden de ondergrond voor en leggen de tegels van uw terras en tuinpaden',
     },
     exemples: {
       fr: ['Terrasses carrelées', 'Allées et pavage', 'Chape et ferraillage', 'Joints et finitions'],
-      nl: ['Betegelde terrassen', 'Opritten en bestrating', 'Chape en wapening', 'Voegen en afwerking'],
+      nl: ['Betegelde terrassen', 'Opritten en bestrating', 'Dekvloer en wapening', 'Voegen en afwerking'],
     },
   },
   {
@@ -125,7 +125,7 @@ const tousLesServices: Service[] = [
     },
     texte: {
       fr: "Une fuite ne s'arrange jamais toute seule. Nous intervenons sur les réparations ponctuelles comme sur la rénovation complète d'une toiture",
-      nl: 'Een lek lost zichzelf nooit op. Wij komen tussen voor punctuele herstellingen en voor de volledige renovatie van een dak',
+      nl: 'Een lek lost zichzelf nooit op. Wij doen zowel kleine herstellingen als de volledige renovatie van een dak',
     },
     exemples: {
       fr: ['Remplacement de tuiles', 'Réparation de fuites', 'Isolation de toiture', 'Gouttières et zinguerie'],
@@ -161,7 +161,7 @@ const tousLesServices: Service[] = [
     },
     exemples: {
       fr: ['Arrivées d’eau et évacuations', 'Égouttage extérieur', 'Raccordements des sanitaires', 'Tuyauterie sous chape'],
-      nl: ['Wateraanvoer en afvoer', 'Buitenriolering', 'Aansluiting van het sanitair', 'Leidingen onder de chape'],
+      nl: ['Wateraanvoer en afvoer', 'Buitenriolering', 'Aansluiting van het sanitair', 'Leidingen onder de dekvloer'],
     },
   },
   {

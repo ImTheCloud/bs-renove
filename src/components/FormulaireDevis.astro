@@ -49,6 +49,7 @@ const choix = [
   data-sujet-photos={f.sujetPhotos}
   data-sujet-email={f.sujetEmail}
   data-recap={JSON.stringify(f.recap)}
+  data-deux-points={textes.deuxPoints}
   data-noms-etapes={JSON.stringify(f.etapes)}
   data-erreur-choix={f.erreurChoix}
   data-erreur-champ={f.erreurChamp}
@@ -296,13 +297,14 @@ const choix = [
     const resume = (): string => {
       const donnees = new FormData(form);
       const recap = JSON.parse(d.recap ?? '{}') as Record<string, string>;
+      const dp = d.deuxPoints ?? ' : ';
       const lignes = [
-        `${recap.travaux} : ${donnees.getAll('travaux').join(', ')}`,
-        `${recap.message} : ${donnees.get('message') ?? ''}`,
+        `${recap.travaux}${dp}${donnees.getAll('travaux').join(', ')}`,
+        `${recap.message}${dp}${donnees.get('message') ?? ''}`,
         '',
-        `${recap.nom} : ${donnees.get('nom') ?? ''}`,
-        `${recap.telephone} : ${donnees.get('telephone') ?? ''}`,
-        `${recap.email} : ${donnees.get('email') ?? ''}`,
+        `${recap.nom}${dp}${donnees.get('nom') ?? ''}`,
+        `${recap.telephone}${dp}${donnees.get('telephone') ?? ''}`,
+        `${recap.email}${dp}${donnees.get('email') ?? ''}`,
       ];
       return lignes.join('\n');
     };

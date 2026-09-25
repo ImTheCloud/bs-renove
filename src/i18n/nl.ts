@@ -23,6 +23,8 @@ export const nl: Traductions = {
     appeler: 'Bellen',
   },
 
+  deuxPoints: ': ',
+
   whatsappMessage: 'Hallo, ik zou graag een offerte voor…',
 
   entete: {
@@ -313,9 +315,9 @@ export const nl: Traductions = {
     titre: 'Wilt u met ons werken',
     intro:
       'Stuur ons uw kandidatuur, met uw vak en uw ervaring. Wij nemen contact op als een profiel zoals het uwe ons interesseert',
-    candidatureTitre: 'Kandidatuur versturen per email',
+    candidatureTitre: 'Kandidatuur versturen per e-mail',
     candidatureTexte:
-      'Eén klik opent uw mailprogramma met een kant-en-klare email: u hoeft alleen nog uw gegevens en ervaring aan te vullen',
+      'Eén klik opent uw mailprogramma met een kant-en-klare e-mail: u hoeft alleen nog uw gegevens en ervaring aan te vullen',
     bouton: 'Mijn kandidatuur versturen',
     sujetEmail: 'Kandidatuur',
     corpsEmail:
@@ -367,7 +369,7 @@ export const nl: Traductions = {
     contact: {
       titre: 'Contact en offerte · BS Renove',
       description:
-        'Leg ons uw project uit en ontvang een eerste raming. Via telefoon, WhatsApp of email.',
+        'Leg ons uw project uit en ontvang een gratis offerte. Via telefoon, WhatsApp of e-mail.',
     },
     apropos: {
       titre: 'Over ons · BS Renove',

@@ -119,7 +119,7 @@ export const photoSeuleParService: Partial<Record<string, { image: ImageMetadata
     image: gainesElectriques,
     legende: {
       fr: 'Gaines électriques posées au sol, avant la chape',
-      nl: 'Elektriciteitsbuizen op de vloer, vóór de chape',
+      nl: 'Elektriciteitsbuizen op de vloer, vóór de dekvloer',
     },
   },
 };
