@@ -53,7 +53,7 @@ export async function toutesLesPaires(): Promise<Paire[]> {
         paysage,
         ratio: paysage ? '4 / 3' : '3 / 4',
         depart: paire.depart,
-        etapes: paire.etapes,
+        etapes: paire.etapes ?? [],
         id: `${projet.id}-${index}`,
         avant: paire.avant,
         apres: paire.apres,
