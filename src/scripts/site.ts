@@ -1,9 +1,7 @@
 /**
  * Le « moteur » commun à toutes les pages :
  * - défilement fluide (Lenis), coupé si la personne préfère moins d'animations ;
- * - apparitions au défilement ([data-reveal], [data-mots]) ;
- * - scènes pilotées par le défilement ([data-scene]) : chaque composant
- *   s'abonne avec `surDefilement` et reçoit sa progression de 0 à 1.
+ * - apparitions au défilement ([data-reveal], [data-mots]).
  *
  * Tout reste lisible et utilisable sans JavaScript : ce script ne fait
  * qu'ajouter du mouvement par-dessus.
@@ -91,37 +89,3 @@ const observateur = new IntersectionObserver(
 );
 document.querySelectorAll('[data-reveal], [data-mots]').forEach((el) => observateur.observe(el));
 
-/* --- Scènes pilotées par le défilement --------------------------------- */
-type Rappel = (progression: number) => void;
-const scenes: { element: HTMLElement; rappel: Rappel }[] = [];
-
-/**
- * Appelle `rappel` à chaque image avec la progression de l'élément :
- * 0 quand son haut touche le haut de l'écran, 1 quand son bas touche
- * le bas de l'écran (idéal pour une section « épinglée » plus haute que l'écran).
- */
-export function surDefilement(element: HTMLElement, rappel: Rappel) {
-  scenes.push({ element, rappel });
-  demander();
-}
-
-let enAttente = false;
-function demander() {
-  if (enAttente) return;
-  enAttente = true;
-  requestAnimationFrame(() => {
-    enAttente = false;
-    const hauteurEcran = window.innerHeight;
-    for (const { element, rappel } of scenes) {
-      const boite = element.getBoundingClientRect();
-      const course = boite.height - hauteurEcran;
-      const brut = course > 0 ? -boite.top / course : boite.top < 0 ? 1 : 0;
-      rappel(Math.min(1, Math.max(0, brut)));
-    }
-  });
-}
-
-window.addEventListener('scroll', demander, { passive: true });
-window.addEventListener('resize', demander);
-
-export const mouvementReduit = calme;

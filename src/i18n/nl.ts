@@ -104,7 +104,7 @@ export const nl: Traductions = {
       titreDebut: 'Dezelfde ruimte.',
       titreSerif: 'Een nieuw leven.',
       texte:
-        'Scroll verder, of neem de schuifknop vast: de badkamer midden in de werken maakt plaats voor het resultaat.',
+        'Versleep de schuifknop: de badkamer midden in de werken maakt plaats voor het resultaat.',
       noteAvant: 'midden in de werken…',
       noteApres: '… en bijna klaar!',
       voirTout: 'Alle voor/na-foto’s',
@@ -164,9 +164,7 @@ export const nl: Traductions = {
       titreDebut: 'Werven,',
       titreSerif: 'geen beloftes.',
       voirTout: 'Alle realisaties',
-      aideSouris: 'Beweeg over een foto om het resultaat te zien',
-      aideToucher: 'Tik op een foto om het resultaat te zien',
-      basculer: 'Voor of na tonen',
+      aide: 'Versleep de lijn om te vergelijken',
     },
 
     faq: {

@@ -29,7 +29,7 @@ src/
 │   ├── projets.ts      Les avant/après : vitrine, accueil, par métier
 │   └── textes-legaux.ts
 ├── i18n/               Tous les textes d'interface (fr.ts et nl.ts, même structure)
-├── scripts/site.ts     Défilement fluide, apparitions, scènes au défilement
+├── scripts/site.ts     Défilement fluide, apparitions
 ├── styles/             tokens.css (couleurs, tailles) et global.css
 └── assets/             Photos (sans métadonnées) et logo
 scripts/                Outils locaux : import de photos, tags Finder, image de partage

@@ -1,15 +1,11 @@
 ---
 /**
- * Les réalisations de l'accueil : une bande de cartes avant/après.
- * - Chaque carte montre l'avant, puis bascule d'elle-même vers l'après
- *   (effet de volet) la première fois qu'elle apparaît en entier.
- * - Survol (souris) ou toucher (téléphone) : on rebascule à volonté.
- * - Ordinateur : la section reste épinglée et la bande défile de côté.
- *   Téléphone : on fait glisser la bande au doigt.
+ * Les réalisations de l'accueil : une grille de curseurs avant/après,
+ * les mêmes que sur la page Réalisations. On fait glisser le trait soi-même.
+ * Téléphone : les 4 premières ; ordinateur : 7 (3 lignes pleines, les horizontales prennent 2 cases).
  */
-import { Image } from 'astro:assets';
-import Icon from '../Icon.astro';
-import { nomCategorie } from '~/data/categories';
+import Bouton from '../Bouton.astro';
+import GrilleAvantApres from '../GrilleAvantApres.astro';
 import { pairesAccueil } from '~/data/projets';
 import { chemin, t, type Langue } from '~/i18n';
 
@@ -18,192 +14,35 @@ interface Props {
 }
 
 const { langue } = Astro.props;
-const textes = t(langue);
-const bloc = textes.accueil.projets;
-const aa = textes.accueil.avantApres;
+const bloc = t(langue).accueil.projets;
 const paires = await pairesAccueil();
 ---
 
 {
   paires.length > 0 && (
-    <section class="projets" data-projets aria-labelledby="projets-titre">
-      <div class="projets__colle">
-        <div class="wrap projets__entete">
+    <section class="projets" aria-labelledby="projets-titre">
+      <div class="wrap projets__interieur">
+        <div class="projets__entete">
           <div>
             <p class="etiquette-section">{bloc.surtitre}</p>
             <h2 id="projets-titre" data-mots>
               {bloc.titreDebut}{' '}<span class="serif">{bloc.titreSerif}</span>
             </h2>
           </div>
-          <div class="projets__compteur" aria-hidden="true">
-            <span class="manuscrit projets__glisser">
-              <span class="aide-souris">{bloc.aideSouris}</span>
-              <span class="aide-toucher">{bloc.aideToucher}</span>
-            </span>
-            <span class="projets__barre"><span data-barre /></span>
-          </div>
+          <p class="projets__aide manuscrit" aria-hidden="true">{bloc.aide}</p>
         </div>
 
-        <div class="projets__fenetre" data-fenetre>
-          <ul class="projets__piste" data-piste>
-            {paires.map((paire, i) => {
-              const piece = nomCategorie(paire.categorie, langue) ?? '';
-              const titre = `${piece} · ${paire.commune[langue]}`;
-              return (
-                <li class:list={['carte', { 'carte--paysage': paire.paysage }]}>
-                  <button
-                    type="button"
-                    class="carte__bouton"
-                    aria-pressed="false"
-                    aria-label={`${bloc.basculer} : ${titre}`}
-                    data-bascule
-                  >
-                    <span class="carte__image">
-                      <Image
-                        src={paire.avant}
-                        style={`object-position: ${paire.cadrageAvant}`}
-                        alt={`${aa.avant} : ${paire.legende[langue]}`}
-                        widths={[400, 640, 880]}
-                        width={880}
-                        quality={70}
-                        sizes={paire.paysage ? "(min-width: 1024px) 50vw, 92vw" : "(min-width: 1024px) 30vw, 78vw"}
-                        loading="lazy"
-                      />
-                    </span>
-                    <span class="carte__image carte__image--apres">
-                      <Image
-                        src={paire.apres}
-                        style={`object-position: ${paire.cadrageApres}`}
-                        alt={`${aa.apres} : ${paire.legende[langue]}`}
-                        widths={[400, 640, 880]}
-                        width={880}
-                        quality={70}
-                        sizes={paire.paysage ? "(min-width: 1024px) 50vw, 92vw" : "(min-width: 1024px) 30vw, 78vw"}
-                        loading="lazy"
-                      />
-                    </span>
-                    <span class="carte__trait" aria-hidden="true" />
-                    <span class="carte__etat" aria-hidden="true">
-                      <span class="carte__etat-avant">{aa.avant}</span>
-                      <span class="carte__etat-apres">{aa.apres}</span>
-                    </span>
-                    <span class="carte__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-                    <span class="carte__infos">
-                      <span class="carte__service">{piece}</span>
-                      <span class="carte__commune">{paire.commune[langue]}</span>
-                    </span>
-                  </button>
-                </li>
-              );
-            })}
-            <li class="carte carte--fin">
-              <a href={chemin('realisations', langue)} class="carte__lien--fin">
-                <span class="carte__fin-texte">{bloc.voirTout}</span>
-                <span class="carte__fin-rond" aria-hidden="true">
-                  <Icon nom="fleche" taille={30} epaisseur={2} />
-                </span>
-              </a>
-            </li>
-          </ul>
+        <GrilleAvantApres langue={langue} paires={paires} />
+
+        <div class="projets__actions">
+          <Bouton href={chemin('realisations', langue)} variante="principal" iconeApres="fleche-diag">
+            {bloc.voirTout}
+          </Bouton>
         </div>
       </div>
     </section>
   )
 }
-
-<script>
-  import { mouvementReduit, surDefilement } from '~/scripts/site';
-
-  const section = document.querySelector<HTMLElement>('[data-projets]');
-  const piste = section?.querySelector<HTMLElement>('[data-piste]');
-  const fenetre = section?.querySelector<HTMLElement>('[data-fenetre]');
-  const barre = section?.querySelector<HTMLElement>('[data-barre]');
-  const grandEcran = window.matchMedia('(min-width: 1024px)');
-  const souris = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-
-  if (section && piste && fenetre) {
-    /* --- Bascule avant / après --- */
-    // Chaque carte a un état « au repos » (avant ou après). Le survol montre
-    // l'autre état ; un clic (ou Entrée au clavier, ou un toucher) change l'état au repos.
-    const bascules = Array.from(section.querySelectorAll<HTMLButtonElement>('[data-bascule]')).map((carte) => {
-      let repos = false;
-      let survol = false;
-      const afficher = () => carte.setAttribute('aria-pressed', String(survol ? !repos : repos));
-      carte.addEventListener('click', () => {
-        repos = !repos;
-        afficher();
-      });
-      if (souris) {
-        carte.addEventListener('pointerenter', () => {
-          survol = true;
-          afficher();
-        });
-        carte.addEventListener('pointerleave', () => {
-          survol = false;
-          afficher();
-        });
-      }
-      return {
-        carte,
-        passerALApres: () => {
-          repos = true;
-          afficher();
-        },
-      };
-    });
-
-    // La première fois qu'une carte est entièrement visible, elle passe d'elle-même à l'après.
-    if (!mouvementReduit) {
-      const observateur = new IntersectionObserver(
-        (entrees) => {
-          for (const entree of entrees) {
-            if (!entree.isIntersecting) continue;
-            observateur.unobserve(entree.target);
-            const bascule = bascules.find(({ carte }) => carte === entree.target);
-            window.setTimeout(() => bascule?.passerALApres(), 500);
-          }
-        },
-        { threshold: 0.95 },
-      );
-      bascules.forEach(({ carte }) => observateur.observe(carte));
-    }
-
-    /* --- Défilement horizontal --- */
-    let distance = 0;
-
-    const mesurer = () => {
-      const epingle = grandEcran.matches && !mouvementReduit;
-      section.classList.toggle('projets--epingle', epingle);
-      if (!epingle) {
-        section.style.height = '';
-        piste.style.transform = '';
-        return;
-      }
-      distance = Math.max(0, piste.scrollWidth - fenetre.clientWidth);
-      section.style.height = `${window.innerHeight + distance}px`;
-    };
-
-    mesurer();
-    window.addEventListener('resize', mesurer);
-    window.addEventListener('load', mesurer);
-
-    surDefilement(section, (progression) => {
-      if (section.classList.contains('projets--epingle')) {
-        piste.style.transform = `translate3d(${-progression * distance}px, 0, 0)`;
-        barre?.style.setProperty('--t', String(progression));
-      }
-    });
-
-    fenetre.addEventListener(
-      'scroll',
-      () => {
-        const max = fenetre.scrollWidth - fenetre.clientWidth;
-        barre?.style.setProperty('--t', String(max > 0 ? fenetre.scrollLeft / max : 0));
-      },
-      { passive: true },
-    );
-  }
-</script>
 
 <style>
   .projets {
@@ -214,7 +53,7 @@ const paires = await pairesAccueil();
     border-radius: var(--radius-large) var(--radius-large) 0 0;
   }
 
-  .projets__colle {
+  .projets__interieur {
     display: flex;
     flex-direction: column;
     gap: 36px;
@@ -225,7 +64,7 @@ const paires = await pairesAccueil();
     flex-wrap: wrap;
     align-items: flex-end;
     justify-content: space-between;
-    gap: 24px;
+    gap: 16px 24px;
   }
 
   .projets__entete h2 {
@@ -236,330 +75,17 @@ const paires = await pairesAccueil();
     color: var(--color-accent);
   }
 
-  .projets__compteur {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .projets__glisser {
+  .projets__aide {
+    margin: 0;
     font-size: 24px;
     color: var(--color-accent);
     transform: rotate(-2deg);
   }
 
-  .aide-souris {
-    display: none;
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .aide-souris {
-      display: inline;
-    }
-
-    .aide-toucher {
+  /* Téléphone : 4 paires suffisent, la suite est sur la page Réalisations. */
+  @media (max-width: 699px) {
+    .projets__interieur :global(.paire:nth-child(n + 5)) {
       display: none;
-    }
-  }
-
-  .projets__barre {
-    position: relative;
-    width: 160px;
-    height: 3px;
-    background: var(--color-border);
-    border-radius: 3px;
-    overflow: hidden;
-  }
-
-  .projets__barre span {
-    position: absolute;
-    inset: 0;
-    background: var(--color-ink);
-    transform-origin: left;
-    transform: scaleX(max(0.12, var(--t, 0)));
-    transition: transform 120ms linear;
-  }
-
-  /* --- La bande --- */
-  .projets__fenetre {
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    padding-bottom: 8px;
-  }
-
-  .projets__fenetre::-webkit-scrollbar {
-    display: none;
-  }
-
-  .projets__piste {
-    display: flex;
-    gap: 14px;
-    width: max-content;
-    margin: 0;
-    padding: 0 var(--gutter);
-    list-style: none;
-  }
-
-  .carte {
-    width: min(78vw, 340px);
-    scroll-snap-align: center;
-  }
-
-  /* Même hauteur qu'une carte verticale, mais au format 4/3. */
-  .carte--paysage {
-    width: calc(min(78vw, 340px) * 16 / 9);
-    max-width: 92vw;
-  }
-
-  .carte--paysage .carte__bouton {
-    aspect-ratio: 4 / 3;
-  }
-
-  /* --- Une carte avant / après --- */
-  .carte__bouton {
-    position: relative;
-    display: block;
-    width: 100%;
-    aspect-ratio: 3 / 4;
-    padding: 0;
-    border: 0;
-    border-radius: var(--radius-card);
-    overflow: hidden;
-    background: var(--color-surface);
-    color: #fff;
-    font: inherit;
-    text-align: left;
-    cursor: pointer;
-    isolation: isolate;
-  }
-
-  .carte__image :global(img) {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  /* L'après se dévoile de gauche à droite, comme un volet. */
-  .carte__image--apres {
-    position: absolute;
-    inset: 0;
-    clip-path: inset(0 100% 0 0);
-    transition: clip-path 900ms var(--ease-out);
-  }
-
-  .carte__bouton[aria-pressed='true'] .carte__image--apres {
-    clip-path: inset(0 0 0 0);
-  }
-
-  /* Le trait jaune qui suit le bord du volet. */
-  .carte__trait {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 2;
-    width: 4px;
-    margin-left: -2px;
-    background: var(--color-signal);
-    opacity: 0;
-    transition:
-      left 900ms var(--ease-out),
-      opacity 300ms var(--ease) 700ms;
-  }
-
-  .carte__bouton[aria-pressed='true'] .carte__trait {
-    left: 100%;
-  }
-
-  .carte__bouton:hover .carte__trait,
-  .carte__bouton:active .carte__trait {
-    opacity: 1;
-    transition:
-      left 900ms var(--ease-out),
-      opacity 150ms var(--ease);
-  }
-
-  .carte__bouton::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background: linear-gradient(180deg, rgba(18, 20, 24, 0.3) 0%, transparent 25%, transparent 55%, rgba(18, 20, 24, 0.8) 100%);
-    pointer-events: none;
-  }
-
-  .carte__etat {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    z-index: 3;
-    display: grid;
-    padding: 7px 14px;
-    border-radius: var(--radius-pill);
-    background: rgba(245, 242, 236, 0.94);
-    color: var(--color-ink);
-    font-size: 12px;
-    font-weight: 750;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    transition: background-color 400ms var(--ease);
-  }
-
-  .carte__etat > span {
-    grid-area: 1 / 1;
-    transition: opacity 300ms var(--ease);
-  }
-
-  .carte__etat-apres {
-    opacity: 0;
-  }
-
-  .carte__bouton[aria-pressed='true'] .carte__etat {
-    background: var(--color-signal);
-  }
-
-  .carte__bouton[aria-pressed='true'] .carte__etat-avant {
-    opacity: 0;
-  }
-
-  .carte__bouton[aria-pressed='true'] .carte__etat-apres {
-    opacity: 1;
-  }
-
-  .carte__num {
-    position: absolute;
-    top: 18px;
-    left: 20px;
-    z-index: 3;
-    font-family: var(--font-title);
-    font-size: 15px;
-    font-weight: 700;
-  }
-
-  .carte__infos {
-    position: absolute;
-    left: 20px;
-    right: 20px;
-    bottom: 22px;
-    z-index: 3;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .carte__service {
-    align-self: flex-start;
-    padding: 5px 12px;
-    border-radius: var(--radius-pill);
-    background: var(--color-signal);
-    color: var(--color-ink);
-    font-size: 12px;
-    font-weight: 750;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  .carte__commune {
-    font-family: var(--font-title);
-    font-size: clamp(24px, 2.2vw, 34px);
-    font-weight: 700;
-    line-height: 1.05;
-    letter-spacing: -0.035em;
-  }
-
-  .carte__bouton:focus-visible {
-    outline: 3px solid var(--color-accent);
-    outline-offset: 3px;
-  }
-
-  /* La dernière carte : « tous les avant/après ». */
-  .carte__lien--fin {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    aspect-ratio: 3 / 4;
-    padding: 28px;
-    border-radius: var(--radius-card);
-    background: var(--color-signal);
-    color: var(--color-ink);
-    text-decoration: none;
-  }
-
-  .carte__fin-texte {
-    font-family: var(--font-title);
-    font-size: clamp(32px, 3vw, 44px);
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: -0.04em;
-  }
-
-  .carte__fin-rond {
-    align-self: flex-end;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 84px;
-    height: 84px;
-    border-radius: 50%;
-    background: var(--color-ink);
-    color: var(--color-signal);
-    transition: transform 500ms var(--ease-out);
-  }
-
-  .carte__lien--fin:hover .carte__fin-rond {
-    transform: translateX(8px);
-  }
-
-  /* --- Version épinglée (grand écran) --- */
-  .projets--epingle {
-    padding-top: 0;
-  }
-
-  .projets--epingle .projets__colle {
-    position: sticky;
-    top: 0;
-    height: 100svh;
-    justify-content: center;
-    padding-top: var(--header-h);
-    overflow: hidden;
-  }
-
-  .projets--epingle .projets__fenetre {
-    overflow: visible;
-    scroll-snap-type: none;
-  }
-
-  .projets--epingle .projets__piste {
-    padding-inline: max(var(--gutter), calc((100vw - var(--content-max)) / 2));
-    will-change: transform;
-  }
-
-  .projets--epingle .carte {
-    width: min(26vw, 58svh * 0.75);
-  }
-
-  .projets--epingle .carte--paysage {
-    width: calc(min(26vw, 58svh * 0.75) * 16 / 9);
-  }
-
-  @media (min-width: 1024px) {
-    .projets__piste {
-      gap: 24px;
-    }
-
-    .projets__compteur {
-      align-items: flex-end;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .carte__image--apres,
-    .carte__trait {
-      transition: none;
     }
   }
 </style>

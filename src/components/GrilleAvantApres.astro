@@ -1,0 +1,112 @@
+---
+/**
+ * Une grille de curseurs avant/après, avec pour chacun la pièce, la commune
+ * et la légende. Utilisée sur l'accueil et sur la page Réalisations.
+ * Les paires horizontales prennent deux colonnes, à la même hauteur que les verticales.
+ */
+import CurseurAvantApres from './CurseurAvantApres.astro';
+import { nomCategorie } from '~/data/categories';
+import type { Paire } from '~/data/projets';
+import type { Langue } from '~/i18n';
+
+interface Props {
+  langue: Langue;
+  paires: Paire[];
+}
+
+const { langue, paires } = Astro.props;
+---
+
+<div class="grille" data-galerie-paires>
+  {
+    paires.map((paire) => (
+      <figure class:list={['paire', { 'paire--paysage': paire.paysage }]} data-categorie={paire.categorie}>
+        <CurseurAvantApres langue={langue} paire={paire} sizes="(min-width: 1100px) 30vw, (min-width: 700px) 46vw, 92vw" />
+        <figcaption class="paire__legende">
+          <span class="paire__categorie">{nomCategorie(paire.categorie, langue)}</span>
+          <span class="paire__commune">{paire.commune[langue]}</span>
+          <span class="paire__texte">{paire.legende[langue]}</span>
+        </figcaption>
+      </figure>
+    ))
+  }
+</div>
+
+<style>
+  .grille {
+    display: grid;
+    gap: 40px 20px;
+    /* La grille sert de repère (cqw) pour caler la hauteur des paires horizontales. */
+    container-type: inline-size;
+  }
+
+  .paire {
+    margin: 0;
+  }
+
+  .paire[hidden] {
+    display: none;
+  }
+
+  .paire__legende {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 12px;
+    padding-top: 14px;
+  }
+
+  .paire__categorie {
+    padding: 5px 12px;
+    background: var(--color-signal);
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    font-weight: 750;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-ink);
+  }
+
+  .paire__commune {
+    font-family: var(--font-title);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+  }
+
+  .paire__texte {
+    flex-basis: 100%;
+    font-size: var(--size-small);
+    color: var(--color-muted);
+  }
+
+  @media (min-width: 700px) {
+    .grille {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-auto-flow: dense;
+    }
+
+    .paire--paysage {
+      grid-column: span 2;
+    }
+
+    /* Plus large, mais aussi haute qu'une paire verticale (2 colonnes, écart 20px). */
+    .paire--paysage :global(.curseur) {
+      aspect-ratio: auto;
+      height: calc((100cqw - 20px) / 2 * 4 / 3);
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .grille {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 56px 24px;
+    }
+
+    /* Même principe sur 3 colonnes (écart 24px). */
+    .paire--paysage :global(.curseur) {
+      height: calc((100cqw - 48px) / 3 * 4 / 3);
+    }
+  }
+</style>

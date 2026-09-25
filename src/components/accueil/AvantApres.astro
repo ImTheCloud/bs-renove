@@ -1,9 +1,7 @@
 ---
 /**
- * L'avant/après de l'accueil, piloté par le défilement :
- * la section reste « épinglée » à l'écran et, à mesure qu'on descend,
- * la salle de bain d'origine laisse place à celle d'aujourd'hui.
- * La poignée reste utilisable à la main (souris, doigt, clavier).
+ * L'avant/après en vitrine sur l'accueil : la salle de bain de
+ * Watermael-Boitsfort, avec un curseur qu'on fait glisser soi-même.
  */
 import Bouton from '../Bouton.astro';
 import CurseurAvantApres from '../CurseurAvantApres.astro';
@@ -22,8 +20,7 @@ const vitrine = await paireVitrine();
 
 {
   vitrine && (
-    <section class="aa" data-aa aria-labelledby="aa-titre">
-      <div class="aa__colle">
+    <section class="aa" aria-labelledby="aa-titre">
         <div class="wrap aa__interieur">
           <div class="aa__texte">
             <p class="etiquette-section">{bloc.surtitre}</p>
@@ -51,8 +48,7 @@ const vitrine = await paireVitrine();
             </p>
 
             <div class="aa__cadre">
-              <CurseurAvantApres langue={langue} paire={vitrine} depart={94} sizes="(min-width: 1024px) 44vw, 92vw" />
-              <div class="aa__jauge" aria-hidden="true"><span data-jauge></span></div>
+              <CurseurAvantApres langue={langue} paire={vitrine} depart={50} sizes="(min-width: 1024px) 44vw, 92vw" />
             </div>
 
             <p class="aa__note aa__note--apres manuscrit" aria-hidden="true">
@@ -61,46 +57,9 @@ const vitrine = await paireVitrine();
             </p>
           </div>
         </div>
-      </div>
     </section>
   )
 }
-
-<script>
-  import { mouvementReduit, surDefilement } from '~/scripts/site';
-
-  const section = document.querySelector<HTMLElement>('[data-aa]');
-  const range = section?.querySelector<HTMLInputElement>('[data-range]');
-  const jauge = section?.querySelector<HTMLElement>('[data-jauge]');
-
-  if (section && range && !mouvementReduit) {
-    section.classList.add('aa--pilote');
-    let alaMain = false;
-
-    // Dès que la personne attrape la poignée, le défilement ne la déplace plus.
-    const prendreLaMain = () => {
-      alaMain = true;
-    };
-    range.addEventListener('pointerdown', prendreLaMain);
-    range.addEventListener('keydown', prendreLaMain);
-
-    surDefilement(section, (progression) => {
-      // Un peu de marge au début et à la fin : on voit bien l'avant, puis bien l'après.
-      const t = Math.min(1, Math.max(0, (progression - 0.12) / 0.7));
-      jauge?.style.setProperty('--t', String(t));
-      // L'annotation du côté qui domine à l'écran s'allume.
-      section.classList.toggle('aa--cote-apres', t >= 0.5);
-      if (alaMain) return;
-      range.value = String(Math.round(94 - t * 90));
-      range.dispatchEvent(new Event('input'));
-    });
-
-    // En sortant de la section, on rend la main au défilement.
-    new IntersectionObserver(([entree]) => {
-      if (!entree.isIntersecting) alaMain = false;
-    }).observe(section);
-  }
-</script>
 
 <style>
   .aa {
@@ -176,29 +135,6 @@ const vitrine = await paireVitrine();
     object-fit: cover;
   }
 
-  .aa__jauge {
-    position: relative;
-    height: 3px;
-    margin: 16px 8% 0;
-    background: var(--color-border);
-    border-radius: 3px;
-    overflow: hidden;
-    opacity: 0;
-    transition: opacity 400ms var(--ease);
-  }
-
-  .aa--pilote .aa__jauge {
-    opacity: 1;
-  }
-
-  .aa__jauge span {
-    position: absolute;
-    inset: 0;
-    background: var(--color-ink);
-    transform-origin: left;
-    transform: scaleX(var(--t, 0));
-  }
-
   .aa__note {
     display: flex;
     align-items: flex-end;
@@ -206,9 +142,6 @@ const vitrine = await paireVitrine();
     margin: 0 0 8px;
     font-size: 26px;
     color: var(--color-accent);
-    transition:
-      opacity 500ms var(--ease),
-      transform 500ms var(--ease-out);
   }
 
   .aa__note--avant {
@@ -220,81 +153,6 @@ const vitrine = await paireVitrine();
     align-items: flex-start;
     margin: 8px 0 0;
     transform: rotate(-2deg);
-  }
-
-  /* Pendant le pilotage : l'annotation du côté qui domine s'allume. */
-  .aa--pilote .aa__note--apres,
-  .aa--pilote.aa--cote-apres .aa__note--avant {
-    opacity: 0.25;
-  }
-
-  .aa--pilote.aa--cote-apres .aa__note--apres {
-    opacity: 1;
-  }
-
-  /* --- Épinglage : la section reste à l'écran pendant qu'on défile --- */
-  @media (prefers-reduced-motion: no-preference) {
-    .aa {
-      height: 260vh;
-      padding: 0;
-    }
-
-    .aa__colle {
-      position: sticky;
-      top: 0;
-      height: 100svh;
-      display: flex;
-      align-items: center;
-      padding-top: var(--header-h);
-      padding-bottom: 72px;
-    }
-
-    .aa__visuel {
-      max-width: min(520px, 46svh);
-    }
-
-    .aa__texte {
-      gap: 18px;
-    }
-  }
-
-  @media (prefers-reduced-motion: no-preference) and (max-width: 1023px) {
-    .aa {
-      height: 230vh;
-    }
-
-    /* Sur mobile, on garde surtout la photo à l'écran. */
-    .aa__interieur {
-      gap: 12px;
-    }
-
-    .aa__texte {
-      gap: 10px;
-    }
-
-    .aa__texte h2 {
-      font-size: clamp(34px, 9vw, 48px);
-    }
-
-    .aa__intro,
-    .aa__lieu {
-      display: none;
-    }
-
-
-
-    .aa__visuel {
-      max-width: min(420px, 44svh);
-    }
-
-    .aa__note {
-      font-size: 21px;
-    }
-
-    .aa__note svg {
-      width: 40px;
-      height: 32px;
-    }
   }
 
   @media (min-width: 1024px) {

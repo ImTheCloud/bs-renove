@@ -67,8 +67,6 @@ const IDS_ACCUEIL = [
   'renovation-woluwe-saint-pierre/detail-3',
   'toiture-woluwe-saint-pierre/detail-1',
   'renovation-woluwe-saint-pierre/detail-5',
-  'renovation-interieure-ostende/detail-1',
-  'renovation-parquet-menuiseries/detail-3',
 ];
 
 export async function paireVitrine(): Promise<Paire | undefined> {

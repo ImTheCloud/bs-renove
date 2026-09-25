@@ -99,7 +99,7 @@ export const fr = {
       titreDebut: 'Même pièce.',
       titreSerif: 'Autre vie.',
       texte:
-        'Faites défiler, ou attrapez la poignée : la salle de bain en plein chantier laisse place au résultat.',
+        'Faites glisser la poignée : la salle de bain en plein chantier laisse place au résultat.',
       noteAvant: 'en plein chantier…',
       noteApres: '… et presque terminée !',
       voirTout: 'Tous les avant/après',
@@ -159,9 +159,7 @@ export const fr = {
       titreDebut: 'Des chantiers,',
       titreSerif: 'pas des promesses.',
       voirTout: 'Toutes les réalisations',
-      aideSouris: 'Survolez une photo pour voir l’après',
-      aideToucher: 'Touchez une photo pour voir l’après',
-      basculer: 'Afficher avant ou après',
+      aide: 'Faites glisser le trait pour comparer',
     },
 
     faq: {
