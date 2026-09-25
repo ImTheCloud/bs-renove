@@ -12,7 +12,6 @@ import CurseurAvantApres from '../CurseurAvantApres.astro';
 import EntetePage from '../EntetePage.astro';
 import Icon from '../Icon.astro';
 import { lienDevis } from '~/data/entreprise';
-import { nomCategorie } from '~/data/categories';
 import { pairesDuService, photoSeuleParService } from '~/data/projets';
 import { iconeService, services } from '~/data/services';
 import { chemin, t, type Langue } from '~/i18n';
@@ -57,7 +56,7 @@ const pairesParService = await Promise.all(services.map((service) => pairesDuSer
                   <Image slot="apres" style={`object-position: ${paire.cadrageApres}`} src={paire.apres} alt={`${aa.apres} : ${paire.legende[langue]}`} widths={[400, 700, 1000]} sizes="(min-width: 1024px) 30vw, 90vw" loading="lazy" />
                 </CurseurAvantApres>
                 <figcaption class="service__legende">
-                  {nomCategorie(paire.categorie, langue)}
+                  {paire.legende[langue]}
                   {paire.commune && <span> · {paire.commune[langue]}</span>}
                 </figcaption>
               </figure>

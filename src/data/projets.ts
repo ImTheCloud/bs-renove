@@ -114,14 +114,25 @@ const CATEGORIES_PAR_SERVICE: Record<string, string[]> = {
   'peinture-finitions': ['sejour', 'chambre', 'couloir'],
 };
 
-/** Les paires à montrer en premier dans leur métier (la vitrine, l'escalier principal). */
-const EN_TETE = [ID_VITRINE, 'renovation-woluwe-saint-pierre-4'];
+/**
+ * L'avant/après mis en avant pour chaque métier sur la page Services : celui où
+ * le travail du métier se voit le mieux. Il peut venir d'une autre catégorie
+ * (ex. le carrelage se voit le mieux dans une salle de bain).
+ */
+const VITRINE_PAR_SERVICE: Record<string, string> = {
+  'salles-de-bain': ID_VITRINE,
+  carrelage: 'salle-de-bain-baignoire-0',
+  escaliers: 'renovation-woluwe-saint-pierre-4',
+  'maconnerie-facades': 'extension-maison-0',
+};
 
-/** Les avant/après d'un métier, les paires « en tête » d'abord. */
+/** Les avant/après d'un métier, sa vitrine en premier. */
 export async function pairesDuService(slug: string): Promise<Paire[]> {
   const categories = CATEGORIES_PAR_SERVICE[slug] ?? [];
-  const paires = (await toutesLesPaires()).filter((paire) => categories.includes(paire.categorie));
-  return paires.sort((a, b) => Number(EN_TETE.includes(b.id)) - Number(EN_TETE.includes(a.id)));
+  const toutes = await toutesLesPaires();
+  const paires = toutes.filter((paire) => categories.includes(paire.categorie));
+  const vitrine = toutes.find((paire) => paire.id === VITRINE_PAR_SERVICE[slug]);
+  return vitrine ? [vitrine, ...paires.filter((paire) => paire.id !== vitrine.id)] : paires;
 }
 
 /** Le nom lisible d'un service. */

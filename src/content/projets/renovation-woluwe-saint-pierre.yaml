@@ -30,8 +30,8 @@ avantApres:
   - avant: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-22.jpg
     apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-2.jpg
     legende:
-      fr: Séjour et cuisine ouverte, avant travaux et terminé
-      nl: Woonkamer en open keuken, voor de werken en klaar
+      fr: Séjour : parquet posé, murs et plafond repeints
+      nl: Woonkamer: parket gelegd, muren en plafond geschilderd
     categorie: sejour
   - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-3.jpg
     apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-3.jpg
@@ -91,8 +91,8 @@ avantApres:
   - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-7.jpg
     apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-7.jpg
     legende:
-      fr: Cave et local technique, sol carrelé et murs finis
-      nl: Kelder en technische ruimte, betegelde vloer en afgewerkte muren
+      fr: Carrelage de la cave et du local technique
+      nl: Tegelwerk van de kelder en de technische ruimte
     categorie: cave
   - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-8.jpg
     apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-8.jpg
