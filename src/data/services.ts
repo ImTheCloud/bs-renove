@@ -20,7 +20,7 @@ export interface Service {
   exemples: Record<Langue, string[]>;
 }
 
-export const services: Service[] = [
+const tousLesServices: Service[] = [
   {
     slug: 'renovation-complete',
     nom: { fr: 'Rénovation complète', nl: 'Volledige renovatie' },
@@ -198,6 +198,17 @@ export const services: Service[] = [
     },
   },
 ];
+
+/**
+ * Métiers absents des activités enregistrées de l'entreprise à la BCE
+ * (électricité NACE 43.21, peinture NACE 43.34). Tant qu'ils n'y sont pas
+ * ajoutés, ils ne sont pas proposés sur le site. Pour les réafficher, retirer
+ * leur slug de cette liste une fois l'inscription faite.
+ */
+const NON_ENREGISTRES = ['electricite', 'peinture-finitions'];
+
+/** Les métiers proposés sur le site (accueil, Services, formulaire, maison dessinée). */
+export const services = tousLesServices.filter((service) => !NON_ENREGISTRES.includes(service.slug));
 
 /** L'icône au trait de chaque service (voir src/components/Icon.astro). */
 export const iconesServices = {

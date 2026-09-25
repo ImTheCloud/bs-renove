@@ -4,6 +4,7 @@
  * (ils comptent à l'apparition), puis les quatre étapes d'un chantier.
  */
 import Icon, { type NomIcone } from '../Icon.astro';
+import { services } from '~/data/services';
 import { t, type Langue } from '~/i18n';
 
 interface Props {
@@ -13,6 +14,8 @@ interface Props {
 const { langue } = Astro.props;
 const textes = t(langue);
 const chiffres = textes.accueil.chiffres;
+// Le chiffre des métiers (écrit 0 dans les textes) est le nombre réel de métiers proposés.
+const items = chiffres.items.map((item) => (item.texte.includes(':') && item.valeur === 0 && !item.mot ? { ...item, valeur: services.length } : item));
 const methode = textes.accueil.methode;
 const iconesEtapes: NomIcone[] = ['discussion', 'casque', 'devis', 'check'];
 /** 6000 → « 6 000 », à la belge. */
@@ -22,9 +25,9 @@ const nombre = (valeur: number) => valeur.toLocaleString(textes.htmlLang);
 <section class="chapitre" aria-labelledby="methode-titre">
   <div class="wrap">
     <p class="etiquette-section chapitre__etiquette">{chiffres.surtitre}</p>
-    <ul class="chiffres">
+    <ul class="chiffres" style={`--n: ${items.length}`}>
       {
-        chiffres.items.map((item, i) => (
+        items.map((item, i) => (
           <li class="chiffre" data-reveal style={`--delai: ${i * 90}ms`}>
             {item.mot ? (
               <span class="chiffre__valeur chiffre__valeur--mot">{item.mot}</span>
@@ -262,7 +265,7 @@ const nombre = (valeur: number) => valeur.toLocaleString(textes.htmlLang);
 
   @media (min-width: 700px) {
     .chiffres {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(var(--n), minmax(0, 1fr));
     }
 
     .chiffre,

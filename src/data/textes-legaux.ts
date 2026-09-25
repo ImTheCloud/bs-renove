@@ -1,76 +1,83 @@
 /**
  * Textes des pages Mentions légales et Vie privée.
  *
- * Tout ce qui n'est pas confirmé par le client apparaît en [À CONFIRMER].
- * Les deux pages portent la mention [À RELIRE] tant qu'un humain ne les a
- * pas validées (docs/brief.md § 9).
+ * Base : Code des sociétés et des associations (art. 2:20), Code de droit
+ * économique (livres III, VI et XII) et RGPD (art. 13). Les faits sur
+ * l'entreprise viennent de src/data/entreprise.ts (vérifiés dans la BCE).
+ * Les deux pages portent la mention [À RELIRE] tant qu'un professionnel ne
+ * les a pas validées.
  *
- * Les faits viennent de src/data/entreprise.ts, jamais recopiés à la main.
+ * Marques remplacées à l'affichage : {email}, {telephone}, {hebergeur}.
  */
 import type { Langue } from '~/i18n';
 
 export interface BlocLegal {
   titre: Record<Langue, string>;
-  /** Paragraphes. La marque {email} est remplacée à l'affichage. */
   paragraphes?: Record<Langue, string[]>;
   liste?: Record<Langue, string[]>;
+  /**
+   * Bloc affiché seulement dans certains cas : « web3forms » si le formulaire
+   * envoie par Web3Forms (clé configurée), « email » sinon, « hebergeur » si
+   * l'hébergeur est renseigné dans src/data/entreprise.ts.
+   */
+  si?: 'web3forms' | 'email' | 'hebergeur';
 }
 
 export const mentionsLegales: BlocLegal[] = [
   {
-    titre: { fr: "Éditeur du site", nl: 'Uitgever van de website' },
+    titre: { fr: 'Éditeur du site', nl: 'Uitgever van de website' },
     paragraphes: {
-      fr: [
-        'Ce site est édité par BS Renove SRL, société à responsabilité limitée de droit belge.',
-      ],
-      nl: [
-        'Deze website wordt uitgegeven door BS Renove SRL, een besloten vennootschap naar Belgisch recht.',
-      ],
+      fr: ['Ce site est édité par BS Renove SRL, société à responsabilité limitée de droit belge, dont les données figurent ci-dessus.'],
+      nl: ['Deze website wordt uitgegeven door BS Renove BV, besloten vennootschap naar Belgisch recht, waarvan de gegevens hierboven staan.'],
     },
   },
   {
     titre: { fr: 'Activité', nl: 'Activiteit' },
     paragraphes: {
       fr: [
-        "Entreprise générale de construction et de rénovation. Zone d'intervention : toute la Belgique.",
+        "Entreprise générale de construction et de rénovation, active dans toute la Belgique. Activités enregistrées à la Banque-Carrefour des Entreprises : toiture, menuiserie, maçonnerie, plomberie, carrelage et travaux de construction spécialisés.",
       ],
       nl: [
-        'Algemene bouw- en renovatieonderneming. Werkgebied: heel België.',
+        'Algemene bouw- en renovatieonderneming, actief in heel België. Activiteiten ingeschreven in de Kruispuntbank van Ondernemingen: dakwerken, schrijnwerk, metselwerk, loodgieterij, tegelwerk en gespecialiseerde bouwwerkzaamheden.',
       ],
     },
   },
   {
     titre: { fr: 'Hébergement', nl: 'Hosting' },
+    si: 'hebergeur',
+    paragraphes: {
+      fr: ['Le site est hébergé par {hebergeur}. Il ne comporte ni base de données, ni espace de connexion.'],
+      nl: ['De website wordt gehost door {hebergeur}. Hij heeft geen databank en geen inlogzone.'],
+    },
+  },
+  {
+    titre: { fr: 'Photographies', nl: "Foto's" },
     paragraphes: {
       fr: [
-        "Le site est hébergé par [À CONFIRMER : hébergeur]. Aucune donnée n'est stockée sur le site lui-même : il ne comporte ni base de données, ni espace de connexion.",
+        "Les photographies présentent des chantiers réalisés par BS Renove. Elles sont publiées sans adresse ni élément permettant d'identifier le logement ou ses occupants : seule la commune est indiquée. Aucune image n'a été créée ou modifiée par intelligence artificielle ; certains détails (numéros de maison, visages) sont masqués.",
+        "Vous reconnaissez votre logement ou vous-même et souhaitez qu'une photo soit retirée ? Écrivez à {email} : elle sera retirée dans les plus brefs délais.",
       ],
       nl: [
-        'De website wordt gehost door [TE BEVESTIGEN: hostingpartij]. Er worden geen gegevens op de website zelf bewaard: er is geen databank en geen aanmeldruimte.',
+        "De foto's tonen werven uitgevoerd door BS Renove. Ze worden gepubliceerd zonder adres of element waarmee de woning of de bewoners herkend kunnen worden: enkel de gemeente wordt vermeld. Geen enkele afbeelding werd gemaakt of bewerkt met artificiële intelligentie; sommige details (huisnummers, gezichten) zijn gemaskeerd.",
+        'Herkent u uw woning of uzelf en wilt u dat een foto verwijderd wordt? Schrijf naar {email}: ze wordt zo snel mogelijk verwijderd.',
       ],
     },
   },
   {
     titre: { fr: 'Propriété intellectuelle', nl: 'Intellectuele eigendom' },
     paragraphes: {
-      fr: [
-        "Les textes et les photographies présentés sur ce site appartiennent à BS Renove SRL, sauf mention contraire. BS Renove SRL ne publie une photographie de chantier qu'avec l'accord préalable du propriétaire concerné, et ne mentionne que la commune, jamais l'adresse.",
-        'Toute reproduction sans autorisation écrite préalable est interdite.',
-      ],
-      nl: [
-        'De teksten en foto’s op deze website behoren toe aan BS Renove SRL, tenzij anders vermeld. BS Renove SRL publiceert een foto van een werf enkel met voorafgaande toestemming van de betrokken eigenaar, en vermeldt nooit meer dan de gemeente, nooit het adres.',
-        'Elke reproductie zonder voorafgaande schriftelijke toestemming is verboden.',
-      ],
+      fr: ['Les textes, photographies et illustrations de ce site appartiennent à BS Renove SRL. Toute reproduction sans autorisation écrite préalable est interdite.'],
+      nl: ['De teksten, foto\'s en illustraties van deze website zijn eigendom van BS Renove BV. Elke reproductie zonder voorafgaande schriftelijke toestemming is verboden.'],
     },
   },
   {
     titre: { fr: 'Responsabilité', nl: 'Aansprakelijkheid' },
     paragraphes: {
       fr: [
-        "Les informations de ce site sont données à titre indicatif. Les descriptions de services ne constituent pas une offre contractuelle : seul un devis écrit et signé engage l'entreprise.",
+        "Les informations de ce site sont données à titre indicatif. Les descriptions des métiers ne constituent pas une offre : seul un devis écrit et accepté engage l'entreprise. Le devis est gratuit et sans engagement.",
       ],
       nl: [
-        'De informatie op deze website is louter indicatief. De beschrijvingen van de diensten vormen geen contractueel aanbod: enkel een geschreven en ondertekende offerte verbindt de onderneming.',
+        'De informatie op deze website is louter indicatief. De beschrijvingen van de vakgebieden vormen geen aanbod: enkel een schriftelijke en aanvaarde offerte verbindt de onderneming. De offerte is gratis en vrijblijvend.',
       ],
     },
   },
@@ -80,66 +87,67 @@ export const viePrivee: BlocLegal[] = [
   {
     titre: { fr: 'Qui traite vos données', nl: 'Wie uw gegevens verwerkt' },
     paragraphes: {
-      fr: [
-        "Le responsable du traitement est BS Renove SRL, dont les coordonnées figurent en haut de cette page. Pour toute question sur vos données, écrivez à {email} ou appelez le {telephone}.",
-      ],
-      nl: [
-        'De verwerkingsverantwoordelijke is BS Renove SRL, waarvan de gegevens bovenaan deze pagina staan. Voor elke vraag over uw gegevens kunt u schrijven naar {email} of bellen naar {telephone}.',
-      ],
+      fr: ['Le responsable du traitement est BS Renove SRL, dont les coordonnées figurent ci-dessus. Pour toute question sur vos données : {email} ou {telephone}.'],
+      nl: ['De verwerkingsverantwoordelijke is BS Renove BV, waarvan de gegevens hierboven staan. Voor elke vraag over uw gegevens: {email} of {telephone}.'],
     },
   },
   {
-    titre: { fr: 'Ce que nous collectons', nl: 'Wat wij verzamelen' },
+    titre: { fr: 'Ce que nous recevons', nl: 'Wat wij ontvangen' },
     paragraphes: {
-      fr: [
-        'Uniquement ce que vous écrivez vous-même dans le formulaire de demande de devis :',
-      ],
-      nl: [
-        'Enkel wat u zelf in het offerteformulier invult:',
-      ],
+      fr: ['Uniquement ce que vous nous envoyez vous-même :'],
+      nl: ['Enkel wat u ons zelf stuurt:'],
     },
     liste: {
       fr: [
-        'votre nom',
-        'votre numéro de téléphone',
-        'votre adresse email',
-        'le type de travaux',
-        'le message que vous rédigez',
+        'par le formulaire de devis : le type de travaux, votre nom, votre téléphone et, si vous les indiquez, votre email et la description de votre projet ;',
+        'par téléphone, WhatsApp ou email : votre numéro ou votre adresse, vos messages et les photos que vous choisissez d’envoyer ;',
+        "par une candidature (page « Rejoindre l'équipe ») : les informations que vous mettez dans votre email.",
       ],
       nl: [
-        'uw naam',
-        'uw telefoonnummer',
-        'uw e-mailadres',
-        'het type werken',
-        'het bericht dat u schrijft',
+        'via het offerteformulier: het type werken, uw naam, uw telefoonnummer en, als u ze invult, uw e-mailadres en de beschrijving van uw project;',
+        "via telefoon, WhatsApp of e-mail: uw nummer of adres, uw berichten en de foto's die u zelf stuurt;",
+        'via een sollicitatie (pagina « Word lid van ons team »): de gegevens die u in uw e-mail zet.',
       ],
     },
   },
   {
-    titre: { fr: 'Pourquoi', nl: 'Waarom' },
+    titre: { fr: 'Pourquoi, et sur quelle base', nl: 'Waarom, en op welke basis' },
     paragraphes: {
       fr: [
-        "Ces informations servent uniquement à répondre à votre demande et à établir un devis. Elles ne sont ni vendues, ni louées, ni utilisées pour de la publicité.",
-        "La base légale du formulaire est votre consentement, donné en cochant sa case : vous pouvez le retirer à tout moment, ce qui entraîne l'effacement de votre demande. Si un devis débouche sur un chantier, les documents liés à ce chantier reposent sur une autre base, une obligation légale (la comptabilité belge), qui ne dépend pas de ce consentement et ne peut pas être effacée sur demande.",
+        "Ces informations servent uniquement à vous répondre, à préparer un devis et, s'il est accepté, à réaliser le chantier. Elles ne sont ni vendues, ni louées, ni utilisées pour de la publicité.",
+        "Base légale : les mesures précontractuelles prises à votre demande (préparer un devis), et votre consentement, donné en cochant la case du formulaire, que vous pouvez retirer à tout moment. Si un devis débouche sur un chantier, les documents du chantier sont conservés en vertu des obligations comptables et fiscales belges.",
       ],
       nl: [
-        'Deze gegevens dienen uitsluitend om uw vraag te beantwoorden en een offerte op te maken. Ze worden niet verkocht, niet verhuurd en niet voor reclame gebruikt.',
-        'De rechtsgrond van het formulier is uw toestemming, gegeven door het vakje aan te vinken: u kunt ze op elk moment intrekken, wat leidt tot het wissen van uw aanvraag. Als een offerte tot een werf leidt, berusten de documenten van die werf op een andere grond, een wettelijke verplichting (de Belgische boekhouding), die niet van deze toestemming afhangt en niet op verzoek kan worden gewist.',
+        'Deze gegevens dienen enkel om u te antwoorden, een offerte op te maken en, als ze aanvaard wordt, de werf uit te voeren. Ze worden niet verkocht, niet verhuurd en niet voor reclame gebruikt.',
+        'Rechtsgrond: de precontractuele maatregelen op uw verzoek (een offerte opmaken), en uw toestemming, gegeven door het vakje van het formulier aan te vinken, die u op elk moment kunt intrekken. Als een offerte tot een werf leidt, worden de documenten van de werf bewaard volgens de Belgische boekhoudkundige en fiscale verplichtingen.',
       ],
     },
   },
   {
     titre: { fr: 'Par où passent-elles', nl: 'Langs waar gaan ze' },
+    si: 'web3forms',
     paragraphes: {
       fr: [
-        "Le formulaire est transmis par Web3Forms, un service qui transforme votre message en email et nous l'envoie. Web3Forms agit comme sous-traitant et traite les données sur des serveurs situés hors de l'Union européenne (États-Unis). Le service peut en conserver une copie technique limitée dans le temps ; il ne l'utilise pas à d'autres fins que cette transmission. En cochant la case du formulaire, vous consentez expressément à ce transfert hors de l'Union européenne : c'est la base légale de ce transfert.",
-        "Le message nous parvient ensuite par email, sur la boîte de l'entreprise.",
-        "Si vous nous contactez par téléphone ou par WhatsApp plutôt que par le formulaire, cet échange (votre numéro, vos messages, vos éventuelles photos) passe par les services de l'opérateur téléphonique et de WhatsApp (Meta), selon leurs propres règles de confidentialité, et nous ne l'utilisons que pour répondre à votre demande.",
+        "Le formulaire est transmis par Web3Forms, un service qui transforme votre demande en email et nous l'envoie. Web3Forms agit comme sous-traitant et traite les données sur des serveurs situés hors de l'Union européenne (États-Unis). En cochant la case du formulaire, vous consentez expressément à ce transfert (article 49 du RGPD).",
+        "Un appel passe par votre opérateur téléphonique, un message WhatsApp par les services de Meta, chacun selon ses propres règles de confidentialité.",
       ],
       nl: [
-        'Het formulier wordt doorgestuurd via Web3Forms, een dienst die uw bericht omzet in een e-mail en naar ons verstuurt. Web3Forms treedt op als verwerker en verwerkt de gegevens op servers buiten de Europese Unie (Verenigde Staten). De dienst kan een technische kopie gedurende beperkte tijd bewaren; hij gebruikt ze niet voor andere doeleinden dan deze verzending. Door het vakje van het formulier aan te vinken, geeft u uitdrukkelijk toestemming voor deze overdracht buiten de Europese Unie: dat is de rechtsgrond van deze overdracht.',
-        'Het bericht komt vervolgens per e-mail bij ons toe, op de mailbox van de onderneming.',
-        'Als u ons contacteert via telefoon of WhatsApp in plaats van het formulier, verloopt die uitwisseling (uw nummer, uw berichten, eventuele foto’s) via de diensten van de telefoonoperator en van WhatsApp (Meta), volgens hun eigen privacyregels, en gebruiken wij ze enkel om uw vraag te beantwoorden.',
+        'Het formulier wordt doorgestuurd via Web3Forms, een dienst die uw aanvraag omzet in een e-mail en naar ons stuurt. Web3Forms treedt op als verwerker en verwerkt de gegevens op servers buiten de Europese Unie (Verenigde Staten). Door het vakje van het formulier aan te vinken, geeft u uitdrukkelijk toestemming voor deze doorgifte (artikel 49 van de AVG).',
+        'Een telefoontje verloopt via uw telefoonoperator, een WhatsApp-bericht via de diensten van Meta, elk volgens hun eigen privacyregels.',
+      ],
+    },
+  },
+  {
+    titre: { fr: 'Par où passent-elles', nl: 'Langs waar gaan ze' },
+    si: 'email',
+    paragraphes: {
+      fr: [
+        "Le formulaire n'envoie rien lui-même : il ouvre votre messagerie avec la demande déjà écrite, et c'est vous qui l'envoyez, depuis votre propre adresse email, vers la nôtre. Aucun service tiers n'intervient entre vous et nous.",
+        "Un appel passe par votre opérateur téléphonique, un message WhatsApp par les services de Meta, chacun selon ses propres règles de confidentialité.",
+      ],
+      nl: [
+        'Het formulier verstuurt zelf niets: het opent uw mailprogramma met de aanvraag al ingevuld, en u verstuurt ze zelf, vanaf uw eigen e-mailadres, naar het onze. Er komt geen enkele derde dienst tussen u en ons.',
+        'Een telefoontje verloopt via uw telefoonoperator, een WhatsApp-bericht via de diensten van Meta, elk volgens hun eigen privacyregels.',
       ],
     },
   },
@@ -147,47 +155,43 @@ export const viePrivee: BlocLegal[] = [
     titre: { fr: 'Combien de temps', nl: 'Hoe lang' },
     paragraphes: {
       fr: [
-        "Nous n'avons pas fixé de durée de conservation automatique : vos données restent dans nos échanges jusqu'à ce que vous nous demandiez de les effacer ou que vous retiriez votre consentement (voir « Vos droits » ci-dessous). Si un devis débouche sur un chantier, les documents liés sont conservés selon les obligations comptables belges.",
+        "Une demande de devis sans suite est effacée au plus tard 3 ans après notre dernier échange. Une candidature est effacée au plus tard 1 an après sa réception, sauf si vous nous demandez de la garder plus longtemps. Si un devis débouche sur un chantier, les documents du chantier sont conservés pendant la durée imposée par la loi (7 ans pour les documents comptables).",
       ],
       nl: [
-        'Wij hebben geen automatische bewaartermijn vastgelegd: uw gegevens blijven in onze uitwisselingen tot u ons vraagt om ze te wissen of u uw toestemming intrekt (zie « Uw rechten » hieronder). Als een offerte tot een werf leidt, worden de bijbehorende documenten bewaard volgens de Belgische boekhoudkundige verplichtingen.',
+        'Een offerteaanvraag zonder gevolg wordt uiterlijk 3 jaar na ons laatste contact gewist. Een sollicitatie wordt uiterlijk 1 jaar na ontvangst gewist, tenzij u ons vraagt ze langer te bewaren. Als een offerte tot een werf leidt, worden de documenten van de werf bewaard gedurende de wettelijke termijn (7 jaar voor boekhoudkundige stukken).',
       ],
     },
   },
   {
-    titre: { fr: 'Cookies', nl: 'Cookies' },
+    titre: { fr: 'Cookies et visite du site', nl: 'Cookies en bezoek aan de website' },
     paragraphes: {
       fr: [
-        "Ce site ne dépose aucun cookie de suivi et n'utilise aucun outil de mesure d'audience. Les polices de caractères sont hébergées sur le site : votre visite n'est signalée à aucun service extérieur.",
+        "Ce site ne dépose aucun cookie et n'utilise aucun outil de mesure d'audience ni de publicité. Les polices de caractères sont hébergées sur le site : votre visite n'est signalée à aucun service extérieur. Comme pour tout site, l'hébergeur enregistre techniquement l'adresse IP des visiteurs pour faire fonctionner et protéger le site.",
       ],
       nl: [
-        'Deze website plaatst geen enkele trackingcookie en gebruikt geen enkel meetinstrument voor bezoekersaantallen. De lettertypes worden op de website zelf gehost: uw bezoek wordt aan geen enkele externe dienst gemeld.',
+        'Deze website plaatst geen cookies en gebruikt geen enkel meet- of reclamehulpmiddel. De lettertypes worden op de website zelf gehost: uw bezoek wordt aan geen enkele externe dienst gemeld. Zoals voor elke website registreert de hostingprovider technisch het IP-adres van de bezoekers om de website te laten werken en te beveiligen.',
       ],
     },
   },
   {
     titre: { fr: 'Vos droits', nl: 'Uw rechten' },
     paragraphes: {
-      fr: [
-        'Vous pouvez à tout moment demander :',
-      ],
-      nl: [
-        'U kunt op elk moment vragen om:',
-      ],
+      fr: ['Vous pouvez à tout moment nous demander, à {email} :'],
+      nl: ['U kunt ons op elk moment vragen, via {email}:'],
     },
     liste: {
       fr: [
-        'à consulter les données que nous avons sur vous',
-        'à les faire corriger',
-        'à les faire effacer',
-        "à limiter ou à vous opposer à leur utilisation",
-        'à les recevoir dans un format réutilisable',
-        'à retirer votre consentement',
+        'de consulter les données que nous avons sur vous',
+        'de les corriger',
+        'de les effacer',
+        "d'en limiter l'utilisation ou de vous y opposer",
+        'de les recevoir dans un format réutilisable',
+        'de retirer votre consentement',
       ],
       nl: [
         'de gegevens in te kijken die wij over u hebben',
-        'ze te laten verbeteren',
-        'ze te laten wissen',
+        'ze te verbeteren',
+        'ze te wissen',
         'het gebruik ervan te beperken of u ertegen te verzetten',
         'ze te ontvangen in een herbruikbaar formaat',
         'uw toestemming in te trekken',
@@ -197,12 +201,8 @@ export const viePrivee: BlocLegal[] = [
   {
     titre: { fr: 'Une réclamation', nl: 'Een klacht' },
     paragraphes: {
-      fr: [
-        "Si notre réponse ne vous satisfait pas, vous pouvez saisir l'Autorité de protection des données, rue de la Presse 35, 1000 Bruxelles — autoriteprotectiondonnees.be",
-      ],
-      nl: [
-        'Als ons antwoord u niet voldoet, kunt u terecht bij de Gegevensbeschermingsautoriteit, Drukpersstraat 35, 1000 Brussel — gegevensbeschermingsautoriteit.be',
-      ],
+      fr: ["Si notre réponse ne vous satisfait pas, vous pouvez saisir l'Autorité de protection des données, rue de la Presse 35, 1000 Bruxelles — autoriteprotectiondonnees.be"],
+      nl: ['Als ons antwoord u niet voldoet, kunt u terecht bij de Gegevensbeschermingsautoriteit, Drukpersstraat 35, 1000 Brussel — gegevensbeschermingsautoriteit.be'],
     },
   },
 ];

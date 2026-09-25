@@ -18,6 +18,10 @@ export const entreprise = {
   },
 
   tva: 'BE 1002.240.127',
+  /** Tribunal de l'entreprise compétent pour le siège (Denderleeuw) : obligatoire (CSA art. 2:20). */
+  rpm: { fr: 'RPM Gand, division Termonde', nl: 'RPR Gent, afdeling Dendermonde' },
+  /** Date de création dans la BCE. */
+  creation: '14 novembre 2023',
 
   /** Affiché à l'écran, format belge. */
   telephoneAffiche: '0485 38 43 90',
@@ -28,8 +32,11 @@ export const entreprise = {
 
   email: 'Bivol.sergiu@hotmail.com' as string | null,
 
-  /** Confirmé par Sergiu le 22 septembre 2026. */
+  /** Expérience personnelle du gérant (confirmée le 22 septembre 2026), pas l'âge de l'entreprise. */
   anneesExperience: 12,
+
+  /** À renseigner au déploiement (ex. « Cloudflare, Inc. ») : la mention s'affiche alors. */
+  hebergeur: null as string | null,
 } as const;
 
 /** Adresse sur une ligne, pour le pied de page. */

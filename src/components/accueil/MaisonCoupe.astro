@@ -9,6 +9,7 @@
  *
  * Tout est dessiné ici, en SVG : aucune photo, aucune image générée.
  */
+import { services } from '~/data/services';
 import { chemin, t, type Langue } from '~/i18n';
 
 interface Props {
@@ -20,6 +21,8 @@ const textes = t(langue);
 const hero = textes.accueil.hero;
 const pieces = hero.pieces;
 const lien = (slug: string) => `${chemin('services', langue)}#${slug}`;
+/** Le métier est-il proposé sur le site (voir NON_ENREGISTRES dans services.ts) ? */
+const propose = (slug: string) => services.some((service) => service.slug === slug);
 /** La cave n'est pas un métier : elle mène à son avant/après. */
 const lienCave = `${chemin('realisations', langue)}#cave`;
 /** La porte d'entrée et sa petite toiture mènent aux avant/après « Petite toiture ». */
@@ -45,7 +48,7 @@ const visite = [
 ];
 ---
 
-<figure class="maison" data-maison data-visite={visite.join(',')}>
+<figure class="maison" data-maison data-visite={visite.filter((slug) => !['electricite', 'peinture-finitions'].includes(slug) || propose(slug)).join(',')}>
   <svg
     class="maison__svg"
     viewBox="0 0 720 710"
@@ -250,19 +253,23 @@ const visite = [
         <path class="fleche" d="M90 274c28 46 76 78 122 88" pathLength="1" />
       </a>
 
-      <a href={lien('electricite')} class="piece" data-piece="electricite" aria-label={pieces.electricite}>
-        <path class="zone" d="M408 340h24l38 88H370z" />
-        <circle class="point" cx="420" cy="364" r="11" />
-        <text x="576" y="288" class="note">{pieces.electricite}</text>
-        <path class="fleche" d="M590 298c-40 10-106 34-152 60" pathLength="1" />
-      </a>
+      {propose('electricite') && (
+        <a href={lien('electricite')} class="piece" data-piece="electricite" aria-label={pieces.electricite}>
+          <path class="zone" d="M408 340h24l38 88H370z" />
+          <circle class="point" cx="420" cy="364" r="11" />
+          <text x="576" y="288" class="note">{pieces.electricite}</text>
+          <path class="fleche" d="M590 298c-40 10-106 34-152 60" pathLength="1" />
+        </a>
+      )}
 
-      <a href={lien('peinture-finitions')} class="piece" data-piece="peinture-finitions" aria-label={pieces['peinture-finitions']}>
-        <rect class="zone" x="482" y="318" width="70" height="110" />
-        <circle class="point" cx="510" cy="394" r="11" />
-        <text x="588" y="440" class="note">{pieces['peinture-finitions']}</text>
-        <path class="fleche" d="M600 420c-20-18-44-24-72-24" pathLength="1" />
-      </a>
+      {propose('peinture-finitions') && (
+        <a href={lien('peinture-finitions')} class="piece" data-piece="peinture-finitions" aria-label={pieces['peinture-finitions']}>
+          <rect class="zone" x="482" y="318" width="70" height="110" />
+          <circle class="point" cx="510" cy="394" r="11" />
+          <text x="588" y="440" class="note">{pieces['peinture-finitions']}</text>
+          <path class="fleche" d="M600 420c-20-18-44-24-72-24" pathLength="1" />
+        </a>
+      )}
 
       <a href={lien('cuisines')} class="piece" data-piece="cuisines" aria-label={pieces.cuisines}>
         <rect class="zone" x="164" y="438" width="214" height="122" />

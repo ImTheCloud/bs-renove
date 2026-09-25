@@ -7,7 +7,7 @@
 import Icon from '../Icon.astro';
 import { adresseUneLigne, entreprise } from '~/data/entreprise';
 import type { BlocLegal } from '~/data/textes-legaux';
-import { marqueurAConfirmer, t, type Langue } from '~/i18n';
+import { t, type Langue } from '~/i18n';
 
 interface Props {
   langue: Langue;
@@ -19,12 +19,24 @@ const { langue, titre, blocs } = Astro.props;
 const textes = t(langue);
 const L = textes.legal;
 
-// L'email n'a pas encore été communiqué : le texte le dit, on n'invente rien.
-const email = entreprise.email ?? marqueurAConfirmer(langue, L.email.toLowerCase());
+const email = entreprise.email ?? entreprise.telephoneAffiche;
+
+// Seuls les blocs qui correspondent à la configuration réelle du site sont affichés.
+const web3forms = Boolean((import.meta.env.WEB3FORMS_KEY ?? '').trim());
+const visibles = blocs.filter(
+  (bloc) =>
+    !bloc.si ||
+    (bloc.si === 'web3forms' && web3forms) ||
+    (bloc.si === 'email' && !web3forms) ||
+    (bloc.si === 'hebergeur' && entreprise.hebergeur),
+);
 
 /** Remplace les marques {email} et {telephone} dans les textes. */
 const remplacer = (texte: string) =>
-  texte.replace('{email}', email).replace('{telephone}', entreprise.telephoneAffiche);
+  texte
+    .replaceAll('{email}', email)
+    .replaceAll('{telephone}', entreprise.telephoneAffiche)
+    .replaceAll('{hebergeur}', entreprise.hebergeur ?? '');
 
 const identite: { label: string; valeur: string }[] = [
   { label: L.nomLegal, valeur: entreprise.nomLegal },
@@ -32,10 +44,7 @@ const identite: { label: string; valeur: string }[] = [
   { label: L.gerant, valeur: entreprise.gerant },
   { label: L.siege, valeur: adresseUneLigne },
   { label: L.entreprise, valeur: entreprise.tva },
-  // Se déduit du siège (Denderleeuw → arrondissement de Dendermonde), mais
-  // à faire confirmer par le comptable avant la mise en ligne : voir
-  // docs/contenu-manquant.md.
-  { label: L.rpm, valeur: marqueurAConfirmer(langue, L.rpm.toLowerCase()) },
+  { label: L.rpm, valeur: entreprise.rpm[langue] },
   { label: L.telephone, valeur: entreprise.telephoneAffiche },
   { label: L.email, valeur: email },
 ];
@@ -65,7 +74,7 @@ const identite: { label: string; valeur: string }[] = [
   </section>
 
   {
-    blocs.map((bloc) => (
+    visibles.map((bloc) => (
       <section class="legale__bloc">
         <h2>{bloc.titre[langue]}</h2>
         {bloc.paragraphes?.[langue].map((p) => <p>{remplacer(p)}</p>)}

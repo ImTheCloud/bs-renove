@@ -64,8 +64,8 @@ export const fr = {
       texte:
         'Salle de bain, cuisine, toiture, carrelage… Nous prenons en charge tout votre chantier, du premier devis à la dernière finition.',
       devisGratuit: 'Demander un devis gratuit',
-      experience: 'ans de métier',
-      experienceDetail: 'dans la construction',
+      experience: 'ans d’expérience',
+      experienceDetail: 'de notre gérant dans la construction',
       maisonAria: 'Dessin d’une maison en coupe : chaque pièce mène au service correspondant',
       maisonAide: 'Touchez une pièce',
       maisonAideSouris: 'Survolez une pièce',
@@ -120,14 +120,9 @@ export const fr = {
 
     chiffres: {
       surtitre: 'En quelques chiffres',
-      /*
-       * ⚠ « 30+ chantiers » : valeur donnée par Claudiu, à faire confirmer par
-       * Sergiu avant la mise en ligne (docs/contenu-manquant.md § 19).
-       */
       items: [
-        { valeur: 12, prefixe: '', suffixe: '', mot: '', texte: 'ans de métier dans la construction' },
-        { valeur: 30, prefixe: '', suffixe: '+', mot: '', texte: 'chantiers terminés' },
-        { valeur: 11, prefixe: '', suffixe: '', mot: '', texte: 'métiers : carrelage, plomberie, escaliers, toiture…' },
+        { valeur: 12, prefixe: '', suffixe: '', mot: '', texte: 'ans d’expérience de notre gérant dans la construction' },
+        { valeur: 0, prefixe: '', suffixe: '', mot: '', texte: 'métiers : carrelage, plomberie, escaliers, toiture…' },
         { valeur: 0, prefixe: '', suffixe: '', mot: 'Gratuit', texte: 'le devis' },
       ],
     },
@@ -336,11 +331,11 @@ export const fr = {
     gerant: 'Gérant',
     siege: 'Siège social',
     entreprise: "Numéro d'entreprise et TVA",
-    rpm: 'RPM',
+    rpm: 'Tribunal de l’entreprise',
     telephone: 'Téléphone',
     email: 'Email',
     majLe: 'Dernière mise à jour',
-    majValeur: '21 septembre 2026',
+    majValeur: '25 septembre 2026',
   },
 
   pages: {
@@ -352,7 +347,7 @@ export const fr = {
     services: {
       titre: 'Nos services · BS Renove',
       description:
-        'Rénovation complète, salles de bain, cuisines, carrelage, toiture, maçonnerie, électricité et peinture.',
+        'Rénovation complète, salles de bain, cuisines, carrelage, terrasses, escaliers, toiture, maçonnerie et plomberie.',
     },
     realisations: {
       titre: 'Nos réalisations · BS Renove',

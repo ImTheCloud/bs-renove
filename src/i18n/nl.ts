@@ -70,7 +70,7 @@ export const nl: Traductions = {
         'Badkamer, keuken, dak, tegelwerk… Wij nemen uw hele werf voor onze rekening, van de eerste offerte tot de laatste afwerking.',
       devisGratuit: 'Gratis offerte aanvragen',
       experience: 'jaar ervaring',
-      experienceDetail: 'in de bouw',
+      experienceDetail: 'van onze zaakvoerder in de bouw',
       maisonAria: 'Tekening van een huis in doorsnede: elke ruimte leidt naar de bijhorende dienst',
       maisonAide: 'Tik op een ruimte',
       maisonAideSouris: 'Beweeg over een ruimte',
@@ -125,14 +125,9 @@ export const nl: Traductions = {
 
     chiffres: {
       surtitre: 'In een paar cijfers',
-      /*
-       * ⚠ « 30+ werven » : waarde van Claudiu, door Sergiu te bevestigen vóór
-       * de publicatie (docs/contenu-manquant.md § 19).
-       */
       items: [
-        { valeur: 12, prefixe: '', suffixe: '', mot: '', texte: 'jaar ervaring in de bouw' },
-        { valeur: 30, prefixe: '', suffixe: '+', mot: '', texte: 'afgewerkte werven' },
-        { valeur: 11, prefixe: '', suffixe: '', mot: '', texte: 'vakgebieden: tegelwerk, loodgieterij, trappen, dakwerken…' },
+        { valeur: 12, prefixe: '', suffixe: '', mot: '', texte: 'jaar ervaring van onze zaakvoerder in de bouw' },
+        { valeur: 0, prefixe: '', suffixe: '', mot: '', texte: 'vakgebieden: tegelwerk, loodgieterij, trappen, dakwerken…' },
         { valeur: 0, prefixe: '', suffixe: '', mot: 'Gratis', texte: 'de offerte' },
       ],
     },
@@ -340,11 +335,11 @@ export const nl: Traductions = {
     gerant: 'Zaakvoerder',
     siege: 'Maatschappelijke zetel',
     entreprise: 'Ondernemings- en btw-nummer',
-    rpm: 'RPR',
+    rpm: 'Ondernemingsrechtbank',
     telephone: 'Telefoon',
     email: 'E-mail',
     majLe: 'Laatst bijgewerkt',
-    majValeur: '21 september 2026',
+    majValeur: '25 september 2026',
   },
 
   pages: {
@@ -356,7 +351,7 @@ export const nl: Traductions = {
     services: {
       titre: 'Onze diensten · BS Renove',
       description:
-        'Volledige renovatie, badkamers, keukens, tegelwerk, dakwerken, metselwerk, elektriciteit en schilderwerk.',
+        'Volledige renovatie, badkamers, keukens, tegelwerk, terrassen, trappen, dakwerken, metselwerk en loodgieterij.',
     },
     realisations: {
       titre: 'Onze realisaties · BS Renove',
