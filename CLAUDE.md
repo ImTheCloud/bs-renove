@@ -55,7 +55,7 @@ Toutes dans `src/styles/tokens.css` : changer une couleur prend une ligne.
 
 ### Éléments signature
 
-- **Maison en coupe dessinée en SVG** dans le hero (`src/components/accueil/MaisonCoupe.astro`) : se trace à l'arrivée, visite guidée des pièces, chaque pièce mène au service.
+- **Maison en coupe dessinée en SVG** dans le hero (`src/components/accueil/MaisonCoupe.astro`) : se trace à l'arrivée, visite guidée des pièces, chaque pièce mène au service. **Mode nuit** : un clic sur le soleil passe le haut de l'accueil en nuit (fond bleu nuit, lune, étoiles, fenêtres et lampe allumées), un clic sur la lune revient au jour.
 - **Avant/après piloté par le défilement** sur l'accueil (section épinglée).
 - Bandeau « rubalise » qui défile, liste des métiers avec photo qui suit la souris, chiffres qui comptent, réalisations en défilement horizontal, FAQ en accordéon, formulaire de devis en 3 étapes.
 - Grain de papier léger sur toute la page, fond millimétré derrière les en-têtes.

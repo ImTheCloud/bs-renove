@@ -88,6 +88,10 @@ export const nl: Traductions = {
       maisonAria: 'Tekening van een huis in doorsnede: elke ruimte leidt naar de bijhorende dienst',
       maisonAide: 'Tik op een ruimte',
       maisonAideSouris: 'Beweeg over een ruimte',
+      nuit: 'Het huis in nachtmodus zetten',
+      jour: 'Terug naar de dag',
+      noteNuit: 'en ’s nachts?',
+      noteJour: 'en overdag?',
       maisonTout: 'en al de rest!',
       pieces: {
         toiture: 'het dak',

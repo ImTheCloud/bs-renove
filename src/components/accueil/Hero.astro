@@ -96,6 +96,56 @@ const hero = textes.accueil.hero;
     padding-top: calc(var(--header-h) + 36px);
     padding-bottom: 40px;
     overflow: hidden;
+    background-color: transparent;
+    border-radius: 0 0 var(--radius-large) var(--radius-large);
+    transition: background-color var(--speed-slow) var(--ease);
+  }
+
+  /*
+    Mode nuit (le visiteur clique sur le soleil) : fond bleu nuit, et les
+    couleurs du site s'inversent pour tout ce qui est dans le haut de page.
+  */
+  .hero--nuit {
+    background-color: #0f1626;
+    --color-ink: #f5f2ec;
+    --color-on-ink: #121418;
+    --color-text: #c9ccd3;
+    --color-muted: #a3a8b3;
+    --color-border: rgba(245, 242, 236, 0.22);
+    --color-accent: #8cc4ff;
+  }
+
+  /* La nuit, le surlignage devient un bloc jaune plein : texte sombre lisible en entier. */
+  .hero--nuit .hero__titre .marqueur {
+    color: #121418;
+    background: var(--color-signal);
+  }
+
+  .hero--nuit :global(.bouton__pastille) {
+    color: #121418;
+  }
+
+  .hero--nuit .hero__puces a {
+    background: rgba(245, 242, 236, 0.06);
+  }
+
+  .hero--nuit .hero__puces a:hover,
+  .hero--nuit .hero__puces a.actif {
+    background: var(--color-signal);
+    color: #121418;
+  }
+
+  .hero--nuit .hero__grille {
+    opacity: 0.35;
+  }
+
+  .hero__titre,
+  .hero__intro,
+  .hero__faits,
+  .hero__puces a,
+  .etiquette-section,
+  .hero__defiler {
+    transition: color var(--speed-slow) var(--ease);
   }
 
   /* Papier millimétré, qui s'efface vers le bas et la gauche. */

@@ -84,6 +84,10 @@ export const fr = {
       maisonAria: 'Dessin d’une maison en coupe : chaque pièce mène au service correspondant',
       maisonAide: 'Touchez une pièce',
       maisonAideSouris: 'Survolez une pièce',
+      nuit: 'Passer la maison en mode nuit',
+      jour: 'Revenir au jour',
+      noteNuit: 'et la nuit ?',
+      noteJour: 'et le jour ?',
       maisonTout: 'et tout le reste !',
       pieces: {
         toiture: 'la toiture',

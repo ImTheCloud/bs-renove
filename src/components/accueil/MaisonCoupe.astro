@@ -54,10 +54,24 @@ const visite = [
 
     <!-- ===================== Le dessin (décoratif) ===================== -->
     <g class="dessin" aria-hidden="true">
-      <!-- Soleil -->
-      <g class="t-groupe" style="--d: 1900">
-        <circle cx="96" cy="74" r="20" pathLength="1" class="t" />
-        <path d="M96 38v-10M96 120v-10M60 74H50M142 74h-10M71 49l-7-7M128 106l-7-7M71 99l-7 7M128 42l-7 7" pathLength="1" class="t t--fin" />
+      <!-- Soleil (jour) / lune et étoiles (nuit) -->
+      <g class="astre astre--soleil">
+        <g class="t-groupe" style="--d: 1900">
+          <circle cx="96" cy="74" r="20" pathLength="1" class="t" />
+          <path d="M96 38v-10M96 120v-10M60 74H50M142 74h-10M71 49l-7-7M128 106l-7-7M71 99l-7 7M128 42l-7 7" pathLength="1" class="t t--fin" />
+        </g>
+      </g>
+      <g class="astre astre--lune">
+        <path class="lune" d="M104 50a26 26 0 1 0 22 36a21 21 0 1 1-22-36z" />
+      </g>
+      <g class="etoiles">
+        <path style="--e: 0" d="M182 40v12M176 46h12" />
+        <path style="--e: 1" d="M252 92v8M248 96h8" />
+        <path style="--e: 2" d="M36 150v10M31 155h10" />
+        <path style="--e: 3" d="M470 40v12M464 46h12" />
+        <path style="--e: 4" d="M600 96v8M596 100h8" />
+        <path style="--e: 5" d="M680 40v10M675 45h10" />
+        <path style="--e: 6" d="M150 20v8M146 24h8" />
       </g>
 
       <!-- Sol -->
@@ -90,6 +104,7 @@ const visite = [
         <path d="M164 300L360 143L556 300" pathLength="1" class="t" />
         <path d="M147 301L360 130.5L573 301" pathLength="1" class="t t--tuiles" />
         <path d="M250 231H470M360 143V231" pathLength="1" class="t t--fin" />
+        <rect x="-16" y="-6" width="32" height="12" transform="translate(250 205) rotate(-38.66)" class="lumiere" />
         <rect x="-16" y="-6" width="32" height="12" transform="translate(250 205) rotate(-38.66)" pathLength="1" class="t" />
       </g>
 
@@ -119,10 +134,12 @@ const visite = [
         <rect x="380" y="404" width="90" height="16" rx="3" pathLength="1" class="t" />
         <rect x="386" y="394" width="24" height="10" rx="4" pathLength="1" class="t" />
         <path d="M376 384v44M386 420v8M464 420v8" pathLength="1" class="t" />
+        <path d="M408 340h24l26 64h-76z" class="halo" />
         <path d="M420 310v18M408 340l6-12h12l6 12z" pathLength="1" class="t" />
         <rect x="492" y="340" width="28" height="12" rx="4" pathLength="1" class="t" />
         <path d="M520 346h6v18l-10 8v56" pathLength="1" class="t" />
         <rect x="556" y="330" width="14" height="60" class="vitre" />
+        <rect x="556" y="330" width="14" height="60" class="lumiere" />
         <path d="M556 330h14v60h-14zM563 330v60" pathLength="1" class="t t--fin" />
       </g>
 
@@ -239,6 +256,21 @@ const visite = [
     </g>
   </svg>
 
+  <button
+    type="button"
+    class="maison__astre"
+    aria-pressed="false"
+    aria-label={hero.nuit}
+    data-astre
+    data-label-nuit={hero.nuit}
+    data-label-jour={hero.jour}
+  ></button>
+  <span class="maison__note-astre manuscrit" aria-hidden="true">
+    <svg width="30" height="22" viewBox="0 0 30 22" fill="none"><path d="M28 18C20 18 8 14 3 4M3 4l1 8M3 4l8 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+    <span class="maison__note-nuit">{hero.noteNuit}</span>
+    <span class="maison__note-jour">{hero.noteJour}</span>
+  </span>
+
   <figcaption class="maison__aide manuscrit" aria-hidden="true">
     <span class="maison__aide-touch">{hero.maisonAide}</span>
     <span class="maison__aide-souris">{hero.maisonAideSouris}</span>
@@ -247,6 +279,21 @@ const visite = [
 </figure>
 
 <script>
+  /* --- Jour / nuit : le soleil (ou la lune) est un bouton --- */
+  document.querySelectorAll<HTMLButtonElement>('[data-astre]').forEach((bouton) => {
+    const hero = bouton.closest('.hero') ?? bouton.closest('[data-maison]');
+    const entete = document.querySelector<HTMLElement>('[data-entete]');
+    const enteteDejaFonce = entete?.classList.contains('entete--sur-fonce') ?? false;
+    bouton.addEventListener('click', () => {
+      const nuit = bouton.getAttribute('aria-pressed') !== 'true';
+      bouton.setAttribute('aria-pressed', String(nuit));
+      bouton.setAttribute('aria-label', (nuit ? bouton.dataset.labelJour : bouton.dataset.labelNuit) ?? '');
+      hero?.classList.toggle('hero--nuit', nuit);
+      // L'en-tête passe en clair tant qu'il est posé sur le haut de page sombre.
+      if (entete && !enteteDejaFonce) entete.classList.toggle('entete--sur-fonce', nuit);
+    });
+  });
+
   document.querySelectorAll<HTMLElement>('[data-maison]').forEach((maison) => {
     const pieces = new Map<string, Element>();
     maison.querySelectorAll('[data-piece]').forEach((el) => pieces.set(el.getAttribute('data-piece') ?? '', el));
@@ -395,6 +442,157 @@ const visite = [
 
   .vitre {
     fill: #dfeaf5;
+  }
+
+  /* --- Jour / nuit --- */
+  .t,
+  .hachure,
+  .joint {
+    transition: stroke var(--speed-slow) var(--ease);
+  }
+
+  .astre {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition:
+      opacity var(--speed-slow) var(--ease),
+      transform var(--speed-slow) var(--ease-out);
+  }
+
+  .astre--lune {
+    opacity: 0;
+    transform: rotate(-40deg) scale(0.6);
+  }
+
+  .lune {
+    fill: #ffe9a8;
+    stroke: var(--color-signal);
+    stroke-width: 2;
+    filter: drop-shadow(0 0 14px rgba(255, 212, 71, 0.55));
+  }
+
+  .etoiles path {
+    fill: none;
+    stroke: var(--color-signal);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    opacity: 0;
+    transition: opacity var(--speed-slow) var(--ease);
+    transition-delay: calc(var(--e) * 80ms);
+  }
+
+  .lumiere,
+  .halo {
+    opacity: 0;
+    transition: opacity var(--speed-slow) var(--ease) 300ms;
+  }
+
+  .lumiere {
+    fill: var(--color-signal);
+    filter: drop-shadow(0 0 8px rgba(255, 212, 71, 0.9));
+  }
+
+  .halo {
+    fill: var(--color-signal);
+  }
+
+  :global(.hero--nuit) .astre--soleil {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.5);
+  }
+
+  :global(.hero--nuit) .astre--lune {
+    opacity: 1;
+    transform: none;
+  }
+
+  :global(.hero--nuit) .etoiles path {
+    opacity: 1;
+  }
+
+  :global(.hero--nuit) .lumiere {
+    opacity: 1;
+  }
+
+  :global(.hero--nuit) .halo {
+    opacity: 0.22;
+  }
+
+  :global(.hero--nuit) .vitre {
+    fill: var(--color-signal);
+  }
+
+  :global(.hero--nuit) .sol-carrele {
+    fill: rgba(245, 242, 236, 0.12);
+  }
+
+  :global(.hero--nuit) .peint {
+    opacity: 0.25;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.hero--nuit) .etoiles path {
+      animation: scintille 2.8s ease-in-out infinite;
+      animation-delay: calc(var(--e) * 0.4s + 1s);
+    }
+
+    @keyframes scintille {
+      50% {
+        opacity: 0.25;
+      }
+    }
+  }
+
+  /* Le bouton transparent posé sur l'astre (centre du soleil : 96, 74 sur 720 × 620). */
+  .maison__astre {
+    position: absolute;
+    left: calc(96 / 720 * 100%);
+    top: calc(74 / 620 * 100%);
+    z-index: 3;
+    width: 76px;
+    height: 76px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+  }
+
+  .maison__astre:hover ~ .maison__svg .astre--soleil,
+  .maison:has(.maison__astre:hover) .astre--soleil {
+    transform: rotate(25deg);
+  }
+
+  .maison__astre:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .maison__note-astre {
+    position: absolute;
+    left: calc(96 / 720 * 100% + 44px);
+    top: calc(74 / 620 * 100% + 18px);
+    z-index: 2;
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+    font-size: 22px;
+    color: var(--color-accent);
+    transform: rotate(-4deg);
+    pointer-events: none;
+  }
+
+  .maison__note-jour {
+    display: none;
+  }
+
+  :global(.hero--nuit) .maison__note-nuit {
+    display: none;
+  }
+
+  :global(.hero--nuit) .maison__note-jour {
+    display: inline;
   }
 
   .sol-carrele {
