@@ -1040,3 +1040,16 @@ Corrections de Claudiu sur deux avant/après de Woluwe-Saint-Pierre :
   finition des murs) : nouvelle catégorie **Couloir** (rangée sous Peinture et finitions, qui
   couvre le parquet), légende « Couloir, pose du parquet ». La catégorie Chambre n'est plus
   utilisée (elle disparaît des filtres).
+
+### Puis : le garage de Woluwe (même jour)
+
+Proposé par Claudiu (tag Finder « TerrasseGarage ») : nouvel avant/après **Garage**, chantier de
+Woluwe-Saint-Pierre, dossier « Rénovation intérieur exterieur ».
+- avant : `WhatsApp Image 2026-09-20 at 12.00.50 (10).jpeg` → `avant-7.jpg` (chape brute,
+  briques à nu, chauffe-eau et plomberie en place) ;
+- après : `WhatsApp Image 2026-09-20 at 12.00.47 (3).jpeg` → `apres-7.jpg` (sol en grands
+  carreaux, murs finis). Même local, mêmes gaines et même chauffe-eau.
+Réencodées sans métadonnées ; rien de privé visible. Catégorie **Garage**, rangée sous le
+métier **Carrelage**, qui retrouve ainsi un avant/après. Légende « Garage et local technique,
+sol carrelé et murs finis » (FR/NL) : **à confirmer par Sergiu** (l'électricité n'est pas
+mentionnée, on ne la voit pas clairement sur les photos).

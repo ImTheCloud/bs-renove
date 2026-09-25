@@ -88,6 +88,12 @@ avantApres:
       fr: Couloir, pose du parquet
       nl: Gang, plaatsing van het parket
     categorie: couloir
+  - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-7.jpg
+    apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-7.jpg
+    legende:
+      fr: Garage et local technique, sol carrelé et murs finis
+      nl: Garage en technische ruimte, betegelde vloer en afgewerkte muren
+    categorie: garage
 galerie:
   - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-1.jpg
     alt:

@@ -23,6 +23,7 @@ export const categories: Categorie[] = [
   { slug: 'couloir', nom: { fr: 'Couloir', nl: 'Gang' } },
   { slug: 'toilette', nom: { fr: 'Toilette', nl: 'Toilet' } },
   { slug: 'escalier', nom: { fr: 'Escalier', nl: 'Trap' } },
+  { slug: 'garage', nom: { fr: 'Garage', nl: 'Garage' } },
   { slug: 'toiture', nom: { fr: 'Toiture', nl: 'Dak' } },
   { slug: 'auvent', nom: { fr: 'Auvent', nl: 'Luifel' } },
   { slug: 'facade', nom: { fr: 'Façade', nl: 'Gevel' } },
