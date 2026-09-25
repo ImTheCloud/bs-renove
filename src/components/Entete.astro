@@ -179,7 +179,10 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
     transform: translateY(-120%);
   }
 
+  /* Toujours au-dessus du panneau du menu (z-index 1) : sans ça, le flou de la barre défilée la faisait passer dessous. */
   .entete__barre {
+    position: relative;
+    z-index: 3;
     pointer-events: auto;
     display: flex;
     align-items: center;
@@ -219,41 +222,37 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
   }
 
   /* --- Bouton menu --- */
-  /* Téléphone : un rond jaune avec deux traits (croix quand le menu est ouvert). Le mot « Menu » reste lu par les lecteurs d'écran. */
+  /* Bouton menu : pilule bleu nuit, « Menu » (ou « Fermer ») écrit en entier, pastille jaune. */
   .entete__burger {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
     flex-shrink: 0;
-    width: 48px;
-    height: 48px;
-    padding: 0;
-    background: transparent;
+    gap: 8px;
+    height: 46px;
+    padding: 0 6px 0 16px;
+    background: var(--color-ink);
     border: none;
-    border-radius: 50%;
+    border-radius: var(--radius-pill);
+    color: var(--color-on-ink);
+    font: 650 15px/1 var(--font-text);
     cursor: pointer;
     position: relative;
     z-index: 2;
   }
 
-  .entete__burger-texte {
-    display: none;
-  }
-
   .entete__burger-traits {
     position: relative;
     display: inline-block;
-    width: 48px;
-    height: 48px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     background: var(--color-signal);
-    box-shadow: 0 4px 12px -4px rgba(15, 22, 38, 0.3);
   }
 
   .entete__burger-traits span {
     position: absolute;
-    left: 15px;
-    right: 15px;
+    left: 10px;
+    right: 10px;
     height: 2px;
     border-radius: 2px;
     background: var(--color-ink);
@@ -261,11 +260,11 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
   }
 
   .entete__burger-traits span:first-child {
-    top: 20px;
+    top: 13px;
   }
 
   .entete__burger-traits span:last-child {
-    top: 26px;
+    top: 19px;
   }
 
   .entete__burger[aria-expanded='true'] .entete__burger-traits span:first-child {
@@ -399,7 +398,7 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
   }
 
 
-  :global(body.menu-ouvert) .entete__barre {
+  :global(body.menu-ouvert) .entete .entete__barre.entete__barre {
     background: transparent;
     border-color: transparent;
     box-shadow: none;
@@ -423,22 +422,20 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
   }
 
   @media (max-width: 1023px) {
+    .entete {
+      padding-inline: 10px;
+    }
+
     .entete__barre {
       gap: 8px;
+      padding: 4px 4px 4px 8px;
     }
   }
 
-  /* Les plus petits téléphones (≤ 340 px) : l'en-tête s'approche des bords pour tout faire tenir. */
-  @media (max-width: 340px) {
-    .entete {
-      padding-inline: 8px;
-    }
-  }
 
-  @media (max-width: 400px) {
-    .entete__logo :global(.logo__nom) {
-      font-size: 22px;
-    }
+  :global(body:not(.menu-ouvert)) .entete--sur-fonce:not(.entete--defile) .entete__burger {
+    background: var(--color-on-ink);
+    color: var(--color-ink);
   }
 
   .entete__langue-mobile {
@@ -447,36 +444,91 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
     z-index: 2;
   }
 
-  @media (max-width: 360px) {
-    .entete__barre {
-      gap: 6px;
-      padding-left: 10px;
-    }
-
-
-
-
+  /* Téléphones : logo à gauche, FR/NL, puis « Menu » écrit en entier. On resserre selon la largeur. */
+  @media (max-width: 430px) {
     .entete__logo :global(.logo__nom) {
       font-size: 22px;
     }
 
-    .entete__langue-mobile :global(.langues__lien) {
-      min-width: 34px;
-      padding: 0 4px;
+    .entete__logo :global(.logo__icone) {
+      height: 26px;
     }
 
-    .entete__burger,
+    .entete__langue-mobile :global(.langues__lien) {
+      min-width: 36px;
+      padding: 0 4px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .entete__barre {
+      gap: 6px;
+    }
+
+    .entete__logo :global(.logo) {
+      gap: 7px;
+    }
+
+    .entete__logo :global(.logo__nom) {
+      font-size: 20px;
+    }
+
+    .entete__logo :global(.logo__icone) {
+      height: 23px;
+    }
+
+    .entete__langue-mobile :global(.langues__lien) {
+      min-width: 33px;
+    }
+
+    .entete__burger {
+      gap: 6px;
+      padding-left: 12px;
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 340px) {
+    .entete__barre {
+      gap: 4px;
+      padding-left: 4px;
+    }
+
+    .entete__logo :global(.logo__nom) {
+      font-size: 18px;
+    }
+
+    .entete__logo :global(.logo__icone) {
+      height: 20px;
+    }
+
+    .entete__langue-mobile :global(.langues__lien) {
+      min-width: 29px;
+      padding: 0 2px;
+    }
+
+    .entete__burger {
+      gap: 5px;
+      padding-left: 9px;
+      font-size: 13px;
+    }
+
     .entete__burger-traits {
-      width: 44px;
-      height: 44px;
+      width: 30px;
+      height: 30px;
+    }
+
+    .entete__burger-traits span {
+      left: 8px;
+      right: 8px;
     }
 
     .entete__burger-traits span:first-child {
-      top: 18px;
+      top: 11px;
     }
 
     .entete__burger-traits span:last-child {
-      top: 24px;
+      top: 17px;
     }
   }
 

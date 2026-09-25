@@ -64,7 +64,7 @@ Apparitions au défilement, titres mot par mot, Lenis, transitions entre pages. 
 
 ### Principes
 
-- Mobile d'abord : dock flottant en bas (Appeler, WhatsApp, Devis). Menu mobile : panneau **clair** (papier), bouton rond jaune (croix quand il est ouvert), FR/NL à côté. Favicon rond bleu nuit (`public/favicon.png`). Zones tactiles ≥ 44 px.
+- Mobile d'abord : dock flottant en bas (Appeler, WhatsApp, Devis). Menu mobile : panneau **clair** (papier) ; en-tête = logo à gauche, FR/NL, puis pilule bleu nuit « Menu » / « Fermer » écrit en entier avec pastille jaune. La barre d'en-tête passe toujours au-dessus du panneau (z-index), testé avec WebKit (Safari). Favicon rond bleu nuit (`public/favicon.png`). Zones tactiles ≥ 44 px.
 - Accessibilité : contraste AA, focus clavier visible, vrais `<button>`/`<a>`, texte alternatif, curseurs utilisables au clavier.
 - Performance : images en WebP aux bonnes tailles (qualité 70), chargement différé sauf le haut de page.
 
