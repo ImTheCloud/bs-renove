@@ -46,6 +46,12 @@ const projets = defineCollection({
              * on voit davantage l'« après » (utile quand l'essentiel est à gauche).
              */
             depart: z.number().min(0).max(100).default(50),
+            /**
+             * Cadrage d'une photo recadrée dans le cadre (CSS object-position),
+             * ex. « 50% 20% » pour garder le haut. Centré par défaut.
+             */
+            cadrageAvant: z.string().default('50% 50%'),
+            cadrageApres: z.string().default('50% 50%'),
           }),
         )
         .default([]),

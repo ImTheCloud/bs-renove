@@ -32,6 +32,9 @@ export interface Paire {
   ratio: string;
   /** Position de départ de la poignée du curseur, en %. */
   depart: number;
+  /** Cadrage (object-position) de chaque photo. */
+  cadrageAvant: string;
+  cadrageApres: string;
 }
 
 /**
@@ -50,6 +53,8 @@ export async function toutesLesPaires(): Promise<Paire[]> {
         paysage,
         ratio: paysage ? '4 / 3' : '3 / 4',
         depart: paire.depart,
+        cadrageAvant: paire.cadrageAvant ?? '50% 50%',
+        cadrageApres: paire.cadrageApres ?? '50% 50%',
         id: `${projet.id}-${index}`,
         avant: paire.avant,
         apres: paire.apres,

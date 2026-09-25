@@ -28,3 +28,11 @@ avantApres:
       fr: Lucarne et toiture, du caisson aux tuiles
       nl: Dakkapel en dak, van kast tot pannen
     categorie: toiture
+  - avant: ../../assets/projets/toiture-lucarne/avant-2.jpg
+    apres: ../../assets/projets/toiture-lucarne/apres-2.jpg
+    # La photo « après » est verticale : on garde le haut, où se trouve la lucarne.
+    cadrageApres: 50% 24%
+    legende:
+      fr: Lucarne, de la charpente à la façade finie
+      nl: Dakkapel, van dakgebinte tot afgewerkte gevel
+    categorie: toiture

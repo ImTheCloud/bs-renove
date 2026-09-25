@@ -61,6 +61,7 @@ const paires = await pairesAccueil();
                     <span class="carte__image">
                       <Image
                         src={paire.avant}
+                        style={`object-position: ${paire.cadrageAvant}`}
                         alt={`${aa.avant} : ${paire.legende[langue]}`}
                         widths={[400, 640, 880]}
                         sizes={paire.paysage ? "(min-width: 1024px) 50vw, 92vw" : "(min-width: 1024px) 30vw, 78vw"}
@@ -70,6 +71,7 @@ const paires = await pairesAccueil();
                     <span class="carte__image carte__image--apres">
                       <Image
                         src={paire.apres}
+                        style={`object-position: ${paire.cadrageApres}`}
                         alt={`${aa.apres} : ${paire.legende[langue]}`}
                         widths={[400, 640, 880]}
                         sizes={paire.paysage ? "(min-width: 1024px) 50vw, 92vw" : "(min-width: 1024px) 30vw, 78vw"}

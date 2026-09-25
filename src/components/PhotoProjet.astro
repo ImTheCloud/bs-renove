@@ -19,6 +19,8 @@ interface Props {
   class?: string;
   /** Charge tout de suite plutôt qu'en différé : réservé à la photo du hero. */
   prioritaire?: boolean;
+  /** Cadrage de la photo dans son cadre (object-position). */
+  cadrage?: string;
 }
 
 const {
@@ -31,6 +33,7 @@ const {
   compact,
   class: classe,
   prioritaire = false,
+  cadrage = '50% 50%',
 } = Astro.props;
 ---
 
@@ -43,6 +46,7 @@ const {
         width={1200}
         loading={prioritaire ? 'eager' : 'lazy'}
         fetchpriority={prioritaire ? 'high' : 'auto'}
+        style={`object-position: ${cadrage}`}
       />
     </div>
   ) : (

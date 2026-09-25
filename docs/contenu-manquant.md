@@ -1141,3 +1141,11 @@ Sergiu serait meilleur**.
 Après essai, Claudiu préfère de simples avant/après. Frise et « chantier en accéléré » retirés
 (composant et champs supprimés). Lucarne : avant = le caisson, après = terminé.
 **Règle : uniquement des paires avant/après, pas de photos « pendant ».**
+
+### Puis : lucarne, charpente → façade finie (même jour)
+
+Nouvelle paire dans `toiture-lucarne.yaml` (photos de Claudiu, introuvables dans Téléchargements :
+commune inconnue → « Belgique »). Avant horizontal recadré à gauche pour sortir un ouvrier et une
+feuille posée sur l'appui ; après vertical cadré sur la lucarne. Nouveau réglage par paire
+`cadrageAvant` / `cadrageApres` (ex. « 50% 24% ») pour choisir la partie visible d'une photo
+recadrée.
