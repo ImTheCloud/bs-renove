@@ -4,8 +4,6 @@
  * Base : Code des sociétés et des associations (art. 2:20), Code de droit
  * économique (livres III, VI et XII) et RGPD (art. 13). Les faits sur
  * l'entreprise viennent de src/data/entreprise.ts (vérifiés dans la BCE).
- * Les deux pages portent la mention [À RELIRE] tant qu'un professionnel ne
- * les a pas validées.
  *
  * Marques remplacées à l'affichage : {email}, {telephone}, {hebergeur}.
  */

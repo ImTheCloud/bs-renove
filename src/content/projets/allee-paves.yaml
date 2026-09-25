@@ -2,9 +2,6 @@
 # originaux WhatsApp 2026-09-20 at 10.58.48 (3) (avant) et 10.58.51 (1) (après).
 # Numéro de maison, plaque d'hydrant et sac d'un fournisseur (téléphone) masqués
 # par un aplat avant import. Tant que la commune n'est pas confirmée, elle n'est pas affichée.
-commune:
-  fr: "[À CONFIRMER : commune]"
-  nl: "[TE BEVESTIGEN: gemeente]"
 ordre: 10
 avantApres:
   - avant: ../../assets/projets/allee-paves/avant-1.jpg

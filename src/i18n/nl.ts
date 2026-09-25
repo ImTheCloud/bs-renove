@@ -1,6 +1,5 @@
 /**
  * Tous les textes d'interface en néerlandais.
- * À FAIRE RELIRE PAR UN NÉERLANDOPHONE NATIF (voir docs/contenu-manquant.md).
  * Néerlandais standard de Belgique, vouvoiement avec « u ».
  * Les noms de clés restent en français : seules les valeurs sont traduites.
  */
@@ -59,7 +58,6 @@ export const nl: Traductions = {
     allerAuContenu: 'Naar de inhoud',
   },
 
-  aConfirmer: 'TE BEVESTIGEN',
 
   accueil: {
     hero: {
@@ -337,9 +335,6 @@ export const nl: Traductions = {
   },
 
   legal: {
-    aRelire: 'NA TE LEZEN',
-    aRelireTexte:
-      'Deze teksten zijn een vertrekpunt. Ze moeten worden nagelezen en goedgekeurd vóór de publicatie',
     identite: 'De onderneming',
     nomLegal: 'Benaming',
     formeJuridique: 'Rechtsvorm',

@@ -12,7 +12,6 @@ export function t(langue: Langue) {
   return traductions[langue];
 }
 
-
 /**
  * Les adresses de chaque page dans les deux langues.
  * Une seule source : le sélecteur de langue et la navigation s'en servent tous les deux.
@@ -71,12 +70,3 @@ export function liensNavigation(langue: Langue) {
   ];
 }
 
-/**
- * Le marqueur d'une information non confirmée, avec la bonne typographie.
- * Le français met une espace avant le deux-points, le néerlandais non.
- */
-export function marqueurAConfirmer(langue: Langue, quoi?: string): string {
-  const mot = t(langue).aConfirmer;
-  if (!quoi) return `[${mot}]`;
-  return langue === 'fr' ? `[${mot} : ${quoi}]` : `[${mot}: ${quoi}]`;
-}

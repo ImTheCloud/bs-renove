@@ -1,7 +1,4 @@
 # Photos envoyées par Claudiu : commune inconnue (« Belgique »).
-commune:
-  fr: "[À CONFIRMER : commune]"
-  nl: "[TE BEVESTIGEN: gemeente]"
 ordre: 15
 avantApres:
   - avant: ../../assets/projets/egouttage-allee/avant-1.jpg

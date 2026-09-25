@@ -1,7 +1,4 @@
 # Photos envoyées par Claudiu, introuvables dans Téléchargements : commune inconnue (« Belgique »).
-commune:
-  fr: "[À CONFIRMER : commune]"
-  nl: "[TE BEVESTIGEN: gemeente]"
 ordre: 12
 avantApres:
   - avant: ../../assets/projets/salle-de-bain-baignoire/avant-1.jpg

@@ -3,8 +3,7 @@
  * Servent à l'accueil et à la page Services.
  *
  * Les textes décrivent le métier, pas l'entreprise : aucune promesse,
- * aucun chiffre, aucune garantie. Tout cela reste à faire valider par le
- * client (docs/contenu-manquant.md).
+ * aucun chiffre, aucune garantie.
  */
 import type { Langue } from '~/i18n';
 

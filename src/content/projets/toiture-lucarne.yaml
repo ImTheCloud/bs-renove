@@ -1,7 +1,4 @@
 # Photos envoyées par Claudiu (caisson, puis terminé) ; commune inconnue.
-commune:
-  fr: "[À CONFIRMER : commune]"
-  nl: "[TE BEVESTIGEN: gemeente]"
 ordre: 11
 avantApres:
   - avant: ../../assets/projets/toiture-lucarne/avant-1.jpg

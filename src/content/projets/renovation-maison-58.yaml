@@ -1,9 +1,5 @@
 # Photos envoyées par Claudiu. Numéro de maison masqué sur les deux photos.
 # Commune non confirmée (« Belgique ») : probablement le chantier de Woluwe-Saint-Pierre
-# (même numéro que les photos du tag « Terasse exterieur »), à confirmer.
-commune:
-  fr: "[À CONFIRMER : commune]"
-  nl: "[TE BEVESTIGEN: gemeente]"
 ordre: 1
 avantApres:
   - avant: ../../assets/projets/renovation-maison-58/avant-1.jpg

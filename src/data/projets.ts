@@ -17,7 +17,7 @@ export interface Paire {
   apres: ImageMetadata;
   legende: Record<Langue, string>;
   categorie: string;
-  /** La commune, ou « Belgique » tant qu'elle n'est pas confirmée. */
+  /** La commune, ou « Belgique » si elle n'est pas renseignée. */
   commune: Record<Langue, string>;
   /** Une des deux photos est horizontale : la comparaison passe en 4/3 pour ne pas la couper. */
   paysage: boolean;
@@ -39,7 +39,7 @@ const nomFichier = (image: ImageMetadata) => image.src.split('/').pop()!.split('
 export async function toutesLesPaires(): Promise<Paire[]> {
   const projets = (await getCollection('projets')).sort((a, b) => a.data.ordre - b.data.ordre);
   return projets.flatMap((projet) => {
-    const commune = projet.data.commune.fr.startsWith('[') ? BELGIQUE : projet.data.commune;
+    const commune = projet.data.commune ?? BELGIQUE;
     return projet.data.avantApres.map((paire) => {
       const paysage = paire.avant.width > paire.avant.height || paire.apres.width > paire.apres.height;
       return {

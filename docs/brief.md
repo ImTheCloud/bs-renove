@@ -1,6 +1,6 @@
 # Brief : site BS Renove
 
-État du site après la refonte « Atelier » (septembre 2026). Les règles de design et de code sont dans `CLAUDE.md`, l'organisation du code dans `README.md`, ce qui reste à confirmer dans `docs/contenu-manquant.md`.
+État du site après la refonte « Atelier » (septembre 2026). Les règles de design et de code sont dans `CLAUDE.md`, l'organisation du code dans `README.md`, le suivi avec le client dans `docs/suivi-client.md`.
 
 ## 1. L'entreprise (faits vérifiés)
 
@@ -69,7 +69,7 @@ Deux photos superposées, l'« après » se dévoile selon la poignée (ronde, j
 
 - `title` et description propres à chaque page et langue, Open Graph, image de partage (provisoire).
 - JSON-LD `HomeAndConstructionBusiness` sur l'accueil ; `hreflang` fr-BE, nl-BE, x-default ; `sitemap.xml` et `robots.txt`.
-- Mentions légales et Vie privée écrites, marquées `[À RELIRE]` tant qu'un humain ne les a pas validées.
+- Mentions légales et Vie privée : textes définitifs (hébergeur Netlify, RPM, Web3Forms).
 
 ## 9. Ton des textes
 

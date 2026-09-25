@@ -54,7 +54,6 @@ export const fr = {
   },
 
   /** Marqueur visible tant qu'une information n'est pas confirmée par le client. */
-  aConfirmer: 'À CONFIRMER',
 
   accueil: {
     hero: {
@@ -333,9 +332,6 @@ export const fr = {
   },
 
   legal: {
-    aRelire: 'À RELIRE',
-    aRelireTexte:
-      'Ces textes sont un point de départ. Ils doivent être relus et validés avant la mise en ligne',
     identite: "L'entreprise",
     nomLegal: 'Dénomination',
     formeJuridique: 'Forme juridique',

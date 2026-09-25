@@ -19,10 +19,9 @@ const projets = defineCollection({
     z.object({
       /**
        * Seulement la commune, jamais la rue ni le numéro. Bilingue : beaucoup de
-       * communes belges ont deux noms. Tant qu'elle n'est pas confirmée, mettre
-       * « [À CONFIRMER : commune] » : le site affiche alors « Belgique ».
+       * communes belges ont deux noms. Facultative : sans commune, le site affiche « Belgique ».
        */
-      commune: bilingue,
+      commune: bilingue.optional(),
       /** Ordre d'affichage sur la page Réalisations (le plus petit d'abord). */
       ordre: z.number(),
       avantApres: z.array(

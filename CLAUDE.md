@@ -7,12 +7,12 @@ Site vitrine de BS Renove SRL, entreprise générale de rénovation belge (sièg
 Objectif : qu'un propriétaire qui arrive sur le site ait confiance et prenne contact, par formulaire de devis, téléphone ou WhatsApp.
 
 - Contenu, pages, textes : `docs/brief.md`
-- Ce qui reste à confirmer avec le client : `docs/contenu-manquant.md` (à tenir à jour)
+- Suivi avec le client (hors site) : `docs/suivi-client.md`
 - Architecture du code : `README.md`
 
 ## Règles non négociables
 
-- **Ne jamais inventer d'information sur l'entreprise** : années d'expérience, taille de l'équipe, garanties, assurances, avis clients, chiffres, certifications. Si une info manque, ne rien afficher (ou un texte visible `[À CONFIRMER : …]`) et l'ajouter à `docs/contenu-manquant.md`.
+- **Ne jamais inventer d'information sur l'entreprise** : années d'expérience, taille de l'équipe, garanties, assurances, avis clients, chiffres, certifications. Si une info manque, ne rien afficher et la noter dans `docs/suivi-client.md`. Le site est en production : **aucune mention « à confirmer », « à relire » ou provisoire** ne doit apparaître.
 - **Photos : jamais d'adresse client.** Seule la commune est affichée (« Belgique » si elle est inconnue). Avant tout import, **masquer par un aplat** les numéros de maison, visages, plaques, coordonnées, puis vérifier à l'œil.
 - **Photos dans `src/assets/`**, affichées avec `astro:assets`, importées **sans métadonnées** (sharp). Jamais dans `public/` : les originaux contiennent la position GPS de la maison.
 - **Réalisations : uniquement des avant/après** (deux photos du même endroit). Pas de photo « pendant », pas de page par chantier. Seule exception : l'Électricité, qui montre une photo seule.
