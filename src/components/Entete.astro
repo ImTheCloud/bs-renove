@@ -366,6 +366,17 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
     color: var(--color-ink);
   }
 
+  /* Mode nuit de l'accueil : le bouton devis s'allume en jaune, comme dans la page. */
+  .entete--nuit:not(.entete--defile) :global(.entete__devis) {
+    background: var(--color-signal);
+    color: #121418;
+  }
+
+  .entete--nuit:not(.entete--defile) :global(.entete__devis .bouton__pastille) {
+    background: #121418;
+    color: var(--color-signal);
+  }
+
   .entete--sur-fonce:not(.entete--defile) .entete__burger {
     background: var(--color-on-ink);
     color: var(--color-ink);

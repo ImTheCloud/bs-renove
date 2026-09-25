@@ -46,6 +46,7 @@ Toutes dans `src/styles/tokens.css` : changer une couleur prend une ligne.
 - Encre `#121418` (titres, sections sombres, bouton principal)
 - Bleu du logo `#0066B4` (mots en italique, liens, annotations) ; `#7CBCFF` sur fond sombre
 - Jaune marqueur `#FFD447` (surlignages, pastilles de flèche, états actifs) : jamais comme couleur de texte sur fond clair
+- Bleu nuit `#0F1626` (mode nuit de l’accueil, bloc devis)
 - WhatsApp `#0E8449`
 
 ### Typographie
@@ -55,7 +56,7 @@ Toutes dans `src/styles/tokens.css` : changer une couleur prend une ligne.
 
 ### Éléments signature
 
-- **Maison en coupe dessinée en SVG** dans le hero (`src/components/accueil/MaisonCoupe.astro`) : se trace à l'arrivée, visite guidée des pièces, chaque pièce mène au service. **Mode nuit** : un clic sur le soleil passe le haut de l'accueil en nuit (fond bleu nuit, lune, étoiles, fenêtres et lampe allumées), un clic sur la lune revient au jour.
+- **Maison en coupe dessinée en SVG** dans le hero (`src/components/accueil/MaisonCoupe.astro`) : se trace à l'arrivée, visite guidée des pièces, chaque pièce mène au service. **Mode nuit** : un clic sur le soleil passe le haut de l'accueil en nuit (fond bleu nuit, lune, étoiles, fenêtres et lampe allumées), un clic sur la lune revient au jour. En nuit, le bouton principal devient jaune (en-tête compris) et le logo prend son icône aux traits clairs (`icone-logo-nuit.png`), sans pastille blanche.
 - **Avant/après piloté par le défilement** sur l'accueil (section épinglée).
 - Bandeau « rubalise » qui défile, liste des métiers avec photo qui suit la souris, chiffres qui comptent, réalisations en défilement horizontal, FAQ en accordéon, formulaire de devis en 3 étapes.
 - Grain de papier léger sur toute la page, fond millimétré derrière les en-têtes.

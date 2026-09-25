@@ -291,6 +291,7 @@ const visite = [
       hero?.classList.toggle('hero--nuit', nuit);
       // L'en-tête passe en clair tant qu'il est posé sur le haut de page sombre.
       if (entete && !enteteDejaFonce) entete.classList.toggle('entete--sur-fonce', nuit);
+      entete?.classList.toggle('entete--nuit', nuit);
     });
   });
 

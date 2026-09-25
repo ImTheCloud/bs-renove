@@ -12,6 +12,8 @@
   --color-surface-2: #e3ddd1;   /* conteneurs secondaires */
   --color-ink: #121418;         /* encre : titres, sections sombres */
   --color-ink-2: #1c1f25;       /* cartes sur fond sombre */
+  --color-nuit: #0f1626;        /* bleu nuit : mode nuit de l'accueil, bloc devis */
+  --color-nuit-2: #18223a;      /* cartes et champs sur le bleu nuit */
   --color-ink-rgb: 18, 20, 24;
   --color-accent: #0066b4;      /* bleu du logo : liens, détails */
   --color-accent-dark: #00528f;

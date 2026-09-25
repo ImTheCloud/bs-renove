@@ -6,6 +6,7 @@
  */
 import { Image } from 'astro:assets';
 import icone from '~/assets/marque/icone-logo-serre.png';
+import iconeNuit from '~/assets/marque/icone-logo-nuit.png';
 import { entreprise } from '../data/entreprise';
 
 interface Props {
@@ -17,7 +18,8 @@ const { surFonce = false } = Astro.props;
 ---
 
 <span class:list={['logo', { 'logo--fonce': surFonce }]}>
-  <Image src={icone} alt="" height={64} class="logo__icone" />
+  <Image src={icone} alt="" height={64} class="logo__icone logo__icone--jour" />
+  <Image src={iconeNuit} alt="" height={64} class="logo__icone logo__icone--nuit" />
   <span class="logo__nom" aria-hidden="true">
     <span class="logo__bs">BS</span>{' '}<span class="logo__renove">Renove</span>
   </span>
@@ -62,13 +64,21 @@ const { surFonce = false } = Astro.props;
     transition: color 400ms var(--ease);
   }
 
-  .logo--fonce .logo__icone,
-  :global(.entete--sur-fonce:not(.entete--defile)) .logo__icone,
-  :global(body.menu-ouvert .entete) .logo__icone {
-    padding: 4px 6px;
-    box-sizing: content-box;
-    background: var(--color-on-ink);
-    border-radius: 10px;
+  /* Sur fond sombre, l'icône aux traits clairs remplace l'icône aux traits foncés. */
+  .logo__icone--nuit {
+    display: none;
+  }
+
+  .logo--fonce .logo__icone--jour,
+  :global(.entete--sur-fonce:not(.entete--defile)) .logo__icone--jour,
+  :global(body.menu-ouvert .entete) .logo__icone--jour {
+    display: none;
+  }
+
+  .logo--fonce .logo__icone--nuit,
+  :global(.entete--sur-fonce:not(.entete--defile)) .logo__icone--nuit,
+  :global(body.menu-ouvert .entete) .logo__icone--nuit {
+    display: block;
   }
 
   .logo--fonce .logo__bs {

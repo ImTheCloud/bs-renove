@@ -106,7 +106,7 @@ const hero = textes.accueil.hero;
     couleurs du site s'inversent pour tout ce qui est dans le haut de page.
   */
   .hero--nuit {
-    background-color: #0f1626;
+    background-color: var(--color-nuit);
     --color-ink: #f5f2ec;
     --color-on-ink: #121418;
     --color-text: #c9ccd3;
@@ -121,8 +121,19 @@ const hero = textes.accueil.hero;
     background: var(--color-signal);
   }
 
-  .hero--nuit :global(.bouton__pastille) {
+  /* Boutons de nuit : le bouton principal devient une lumière jaune. */
+  .hero--nuit :global(.bouton--principal) {
+    background: var(--color-signal);
     color: #121418;
+  }
+
+  .hero--nuit :global(.bouton--principal:hover) {
+    background: #ffcb1f;
+  }
+
+  .hero--nuit :global(.bouton--principal .bouton__pastille) {
+    background: #121418;
+    color: var(--color-signal);
   }
 
   .hero--nuit .hero__puces a {
