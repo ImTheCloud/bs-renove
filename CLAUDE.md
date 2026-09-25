@@ -39,10 +39,9 @@ Objectif : qu'un propriétaire qui arrive sur le site ait confiance et prenne co
 ### Couleurs (`src/styles/tokens.css`)
 
 - Papier `#F5F2EC` (fond), surfaces `#ECE7DE` / `#E3DDD1`
-- Encre `#121418` : titres, bouton principal, sections sombres
+- Bleu nuit `#0F1626` : titres, boutons (principal, menu), sections sombres, mode nuit, bloc devis. **Jamais de noir** (demande du client), survol du bouton principal `#1F3056`
 - Bleu du logo `#0066B4` : mots en italique, liens, annotations, « 12 ans » du hero ; `#7CBCFF` sur fond sombre
 - Jaune marqueur `#FFD447` : surlignages, pastilles de flèche, points de la maison (jamais du texte sur fond clair)
-- Bleu nuit `#0F1626` : mode nuit de l'accueil, bloc devis
 - WhatsApp `#0E8449`
 
 Essayé et refusé par le client : tout passer au bleu du logo (trop sage).
@@ -64,7 +63,7 @@ Apparitions au défilement, titres mot par mot, Lenis, transitions entre pages. 
 
 ### Principes
 
-- Mobile d'abord : dock flottant en bas (Appeler, WhatsApp, Devis). Zones tactiles ≥ 44 px.
+- Mobile d'abord : dock flottant en bas (Appeler, WhatsApp, Devis). Menu mobile : panneau **clair** (papier), le bouton affiche « Fermer » quand il est ouvert. Zones tactiles ≥ 44 px.
 - Accessibilité : contraste AA, focus clavier visible, vrais `<button>`/`<a>`, texte alternatif, curseurs utilisables au clavier.
 - Performance : images en WebP aux bonnes tailles (qualité 70), chargement différé sauf le haut de page.
 

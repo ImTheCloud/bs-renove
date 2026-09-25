@@ -46,7 +46,7 @@ const options = LANGUES.map((code) => ({
     display: inline-flex;
     align-items: center;
     padding: 3px;
-    border: 1px solid rgba(18, 20, 24, 0.14);
+    border: 1px solid rgba(15, 22, 38, 0.14);
     border-radius: var(--radius-pill);
   }
 
@@ -102,16 +102,16 @@ const options = LANGUES.map((code) => ({
     color: var(--color-ink);
   }
 
-  /* En-tête sur fond sombre, avant défilement */
-  :global(.entete--sur-fonce:not(.entete--defile)) .langues {
+  /* En-tête sur fond sombre, avant défilement (pas dans le menu mobile, qui est clair) */
+  :global(.entete--sur-fonce:not(.entete--defile) .entete__actions) .langues {
     border-color: var(--color-line-on-ink);
   }
 
-  :global(.entete--sur-fonce:not(.entete--defile)) .langues__lien {
+  :global(.entete--sur-fonce:not(.entete--defile) .entete__actions) .langues__lien {
     color: var(--color-on-ink-label);
   }
 
-  :global(.entete--sur-fonce:not(.entete--defile)) .langues__lien--actif {
+  :global(.entete--sur-fonce:not(.entete--defile) .entete__actions) .langues__lien--actif {
     background: var(--color-on-ink);
     color: var(--color-ink);
   }

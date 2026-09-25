@@ -27,8 +27,6 @@ const hero = textes.accueil.hero;
 
   <div class="wrap hero__interieur">
     <div class="hero__texte">
-      <p class="etiquette-section hero__surtitre">{hero.surtitre}</p>
-
       <h1 class="hero__titre">
         <span class="ligne"><span>{hero.titreDebut}</span></span>
         <span class="ligne"><span><span class="serif">{hero.titreSerif}</span></span></span>
@@ -108,7 +106,7 @@ const hero = textes.accueil.hero;
   .hero--nuit {
     background-color: var(--color-nuit);
     --color-ink: #f5f2ec;
-    --color-on-ink: #121418;
+    --color-on-ink: #0f1626;
     --color-text: #c9ccd3;
     --color-muted: #a3a8b3;
     --color-border: rgba(245, 242, 236, 0.22);
@@ -117,14 +115,14 @@ const hero = textes.accueil.hero;
 
   /* La nuit, le surlignage devient un bloc jaune plein : texte sombre lisible en entier. */
   .hero--nuit .hero__titre .marqueur {
-    color: #121418;
+    color: #0f1626;
     background: var(--color-signal);
   }
 
   /* Boutons de nuit : le bouton principal devient une lumière jaune. */
   .hero--nuit :global(.bouton--principal) {
     background: var(--color-signal);
-    color: #121418;
+    color: #0f1626;
   }
 
   .hero--nuit :global(.bouton--principal:hover) {
@@ -132,7 +130,7 @@ const hero = textes.accueil.hero;
   }
 
   .hero--nuit :global(.bouton--principal .bouton__pastille) {
-    background: #121418;
+    background: #0f1626;
     color: var(--color-signal);
   }
 
@@ -143,7 +141,7 @@ const hero = textes.accueil.hero;
   .hero--nuit .hero__puces a:hover,
   .hero--nuit .hero__puces a.actif {
     background: var(--color-signal);
-    color: #121418;
+    color: #0f1626;
   }
 
   .hero--nuit .hero__grille {
@@ -265,15 +263,8 @@ const hero = textes.accueil.hero;
   .hero__origine b {
     padding: 0 3px;
     font-weight: 700;
-    color: #121418;
+    color: #0f1626;
     background: linear-gradient(transparent 45%, var(--color-signal) 45%, var(--color-signal) 90%, transparent 90%);
-  }
-
-  /* Téléphone et tablette : la maison d'abord, le texte ensuite. */
-  @media (max-width: 1023px) {
-    .hero__visuel {
-      order: -1;
-    }
   }
 
   .hero__experience-texte strong {
@@ -425,7 +416,6 @@ const hero = textes.accueil.hero;
       animation: surligner 900ms var(--ease-out) 1000ms forwards;
     }
 
-    .hero__surtitre,
     .hero__intro,
     .hero__actions,
     .hero__origine,
@@ -435,7 +425,6 @@ const hero = textes.accueil.hero;
 
     .hero__origine { animation-delay: 700ms; }
 
-    .hero__surtitre { animation-delay: 0ms; }
     .hero__intro { animation-delay: 420ms; }
     .hero__actions { animation-delay: 520ms; }
     .hero__bas { animation-delay: 1600ms; }

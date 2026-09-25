@@ -70,15 +70,22 @@ const { surFonce = false } = Astro.props;
   }
 
   .logo--fonce .logo__icone--jour,
-  :global(.entete--sur-fonce:not(.entete--defile)) .logo__icone--jour,
-  :global(body.menu-ouvert .entete) .logo__icone--jour {
+  :global(.entete--sur-fonce:not(.entete--defile)) .logo__icone--jour {
     display: none;
   }
 
   .logo--fonce .logo__icone--nuit,
-  :global(.entete--sur-fonce:not(.entete--defile)) .logo__icone--nuit,
-  :global(body.menu-ouvert .entete) .logo__icone--nuit {
+  :global(.entete--sur-fonce:not(.entete--defile)) .logo__icone--nuit {
     display: block;
+  }
+
+  /* Menu mobile ouvert (panneau clair) : toujours l'icône normale, même sur une page sombre. */
+  :global(body.menu-ouvert .entete.entete) .logo__icone--jour {
+    display: block;
+  }
+
+  :global(body.menu-ouvert .entete.entete) .logo__icone--nuit {
+    display: none;
   }
 
   .logo--fonce .logo__bs {

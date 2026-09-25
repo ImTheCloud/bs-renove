@@ -27,6 +27,7 @@ export const fr = {
     fermerMenu: 'Fermer le menu',
     menuAria: 'Menu principal',
     menu: 'Menu',
+    fermer: 'Fermer',
     contactDirect: 'Nous joindre',
   },
 

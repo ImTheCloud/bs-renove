@@ -1,6 +1,6 @@
 /* ==========================================================================
    Les réglages du site, au même endroit.
-   Direction « Atelier » : papier chaud, encre presque noire, bleu du logo,
+   Direction « Atelier » : papier chaud, encre bleu nuit (jamais de noir), bleu du logo,
    jaune de marqueur pour souligner, annotations écrites à la main.
    Changer une valeur ici la change partout.
    ========================================================================== */
@@ -10,8 +10,8 @@
   --color-bg: #f5f2ec;          /* papier : fond de page */
   --color-surface: #ece7de;     /* cartes, pastilles */
   --color-surface-2: #e3ddd1;   /* conteneurs secondaires */
-  --color-ink: #121418;         /* encre : titres, sections sombres */
-  --color-ink-2: #1c1f25;       /* cartes sur fond sombre */
+  --color-ink: #0f1626;         /* bleu nuit (jamais de noir) : titres, boutons, sections sombres */
+  --color-ink-2: #1a2438;       /* cartes sur fond sombre */
   --color-nuit: #0f1626;        /* bleu nuit : mode nuit de l'accueil, bloc devis */
   --color-accent: #0066b4;      /* bleu du logo : liens, détails */
   --color-accent-vif: #7cbcff;  /* le même bleu, lisible sur fond sombre */
@@ -60,8 +60,8 @@
   --radius-large: 36px;
 
   /* --- Ombres ---------------------------------------------------------- */
-  --shadow-float: 0 18px 50px -12px rgba(18, 20, 24, 0.28);
-  --shadow-soft: 0 10px 30px -14px rgba(18, 20, 24, 0.22);
+  --shadow-float: 0 18px 50px -12px rgba(15, 22, 38, 0.28);
+  --shadow-soft: 0 10px 30px -14px rgba(15, 22, 38, 0.22);
 
   /* --- Gabarit --------------------------------------------------------- */
   --content-max: 1400px;

@@ -56,7 +56,7 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
       data-ouvrir={textes.entete.ouvrirMenu}
       data-fermer={textes.entete.fermerMenu}
     >
-      <span class="entete__burger-texte">{textes.entete.menu}</span>
+      <span class="entete__burger-texte" data-texte-menu={textes.entete.menu} data-texte-fermer={textes.entete.fermer}>{textes.entete.menu}</span>
       <span class="entete__burger-traits" aria-hidden="true"><span></span><span></span></span>
       <span class="sr-only" data-libelle>{textes.entete.ouvrirMenu}</span>
     </button>
@@ -75,7 +75,7 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
     </nav>
 
     <div class="panneau__bas">
-      <Bouton href={devis} variante="signal" iconeApres="fleche-diag" large>
+      <Bouton href={devis} variante="principal" iconeApres="fleche-diag" large>
         {textes.actions.devis}
       </Bouton>
       <div class="panneau__contact">
@@ -84,7 +84,7 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
         <a href={lienWhatsApp(textes.whatsappMessage)} target="_blank" rel="noopener">WhatsApp ↗</a>
         {entreprise.email && <a href={`mailto:${entreprise.email}`}>{entreprise.email}</a>}
       </div>
-      <SelecteurLangue langue={langue} cheminActuel={cheminActuel} surFonce />
+      <SelecteurLangue langue={langue} cheminActuel={cheminActuel} />
     </div>
   </div>
 </header>
@@ -96,6 +96,7 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
   const bouton = document.getElementById('bouton-menu');
   const panneau = document.querySelector<HTMLElement>('[data-panneau]');
   const libelle = bouton?.querySelector<HTMLElement>('[data-libelle]');
+  const texteVisible = bouton?.querySelector<HTMLElement>('[data-texte-menu]');
 
   /* --- Apparence selon le défilement --- */
   if (entete) {
@@ -118,6 +119,7 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
     const basculer = (ouvert: boolean) => {
       bouton.setAttribute('aria-expanded', String(ouvert));
       if (libelle) libelle.textContent = (ouvert ? bouton.dataset.fermer : bouton.dataset.ouvrir) ?? '';
+      if (texteVisible) texteVisible.textContent = (ouvert ? texteVisible.dataset.texteFermer : texteVisible.dataset.texteMenu) ?? '';
       panneau.hidden = !ouvert;
       document.body.classList.toggle('menu-ouvert', ouvert);
       bloquerDefilement(ouvert);
@@ -184,7 +186,7 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
 
   .entete--defile .entete__barre {
     background: rgba(245, 242, 236, 0.95);
-    border-color: rgba(18, 20, 24, 0.08);
+    border-color: rgba(15, 22, 38, 0.08);
     box-shadow: var(--shadow-soft);
     backdrop-filter: blur(16px) saturate(1.4);
     -webkit-backdrop-filter: blur(16px) saturate(1.4);
@@ -266,8 +268,8 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
     justify-content: space-between;
     gap: 40px;
     padding: calc(var(--header-h) + 40px) var(--gutter) calc(28px + env(safe-area-inset-bottom, 0px));
-    background: var(--color-ink);
-    color: var(--color-on-ink);
+    background: var(--color-bg);
+    color: var(--color-ink);
     overflow-y: auto;
     clip-path: circle(0 at calc(100% - 50px) 40px);
     transition: clip-path 700ms var(--ease-out);
@@ -287,8 +289,8 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
     align-items: baseline;
     gap: 16px;
     padding: 10px 0;
-    border-bottom: 1px solid var(--color-line-on-ink);
-    color: var(--color-on-ink);
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-ink);
     text-decoration: none;
     opacity: 0;
     transform: translateY(24px);
@@ -306,7 +308,7 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
   .panneau__num {
     font-size: 13px;
     font-weight: 600;
-    color: var(--color-on-ink-label);
+    color: var(--color-muted);
   }
 
   .panneau__lien {
@@ -340,11 +342,11 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
     font-weight: 650;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--color-on-ink-label);
+    color: var(--color-muted);
   }
 
   .panneau__contact a {
-    color: var(--color-on-ink);
+    color: var(--color-ink);
     font-size: 18px;
     text-decoration: none;
     padding: 4px 0;
@@ -368,25 +370,17 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
   /* Mode nuit de l'accueil : le bouton devis s'allume en jaune, comme dans la page. */
   .entete--nuit:not(.entete--defile) :global(.entete__devis) {
     background: var(--color-signal);
-    color: #121418;
+    color: #0f1626;
   }
 
   .entete--nuit:not(.entete--defile) :global(.entete__devis .bouton__pastille) {
-    background: #121418;
+    background: #0f1626;
     color: var(--color-signal);
   }
 
   .entete--sur-fonce:not(.entete--defile) .entete__burger {
     background: var(--color-on-ink);
     color: var(--color-ink);
-  }
-
-  :global(body.menu-ouvert) .entete :global(.logo__bs) {
-    color: var(--color-on-ink);
-  }
-
-  :global(body.menu-ouvert) .entete :global(.logo__renove) {
-    color: var(--color-accent-vif);
   }
 
   :global(body.menu-ouvert) .entete__barre {
@@ -396,9 +390,18 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
     backdrop-filter: none;
   }
 
-  :global(body.menu-ouvert) .entete__burger {
-    background: var(--color-on-ink);
+  /* Menu ouvert (panneau clair) : le logo et le bouton reprennent leurs couleurs normales, même sur une page sombre. */
+  :global(body.menu-ouvert) .entete.entete.entete :global(.logo__bs) {
     color: var(--color-ink);
+  }
+
+  :global(body.menu-ouvert) .entete.entete.entete :global(.logo__renove) {
+    color: var(--color-accent);
+  }
+
+  :global(body.menu-ouvert) .entete .entete__burger.entete__burger {
+    background: var(--color-ink);
+    color: var(--color-on-ink);
   }
 
   .entete__logo {
@@ -448,7 +451,7 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
     }
 
     .entete__nav a:hover {
-      background: rgba(18, 20, 24, 0.06);
+      background: rgba(15, 22, 38, 0.06);
     }
 
     .entete__nav a[aria-current='page']::after {

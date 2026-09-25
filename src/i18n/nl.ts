@@ -33,6 +33,7 @@ export const nl: Traductions = {
     fermerMenu: 'Menu sluiten',
     menuAria: 'Hoofdmenu',
     menu: 'Menu',
+    fermer: 'Sluiten',
     contactDirect: 'Contacteer ons',
   },
 
