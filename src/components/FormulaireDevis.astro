@@ -187,6 +187,8 @@ const choix = [
 </div>
 
 <script>
+  import { defilerVers } from '~/scripts/site';
+
   document.querySelectorAll<HTMLElement>('[data-devis]').forEach((bloc) => {
     const form = bloc.querySelector<HTMLFormElement>('[data-form]');
     if (!form) return;
@@ -221,7 +223,11 @@ const choix = [
       if (boutonSuivant) boutonSuivant.hidden = index === etapes.length - 1;
       if (boutonEnvoyer) boutonEnvoyer.hidden = index !== etapes.length - 1;
       montrerErreur('');
-      if (focus) etapes[index].querySelector<HTMLElement>('legend')?.focus({ preventScroll: true });
+      if (focus) {
+        etapes[index].querySelector<HTMLElement>('legend')?.focus({ preventScroll: true });
+        // Si le haut du formulaire est sorti de l'écran (téléphone), on y remonte.
+        if (form.getBoundingClientRect().top < 80) defilerVers(form);
+      }
     };
 
     const montrerErreur = (message: string) => {
@@ -321,7 +327,8 @@ const choix = [
         if (texte) texte.textContent = (secours ? texte.dataset.texteSecours : texte.dataset.texteMerci) ?? '';
       }
       panneau.hidden = false;
-      panneau.focus();
+      panneau.focus({ preventScroll: true });
+      if (panneau.getBoundingClientRect().top < 80) defilerVers(panneau);
     };
 
     form.addEventListener('submit', async (evenement) => {

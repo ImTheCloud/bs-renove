@@ -81,7 +81,7 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
       <div class="panneau__contact">
         <span class="panneau__label">{textes.entete.contactDirect}</span>
         <a href={`tel:${entreprise.telephoneLien}`}>{entreprise.telephoneAffiche}</a>
-        <a href={lienWhatsApp(textes.whatsappMessage)} target="_blank" rel="noopener">WhatsApp ↗</a>
+        <a href={lienWhatsApp(textes.whatsappMessage)} target="_blank" rel="noopener">WhatsApp</a>
         {entreprise.email && <a href={`mailto:${entreprise.email}`}>{entreprise.email}</a>}
       </div>
       <SelecteurLangue langue={langue} cheminActuel={cheminActuel} />
