@@ -48,10 +48,9 @@ avantApres:
   - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-5.jpg
     apres: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-26.jpg
     legende:
-      fr: Escalier principal, avant et pendant les travaux
-      nl: Hoofdtrap, voor en tijdens de werken
+      fr: Escalier principal, avant et après
+      nl: Hoofdtrap, voor en na
     categorie: escalier
-    enCours: true
   - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-6.jpg
     apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-6.jpg
     legende:

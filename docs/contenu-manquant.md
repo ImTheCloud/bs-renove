@@ -1004,3 +1004,18 @@ sur la page Réalisations et une carte plus large sur l'accueil.
 
 Pour de futurs avant/après : l'idéal reste deux photos **prises dans le même sens et du même
 endroit**.
+
+---
+
+## 21. Formulaire en 2 étapes, WhatsApp en vert, escalier principal (25 septembre 2026)
+
+- **Formulaire** : l'étape « Votre projet » (commune, délai de début) est supprimée, à la
+  demande de Claudiu : l'adresse se donne en parlant du devis. Il reste 2 étapes : les travaux,
+  puis nom, téléphone, email (facultatif) et un mot sur le projet (facultatif). La page Vie
+  privée ne cite plus la commune dans les données collectées.
+- **WhatsApp** : bouton vert partout (il était blanc dans le haut de l'accueil).
+- **Escalier principal de Woluwe** (`avant-5` → `chantier-26`) : **réaffiché** à la demande
+  de Claudiu (il était masqué comme « après encore en chantier », § 18). Il passe en premier
+  dans Escaliers et remplace l'escalier du garage dans la bande de l'accueil. Sa légende dit
+  désormais « avant et après » : **à confirmer par Sergiu que la photo montre bien le travail
+  fini** (sinon remettre `enCours: true`).

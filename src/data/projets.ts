@@ -66,10 +66,10 @@ const ID_VITRINE = 'salle-de-bain-watermael-boitsfort-0';
 const IDS_ACCUEIL = [
   'renovation-woluwe-saint-pierre-7',
   'renovation-interieure-ostende-0',
+  'renovation-woluwe-saint-pierre-4',
   'renovation-woluwe-saint-pierre-8',
   'toiture-woluwe-saint-pierre-0',
   'renovation-woluwe-saint-pierre-6',
-  'renovation-woluwe-saint-pierre-3',
   'renovation-interieure-ostende-2',
   'renovation-parquet-menuiseries-0',
 ];
@@ -102,11 +102,14 @@ const CATEGORIES_PAR_SERVICE: Record<string, string[]> = {
   'peinture-finitions': ['sejour', 'chambre'],
 };
 
-/** Les avant/après d'un métier, la vitrine en premier si elle en fait partie. */
+/** Les paires à montrer en premier dans leur métier (la vitrine, l'escalier principal). */
+const EN_TETE = [ID_VITRINE, 'renovation-woluwe-saint-pierre-4'];
+
+/** Les avant/après d'un métier, les paires « en tête » d'abord. */
 export async function pairesDuService(slug: string): Promise<Paire[]> {
   const categories = CATEGORIES_PAR_SERVICE[slug] ?? [];
   const paires = (await toutesLesPaires()).filter((paire) => categories.includes(paire.categorie));
-  return paires.sort((a, b) => Number(b.id === ID_VITRINE) - Number(a.id === ID_VITRINE));
+  return paires.sort((a, b) => Number(EN_TETE.includes(b.id)) - Number(EN_TETE.includes(a.id)));
 }
 
 /** Le nom lisible d'un service. */

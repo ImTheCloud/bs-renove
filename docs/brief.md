@@ -30,7 +30,7 @@ Trois moyens, partout sur le site :
  
 - **Appeler** : `tel:+32485384390`
 - **WhatsApp** : `https://wa.me/32485384390` avec un message pré-rempli (FR : « Bonjour, je souhaiterais un devis pour… » · NL : « Hallo, ik zou graag een offerte voor… »)
-- **Formulaire de devis** : Nom, Téléphone, Email, Commune du chantier, Type de travaux (liste des services + « Autre »), Message, case de consentement vie privée. Après envoi : message de confirmation clair, qui propose aussi d'envoyer des photos du chantier par WhatsApp.
+- **Formulaire de devis** (2 étapes, 25 septembre 2026) : 1) type de travaux (tuiles, plusieurs choix + « Autre ») ; 2) nom, téléphone, email (facultatif), un mot sur le projet (facultatif), case de consentement vie privée. Pas de commune ni d’adresse : elle se donne en parlant du devis. Après envoi : message de confirmation clair, qui propose aussi d'envoyer des photos du chantier par WhatsApp.
 Action principale sur tout le site : **« Demander un devis »**.
  
 ## 4. Pages
@@ -58,7 +58,7 @@ Plus une page 404 dans les deux langues.
 6. **Chapitre sombre** : 4 chiffres (12 ans · 30+ chantiers, à confirmer · 10 métiers · devis gratuit), puis « Comment ça se passe » en 4 étapes.
 7. **Réalisations** : bande de cartes avant/après qui basculent de l'avant à l'après.
 8. **FAQ** (4 questions, réponses tirées de faits confirmés).
-9. **Devis** : titre, contacts directs, formulaire en 3 étapes.
+9. **Devis** : titre, contacts directs, formulaire en 2 étapes.
 10. **Pied de page** (fond clair) : bande jaune « rubalise » qui défile, appel au devis et WhatsApp, colonnes d’infos, logo et mentions légales.
 
 ## 6. Services

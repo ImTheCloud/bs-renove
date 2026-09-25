@@ -217,7 +217,7 @@ export const nl: Traductions = {
       titreDebut: 'Laten we praten over',
       titreSerif: 'uw project.',
       texte:
-        'Drie korte stappen, twee minuten. Haast? Bel ons of schrijf ons rechtstreeks.',
+        'Twee korte stappen, één minuut. Haast? Bel ons of schrijf ons rechtstreeks.',
       direct: 'Rechtstreeks',
     },
 
@@ -248,19 +248,13 @@ export const nl: Traductions = {
   formulaire: {
     etape: 'Stap',
     sur: 'van',
-    etapes: ['Uw werken', 'Uw project', 'Uw gegevens'],
+    etapes: ['Uw werken', 'Uw gegevens'],
 
     q1: 'Aan welke werken denkt u?',
     q1Aide: 'Meerdere keuzes mogelijk',
     autre: 'Iets anders',
 
-    q2: 'Vertel ons over uw project',
-    commune: 'Gemeente van de werf',
-    communeAide: 'Enkel de gemeente, geen adres nodig',
-    delai: 'Wanneer wilt u beginnen?',
-    delais: ['Zo snel mogelijk', 'Binnen 3 maanden', 'Binnen 6 maanden', 'Nog niet beslist'],
     message: 'Uw project in een paar woorden',
-    messageAide: 'Niet verplicht, maar het helpt ons de offerte voor te bereiden',
     messageExemple:
       'Bv.: de badkamer boven vernieuwen, ongeveer 6 m², een inloopdouche in plaats van het bad…',
 
@@ -300,8 +294,6 @@ export const nl: Traductions = {
     sujetEmail: 'Offerteaanvraag via de website',
     recap: {
       travaux: 'Werken',
-      commune: 'Gemeente',
-      delai: 'Gewenste start',
       message: 'Project',
       nom: 'Naam',
       telephone: 'Telefoon',

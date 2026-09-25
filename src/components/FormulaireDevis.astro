@@ -1,13 +1,14 @@
 ---
 /**
- * Demande de devis en trois étapes : les travaux, le projet, les coordonnées.
+ * Demande de devis en deux étapes : les travaux, puis les coordonnées et un mot sur le projet.
+ * (Pas d'adresse ni de commune : elle se donne plus tard, en parlant du devis.)
  *
  * C'est la source de clients du site : elle doit marcher dans tous les cas.
  * - Avec la clé Web3Forms (variable WEB3FORMS_KEY) : envoi en arrière-plan,
  *   confirmation affichée sur place.
  * - Sans clé : la messagerie du visiteur s'ouvre avec la demande déjà écrite
  *   (toutes ses réponses), il n'a plus qu'à l'envoyer.
- * - Sans JavaScript : les trois étapes s'affichent l'une sous l'autre et le
+ * - Sans JavaScript : les deux étapes s'affichent l'une sous l'autre et le
  *   navigateur envoie le formulaire lui-même.
  *
  * Un champ caché sert de piège à robots : un humain ne le remplit jamais.
@@ -69,10 +70,10 @@ const choix = [
     <!-- Progression -->
     <div class="devis__progression" aria-hidden="true">
       <span class="devis__etape-texte">
-        {f.etape} <strong data-num>1</strong> {f.sur} 3 · <span data-nom-etape>{f.etapes[0]}</span>
+        {f.etape} <strong data-num>1</strong> {f.sur} {f.etapes.length} · <span data-nom-etape>{f.etapes[0]}</span>
       </span>
       <span class="devis__segments">
-        <span class="actif" data-segment></span><span data-segment></span><span data-segment></span>
+        {f.etapes.map((_, i) => <span class:list={[{ actif: i === 0 }]} data-segment />)}
       </span>
     </div>
 
@@ -96,41 +97,8 @@ const choix = [
       </div>
     </fieldset>
 
-    <!-- Étape 2 : le projet -->
+    <!-- Étape 2 : les coordonnées et un mot sur le projet -->
     <fieldset class="etape-devis" data-etape="1">
-      <legend tabindex="-1">
-        <span class="etape-devis__question">{f.q2}</span>
-      </legend>
-
-      <div class="champ">
-        <label for={`${id}-commune`}>{f.commune}</label>
-        <input type="text" id={`${id}-commune`} name="commune" required autocomplete="address-level2" aria-describedby={`${id}-commune-aide`} />
-        <span id={`${id}-commune-aide`} class="champ__aide">{f.communeAide}</span>
-      </div>
-
-      <div class="champ" role="group" aria-labelledby={`${id}-delai`}>
-        <span class="champ__label" id={`${id}-delai`}>{f.delai} <span class="champ__facultatif">({f.facultatif})</span></span>
-        <div class="pastilles">
-          {
-            f.delais.map((delai) => (
-              <label class="pastille">
-                <input type="radio" name="delai" value={delai} />
-                <span>{delai}</span>
-              </label>
-            ))
-          }
-        </div>
-      </div>
-
-      <div class="champ">
-        <label for={`${id}-message`}>{f.message} <span class="champ__facultatif">({f.facultatif})</span></label>
-        <textarea id={`${id}-message`} name="message" rows="4" placeholder={f.messageExemple} aria-describedby={`${id}-message-aide`}></textarea>
-        <span id={`${id}-message-aide`} class="champ__aide">{f.messageAide}</span>
-      </div>
-    </fieldset>
-
-    <!-- Étape 3 : les coordonnées -->
-    <fieldset class="etape-devis" data-etape="2">
       <legend tabindex="-1">
         <span class="etape-devis__question">{f.q3}</span>
       </legend>
@@ -149,6 +117,11 @@ const choix = [
           <label for={`${id}-email`}>{f.email} <span class="champ__facultatif">({f.facultatif})</span></label>
           <input type="email" id={`${id}-email`} name="email" autocomplete="email" inputmode="email" />
         </div>
+      </div>
+
+      <div class="champ">
+        <label for={`${id}-message`}>{f.message} <span class="champ__facultatif">({f.facultatif})</span></label>
+        <textarea id={`${id}-message`} name="message" rows="3" placeholder={f.messageExemple}></textarea>
       </div>
 
       <label class="consentement">
@@ -311,8 +284,6 @@ const choix = [
       const recap = JSON.parse(d.recap ?? '{}') as Record<string, string>;
       const lignes = [
         `${recap.travaux} : ${donnees.getAll('travaux').join(', ')}`,
-        `${recap.commune} : ${donnees.get('commune') ?? ''}`,
-        `${recap.delai} : ${donnees.get('delai') ?? '-'}`,
         `${recap.message} : ${donnees.get('message') ?? ''}`,
         '',
         `${recap.nom} : ${donnees.get('nom') ?? ''}`,
@@ -438,7 +409,8 @@ const choix = [
 
   .devis__segments {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
     gap: 6px;
   }
 
@@ -628,8 +600,8 @@ const choix = [
   .champ input,
   .champ textarea {
     width: 100%;
-    min-height: 54px;
-    padding: 14px 16px;
+    min-height: 50px;
+    padding: 12px 16px;
     border: 1.5px solid var(--color-border-field);
     border-radius: var(--radius-small);
     background: #fff;
@@ -643,7 +615,7 @@ const choix = [
 
   .champ textarea {
     resize: vertical;
-    min-height: 120px;
+    min-height: 96px;
     line-height: 1.5;
   }
 
@@ -663,60 +635,9 @@ const choix = [
     border-color: var(--color-erreur);
   }
 
-  .champ__aide {
-    font-size: 14px;
-    color: var(--color-muted);
-  }
-
   .champ__paire {
     display: grid;
     gap: 0 14px;
-  }
-
-  .pastilles {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .pastille {
-    position: relative;
-    cursor: pointer;
-  }
-
-  .pastille input {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .pastille span {
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-    padding: 0 16px;
-    border: 1.5px solid var(--color-border);
-    border-radius: var(--radius-pill);
-    background: #fff;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--color-ink);
-    transition: all 200ms var(--ease);
-  }
-
-  .pastille:hover span {
-    border-color: var(--color-ink);
-  }
-
-  .pastille input:checked + span {
-    background: var(--color-ink);
-    border-color: var(--color-ink);
-    color: var(--color-on-ink);
-  }
-
-  .pastille input:focus-visible + span {
-    outline: 3px solid var(--color-accent);
-    outline-offset: 2px;
   }
 
   .consentement {

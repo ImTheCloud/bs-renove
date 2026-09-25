@@ -213,7 +213,7 @@ export const fr = {
       titreDebut: 'Parlons de',
       titreSerif: 'votre projet.',
       texte:
-        'Trois petites étapes, deux minutes. Plus pressé ? Appelez-nous ou écrivez-nous directement.',
+        'Deux petites étapes, une minute. Plus pressé ? Appelez-nous ou écrivez-nous directement.',
       direct: 'En direct',
     },
 
@@ -245,19 +245,13 @@ export const fr = {
   formulaire: {
     etape: 'Étape',
     sur: 'sur',
-    etapes: ['Vos travaux', 'Votre projet', 'Vos coordonnées'],
+    etapes: ['Vos travaux', 'Vos coordonnées'],
 
     q1: 'Quels travaux avez-vous en tête ?',
     q1Aide: 'Plusieurs choix possibles',
     autre: 'Autre chose',
 
-    q2: 'Parlez-nous de votre projet',
-    commune: 'Commune du chantier',
-    communeAide: 'Seulement la commune, pas besoin de l’adresse',
-    delai: 'Quand souhaitez-vous commencer ?',
-    delais: ['Dès que possible', 'Dans les 3 mois', 'Dans les 6 mois', 'Pas encore décidé'],
     message: 'Votre projet en quelques mots',
-    messageAide: 'Facultatif, mais ça nous aide à préparer le devis',
     messageExemple:
       'Ex. : refaire la salle de bain à l’étage, environ 6 m², une douche à l’italienne à la place de la baignoire…',
 
@@ -297,8 +291,6 @@ export const fr = {
     sujetEmail: 'Demande de devis via le site',
     recap: {
       travaux: 'Travaux',
-      commune: 'Commune',
-      delai: 'Début souhaité',
       message: 'Projet',
       nom: 'Nom',
       telephone: 'Téléphone',
