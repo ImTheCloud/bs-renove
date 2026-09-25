@@ -1,9 +1,11 @@
 ---
 /**
  * Le bloc « Parlons de votre projet » : grand titre et contacts directs
- * à gauche, formulaire de devis à droite, sur fond encre.
- * Sert en bas de l'accueil et sur la page Contact.
+ * à gauche, formulaire à droite, sur fond bleu nuit.
+ * Sert en bas de l'accueil et sur la page Contact (devis), et sur la page
+ * Rejoindre l'équipe (candidature) : les deux pages sont construites pareil.
  */
+import FormulaireCandidature from '../FormulaireCandidature.astro';
 import FormulaireDevis from '../FormulaireDevis.astro';
 import Icon from '../Icon.astro';
 import { entreprise, lienWhatsApp } from '~/data/entreprise';
@@ -13,25 +15,30 @@ interface Props {
   langue: Langue;
   /** Sur la page Contact, le titre est le h1 de la page. */
   titrePrincipal?: boolean;
+  /** Le formulaire affiché : demande de devis (par défaut) ou candidature. */
+  formulaire?: 'devis' | 'candidature';
 }
 
-const { langue, titrePrincipal = false } = Astro.props;
+const { langue, titrePrincipal = false, formulaire = 'devis' } = Astro.props;
 const textes = t(langue);
-const bloc = textes.accueil.devis;
+const candidature = formulaire === 'candidature';
+const bloc = candidature ? textes.rejoindreEquipe : textes.accueil.devis;
+const idSection = candidature ? 'candidature' : 'devis';
+const messageWhatsApp = candidature ? textes.rejoindreEquipe.whatsappMessage : textes.whatsappMessage;
 const Titre = titrePrincipal ? 'h1' : 'h2';
 ---
 
-<section class:list={['devis-section', { 'devis-section--page': titrePrincipal }]} id="devis" aria-labelledby="devis-titre">
+<section class:list={['devis-section', { 'devis-section--page': titrePrincipal }]} id={idSection} aria-labelledby={`${idSection}-titre`}>
   <div class="wrap devis-section__interieur">
     <div class="devis-section__texte">
       <p class="etiquette-section devis-section__etiquette">{bloc.surtitre}</p>
-      <Titre id="devis-titre" class="devis-section__titre" data-mots={!titrePrincipal || undefined}>
+      <Titre id={`${idSection}-titre`} class="devis-section__titre" data-mots={!titrePrincipal || undefined}>
         {bloc.titreDebut}{' '}<span class="serif">{bloc.titreSerif}</span>
       </Titre>
       <p class="devis-section__intro">{bloc.texte}</p>
 
       <div class="direct">
-        <span class="direct__label">{bloc.direct}</span>
+        <span class="direct__label">{textes.accueil.devis.direct}</span>
         <a class="direct__lien" href={`tel:${entreprise.telephoneLien}`}>
           <span class="direct__rond"><Icon nom="telephone" taille={20} /></span>
           <span>
@@ -39,7 +46,7 @@ const Titre = titrePrincipal ? 'h1' : 'h2';
             <span class="direct__valeur">{entreprise.telephoneAffiche}</span>
           </span>
         </a>
-        <a class="direct__lien" href={lienWhatsApp(textes.whatsappMessage)} target="_blank" rel="noopener">
+        <a class="direct__lien" href={lienWhatsApp(messageWhatsApp)} target="_blank" rel="noopener">
           <span class="direct__rond direct__rond--wa"><Icon nom="whatsapp" taille={20} /></span>
           <span>
             <span class="direct__type">WhatsApp</span>
@@ -65,7 +72,7 @@ const Titre = titrePrincipal ? 'h1' : 'h2';
     </div>
 
     <div class="devis-section__form" data-reveal="zoom">
-      <FormulaireDevis langue={langue} />
+      {candidature ? <FormulaireCandidature langue={langue} /> : <FormulaireDevis langue={langue} />}
     </div>
   </div>
 </section>

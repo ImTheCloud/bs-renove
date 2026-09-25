@@ -425,10 +425,11 @@ const fiches = (
     }
   </div>
 
+  <!-- La flèche pointe vers la maison (en haut à gauche), jamais vers l'extérieur. -->
   <figcaption class="maison__aide manuscrit" aria-hidden="true">
+    <svg width="34" height="24" viewBox="0 0 34 24" fill="none"><path d="M32 20C24 20 10 16 4 4M4 4l8 2M4 4l-1 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
     <span class="maison__aide-touch">{hero.maisonAide}</span>
     <span class="maison__aide-souris">{hero.maisonAideSouris}</span>
-    <svg width="34" height="24" viewBox="0 0 34 24" fill="none"><path d="M2 20C10 20 24 16 30 4M30 4l-8 2M30 4l1 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
   </figcaption>
 </figure>
 

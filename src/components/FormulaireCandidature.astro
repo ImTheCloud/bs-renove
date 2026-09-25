@@ -1,23 +1,22 @@
 ---
 /**
- * Candidature spontanée : un mini CV en une page.
- * Métier(s), profil (expérience, statut, langues, permis, disponibilité),
- * coordonnées et un mot sur le parcours.
+ * Candidature en quatre étapes, construite exactement comme le devis
+ * (même moteur : src/scripts/formulaire-etapes.ts, même style :
+ * src/styles/formulaire.css) :
+ * 1. le métier (tuiles, plusieurs choix) ;
+ * 2. l'expérience (depuis quand, statut, ce qu'on cherche, disponibilité) ;
+ * 3. sur le chantier (permis, véhicule, outils, VCA, déplacements, langues) ;
+ * 4. les coordonnées et un mot sur le parcours.
+ * Après l'envoi : CV et photos par WhatsApp ou email, candidature déjà écrite.
  *
- * Comme le devis :
- * - avec la clé Web3Forms : envoi en arrière-plan, confirmation sur place ;
- * - sans clé : la messagerie s'ouvre avec la candidature déjà écrite ;
- * - sans JavaScript : le navigateur envoie le formulaire lui-même.
- * Après l'envoi, le CV et les photos peuvent suivre par email ou WhatsApp,
- * la candidature déjà écrite dans le message.
- *
- * Un métier peut être coché d'avance par l'adresse : ?metier=carrelage
+ * Un métier est coché d'avance depuis la page Services : ?metier=carrelage
+ * (chaque tuile liste les métiers du site qui lui correspondent, data-cles).
  */
 import Bouton from './Bouton.astro';
-import Icon from './Icon.astro';
+import Icon, { type NomIcone } from './Icon.astro';
 import { entreprise } from '~/data/entreprise';
-import { iconeService, services } from '~/data/services';
 import { chemin, t, type Langue } from '~/i18n';
+import '~/styles/formulaire.css';
 
 interface Props {
   langue: Langue;
@@ -26,77 +25,106 @@ interface Props {
 const { langue } = Astro.props;
 const textes = t(langue);
 const f = textes.rejoindreEquipe;
-const id = 'candidature';
+const commun = textes.formulaire;
+const id = 'candidature-form';
 
 const cle = (import.meta.env.WEB3FORMS_KEY ?? '').trim();
 const action = cle ? 'https://api.web3forms.com/submit' : `mailto:${entreprise.email ?? ''}`;
 
-const metiers = [
-  ...services.map((service) => ({ valeur: service.nom[langue], icone: iconeService(service.slug), slug: service.slug })),
-  { valeur: f.autre, icone: 'autre' as const, slug: 'autre' },
+/** Les métiers proposés, avec leur icône et les métiers du site qui leur correspondent. */
+const metiers: { cle: keyof typeof f.metiers; icone: NomIcone; services: string }[] = [
+  { cle: 'carreleur', icone: 'carrelage', services: 'carrelage salles-de-bain terrasses' },
+  { cle: 'plombier', icone: 'goutte', services: 'plomberie salles-de-bain' },
+  { cle: 'electricien', icone: 'eclair', services: 'electricite' },
+  { cle: 'couvreur', icone: 'toit', services: 'toiture' },
+  { cle: 'macon', icone: 'brique', services: 'maconnerie-extensions' },
+  { cle: 'peintre', icone: 'rouleau', services: 'peinture-finitions' },
+  { cle: 'menuisier', icone: 'escalier', services: 'escaliers' },
+  { cle: 'plafonneur', icone: 'truelle', services: '' },
+  { cle: 'cuisiniste', icone: 'cuisine', services: 'cuisines' },
+  { cle: 'chefChantier', icone: 'casque', services: '' },
+  { cle: 'polyvalent', icone: 'maison', services: 'renovation-complete' },
+  { cle: 'autre', icone: 'autre', services: '' },
 ];
 
-/** Les questions à pastilles : un seul choix (radio) ou plusieurs (checkbox). */
-const pastilles = [
-  { nom: 'experience', label: f.experience, choix: f.experiences, multiple: false },
-  { nom: 'statut', label: f.statut, choix: f.statuts, multiple: false },
+type Question = { nom: string; label: string; choix: string[]; multiple?: boolean };
+const questionsExperience: Question[] = [
+  { nom: 'experience', label: f.experience, choix: f.experiences },
+  { nom: 'statut', label: f.statut, choix: f.statuts },
+  { nom: 'recherche', label: f.recherche, choix: f.recherches },
+  { nom: 'disponibilite', label: f.disponibilite, choix: f.disponibilites },
+];
+const questionsChantier: Question[] = [
+  { nom: 'permis', label: f.permis, choix: [f.oui, f.non] },
+  { nom: 'vehicule', label: f.vehicule, choix: [f.oui, f.non] },
+  { nom: 'outils', label: f.outils, choix: f.outilsChoix },
+  { nom: 'vca', label: f.vca, choix: f.vcaChoix },
+  { nom: 'deplacements', label: f.deplacements, choix: f.deplacementsChoix },
   { nom: 'langues', label: f.langues, choix: f.languesChoix, multiple: true },
-  { nom: 'permis', label: f.permis, choix: [f.oui, f.non], multiple: false },
-  { nom: 'disponibilite', label: f.disponibilite, choix: f.disponibilites, multiple: false },
 ];
 
-/** Les libellés du récapitulatif (email de secours, CV par email ou WhatsApp). */
-const recap = {
-  metier: f.q1,
-  experience: f.experience,
-  statut: f.statut,
-  langues: f.langues,
-  permis: f.permis,
-  disponibilite: f.disponibilite,
-  nom: f.nom,
-  telephone: f.telephone,
-  email: f.email,
-  commune: f.commune,
-  parcours: f.parcours,
-};
+/** Le récapitulatif (email de secours, CV par email ou WhatsApp), dans l'ordre du formulaire. */
+const r = f.recap;
+const recap = [
+  ['metier', r.metier],
+  '',
+  ...questionsExperience.map((q) => [q.nom, r[q.nom as keyof typeof r]]),
+  '',
+  ...questionsChantier.map((q) => [q.nom, r[q.nom as keyof typeof r]]),
+  ['langues_autres', r.langues_autres],
+  '',
+  ...(['nom', 'telephone', 'email', 'commune', 'parcours'] as const).map((nom) => [nom, r[nom]]),
+];
 ---
 
 <div
-  class="candidature"
-  id={id}
-  data-candidature
+  class="formulaire"
+  data-formulaire
+  data-param="metier"
   data-cle={cle ? 'oui' : 'non'}
   data-email={entreprise.email ?? ''}
   data-whatsapp={entreprise.whatsappNumero}
+  data-intro-suite={f.cvIntro}
+  data-sujet-suite={f.sujetSuite}
   data-sujet-email={f.sujetEmail}
-  data-cv-intro={f.cvIntro}
   data-recap={JSON.stringify(recap)}
   data-deux-points={textes.deuxPoints}
-  data-erreur-metier={f.erreurMetier}
-  data-erreur-champ={f.erreurChamp}
-  data-erreur-email={f.erreurEmail}
+  data-noms-etapes={JSON.stringify(f.etapes)}
+  data-erreur-choix={f.erreurChoix}
+  data-erreur-champ={commun.erreurChamp}
+  data-erreur-email={commun.erreurEmail}
   data-erreur-consentement={f.erreurConsentement}
-  data-en-cours={f.envoiEnCours}
+  data-en-cours={commun.envoiEnCours}
 >
-  <form class="candidature__form" action={action} method="POST" enctype={cle ? undefined : 'text/plain'} novalidate data-form>
+  <form class="formulaire__form" id={id} action={action} method="POST" enctype={cle ? undefined : 'text/plain'} novalidate data-form>
     {cle && <input type="hidden" name="access_key" value={cle} />}
     <input type="hidden" name="subject" value={f.sujetFormulaire} />
     <input type="hidden" name="from_name" value="BS Renove" />
     <input type="checkbox" name="botcheck" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
-    <!-- 1. Le métier -->
-    <fieldset class="bloc">
-      <legend>
-        <span class="bloc__titre">{f.q1}</span>
-        <span class="bloc__aide">{f.q1Aide}</span>
+    <!-- Progression -->
+    <div class="formulaire__progression" aria-hidden="true">
+      <span class="formulaire__etape-texte">
+        {commun.etape} <strong data-num>1</strong> {commun.sur} {f.etapes.length} · <span data-nom-etape>{f.etapes[0]}</span>
+      </span>
+      <span class="formulaire__segments">
+        {f.etapes.map((_, i) => <span class:list={[{ actif: i === 0 }]} data-segment />)}
+      </span>
+    </div>
+
+    <!-- Étape 1 : le métier -->
+    <fieldset class="etape" data-etape="0" data-choix-requis="metier">
+      <legend tabindex="-1">
+        <span class="etape__question">{f.q1}</span>
+        <span class="etape__aide">{f.q1Aide}</span>
       </legend>
       <div class="tuiles">
         {
           metiers.map((metier) => (
             <label class="tuile">
-              <input type="checkbox" name="metier" value={metier.valeur} data-metier={metier.slug} />
-              <span class="tuile__icone"><Icon nom={metier.icone} taille={22} /></span>
-              <span class="tuile__nom">{metier.valeur}</span>
+              <input type="checkbox" name="metier" value={f.metiers[metier.cle]} data-cles={metier.services} />
+              <span class="tuile__icone"><Icon nom={metier.icone} taille={24} /></span>
+              <span class="tuile__nom">{f.metiers[metier.cle]}</span>
               <span class="tuile__coche" aria-hidden="true"><Icon nom="check" taille={14} epaisseur={3} /></span>
             </label>
           ))
@@ -104,11 +132,11 @@ const recap = {
       </div>
     </fieldset>
 
-    <!-- 2. Le profil -->
-    <fieldset class="bloc">
-      <legend><span class="bloc__titre">{f.q2}</span></legend>
+    <!-- Étape 2 : l'expérience -->
+    <fieldset class="etape" data-etape="1">
+      <legend tabindex="-1"><span class="etape__question">{f.q2}</span></legend>
       {
-        pastilles.map((question) => (
+        questionsExperience.map((question) => (
           <fieldset class="question">
             <legend class="question__label">{question.label}</legend>
             <div class="pastilles">
@@ -124,9 +152,33 @@ const recap = {
       }
     </fieldset>
 
-    <!-- 3. Les coordonnées -->
-    <fieldset class="bloc">
-      <legend><span class="bloc__titre">{f.q3}</span></legend>
+    <!-- Étape 3 : sur le chantier -->
+    <fieldset class="etape" data-etape="2">
+      <legend tabindex="-1"><span class="etape__question">{f.q3}</span></legend>
+      {
+        questionsChantier.map((question) => (
+          <fieldset class="question">
+            <legend class="question__label">{question.label}</legend>
+            <div class="pastilles">
+              {question.choix.map((choix) => (
+                <label class="pastille">
+                  <input type={question.multiple ? 'checkbox' : 'radio'} name={question.nom} value={choix} />
+                  <span>{choix}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+        ))
+      }
+      <div class="champ">
+        <label for={`${id}-langues`}>{f.languesAutres} <span class="champ__facultatif">({commun.facultatif})</span></label>
+        <input type="text" id={`${id}-langues`} name="langues_autres" placeholder={f.languesAutresExemple} />
+      </div>
+    </fieldset>
+
+    <!-- Étape 4 : les coordonnées -->
+    <fieldset class="etape" data-etape="3">
+      <legend tabindex="-1"><span class="etape__question">{f.q4}</span></legend>
 
       <div class="champ">
         <label for={`${id}-nom`}>{f.nom}</label>
@@ -139,18 +191,18 @@ const recap = {
           <input type="tel" id={`${id}-tel`} name="telephone" required autocomplete="tel" inputmode="tel" />
         </div>
         <div class="champ">
-          <label for={`${id}-email`}>{f.email} <span class="champ__facultatif">({f.facultatif})</span></label>
+          <label for={`${id}-email`}>{f.email} <span class="champ__facultatif">({commun.facultatif})</span></label>
           <input type="email" id={`${id}-email`} name="email" autocomplete="email" inputmode="email" />
         </div>
       </div>
 
       <div class="champ">
-        <label for={`${id}-commune`}>{f.commune} <span class="champ__facultatif">({f.facultatif})</span></label>
+        <label for={`${id}-commune`}>{f.commune} <span class="champ__facultatif">({commun.facultatif})</span></label>
         <input type="text" id={`${id}-commune`} name="commune" autocomplete="address-level2" placeholder={f.communeExemple} />
       </div>
 
       <div class="champ">
-        <label for={`${id}-parcours`}>{f.parcours} <span class="champ__facultatif">({f.facultatif})</span></label>
+        <label for={`${id}-parcours`}>{f.parcours} <span class="champ__facultatif">({commun.facultatif})</span></label>
         <textarea id={`${id}-parcours`} name="parcours" rows="3" placeholder={f.parcoursExemple}></textarea>
       </div>
 
@@ -159,575 +211,59 @@ const recap = {
         <span class="consentement__case" aria-hidden="true"><Icon nom="check" taille={14} epaisseur={3} /></span>
         <span>
           {f.consentement}{' '}
-          <a href={chemin('viePrivee', langue)}>{f.consentementLien}</a>
+          <a href={chemin('viePrivee', langue)}>{commun.consentementLien}</a>
         </span>
       </label>
     </fieldset>
 
-    <p class="candidature__erreur" role="alert" data-erreur></p>
+    <p class="formulaire__erreur" role="alert" data-erreur></p>
 
-    <Bouton type="submit" variante="principal" iconeApres="fleche-diag" large class="candidature__envoyer" data-envoyer>
-      {f.envoyer}
-    </Bouton>
+    <div class="formulaire__nav">
+      <button type="button" class="formulaire__retour" data-precedent hidden>
+        <Icon nom="fleche-gauche" taille={18} />
+        {commun.precedent}
+      </button>
+      <Bouton type="button" variante="principal" iconeApres="fleche" large class="formulaire__suivant" data-suivant>
+        {commun.suivant}
+      </Bouton>
+      <Bouton type="submit" variante="principal" iconeApres="fleche-diag" large class="formulaire__envoyer" data-envoyer>
+        {f.envoyer}
+      </Bouton>
+    </div>
   </form>
 
   <!-- Après l'envoi -->
-  <div class="candidature__fin" data-merci hidden tabindex="-1">
-    <svg class="candidature__coche" viewBox="0 0 80 80" aria-hidden="true">
+  <div class="formulaire__fin" data-merci hidden tabindex="-1">
+    <svg class="formulaire__coche" viewBox="0 0 80 80" aria-hidden="true">
       <circle cx="40" cy="40" r="36" pathLength="1" />
       <path d="M24 41l11 11 21-24" pathLength="1" />
     </svg>
-    <h2 class="candidature__fin-titre" data-fin-titre data-titre-merci={f.merciTitre} data-titre-secours={f.secoursTitre}>{f.merciTitre}</h2>
+    <h3 class="formulaire__fin-titre" data-fin-titre data-titre-merci={f.merciTitre} data-titre-secours={commun.secoursTitre}>{f.merciTitre}</h3>
     <p data-fin-texte data-texte-merci={f.merciTexte} data-texte-secours={f.secoursTexte}>{f.merciTexte}</p>
-    <div class="candidature__fin-actions">
+    <div class="formulaire__fin-actions">
       <Bouton href={`mailto:${entreprise.email ?? ''}`} variante="principal" icone="email" data-lien-secours hidden>
-        {f.secoursLien}
+        {commun.secoursLien}
+      </Bouton>
+      <Bouton href={`https://wa.me/${entreprise.whatsappNumero}`} variante="whatsapp" icone="whatsapp" target="_blank" rel="noopener" data-suite-whatsapp>
+        {f.cvWhatsApp}
       </Bouton>
       {entreprise.email && (
-        <Bouton href={`mailto:${entreprise.email}`} variante="principal" icone="email" data-cv-email>
+        <Bouton href={`mailto:${entreprise.email}`} variante="secondaire" icone="email" data-suite-email>
           {f.cvEmail}
         </Bouton>
       )}
-      <Bouton href={`https://wa.me/${entreprise.whatsappNumero}`} variante="whatsapp" icone="whatsapp" target="_blank" rel="noopener" data-cv-whatsapp>
-        {f.cvWhatsApp}
-      </Bouton>
     </div>
   </div>
 
-  <div class="candidature__fin candidature__fin--erreur" data-echec hidden tabindex="-1">
-    <h2 class="candidature__fin-titre">{f.erreurTitre}</h2>
+  <div class="formulaire__fin formulaire__fin--erreur" data-echec hidden tabindex="-1">
+    <h3 class="formulaire__fin-titre">{commun.erreurTitre}</h3>
     <p>
-      {f.erreurTexte} <a href={`tel:${entreprise.telephoneLien}`}>{entreprise.telephoneAffiche}</a>.
+      {commun.erreurTexte} <a href={`tel:${entreprise.telephoneLien}`}>{entreprise.telephoneAffiche}</a>.
     </p>
-    <button type="button" class="candidature__reessayer" data-reessayer>{f.reessayer}</button>
+    <button type="button" class="formulaire__retour" data-reessayer>{commun.suivant}</button>
   </div>
 </div>
 
 <script>
-  import { defilerVers } from '~/scripts/site';
-
-  document.querySelectorAll<HTMLElement>('[data-candidature]').forEach((bloc) => {
-    const form = bloc.querySelector<HTMLFormElement>('[data-form]');
-    if (!form) return;
-    const d = bloc.dataset;
-    const erreur = form.querySelector<HTMLElement>('[data-erreur]');
-    const envoyer = form.querySelector<HTMLButtonElement>('[data-envoyer]');
-    const merci = bloc.querySelector<HTMLElement>('[data-merci]');
-    const echec = bloc.querySelector<HTMLElement>('[data-echec]');
-
-    // Métier coché d'avance depuis l'adresse (?metier=carrelage), depuis la page Services.
-    const depuisAdresse = new URLSearchParams(location.search).get('metier');
-    if (depuisAdresse) {
-      const tuile = form.querySelector<HTMLInputElement>(`input[name="metier"][data-metier="${CSS.escape(depuisAdresse)}"]`);
-      if (tuile) tuile.checked = true;
-    }
-
-    const montrer = (message: string, champ?: HTMLElement | null) => {
-      if (erreur) erreur.textContent = message;
-      if (champ) {
-        champ.setAttribute('aria-invalid', 'true');
-        champ.focus();
-      }
-    };
-
-    const valider = (): boolean => {
-      form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
-      if (!form.querySelector('input[name="metier"]:checked')) {
-        montrer(d.erreurMetier ?? '');
-        form.querySelector<HTMLInputElement>('input[name="metier"]')?.focus();
-        return false;
-      }
-      for (const nom of ['nom', 'telephone']) {
-        const champ = form.querySelector<HTMLInputElement>(`[name="${nom}"]`);
-        if (champ && !champ.value.trim()) {
-          montrer(d.erreurChamp ?? '', champ);
-          return false;
-        }
-      }
-      const email = form.querySelector<HTMLInputElement>('[name="email"]');
-      if (email && email.value.trim() && !email.checkValidity()) {
-        montrer(d.erreurEmail ?? '', email);
-        return false;
-      }
-      const accord = form.querySelector<HTMLInputElement>('[name="consentement"]');
-      if (accord && !accord.checked) {
-        montrer(d.erreurConsentement ?? '', accord);
-        return false;
-      }
-      montrer('');
-      return true;
-    };
-
-    form.addEventListener('change', () => montrer(''));
-
-    /** La candidature en texte lisible (email de secours, CV par email ou WhatsApp). */
-    const resume = (): string => {
-      const donnees = new FormData(form);
-      const libelles = JSON.parse(d.recap ?? '{}') as Record<string, string>;
-      const dp = d.deuxPoints ?? ' : ';
-      return Object.entries(libelles)
-        .map(([cle, libelle]) => [libelle, donnees.getAll(cle).join(', ').trim()])
-        .filter(([, valeur]) => valeur)
-        .map(([libelle, valeur]) => `${libelle}${dp}${valeur}`)
-        .join('\n');
-    };
-
-    const terminer = (panneau: HTMLElement | null, secours = false) => {
-      form.hidden = true;
-      if (!panneau) return;
-      if (panneau === merci) {
-        const titre = panneau.querySelector<HTMLElement>('[data-fin-titre]');
-        const texte = panneau.querySelector<HTMLElement>('[data-fin-texte]');
-        if (titre) titre.textContent = (secours ? titre.dataset.titreSecours : titre.dataset.titreMerci) ?? '';
-        if (texte) texte.textContent = (secours ? texte.dataset.texteSecours : texte.dataset.texteMerci) ?? '';
-        const message = `${d.cvIntro ?? ''}\n\n${resume()}`;
-        const email = panneau.querySelector<HTMLAnchorElement>('[data-cv-email]');
-        if (email) {
-          email.href = `mailto:${d.email}?subject=${encodeURIComponent(d.sujetEmail ?? '')}&body=${encodeURIComponent(message)}`;
-          email.hidden = secours;
-        }
-        const whatsapp = panneau.querySelector<HTMLAnchorElement>('[data-cv-whatsapp]');
-        if (whatsapp) whatsapp.href = `https://wa.me/${d.whatsapp}?text=${encodeURIComponent(message)}`;
-      }
-      panneau.hidden = false;
-      panneau.focus({ preventScroll: true });
-      if (panneau.getBoundingClientRect().top < 80) defilerVers(panneau);
-    };
-
-    form.addEventListener('submit', async (evenement) => {
-      evenement.preventDefault();
-      if (!valider()) return;
-      if (form.querySelector<HTMLInputElement>('input[name="botcheck"]')?.checked) return;
-
-      // Pas de clé : la messagerie s'ouvre avec toute la candidature déjà écrite.
-      if (d.cle !== 'oui') {
-        const lien = `mailto:${d.email}?subject=${encodeURIComponent(d.sujetEmail ?? '')}&body=${encodeURIComponent(resume())}`;
-        const bouton = merci?.querySelector<HTMLAnchorElement>('[data-lien-secours]');
-        if (bouton) {
-          bouton.href = lien;
-          bouton.hidden = false;
-        }
-        terminer(merci, true);
-        window.location.href = lien;
-        return;
-      }
-
-      const texteBouton = envoyer?.querySelector('.bouton__texte');
-      const texteInitial = texteBouton?.textContent ?? '';
-      if (envoyer) envoyer.disabled = true;
-      if (texteBouton) texteBouton.textContent = d.enCours ?? '…';
-
-      const corps: Record<string, string> = {};
-      new FormData(form).forEach((valeur, cle) => {
-        corps[cle] = corps[cle] ? `${corps[cle]}, ${valeur}` : String(valeur);
-      });
-
-      try {
-        const reponse = await fetch(form.action, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify(corps),
-        });
-        const resultat = await reponse.json().catch(() => ({ success: false }));
-        terminer(reponse.ok && resultat.success ? merci : echec);
-      } catch {
-        terminer(echec);
-      } finally {
-        if (envoyer) envoyer.disabled = false;
-        if (texteBouton) texteBouton.textContent = texteInitial;
-      }
-    });
-
-    bloc.querySelector('[data-reessayer]')?.addEventListener('click', () => {
-      form.hidden = false;
-      if (echec) echec.hidden = true;
-      defilerVers(form);
-    });
-  });
+  import '~/scripts/formulaire-etapes';
 </script>
-
-<style>
-  .candidature {
-    padding: 24px 20px;
-    background: var(--color-bg);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-card);
-    color: var(--color-text);
-    scroll-margin-top: calc(var(--header-h) + 16px);
-  }
-
-  /* --- Blocs --- */
-  .bloc {
-    min-width: 0;
-    margin: 0 0 32px;
-    padding: 0;
-    border: 0;
-  }
-
-  .bloc > legend {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    margin-bottom: 18px;
-    padding: 0;
-  }
-
-  .bloc__titre {
-    font-family: var(--font-title);
-    font-size: clamp(24px, 2.4vw, 32px);
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.035em;
-    color: var(--color-ink);
-  }
-
-  .bloc__aide {
-    font-size: var(--size-small);
-    color: var(--color-muted);
-  }
-
-  /* --- Tuiles des métiers --- */
-  .tuiles {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
-  }
-
-  .tuile {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-    min-height: 88px;
-    padding: 12px;
-    border: 1.5px solid var(--color-border);
-    border-radius: var(--radius-small);
-    background: #fff;
-    cursor: pointer;
-    transition:
-      border-color 200ms var(--ease),
-      background-color 200ms var(--ease);
-  }
-
-  .tuile:hover {
-    border-color: var(--color-ink);
-  }
-
-  .tuile input {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .tuile__icone {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    background: var(--color-surface);
-    color: var(--color-ink);
-  }
-
-  .tuile__nom {
-    padding-right: 20px;
-    font-size: 15px;
-    font-weight: 650;
-    line-height: 1.25;
-    color: var(--color-ink);
-  }
-
-  .tuile__coche {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 22px;
-    height: 22px;
-    border: 1.5px solid var(--color-border);
-    border-radius: 50%;
-    color: transparent;
-  }
-
-  .tuile:has(input:checked) {
-    border-color: var(--color-ink);
-    background: #fffbea;
-  }
-
-  .tuile:has(input:checked) .tuile__icone {
-    background: var(--color-signal);
-  }
-
-  .tuile:has(input:checked) .tuile__coche {
-    background: var(--color-ink);
-    border-color: var(--color-ink);
-    color: var(--color-signal);
-  }
-
-  .tuile:has(input:focus-visible),
-  .pastille:has(input:focus-visible) {
-    outline: 3px solid var(--color-accent);
-    outline-offset: 2px;
-  }
-
-  /* --- Questions à pastilles --- */
-  .question {
-    min-width: 0;
-    margin: 0 0 18px;
-    padding: 0;
-    border: 0;
-  }
-
-  .question__label {
-    margin-bottom: 10px;
-    padding: 0;
-    font-size: var(--size-small);
-    font-weight: 650;
-    color: var(--color-ink);
-  }
-
-  .pastilles {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .pastille {
-    position: relative;
-    cursor: pointer;
-  }
-
-  .pastille input {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .pastille span {
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-    padding: 0 18px;
-    border: 1.5px solid var(--color-border);
-    border-radius: var(--radius-pill);
-    background: #fff;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--color-ink);
-    transition:
-      background-color 200ms var(--ease),
-      border-color 200ms var(--ease),
-      color 200ms var(--ease);
-  }
-
-  .pastille:hover span {
-    border-color: var(--color-ink);
-  }
-
-  .pastille input:checked + span {
-    background: var(--color-ink);
-    border-color: var(--color-ink);
-    color: var(--color-on-ink);
-  }
-
-  /* --- Champs --- */
-  .champ {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 18px;
-  }
-
-  .champ label {
-    font-size: var(--size-small);
-    font-weight: 650;
-    color: var(--color-ink);
-  }
-
-  .champ__facultatif {
-    font-weight: 500;
-    color: var(--color-muted);
-  }
-
-  .champ input,
-  .champ textarea {
-    width: 100%;
-    min-height: 50px;
-    padding: 12px 16px;
-    border: 1.5px solid var(--color-border-field);
-    border-radius: var(--radius-small);
-    background: #fff;
-    font: inherit;
-    font-size: 17px;
-    color: var(--color-ink);
-    transition:
-      border-color 200ms var(--ease),
-      box-shadow 200ms var(--ease);
-  }
-
-  .champ textarea {
-    min-height: 96px;
-    line-height: 1.5;
-    resize: vertical;
-  }
-
-  .champ input::placeholder,
-  .champ textarea::placeholder {
-    color: #8a8d94;
-  }
-
-  .champ input:focus,
-  .champ textarea:focus {
-    outline: none;
-    border-color: var(--color-ink);
-    box-shadow: 0 0 0 4px rgba(255, 212, 71, 0.55);
-  }
-
-  .champ [aria-invalid='true'] {
-    border-color: var(--color-erreur);
-  }
-
-  .champ__paire {
-    display: grid;
-    gap: 0 14px;
-  }
-
-  .consentement {
-    position: relative;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    align-items: start;
-    gap: 12px;
-    margin-top: 6px;
-    font-size: 15px;
-    line-height: 1.45;
-    cursor: pointer;
-  }
-
-  .consentement input {
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    margin: 0;
-    opacity: 0;
-  }
-
-  .consentement__case {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    border: 1.5px solid var(--color-border-field);
-    border-radius: 7px;
-    background: #fff;
-    color: transparent;
-  }
-
-  .consentement input:checked + .consentement__case {
-    background: var(--color-ink);
-    border-color: var(--color-ink);
-    color: var(--color-signal);
-  }
-
-  .consentement input:focus-visible + .consentement__case {
-    outline: 3px solid var(--color-accent);
-    outline-offset: 2px;
-  }
-
-  .consentement input[aria-invalid='true'] + .consentement__case {
-    border-color: var(--color-erreur);
-  }
-
-  .consentement a {
-    color: var(--color-ink);
-  }
-
-  /* --- Envoi --- */
-  .candidature__erreur {
-    min-height: 1.4em;
-    margin: 0 0 8px;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--color-erreur);
-  }
-
-  .candidature__form :global(.candidature__envoyer) {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  /* --- Fin --- */
-  .candidature__fin {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-    outline: none;
-    scroll-margin-top: calc(var(--header-h) + 16px);
-  }
-
-  .candidature__fin[hidden] {
-    display: none;
-  }
-
-  .candidature__fin-titre {
-    font-size: clamp(26px, 3vw, 38px);
-    letter-spacing: -0.04em;
-  }
-
-  .candidature__fin-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .candidature__coche {
-    width: 72px;
-    height: 72px;
-    fill: none;
-    stroke-width: 4;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .candidature__coche circle {
-    fill: var(--color-ink);
-    stroke: var(--color-signal);
-  }
-
-  .candidature__coche path {
-    stroke: var(--color-signal);
-  }
-
-  .candidature__reessayer {
-    min-height: 48px;
-    padding: 0 6px;
-    background: none;
-    border: 0;
-    font: inherit;
-    font-weight: 650;
-    color: var(--color-ink);
-    text-decoration: underline;
-    text-underline-offset: 5px;
-    cursor: pointer;
-  }
-
-  @media (min-width: 600px) {
-    .candidature {
-      padding: 36px 32px;
-    }
-
-    .tuiles {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .champ__paire {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-</style>

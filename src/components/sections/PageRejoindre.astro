@@ -1,29 +1,17 @@
 ---
-/** La page « Rejoindre l'équipe » : un en-tête et le formulaire de candidature (mini CV). */
-import EntetePage from '../EntetePage.astro';
-import FormulaireCandidature from '../FormulaireCandidature.astro';
-import { t, type Langue } from '~/i18n';
+/**
+ * La page « Rejoindre l'équipe » : construite exactement comme la page Contact
+ * (même bloc bleu nuit, contacts directs à gauche), avec le formulaire de
+ * candidature en quatre étapes à la place du devis.
+ */
+import SectionDevis from '../accueil/SectionDevis.astro';
+import type { Langue } from '~/i18n';
 
 interface Props {
   langue: Langue;
 }
 
 const { langue } = Astro.props;
-const bloc = t(langue).rejoindreEquipe;
 ---
 
-<EntetePage surtitre={bloc.surtitre} titre={bloc.titre} serifMots={3} intro={bloc.intro} />
-
-<section class="wrap rejoindre">
-  <FormulaireCandidature langue={langue} />
-</section>
-
-<style>
-  .rejoindre {
-    padding-bottom: 24px;
-  }
-
-  .rejoindre :global(.candidature) {
-    max-width: 820px;
-  }
-</style>
+<SectionDevis langue={langue} titrePrincipal formulaire="candidature" />

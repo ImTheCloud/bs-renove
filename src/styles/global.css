@@ -13,6 +13,15 @@ html {
   scroll-padding-top: calc(var(--header-h) + 16px);
 }
 
+/* Android : pas de rectangle bleu au toucher (chaque élément a déjà son propre retour visuel). */
+a,
+button,
+label,
+input,
+[role='button'] {
+  -webkit-tap-highlight-color: transparent;
+}
+
 /* Défilement fluide : géré par Lenis quand le JS est là. */
 html.lenis,
 html.lenis body {

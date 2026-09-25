@@ -12,12 +12,16 @@
  *   navigateur envoie le formulaire lui-même.
  *
  * Un champ caché sert de piège à robots : un humain ne le remplit jamais.
+ *
+ * Même moteur et même style que la candidature : src/scripts/formulaire-etapes.ts
+ * et src/styles/formulaire.css.
  */
 import Bouton from './Bouton.astro';
 import Icon from './Icon.astro';
 import { entreprise, lienWhatsApp } from '~/data/entreprise';
 import { iconeService, services } from '~/data/services';
 import { chemin, t, type Langue } from '~/i18n';
+import '~/styles/formulaire.css';
 
 interface Props {
   langue: Langue;
@@ -40,15 +44,16 @@ const choix = [
 ---
 
 <div
-  class="devis"
-  data-devis
+  class="formulaire"
+  data-formulaire
+  data-param="travaux"
   data-cle={cle ? 'oui' : 'non'}
   data-email={entreprise.email ?? ''}
   data-whatsapp={entreprise.whatsappNumero}
-  data-photos-intro={f.photosIntro}
-  data-sujet-photos={f.sujetPhotos}
+  data-intro-suite={f.photosIntro}
+  data-sujet-suite={f.sujetPhotos}
   data-sujet-email={f.sujetEmail}
-  data-recap={JSON.stringify(f.recap)}
+  data-recap={JSON.stringify([['travaux', f.recap.travaux], ['message', f.recap.message], '', ['nom', f.recap.nom], ['telephone', f.recap.telephone], ['email', f.recap.email]])}
   data-deux-points={textes.deuxPoints}
   data-noms-etapes={JSON.stringify(f.etapes)}
   data-erreur-choix={f.erreurChoix}
@@ -58,7 +63,7 @@ const choix = [
   data-en-cours={f.envoiEnCours}
 >
   <form
-    class="devis__form"
+    class="formulaire__form"
     id={id}
     action={action}
     method="POST"
@@ -72,26 +77,26 @@ const choix = [
     <input type="checkbox" name="botcheck" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
     <!-- Progression -->
-    <div class="devis__progression" aria-hidden="true">
-      <span class="devis__etape-texte">
+    <div class="formulaire__progression" aria-hidden="true">
+      <span class="formulaire__etape-texte">
         {f.etape} <strong data-num>1</strong> {f.sur} {f.etapes.length} · <span data-nom-etape>{f.etapes[0]}</span>
       </span>
-      <span class="devis__segments">
+      <span class="formulaire__segments">
         {f.etapes.map((_, i) => <span class:list={[{ actif: i === 0 }]} data-segment />)}
       </span>
     </div>
 
     <!-- Étape 1 : les travaux -->
-    <fieldset class="etape-devis" data-etape="0">
+    <fieldset class="etape" data-etape="0" data-choix-requis="travaux">
       <legend tabindex="-1">
-        <span class="etape-devis__question">{f.q1}</span>
-        <span class="etape-devis__aide">{f.q1Aide}</span>
+        <span class="etape-formulaire__question">{f.q1}</span>
+        <span class="etape-formulaire__aide">{f.q1Aide}</span>
       </legend>
       <div class="tuiles">
         {
           choix.map((option) => (
             <label class="tuile">
-              <input type="checkbox" name="travaux" value={option.valeur} data-metier={option.slug} />
+              <input type="checkbox" name="travaux" value={option.valeur} data-cles={option.slug} />
               <span class="tuile__icone"><Icon nom={option.icone} taille={24} /></span>
               <span class="tuile__nom">{option.valeur}</span>
               <span class="tuile__coche" aria-hidden="true"><Icon nom="check" taille={14} epaisseur={3} /></span>
@@ -102,9 +107,9 @@ const choix = [
     </fieldset>
 
     <!-- Étape 2 : les coordonnées et un mot sur le projet -->
-    <fieldset class="etape-devis" data-etape="1">
+    <fieldset class="etape" data-etape="1">
       <legend tabindex="-1">
-        <span class="etape-devis__question">{f.q3}</span>
+        <span class="etape-formulaire__question">{f.q3}</span>
       </legend>
 
       <div class="champ">
@@ -138,727 +143,56 @@ const choix = [
       </label>
     </fieldset>
 
-    <p class="devis__erreur" role="alert" data-erreur></p>
+    <p class="formulaire__erreur" role="alert" data-erreur></p>
 
-    <div class="devis__nav">
-      <button type="button" class="devis__retour" data-precedent hidden>
+    <div class="formulaire__nav">
+      <button type="button" class="formulaire__retour" data-precedent hidden>
         <Icon nom="fleche-gauche" taille={18} />
         {f.precedent}
       </button>
-      <Bouton type="button" variante="principal" iconeApres="fleche" large class="devis__suivant" data-suivant>
+      <Bouton type="button" variante="principal" iconeApres="fleche" large class="formulaire__suivant" data-suivant>
         {f.suivant}
       </Bouton>
-      <Bouton type="submit" variante="principal" iconeApres="fleche-diag" large class="devis__envoyer" data-envoyer>
+      <Bouton type="submit" variante="principal" iconeApres="fleche-diag" large class="formulaire__envoyer" data-envoyer>
         {f.envoyer}
       </Bouton>
     </div>
   </form>
 
   <!-- Après l'envoi -->
-  <div class="devis__fin" data-merci hidden tabindex="-1">
-    <svg class="devis__coche" viewBox="0 0 80 80" aria-hidden="true">
+  <div class="formulaire__fin" data-merci hidden tabindex="-1">
+    <svg class="formulaire__coche" viewBox="0 0 80 80" aria-hidden="true">
       <circle cx="40" cy="40" r="36" pathLength="1" />
       <path d="M24 41l11 11 21-24" pathLength="1" />
     </svg>
-    <h3 class="devis__fin-titre" data-fin-titre data-titre-merci={f.merciTitre} data-titre-secours={f.secoursTitre}>{f.merciTitre}</h3>
+    <h3 class="formulaire__fin-titre" data-fin-titre data-titre-merci={f.merciTitre} data-titre-secours={f.secoursTitre}>{f.merciTitre}</h3>
     <p data-fin-texte data-texte-merci={f.merciTexte} data-texte-secours={f.secoursTexte}>{f.merciTexte}</p>
-    <div class="devis__fin-actions">
-      <Bouton href={`mailto:${entreprise.email ?? ''}`} variante="principal" icone="email" data-lien-email hidden>
+    <div class="formulaire__fin-actions">
+      <Bouton href={`mailto:${entreprise.email ?? ''}`} variante="principal" icone="email" data-lien-secours hidden>
         {f.secoursLien}
       </Bouton>
-      <Bouton href={lienWhatsApp(textes.whatsappMessage)} variante="whatsapp" icone="whatsapp" target="_blank" rel="noopener" data-photos-whatsapp>
+      <Bouton href={lienWhatsApp(textes.whatsappMessage)} variante="whatsapp" icone="whatsapp" target="_blank" rel="noopener" data-suite-whatsapp>
         {f.merciWhatsApp}
       </Bouton>
       {entreprise.email && (
-        <Bouton href={`mailto:${entreprise.email}`} variante="secondaire" icone="email" data-photos-email>
+        <Bouton href={`mailto:${entreprise.email}`} variante="secondaire" icone="email" data-suite-email>
           {f.merciEmail}
         </Bouton>
       )}
-      <button type="button" class="devis__retour" data-recommencer>{f.recommencer}</button>
+      <button type="button" class="formulaire__retour" data-recommencer>{f.recommencer}</button>
     </div>
   </div>
 
-  <div class="devis__fin devis__fin--erreur" data-echec hidden tabindex="-1">
-    <h3 class="devis__fin-titre">{f.erreurTitre}</h3>
+  <div class="formulaire__fin formulaire__fin--erreur" data-echec hidden tabindex="-1">
+    <h3 class="formulaire__fin-titre">{f.erreurTitre}</h3>
     <p>
       {f.erreurTexte} <a href={`tel:${entreprise.telephoneLien}`}>{entreprise.telephoneAffiche}</a>.
     </p>
-    <button type="button" class="devis__retour" data-reessayer>{f.suivant}</button>
+    <button type="button" class="formulaire__retour" data-reessayer>{f.suivant}</button>
   </div>
 </div>
 
 <script>
-  import { defilerVers } from '~/scripts/site';
-
-  document.querySelectorAll<HTMLElement>('[data-devis]').forEach((bloc) => {
-    const form = bloc.querySelector<HTMLFormElement>('[data-form]');
-    if (!form) return;
-
-    const etapes = Array.from(form.querySelectorAll<HTMLFieldSetElement>('[data-etape]'));
-    const segments = Array.from(form.querySelectorAll<HTMLElement>('[data-segment]'));
-    const num = form.querySelector<HTMLElement>('[data-num]');
-    const nomEtape = form.querySelector<HTMLElement>('[data-nom-etape]');
-    const erreur = form.querySelector<HTMLElement>('[data-erreur]');
-    const boutonPrecedent = form.querySelector<HTMLButtonElement>('[data-precedent]');
-    const boutonSuivant = form.querySelector<HTMLButtonElement>('[data-suivant]');
-    const boutonEnvoyer = form.querySelector<HTMLButtonElement>('[data-envoyer]');
-    const merci = bloc.querySelector<HTMLElement>('[data-merci]');
-    const echec = bloc.querySelector<HTMLElement>('[data-echec]');
-    const d = bloc.dataset;
-
-    const nomsEtapes = JSON.parse(d.nomsEtapes ?? '[]') as string[];
-
-    let courante = 0;
-    bloc.classList.add('devis--js');
-
-    const afficher = (index: number, focus = true) => {
-      courante = index;
-      etapes.forEach((etape, i) => {
-        etape.hidden = i !== index;
-        etape.classList.toggle('entre', i === index);
-      });
-      segments.forEach((segment, i) => segment.classList.toggle('actif', i <= index));
-      if (num) num.textContent = String(index + 1);
-      if (nomEtape) nomEtape.textContent = nomsEtapes[index] ?? '';
-      if (boutonPrecedent) boutonPrecedent.hidden = index === 0;
-      if (boutonSuivant) boutonSuivant.hidden = index === etapes.length - 1;
-      if (boutonEnvoyer) boutonEnvoyer.hidden = index !== etapes.length - 1;
-      montrerErreur('');
-      if (focus) {
-        etapes[index].querySelector<HTMLElement>('legend')?.focus({ preventScroll: true });
-        // Si le haut du formulaire est sorti de l'écran (téléphone), on y remonte.
-        if (form.getBoundingClientRect().top < 80) defilerVers(form);
-      }
-    };
-
-    const montrerErreur = (message: string) => {
-      if (erreur) erreur.textContent = message;
-    };
-
-    const valider = (index: number): boolean => {
-      const etape = etapes[index];
-      etape.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
-
-      if (index === 0) {
-        const coche = etape.querySelector('input[name="travaux"]:checked');
-        if (!coche) {
-          montrerErreur(d.erreurChoix ?? '');
-          return false;
-        }
-        return true;
-      }
-
-      for (const champ of Array.from(etape.querySelectorAll<HTMLInputElement>('input[required], textarea[required]'))) {
-        if (champ.type === 'checkbox' && !champ.checked) {
-          montrerErreur(d.erreurConsentement ?? '');
-          champ.setAttribute('aria-invalid', 'true');
-          champ.focus();
-          return false;
-        }
-        if (champ.type !== 'checkbox' && !champ.value.trim()) {
-          montrerErreur(d.erreurChamp ?? '');
-          champ.setAttribute('aria-invalid', 'true');
-          champ.focus();
-          return false;
-        }
-      }
-
-      const email = etape.querySelector<HTMLInputElement>('input[type="email"]');
-      if (email && email.value.trim() && !email.checkValidity()) {
-        montrerErreur(d.erreurEmail ?? '');
-        email.setAttribute('aria-invalid', 'true');
-        email.focus();
-        return false;
-      }
-      return true;
-    };
-
-    boutonSuivant?.addEventListener('click', () => {
-      if (valider(courante)) afficher(courante + 1);
-    });
-
-    boutonPrecedent?.addEventListener('click', () => afficher(courante - 1));
-
-    // Entrée dans un champ texte : passe à l'étape suivante plutôt que d'envoyer.
-    form.addEventListener('keydown', (evenement) => {
-      const cible = evenement.target as HTMLElement;
-      if (evenement.key === 'Enter' && cible.tagName === 'INPUT' && courante < etapes.length - 1) {
-        evenement.preventDefault();
-        boutonSuivant?.click();
-      }
-    });
-
-    // Une tuile cochée efface l'erreur de l'étape 1.
-    form.querySelectorAll('input[name="travaux"]').forEach((caseACocher) =>
-      caseACocher.addEventListener('change', () => montrerErreur('')),
-    );
-
-    /** Le résumé lisible de la demande (email de secours, envoi des photos). */
-    const resume = (): string => {
-      const donnees = new FormData(form);
-      const recap = JSON.parse(d.recap ?? '{}') as Record<string, string>;
-      const dp = d.deuxPoints ?? ' : ';
-      const lignes = [
-        `${recap.travaux}${dp}${donnees.getAll('travaux').join(', ')}`,
-        `${recap.message}${dp}${donnees.get('message') ?? ''}`,
-        '',
-        `${recap.nom}${dp}${donnees.get('nom') ?? ''}`,
-        `${recap.telephone}${dp}${donnees.get('telephone') ?? ''}`,
-        `${recap.email}${dp}${donnees.get('email') ?? ''}`,
-      ];
-      return lignes.join('\n');
-    };
-
-    const terminer = (panneau: HTMLElement | null, secours = false) => {
-      form.hidden = true;
-      if (!panneau) return;
-      if (panneau === merci) {
-        // Photos par WhatsApp ou par email : le message reprend déjà toute la demande.
-        const message = `${d.photosIntro ?? ''}\n\n${resume()}`;
-        const whatsapp = panneau.querySelector<HTMLAnchorElement>('[data-photos-whatsapp]');
-        if (whatsapp) whatsapp.href = `https://wa.me/${d.whatsapp}?text=${encodeURIComponent(message)}`;
-        const email = panneau.querySelector<HTMLAnchorElement>('[data-photos-email]');
-        if (email) {
-          email.href = `mailto:${d.email}?subject=${encodeURIComponent(d.sujetPhotos ?? '')}&body=${encodeURIComponent(message)}`;
-          // En mode secours, l'email de la demande s'ouvre déjà : pas de doublon.
-          email.hidden = secours;
-        }
-        const titre = panneau.querySelector<HTMLElement>('[data-fin-titre]');
-        const texte = panneau.querySelector<HTMLElement>('[data-fin-texte]');
-        if (titre) titre.textContent = (secours ? titre.dataset.titreSecours : titre.dataset.titreMerci) ?? '';
-        if (texte) texte.textContent = (secours ? texte.dataset.texteSecours : texte.dataset.texteMerci) ?? '';
-      }
-      panneau.hidden = false;
-      panneau.focus({ preventScroll: true });
-      if (panneau.getBoundingClientRect().top < 80) defilerVers(panneau);
-    };
-
-    form.addEventListener('submit', async (evenement) => {
-      evenement.preventDefault();
-      if (!valider(courante)) return;
-
-      const robot = form.querySelector<HTMLInputElement>('input[name="botcheck"]');
-      if (robot?.checked) return;
-
-      // Pas de clé : la messagerie s'ouvre avec toute la demande déjà écrite.
-      if (d.cle !== 'oui') {
-        const lien = `mailto:${d.email}?subject=${encodeURIComponent(d.sujetEmail ?? '')}&body=${encodeURIComponent(resume())}`;
-        const bouton = merci?.querySelector<HTMLAnchorElement>('[data-lien-email]');
-        if (bouton) {
-          bouton.href = lien;
-          bouton.hidden = false;
-        }
-        terminer(merci, true);
-        window.location.href = lien;
-        return;
-      }
-
-      const texteBouton = boutonEnvoyer?.querySelector('.bouton__texte');
-      const texteInitial = texteBouton?.textContent ?? '';
-      if (boutonEnvoyer) boutonEnvoyer.disabled = true;
-      if (texteBouton) texteBouton.textContent = d.enCours ?? '…';
-
-      const donnees = new FormData(form);
-      const corps: Record<string, string> = {};
-      donnees.forEach((valeur, cle) => {
-        corps[cle] = corps[cle] ? `${corps[cle]}, ${valeur}` : String(valeur);
-      });
-
-      try {
-        const reponse = await fetch(form.action, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify(corps),
-        });
-        const resultat = await reponse.json().catch(() => ({ success: false }));
-        terminer(reponse.ok && resultat.success ? merci : echec);
-      } catch {
-        terminer(echec);
-      } finally {
-        if (boutonEnvoyer) boutonEnvoyer.disabled = false;
-        if (texteBouton) texteBouton.textContent = texteInitial;
-      }
-    });
-
-    const repartir = () => {
-      form.reset();
-      form.hidden = false;
-      if (merci) merci.hidden = true;
-      if (echec) echec.hidden = true;
-      const lienEmail = merci?.querySelector<HTMLElement>('[data-lien-email]');
-      if (lienEmail) lienEmail.hidden = true;
-      afficher(0);
-    };
-    bloc.querySelector('[data-recommencer]')?.addEventListener('click', repartir);
-    bloc.querySelector('[data-reessayer]')?.addEventListener('click', () => {
-      form.hidden = false;
-      if (echec) echec.hidden = true;
-      afficher(etapes.length - 1);
-    });
-
-    afficher(0, false);
-
-    // Pré-sélection d'un métier : depuis la maison de l'accueil (événement) ou l'adresse (?travaux=toiture).
-    const preselectionner = (slug: string | null) => {
-      if (!slug) return;
-      const tuile = form.querySelector<HTMLInputElement>(`input[name="travaux"][data-metier="${CSS.escape(slug)}"]`);
-      if (!tuile) return;
-      if (!form.hidden && courante !== 0) afficher(0, false);
-      tuile.checked = true;
-      montrerErreur('');
-    };
-    preselectionner(new URLSearchParams(location.search).get('travaux'));
-    window.addEventListener('devis:preselection', (e) => preselectionner((e as CustomEvent<string>).detail));
-  });
+  import '~/scripts/formulaire-etapes';
 </script>
 
-<style>
-  .devis {
-    position: relative;
-    padding: 24px 20px;
-    background: var(--color-bg);
-    border-radius: var(--radius-card);
-    color: var(--color-text);
-    box-shadow: var(--shadow-float);
-  }
-
-  /* --- Progression --- */
-  .devis__progression {
-    display: none;
-  }
-
-  .devis--js .devis__progression {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 24px;
-  }
-
-  .devis__etape-texte {
-    font-size: 13px;
-    font-weight: 650;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-muted);
-  }
-
-  .devis__etape-texte strong {
-    color: var(--color-ink);
-  }
-
-  .devis__segments {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 1fr;
-    gap: 6px;
-  }
-
-  .devis__segments span {
-    height: 4px;
-    border-radius: 4px;
-    background: var(--color-border);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .devis__segments span::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--color-ink);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 600ms var(--ease-out);
-  }
-
-  .devis__segments span.actif::after {
-    transform: scaleX(1);
-  }
-
-  /* --- Étapes --- */
-  .etape-devis {
-    margin: 0 0 28px;
-    padding: 0;
-    border: 0;
-    min-width: 0;
-  }
-
-  .devis--js .etape-devis {
-    margin-bottom: 8px;
-  }
-
-  .etape-devis legend {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    margin-bottom: 20px;
-    padding: 0;
-    outline: none;
-  }
-
-  .etape-devis__question {
-    font-family: var(--font-title);
-    font-size: clamp(24px, 2.4vw, 32px);
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.035em;
-    color: var(--color-ink);
-  }
-
-  .etape-devis__aide {
-    font-size: var(--size-small);
-    color: var(--color-muted);
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .etape-devis.entre {
-      animation: etape-entre 500ms var(--ease-out);
-    }
-
-    @keyframes etape-entre {
-      from {
-        opacity: 0;
-        transform: translateX(24px);
-      }
-    }
-  }
-
-  /* --- Tuiles des travaux --- */
-  .tuiles {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
-  }
-
-  .tuile {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    min-height: 96px;
-    padding: 14px;
-    border: 1.5px solid var(--color-border);
-    border-radius: var(--radius-small);
-    background: #fff;
-    cursor: pointer;
-    transition:
-      border-color 200ms var(--ease),
-      background-color 200ms var(--ease),
-      transform 200ms var(--ease);
-  }
-
-  .tuile:hover {
-    border-color: var(--color-ink);
-  }
-
-  .tuile:active {
-    transform: scale(0.98);
-  }
-
-  .tuile input {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .tuile__icone {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: var(--color-surface);
-    color: var(--color-ink);
-    transition: background-color 200ms var(--ease);
-  }
-
-  .tuile__nom {
-    font-size: 15px;
-    font-weight: 650;
-    line-height: 1.25;
-    color: var(--color-ink);
-  }
-
-  .tuile__coche {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    border: 1.5px solid var(--color-border);
-    color: transparent;
-    transition: all 200ms var(--ease);
-  }
-
-  .tuile:has(input:checked) {
-    border-color: var(--color-ink);
-    background: #fffbea;
-  }
-
-  .tuile:has(input:checked) .tuile__icone {
-    background: var(--color-signal);
-  }
-
-  .tuile:has(input:checked) .tuile__coche {
-    background: var(--color-ink);
-    border-color: var(--color-ink);
-    color: var(--color-signal);
-  }
-
-  .tuile:has(input:focus-visible) {
-    outline: 3px solid var(--color-accent);
-    outline-offset: 2px;
-  }
-
-  /* --- Champs --- */
-  .champ {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 18px;
-  }
-
-  .champ label {
-    font-size: var(--size-small);
-    font-weight: 650;
-    color: var(--color-ink);
-  }
-
-  .champ__facultatif {
-    font-weight: 500;
-    color: var(--color-muted);
-  }
-
-  .champ input,
-  .champ textarea {
-    width: 100%;
-    min-height: 50px;
-    padding: 12px 16px;
-    border: 1.5px solid var(--color-border-field);
-    border-radius: var(--radius-small);
-    background: #fff;
-    font: inherit;
-    font-size: 17px;
-    color: var(--color-ink);
-    transition:
-      border-color 200ms var(--ease),
-      box-shadow 200ms var(--ease);
-  }
-
-  .champ textarea {
-    resize: vertical;
-    min-height: 96px;
-    line-height: 1.5;
-  }
-
-  .champ input::placeholder,
-  .champ textarea::placeholder {
-    color: #8a8d94;
-  }
-
-  .champ input:focus,
-  .champ textarea:focus {
-    outline: none;
-    border-color: var(--color-ink);
-    box-shadow: 0 0 0 4px rgba(255, 212, 71, 0.55);
-  }
-
-  .champ [aria-invalid='true'] {
-    border-color: var(--color-erreur);
-  }
-
-  .champ__paire {
-    display: grid;
-    gap: 0 14px;
-  }
-
-  .consentement {
-    position: relative;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 12px;
-    align-items: start;
-    margin-top: 6px;
-    font-size: 15px;
-    line-height: 1.45;
-    cursor: pointer;
-  }
-
-  .consentement input {
-    position: absolute;
-    opacity: 0;
-    width: 24px;
-    height: 24px;
-    margin: 0;
-  }
-
-  .consentement__case {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    border: 1.5px solid var(--color-border-field);
-    border-radius: 7px;
-    background: #fff;
-    color: transparent;
-    transition: all 200ms var(--ease);
-  }
-
-  .consentement input:checked + .consentement__case {
-    background: var(--color-ink);
-    border-color: var(--color-ink);
-    color: var(--color-signal);
-  }
-
-  .consentement input:focus-visible + .consentement__case {
-    outline: 3px solid var(--color-accent);
-    outline-offset: 2px;
-  }
-
-  .consentement input[aria-invalid='true'] + .consentement__case {
-    border-color: var(--color-erreur);
-  }
-
-  .consentement a {
-    color: var(--color-ink);
-  }
-
-  /* --- Navigation --- */
-  .devis__erreur {
-    min-height: 1.4em;
-    margin: 0 0 8px;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--color-erreur);
-  }
-
-  .devis__nav {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-  }
-
-  .devis__nav :global(.devis__suivant),
-  .devis__nav :global(.devis__envoyer) {
-    margin-left: auto;
-  }
-
-  @media (max-width: 420px) {
-    .devis__nav :global(.bouton--large) {
-      min-height: 56px;
-      padding-left: 22px;
-      font-size: 16px;
-      gap: 12px;
-    }
-  }
-
-  /* Sans JavaScript : pas de bouton « Continuer », on envoie tout d'un coup. */
-  .devis:not(.devis--js) :global(.devis__suivant) {
-    display: none;
-  }
-
-  .devis__retour {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    min-height: 48px;
-    padding: 0 6px;
-    background: none;
-    border: 0;
-    font: inherit;
-    font-size: 15px;
-    font-weight: 650;
-    color: var(--color-ink);
-    cursor: pointer;
-    text-decoration: underline;
-    text-decoration-color: var(--color-border);
-    text-underline-offset: 5px;
-  }
-
-  .devis__retour:hover {
-    text-decoration-color: var(--color-ink);
-  }
-
-  /* --- Fin --- */
-  .devis__fin {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-    padding: 12px 0;
-    outline: none;
-  }
-
-  .devis__fin-titre {
-    font-size: clamp(28px, 3vw, 40px);
-    letter-spacing: -0.04em;
-  }
-
-  .devis__fin-actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 12px;
-    margin-top: 8px;
-  }
-
-  .devis__coche {
-    width: 72px;
-    height: 72px;
-    fill: none;
-    stroke-width: 4;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .devis__coche circle {
-    stroke: var(--color-signal);
-    fill: var(--color-ink);
-  }
-
-  .devis__coche path {
-    stroke: var(--color-signal);
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .devis__coche circle,
-    .devis__coche path {
-      stroke-dasharray: 1;
-      stroke-dashoffset: 1;
-      animation: coche 800ms var(--ease-out) forwards;
-    }
-
-    .devis__coche path {
-      animation-delay: 400ms;
-    }
-
-    @keyframes coche {
-      to {
-        stroke-dashoffset: 0;
-      }
-    }
-  }
-
-  @media (min-width: 600px) {
-    .devis {
-      padding: 36px;
-    }
-
-    .tuiles {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .champ__paire {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-</style>
