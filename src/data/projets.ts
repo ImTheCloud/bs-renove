@@ -72,6 +72,7 @@ const ID_VITRINE = 'salle-de-bain-watermael-boitsfort-0';
 
 /** Celles de la bande « réalisations » de l'accueil, dans cet ordre. */
 const IDS_ACCUEIL = [
+  'extension-maison-0',
   'renovation-woluwe-saint-pierre-7',
   'renovation-interieure-ostende-0',
   'renovation-woluwe-saint-pierre-4',
@@ -105,7 +106,7 @@ const CATEGORIES_PAR_SERVICE: Record<string, string[]> = {
   terrasses: ['exterieur', 'allee'],
   escaliers: ['escalier'],
   toiture: ['toiture', 'auvent'],
-  'maconnerie-facades': ['facade'],
+  'maconnerie-facades': ['extension', 'facade'],
   electricite: [],
   'peinture-finitions': ['sejour', 'chambre', 'couloir'],
 };

@@ -1160,3 +1160,7 @@ L'« après » montre le carrelage posé avec les croisillons encore en place (p
 - `toiture-tuiles-rouges.yaml` : charpente mise à nu → tuiles rouges neuves (catégorie Toiture).
 - `petite-toiture.yaml` : petite toiture le long d’une façade, isolation → tuiles (catégorie renommée « Petite toiture », NL « Klein dak », qui regroupe aussi l’auvent de Woluwe).
 Photos de Claudiu, introuvables dans Téléchargements → « Belgique ». Ouvriers visibles (l’équipe) ; façades voisines sans numéro lisible.
+
+### Puis : extension de maison sur deux niveaux (même jour)
+
+`extension-maison.yaml` : avant = façade d’origine, après = extension terminée (grandes baies). Nouvelle catégorie **Extension**, sous **Maçonnerie & façades** ; en tête de la bande de l’accueil. Photos de Claudiu → « Belgique ». Ouvrier au loin (équipe).
