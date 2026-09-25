@@ -18,6 +18,7 @@ export const categories: Categorie[] = [
   { slug: 'salle-de-bain', nom: { fr: 'Salle de bain', nl: 'Badkamer' } },
   { slug: 'douche', nom: { fr: 'Douche', nl: 'Douche' } },
   { slug: 'cuisine', nom: { fr: 'Cuisine', nl: 'Keuken' } },
+  { slug: 'maison', nom: { fr: 'Maison entière', nl: 'Hele woning' } },
   { slug: 'extension', nom: { fr: 'Extension', nl: 'Uitbreiding' } },
   { slug: 'sejour', nom: { fr: 'Séjour', nl: 'Woonkamer' } },
   { slug: 'chambre', nom: { fr: 'Chambre', nl: 'Slaapkamer' } },

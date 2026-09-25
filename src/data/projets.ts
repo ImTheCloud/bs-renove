@@ -99,7 +99,7 @@ export async function pairesAccueil(): Promise<Paire[]> {
 
 /** Quels types de pièce illustrent chaque métier. */
 const CATEGORIES_PAR_SERVICE: Record<string, string[]> = {
-  'renovation-complete': [],
+  'renovation-complete': ['maison'],
   'salles-de-bain': ['salle-de-bain', 'douche', 'toilette'],
   cuisines: ['cuisine'],
   carrelage: ['cave'],

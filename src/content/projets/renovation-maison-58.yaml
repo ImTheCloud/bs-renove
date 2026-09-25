@@ -1,0 +1,32 @@
+# Photos envoyées par Claudiu. Numéro de maison masqué sur les deux photos.
+# Commune non confirmée (« Belgique ») : probablement le chantier de Woluwe-Saint-Pierre
+# (même numéro que les photos du tag « Terasse exterieur »), à confirmer.
+titre:
+  fr: Rénovation complète d'une maison
+  nl: Volledige renovatie van een woning
+commune:
+  fr: "[À CONFIRMER : commune]"
+  nl: "[TE BEVESTIGEN: gemeente]"
+service: renovation-complete
+ordre: 1
+misEnAvant: false
+couvertureAlt:
+  fr: Façade rénovée, grandes baies, escalier et allée carrelés
+  nl: Gerenoveerde gevel, grote ramen, betegelde trap en pad
+recit:
+  fr:
+    depart: "[À CONFIRMER]"
+    travaux: "[À CONFIRMER]"
+    resultat: "[À CONFIRMER]"
+  nl:
+    depart: "[TE BEVESTIGEN]"
+    travaux: "[TE BEVESTIGEN]"
+    resultat: "[TE BEVESTIGEN]"
+galerie: []
+avantApres:
+  - avant: ../../assets/projets/renovation-maison-58/avant-1.jpg
+    apres: ../../assets/projets/renovation-maison-58/apres-1.jpg
+    legende:
+      fr: Façade avant, du début du chantier aux baies neuves et à l'entrée carrelée
+      nl: Voorgevel, van het begin van de werf tot nieuwe ramen en betegelde ingang
+    categorie: maison

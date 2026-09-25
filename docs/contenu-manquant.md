@@ -1171,3 +1171,7 @@ Nouveau service **Plomberie** (activité enregistrée, § 1 du brief) : textes F
 Sergiu**. Premier avant/après : `egouttage-allee.yaml`, tranchée avec tuyaux d'égout → allée
 carrelée par-dessus (catégorie **Égouttage**). Photos de Claudiu → « Belgique ». Chiffre des
 métiers : 11.
+
+### Puis : rénovation complète d’une maison (même jour)
+
+`renovation-maison-58.yaml` : façade au début du chantier → baies neuves, escalier et allée carrelés. **Numéro de maison masqué** sur les deux photos. Catégorie **Maison entière**, sous Rénovation complète. Commune : « Belgique » ; probablement Woluwe-Saint-Pierre (même numéro que le tag « Terasse exterieur »), **à confirmer**. L’avant/après « égouttage » semble être la même maison (mêmes bornes et dalles).
