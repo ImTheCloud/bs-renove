@@ -46,11 +46,11 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
 
         <div class="liste__paires" data-galerie-paires>
           {paires.map((paire, index) => (
-            <figure class="paire" data-categorie={paire.categorie}>
+            <figure class:list={['paire', { 'paire--paysage': paire.paysage }]} data-categorie={paire.categorie}>
               <CurseurAvantApres
                 langue={langue}
                 id={`curseur-${paire.id}`}
-                ratio="3 / 4"
+                ratio={paire.ratio}
                 precision={paire.legende[langue]}
               >
                 <PhotoProjet
@@ -58,7 +58,7 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
                   image={paire.avant}
                   alt={textes.photos.avant}
                   langue={langue}
-                  ratio="3 / 4"
+                  ratio={paire.ratio}
                   ton="moyen"
                   prioritaire={index === 0}
                 />
@@ -67,7 +67,7 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
                   image={paire.apres}
                   alt={textes.photos.apres}
                   langue={langue}
-                  ratio="3 / 4"
+                  ratio={paire.ratio}
                   ton="fonce"
                   prioritaire={index === 0}
                 />
@@ -187,6 +187,16 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
 
   .paire {
     margin: 0;
+  }
+
+  @media (min-width: 700px) {
+    .liste__paires {
+      grid-auto-flow: dense;
+    }
+
+    .paire--paysage {
+      grid-column: span 2;
+    }
   }
 
   .paire__legende {

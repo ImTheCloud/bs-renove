@@ -50,7 +50,7 @@ const paires = await pairesAccueil();
               const piece = nomCategorie(paire.categorie, langue) ?? '';
               const titre = paire.commune ? `${piece} · ${paire.commune[langue]}` : piece;
               return (
-                <li class="carte">
+                <li class:list={['carte', { 'carte--paysage': paire.paysage }]}>
                   <button
                     type="button"
                     class="carte__bouton"
@@ -63,7 +63,7 @@ const paires = await pairesAccueil();
                         src={paire.avant}
                         alt={`${aa.avant} : ${paire.legende[langue]}`}
                         widths={[400, 640, 880]}
-                        sizes="(min-width: 1024px) 30vw, 78vw"
+                        sizes={paire.paysage ? "(min-width: 1024px) 50vw, 92vw" : "(min-width: 1024px) 30vw, 78vw"}
                         loading="lazy"
                       />
                     </span>
@@ -72,7 +72,7 @@ const paires = await pairesAccueil();
                         src={paire.apres}
                         alt={`${aa.apres} : ${paire.legende[langue]}`}
                         widths={[400, 640, 880]}
-                        sizes="(min-width: 1024px) 30vw, 78vw"
+                        sizes={paire.paysage ? "(min-width: 1024px) 50vw, 92vw" : "(min-width: 1024px) 30vw, 78vw"}
                         loading="lazy"
                       />
                     </span>
@@ -301,6 +301,16 @@ const paires = await pairesAccueil();
     scroll-snap-align: center;
   }
 
+  /* Même hauteur qu'une carte verticale, mais au format 4/3. */
+  .carte--paysage {
+    width: calc(min(78vw, 340px) * 16 / 9);
+    max-width: 92vw;
+  }
+
+  .carte--paysage .carte__bouton {
+    aspect-ratio: 4 / 3;
+  }
+
   /* --- Une carte avant / après --- */
   .carte__bouton {
     position: relative;
@@ -524,6 +534,10 @@ const paires = await pairesAccueil();
 
   .projets--epingle .carte {
     width: min(26vw, 58svh * 0.75);
+  }
+
+  .projets--epingle .carte--paysage {
+    width: calc(min(26vw, 58svh * 0.75) * 16 / 9);
   }
 
   @media (min-width: 1024px) {

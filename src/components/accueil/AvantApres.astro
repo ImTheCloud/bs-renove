@@ -52,7 +52,7 @@ const vitrine = await paireVitrine();
             </p>
 
             <div class="aa__cadre">
-              <CurseurAvantApres langue={langue} id="curseur-accueil" ratio="3 / 4" depart={100} precision={vitrine.legende[langue]}>
+              <CurseurAvantApres langue={langue} id="curseur-accueil" ratio={vitrine.ratio} depart={100} precision={vitrine.legende[langue]}>
                 <Image
                   slot="avant"
                   src={vitrine.avant}

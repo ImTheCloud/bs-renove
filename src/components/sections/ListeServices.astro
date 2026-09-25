@@ -51,8 +51,8 @@ const pairesParService = await Promise.all(services.map((service) => pairesDuSer
         <section id={service.slug} class:list={['service', { 'service--inverse': index % 2 === 1 }]} aria-labelledby={`titre-${service.slug}`}>
           <div class="service__visuel" data-reveal>
             {paire ? (
-              <figure class="service__comparaison">
-                <CurseurAvantApres langue={langue} id={`curseur-${service.slug}`} ratio="3 / 4" precision={paire.legende[langue]}>
+              <figure class:list={['service__comparaison', { 'service__comparaison--paysage': paire.paysage }]}>
+                <CurseurAvantApres langue={langue} id={`curseur-${service.slug}`} ratio={paire.ratio} precision={paire.legende[langue]}>
                   <Image slot="avant" src={paire.avant} alt={`${aa.avant} : ${paire.legende[langue]}`} widths={[400, 700, 1000]} sizes="(min-width: 1024px) 30vw, 90vw" loading="lazy" />
                   <Image slot="apres" src={paire.apres} alt={`${aa.apres} : ${paire.legende[langue]}`} widths={[400, 700, 1000]} sizes="(min-width: 1024px) 30vw, 90vw" loading="lazy" />
                 </CurseurAvantApres>
@@ -162,6 +162,10 @@ const pairesParService = await Promise.all(services.map((service) => pairesDuSer
     width: 100%;
     max-width: 440px;
     margin: 0 auto;
+  }
+
+  .service__comparaison--paysage {
+    max-width: 640px;
   }
 
   .service__comparaison :global(.curseur img) {

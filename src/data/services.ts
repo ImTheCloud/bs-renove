@@ -169,16 +169,16 @@ export const services: Service[] = [
     slug: 'peinture-finitions',
     nom: { fr: 'Peinture et finitions', nl: 'Schilderwerk en afwerking' },
     phrase: {
-      fr: 'Peinture des murs et plafonds, et finitions intérieures',
-      nl: 'Schilderwerk van muren en plafonds, en binnenafwerking',
+      fr: 'Murs et plafonds peints, parquet posé, finitions intérieures',
+      nl: 'Geschilderde muren en plafonds, gelegd parket, binnenafwerking',
     },
     texte: {
-      fr: "La dernière étape, celle qu'on regarde tous les jours. Préparation des murs, peinture et finitions",
-      nl: 'De laatste stap, die u elke dag ziet. Voorbereiding van de muren, schilderwerk en afwerking',
+      fr: "La dernière étape, celle qu'on regarde tous les jours. Murs et plafonds préparés puis peints, parquet posé, et les finitions qui vont avec",
+      nl: 'De laatste stap, die u elke dag ziet. Muren en plafonds voorbereid en geschilderd, parket gelegd, en de afwerking die erbij hoort',
     },
     exemples: {
-      fr: ['Peinture des murs et plafonds', 'Enduits et rebouchage', 'Plinthes et finitions', 'Préparation des supports'],
-      nl: ['Schilderen van muren en plafonds', 'Pleisterwerk en opvullen', 'Plinten en afwerking', 'Voorbereiding van de ondergrond'],
+      fr: ['Peinture des murs et plafonds', 'Pose de parquet', 'Enduits et rebouchage', 'Plinthes et finitions'],
+      nl: ['Schilderen van muren en plafonds', 'Plaatsen van parket', 'Pleisterwerk en opvullen', 'Plinten en afwerking'],
     },
   },
 ];

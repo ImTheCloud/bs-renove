@@ -982,3 +982,25 @@ métiers passe à 10.
   cuisines » (pour ne pas doubler le nouveau service).
 - **À faire valider par Sergiu** (FR et NL) : textes du service Terrasses et jardins, et le
   nouvel exemple du Carrelage.
+
+### Puis : séjour et chambre → Peinture et finitions (même jour)
+
+Remarque de Claudiu : les avant/après « séjour » et « chambre » (Woluwe-Saint-Pierre et le
+chantier parquet) montrent un parquet posé et des murs et plafonds repeints en blanc, pas une
+rénovation complète. Ils illustrent maintenant **Peinture et finitions** (qui n'avait aucune
+photo) ; **Rénovation complète** affiche son panneau illustré.
+
+- Peinture et finitions mentionne désormais le parquet (phrase courte, texte, exemple
+  « Pose de parquet »). **À faire valider par Sergiu**, FR et NL.
+- Rappel § 9 : la peinture ne figure pas dans les activités enregistrées (la menuiserie, oui).
+
+### Puis : photos « après » horizontales (même jour)
+
+Deux avant/après de Woluwe-Saint-Pierre ont une photo « après » horizontale (cuisine avec
+îlot, terrasse) alors que l'« avant » est vertical : dans un cadre vertical, on n'en voyait
+qu'une bande étroite. Désormais, **dès qu'une des deux photos est horizontale, la comparaison
+s'affiche en horizontal** (automatique, pour toute future photo) : elle prend deux colonnes
+sur la page Réalisations et une carte plus large sur l'accueil.
+
+Pour de futurs avant/après : l'idéal reste deux photos **prises dans le même sens et du même
+endroit**.

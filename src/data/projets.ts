@@ -22,6 +22,14 @@ export interface Paire {
   categorie: string;
   /** Absente tant que la commune n'est pas confirmée : on n'affiche rien plutôt qu'un marqueur. */
   commune?: Record<Langue, string>;
+  /**
+   * Vrai dès qu'une des deux photos est horizontale : la comparaison s'affiche
+   * alors en horizontal (4/3), sinon la photo horizontale serait coupée à une
+   * bande étroite au milieu.
+   */
+  paysage: boolean;
+  /** Le format du cadre, prêt pour `aspect-ratio`. */
+  ratio: string;
 }
 
 /**
@@ -35,7 +43,10 @@ export async function toutesLesPaires(): Promise<Paire[]> {
     const communeConnue = !projet.data.commune.fr.startsWith('[');
     projet.data.avantApres.forEach((paire, index) => {
       if (!paire.avant || !paire.apres || paire.enCours) return;
+      const paysage = [paire.avant, paire.apres].some((photo) => photo.width > photo.height);
       paires.push({
+        paysage,
+        ratio: paysage ? '4 / 3' : '3 / 4',
         id: `${projet.id}-${index}`,
         avant: paire.avant,
         apres: paire.apres,
@@ -79,7 +90,7 @@ export async function pairesAccueil(): Promise<Paire[]> {
 
 /** Quels types de pièce illustrent chaque métier. */
 const CATEGORIES_PAR_SERVICE: Record<string, string[]> = {
-  'renovation-complete': ['sejour', 'chambre'],
+  'renovation-complete': [],
   'salles-de-bain': ['salle-de-bain', 'toilette'],
   cuisines: ['cuisine'],
   carrelage: [],
@@ -88,7 +99,7 @@ const CATEGORIES_PAR_SERVICE: Record<string, string[]> = {
   toiture: ['toiture'],
   'maconnerie-facades': ['facade'],
   electricite: [],
-  'peinture-finitions': [],
+  'peinture-finitions': ['sejour', 'chambre'],
 };
 
 /** Les avant/après d'un métier, la vitrine en premier si elle en fait partie. */
