@@ -1085,3 +1085,12 @@ sol démoli) → `10.58.50 (1)` (double lavabo, miroir, sol carrelé). Même dos
 de prise de vue que la douche. Catégorie **Salle de bain**, légende « Salle de bain, double
 lavabo et miroir ». Une étiquette de produit de magasin est visible sur l'« avant » : rien de
 personnel. **Commune toujours à demander à Sergiu.**
+
+### Puis : une terrasse de jardin, commune inconnue (même jour)
+
+Deux photos envoyées par Claudiu, dossier « Carrelage sur plusieurs endroits » (WhatsApp
+`10.58.45 (6)` avant, `10.59.07 (1)` après) : sol en terre et caniveau posé, puis grandes
+dalles grises. Même coin (mur blanchi, mur en pierre, caniveau). Nouveau fichier
+`src/content/projets/terrasse-jardin-carrelage.yaml`, catégorie **Terrasse**, rangée sous
+**Terrasses et jardins**. Pas lié à la salle de bain du même dossier (rien ne le prouve).
+**Commune à demander à Sergiu.**
