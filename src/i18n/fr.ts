@@ -87,7 +87,7 @@ export const fr = {
         allee: 'l’allée',
         electricite: 'l’électricité',
         'peinture-finitions': 'la peinture',
-        'maconnerie-facades': 'murs & façades',
+        'maconnerie-extensions': 'la maçonnerie',
       },
       defiler: 'Défiler',
     },

@@ -134,19 +134,19 @@ const tousLesServices: Service[] = [
     },
   },
   {
-    slug: 'maconnerie-facades',
-    nom: { fr: 'Maçonnerie & façades', nl: 'Metselwerk & gevels' },
+    slug: 'maconnerie-extensions',
+    nom: { fr: 'Maçonnerie & extensions', nl: 'Metselwerk & uitbreidingen' },
     phrase: {
-      fr: 'Gros œuvre, maçonnerie et rejointoiement',
-      nl: 'Ruwbouw, metselwerk en voegwerk',
+      fr: 'Gros œuvre, extensions et maçonnerie',
+      nl: 'Ruwbouw, uitbreidingen en metselwerk',
     },
     texte: {
-      fr: "Murs, ouvertures et façades. Le rejointoiement redonne son aspect à une façade et la protège de l'humidité",
-      nl: 'Muren, openingen en gevels. Voegwerk geeft een gevel zijn aanzien terug en beschermt hem tegen vocht',
+      fr: "Murs, ouvertures et agrandissements. Une extension commence par un gros œuvre solide, prêt pour la toiture et les finitions",
+      nl: 'Muren, openingen en uitbreidingen. Een uitbreiding begint met degelijke ruwbouw, klaar voor het dak en de afwerking',
     },
     exemples: {
-      fr: ['Murs et élévations', 'Rejointoiement', 'Ouvertures et linteaux', 'Nettoyage de façade'],
-      nl: ['Muren en opbouw', 'Voegwerk', 'Openingen en lateien', 'Gevelreiniging'],
+      fr: ['Extensions et agrandissements', 'Murs et élévations', 'Ouvertures et linteaux', 'Gros œuvre'],
+      nl: ['Uitbreidingen', 'Muren en opbouw', 'Openingen en lateien', 'Ruwbouw'],
     },
   },
   {
@@ -211,6 +211,21 @@ const NON_ENREGISTRES = ['electricite', 'peinture-finitions'];
 export const services = tousLesServices.filter((service) => !NON_ENREGISTRES.includes(service.slug));
 
 /** L'icône au trait de chaque service (voir src/components/Icon.astro). */
+/**
+ * Savoir-faire sans avant/après à montrer : affichés seulement sur la page
+ * À propos (« Ce que nous savons faire »), avec un lien vers le devis.
+ */
+export const autresSavoirFaire = [
+  {
+    nom: { fr: 'Façades', nl: 'Gevels' },
+    exemples: {
+      fr: ['Rejointoiement', 'Nettoyage de façade'],
+      nl: ['Voegwerk', 'Gevelreiniging'],
+    },
+    icone: 'brique',
+  },
+] as const;
+
 export const iconesServices = {
   'renovation-complete': 'maison',
   'salles-de-bain': 'bain',
@@ -219,7 +234,7 @@ export const iconesServices = {
   terrasses: 'terrasse',
   escaliers: 'escalier',
   toiture: 'toit',
-  'maconnerie-facades': 'brique',
+  'maconnerie-extensions': 'brique',
   plomberie: 'goutte',
   electricite: 'eclair',
   'peinture-finitions': 'rouleau',

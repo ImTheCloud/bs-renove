@@ -51,9 +51,9 @@ Plus une page 404 dans les deux langues.
 
 ## 5. Les 11 métiers (`src/data/services.ts`)
 
-Rénovation complète · Salles de bain · Cuisines · Carrelage · Terrasses et jardins · Escaliers · Toiture · Maçonnerie & façades · Plomberie · Électricité · Peinture et finitions.
+Rénovation complète · Salles de bain · Cuisines · Carrelage · Terrasses et jardins · Escaliers · Toiture · Maçonnerie & extensions · Plomberie · Électricité · Peinture et finitions.
 
-Page Services : une section par métier (texte, exemples de travaux, devis) avec l'avant/après où son travail se voit le mieux. L'Électricité montre une photo seule (le travail disparaît sous la chape).
+Page Services : une section par métier (texte, exemples de travaux, devis) avec l'avant/après où son travail se voit le mieux. L'Électricité montre une photo seule (le travail disparaît sous la chape). Les façades (rejointoiement, nettoyage) n'ont pas d'avant/après : elles figurent seulement sur la page À propos (`autresSavoirFaire`).
 
 ## 6. Réalisations : uniquement des avant/après
 

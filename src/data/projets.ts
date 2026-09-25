@@ -90,7 +90,7 @@ const CATEGORIES_PAR_SERVICE: Record<string, string[]> = {
   terrasses: ['exterieur', 'allee'],
   escaliers: ['escalier'],
   toiture: ['toiture', 'auvent'],
-  'maconnerie-facades': ['extension'],
+  'maconnerie-extensions': ['extension'],
   plomberie: ['egouttage'],
   'peinture-finitions': ['sejour', 'couloir'],
 };
@@ -104,7 +104,7 @@ const VITRINE_PAR_SERVICE: Record<string, string> = {
   'salles-de-bain': ID_VITRINE,
   carrelage: 'salle-de-bain-baignoire/apres-1',
   escaliers: 'renovation-woluwe-saint-pierre/chantier-26',
-  'maconnerie-facades': 'extension-maison/apres-1',
+  'maconnerie-extensions': 'extension-maison/apres-1',
 };
 
 /** Les avant/après d'un métier, sa vitrine en premier. */

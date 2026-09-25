@@ -10,7 +10,7 @@ import Icon from '../Icon.astro';
 import Methode from '../accueil/Methode.astro';
 import SectionDevis from '../accueil/SectionDevis.astro';
 import { lienDevis } from '~/data/entreprise';
-import { iconeService, services } from '~/data/services';
+import { autresSavoirFaire, iconeService, services } from '~/data/services';
 import { chemin, t, type Langue } from '~/i18n';
 
 interface Props {
@@ -62,6 +62,24 @@ const pourquoi = textes.accueil.pourquoi;
             <h3 class="capacite__nom">{service.nom[langue]}</h3>
             <ul class="capacite__liste">
               {service.exemples[langue].map((exemple) => (
+                <li>{exemple}</li>
+              ))}
+            </ul>
+          </a>
+        </li>
+      ))
+    }
+    {
+      autresSavoirFaire.map((savoir, index) => (
+        <li data-reveal style={`--delai: ${((services.length + index) % 4) * 70}ms`}>
+          <a class="capacite" href={lienDevis(langue)}>
+            <span class="capacite__haut">
+              <span class="capacite__icone"><Icon nom={savoir.icone} taille={26} /></span>
+              <span class="capacite__numero">{String(services.length + index + 1).padStart(2, '0')}</span>
+            </span>
+            <h3 class="capacite__nom">{savoir.nom[langue]}</h3>
+            <ul class="capacite__liste">
+              {savoir.exemples[langue].map((exemple) => (
                 <li>{exemple}</li>
               ))}
             </ul>

@@ -92,7 +92,7 @@ export const nl: Traductions = {
         allee: 'de oprit',
         electricite: 'de elektriciteit',
         'peinture-finitions': 'het schilderwerk',
-        'maconnerie-facades': 'muren & gevels',
+        'maconnerie-extensions': 'het metselwerk',
       },
       defiler: 'Scrollen',
     },
