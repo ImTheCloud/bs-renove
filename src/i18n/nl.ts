@@ -159,13 +159,6 @@ export const nl: Traductions = {
       ],
     },
 
-    projets: {
-      surtitre: 'Realisaties',
-      titreDebut: 'Werven,',
-      titreSerif: 'geen beloftes.',
-      voirTout: 'Alle realisaties',
-      aide: 'Versleep de lijn om te vergelijken',
-    },
 
     faq: {
       surtitre: 'Veelgestelde vragen',

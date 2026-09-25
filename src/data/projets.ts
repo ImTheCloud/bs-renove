@@ -58,15 +58,11 @@ const trouver = (paires: Paire[], id: string) => paires.find((paire) => paire.id
 /** La comparaison en grand sur l'accueil, pilotée par le défilement. */
 const ID_VITRINE = 'salle-de-bain-watermael-boitsfort/apres-1';
 
-/** La bande « réalisations » de l'accueil, dans cet ordre. */
+/** Les 3 avant/après sous la vitrine de l'accueil (4 en tout), des métiers différents. */
 const IDS_ACCUEIL = [
   'extension-maison/apres-1',
-  'renovation-woluwe-saint-pierre/detail-1',
-  'renovation-interieure-ostende/apres-1',
-  'renovation-woluwe-saint-pierre/chantier-26',
-  'renovation-woluwe-saint-pierre/detail-3',
   'toiture-woluwe-saint-pierre/detail-1',
-  'renovation-woluwe-saint-pierre/detail-5',
+  'renovation-parquet-menuiseries/detail-3',
 ];
 
 export async function paireVitrine(): Promise<Paire | undefined> {

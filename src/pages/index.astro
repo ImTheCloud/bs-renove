@@ -5,7 +5,6 @@ import Faq from '~/components/accueil/Faq.astro';
 import Hero from '~/components/accueil/Hero.astro';
 import Methode from '~/components/accueil/Methode.astro';
 import Metiers from '~/components/accueil/Metiers.astro';
-import Projets from '~/components/accueil/Projets.astro';
 import SectionDevis from '~/components/accueil/SectionDevis.astro';
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import { t } from '~/i18n';
@@ -20,7 +19,6 @@ const page = t(langue).pages.accueil;
   <AvantApres langue={langue} />
   <Metiers langue={langue} />
   <Methode langue={langue} />
-  <Projets langue={langue} />
   <Faq langue={langue} />
   <SectionDevis langue={langue} />
 </BaseLayout>

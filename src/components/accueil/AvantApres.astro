@@ -1,11 +1,13 @@
 ---
 /**
- * L'avant/après en vitrine sur l'accueil : la salle de bain de
- * Watermael-Boitsfort, avec un curseur qu'on fait glisser soi-même.
+ * Les avant/après de l'accueil : la salle de bain de Watermael-Boitsfort
+ * en grand, puis 3 autres chantiers dessous (4 en tout). Les curseurs se
+ * font glisser à la main ; la suite est sur la page Réalisations.
  */
 import Bouton from '../Bouton.astro';
 import CurseurAvantApres from '../CurseurAvantApres.astro';
-import { paireVitrine } from '~/data/projets';
+import GrilleAvantApres from '../GrilleAvantApres.astro';
+import { pairesAccueil, paireVitrine } from '~/data/projets';
 import { chemin, t, type Langue } from '~/i18n';
 
 interface Props {
@@ -16,6 +18,7 @@ const { langue } = Astro.props;
 const textes = t(langue);
 const bloc = textes.accueil.avantApres;
 const vitrine = await paireVitrine();
+const autres = await pairesAccueil();
 ---
 
 {
@@ -57,6 +60,12 @@ const vitrine = await paireVitrine();
             </p>
           </div>
         </div>
+
+        {autres.length > 0 && (
+          <div class="wrap aa__autres">
+            <GrilleAvantApres langue={langue} paires={autres} />
+          </div>
+        )}
     </section>
   )
 }
@@ -112,6 +121,17 @@ const vitrine = await paireVitrine();
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+  }
+
+  .aa__autres {
+    margin-top: 72px;
+  }
+
+  /* Les 3 autres avant/après sur une seule ligne dès la tablette. */
+  @media (min-width: 700px) {
+    .aa__autres :global(.grille) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
   }
 
   .aa__visuel {

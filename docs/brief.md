@@ -41,13 +41,12 @@ Plus une page 404 dans les deux langues.
 1. **En-tête flottant** : logo, Services, Réalisations, À propos, Contact, FR/NL, « Demander un devis ». Mobile : bouton « Menu » (plein écran) et dock en bas (Appeler, WhatsApp, Devis).
 2. **Hero** : « Votre maison, *refaite* de A à Z. », texte, « Demander un devis gratuit », **12 ans de métier** en grand. À droite, la **maison dessinée en coupe** : chaque pièce mène à son métier ou à ses avant/après ; mode nuit au clic sur le soleil. Dessous : les 11 métiers en pastilles.
 3. **Bandeau** qui défile (les métiers).
-4. **Avant/après en vitrine** (salle de bain de Watermael-Boitsfort), curseur à faire glisser soi-même.
+4. **Avant/après** : la salle de bain de Watermael-Boitsfort en grand, puis 3 autres chantiers dessous (extension, toiture, séjour) : 4 en tout, curseurs à faire glisser soi-même. La suite est sur la page Réalisations.
 5. **Nos métiers** : liste des 11 métiers.
-6. **Chapitre sombre** : chiffres (12 ans · 30+ chantiers · 11 métiers · devis gratuit), puis « Comment ça se passe » en 4 étapes.
-7. **Réalisations** : grille de curseurs avant/après, la même que la page Réalisations (7 paires sur ordinateur, 4 sur téléphone).
-8. **FAQ** : 4 questions.
-9. **Devis** : contacts directs et formulaire.
-10. **Pied de page** : bande « rubalise » jaune, appel au devis, colonnes d'infos, mentions légales.
+6. **Chapitre sombre** : chiffres (12 ans · 11 métiers · devis gratuit), puis « Comment ça se passe » en 4 étapes.
+7. **FAQ** : 4 questions.
+8. **Devis** : contacts directs et formulaire.
+9. **Pied de page** : bande « rubalise » jaune, appel au devis, colonnes d'infos, mentions légales.
 
 ## 5. Les 11 métiers (`src/data/services.ts`)
 

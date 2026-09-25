@@ -154,13 +154,6 @@ export const fr = {
       ],
     },
 
-    projets: {
-      surtitre: 'Réalisations',
-      titreDebut: 'Des chantiers,',
-      titreSerif: 'pas des promesses.',
-      voirTout: 'Toutes les réalisations',
-      aide: 'Faites glisser le trait pour comparer',
-    },
 
     faq: {
       surtitre: 'Questions fréquentes',
