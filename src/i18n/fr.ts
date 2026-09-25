@@ -166,12 +166,28 @@ export const fr = {
           r: 'Nous sommes basés à Denderleeuw et nous intervenons dans toute la Belgique.',
         },
         {
-          q: 'Le devis est-il payant ?',
-          r: 'Non, le devis est gratuit et détaillé. Pour le préparer, le plus utile est de nous décrire les travaux et, si possible, de nous envoyer quelques photos.',
+          q: "Le devis est-il gratuit ?",
+          r: "Oui, le devis est gratuit, détaillé et sans engagement. Pour le préparer, le plus utile est de nous décrire les travaux et, si possible, de nous envoyer quelques photos.",
+        },
+        {
+          q: "Combien coûte une rénovation ?",
+          r: "Chaque chantier est différent : le prix dépend des travaux, des surfaces et des matériaux choisis. C’est pour ça que nous faisons un devis détaillé, gratuit, pour votre projet.",
+        },
+        {
+          q: "Pouvez-vous faire un seul type de travaux ?",
+          r: "Oui. Une salle de bain, une toiture, un escalier… ou toute la maison : nous prenons aussi bien un seul métier qu’un chantier complet.",
         },
         {
           q: 'Faut-il plusieurs entreprises pour une rénovation complète ?',
           r: 'Non. BS Renove est une entreprise générale : nous coordonnons tous les corps de métier, en interne ou avec nos indépendants.',
+        },
+        {
+          q: "Comment se passe un chantier avec vous ?",
+          r: "Vous nous racontez votre projet, nous regardons ensemble ce que vous voulez et l’état des lieux, vous recevez un devis détaillé, puis nous suivons le chantier jusqu’à la dernière finition.",
+        },
+        {
+          q: "Combien de temps durent les travaux ?",
+          r: "Cela dépend de l’ampleur du chantier. Nous en parlons avec vous au moment du devis, pour que vous sachiez à quoi vous attendre.",
         },
         {
           q: 'Comment vous envoyer des photos de mon chantier ?',

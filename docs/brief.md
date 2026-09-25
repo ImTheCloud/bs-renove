@@ -44,7 +44,7 @@ Plus une page 404 dans les deux langues.
 4. **Avant/après** : la salle de bain de Watermael-Boitsfort en grand, puis 3 autres chantiers dessous (extension, toiture, séjour) : 4 en tout, curseurs à faire glisser soi-même. La suite est sur la page Réalisations.
 5. **Nos métiers** : liste des 11 métiers.
 6. **Chapitre sombre** : chiffres (12 ans · 11 métiers · devis gratuit), puis « Comment ça se passe » en 4 étapes.
-7. **FAQ** : 4 questions.
+7. **FAQ** : 8 questions.
 8. **Devis** : contacts directs et formulaire.
 9. **Pied de page** : bande « rubalise » jaune, appel au devis, colonnes d'infos, mentions légales.
 

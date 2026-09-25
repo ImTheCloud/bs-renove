@@ -171,12 +171,28 @@ export const nl: Traductions = {
           r: 'Wij zijn gevestigd in Denderleeuw en werken in heel België.',
         },
         {
-          q: 'Is de offerte betalend?',
-          r: 'Nee, de offerte is gratis en gedetailleerd. Om ze op te maken helpt het vooral als u de werken beschrijft en, indien mogelijk, een paar foto’s stuurt.',
+          q: "Is de offerte gratis?",
+          r: "Ja, de offerte is gratis, gedetailleerd en vrijblijvend. Om ze op te maken helpt het vooral als u de werken beschrijft en, indien mogelijk, een paar foto’s stuurt.",
+        },
+        {
+          q: "Hoeveel kost een renovatie?",
+          r: "Elke werf is anders: de prijs hangt af van de werken, de oppervlakte en de gekozen materialen. Daarom maken wij een gedetailleerde, gratis offerte voor uw project.",
+        },
+        {
+          q: "Kunt u ook één soort werk doen?",
+          r: "Ja. Een badkamer, een dak, een trap… of het hele huis: wij nemen zowel één vak als een volledige werf aan.",
         },
         {
           q: 'Heb ik meerdere aannemers nodig voor een volledige renovatie?',
           r: 'Nee. BS Renove is een algemene aannemer: wij coördineren alle vakmensen, intern of met onze zelfstandigen.',
+        },
+        {
+          q: "Hoe verloopt een werf bij u?",
+          r: "U vertelt ons over uw project, samen bekijken we wat u wilt en de huidige toestand, u krijgt een gedetailleerde offerte, en wij volgen de werf op tot de laatste afwerking.",
+        },
+        {
+          q: "Hoe lang duren de werken?",
+          r: "Dat hangt af van de omvang van de werf. We bespreken het met u bij de offerte, zodat u weet wat u kunt verwachten.",
         },
         {
           q: 'Hoe stuur ik foto’s van mijn werf?',

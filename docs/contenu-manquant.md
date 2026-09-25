@@ -33,7 +33,7 @@ Ces avant/après s'affichent avec « Belgique ». Remplacer `[À CONFIRMER : com
 
 - Métiers ajoutés pendant la refonte : **Escaliers**, **Terrasses et jardins**, **Plomberie** ; **Peinture et finitions** mentionne maintenant le parquet ; exemples du **Carrelage** (« Salles de bain et cuisines ») et des **Terrasses** (« Allées et pavage »).
 - « Comment ça se passe » : « sur place si c'est nécessaire » (étape 2) et « sans engagement » (étape 3).
-- Les 4 questions de la FAQ.
+- Les 8 questions de la FAQ (surtout « Combien coûte une rénovation ? », « Un seul type de travaux ? » et « Combien de temps durent les travaux ? »).
 - Toutes les légendes des avant/après (`legende` dans les fichiers de chantier).
 
 ## 4. À vérifier avec Sergiu
