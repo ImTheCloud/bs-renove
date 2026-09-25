@@ -1,7 +1,7 @@
 ---
 /**
- * Une grille de curseurs avant/après, avec pour chacun la pièce, la commune
- * et la légende. Utilisée sur l'accueil et sur la page Réalisations.
+ * Une grille de curseurs avant/après, avec au-dessus de chacun la pièce, la commune
+ * et la légende (le titre d'abord, puis la photo). Utilisée sur l'accueil et sur la page Réalisations.
  * Les paires horizontales prennent deux colonnes, à la même hauteur que les verticales.
  */
 import CurseurAvantApres from './CurseurAvantApres.astro';
@@ -21,12 +21,12 @@ const { langue, paires } = Astro.props;
   {
     paires.map((paire) => (
       <figure class:list={['paire', { 'paire--paysage': paire.paysage }]} data-categorie={paire.categorie}>
-        <CurseurAvantApres langue={langue} paire={paire} sizes="(min-width: 1100px) 30vw, (min-width: 700px) 46vw, 92vw" />
         <figcaption class="paire__legende">
           <span class="paire__categorie">{nomCategorie(paire.categorie, langue)}</span>
           <span class="paire__commune">{paire.commune[langue]}</span>
           <span class="paire__texte">{paire.legende[langue]}</span>
         </figcaption>
+        <CurseurAvantApres langue={langue} paire={paire} sizes="(min-width: 1100px) 30vw, (min-width: 700px) 46vw, 92vw" />
       </figure>
     ))
   }
@@ -40,7 +40,11 @@ const { langue, paires } = Astro.props;
     container-type: inline-size;
   }
 
+  /* La légende en haut peut faire 1 ou 2 lignes : la photo se cale en bas, pour que les photos d'une même ligne restent alignées. */
   .paire {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
     margin: 0;
   }
 
@@ -53,7 +57,7 @@ const { langue, paires } = Astro.props;
     flex-wrap: wrap;
     align-items: center;
     gap: 6px 12px;
-    padding-top: 14px;
+    padding-bottom: 14px;
   }
 
   .paire__categorie {

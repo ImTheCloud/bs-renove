@@ -41,7 +41,7 @@ Plus une page 404 dans les deux langues.
 1. **En-tête flottant** : logo, Services, Réalisations, À propos, Contact, FR/NL, « Demander un devis ». Mobile : bouton « Menu » (plein écran) et dock en bas (Appeler, WhatsApp, Devis).
 2. **Hero** : « Votre maison, *refaite* de A à Z. », texte, « Demander un devis gratuit » (ordinateur seulement : sur téléphone, le dock du bas le propose), **12 ans de métier** en grand (« de notre gérant, Sergiu Bivol »), puis la note « **B** comme Bivol, **S** comme Sergiu : d’où BS Renove ». Pas de surtitre. Sur téléphone, le texte d’abord, la maison dessous. À droite, la **maison dessinée en coupe** : chaque pièce mène à son métier ou à ses avant/après ; mode nuit au clic sur le soleil. Dessous : les 11 métiers en pastilles.
 3. **Bandeau** qui défile (les métiers).
-4. **Avant/après** : la salle de bain de Watermael-Boitsfort en grand, puis 3 autres chantiers dessous (extension, toiture, séjour) : 4 en tout, curseurs à faire glisser soi-même. La suite est sur la page Réalisations.
+4. **Avant/après** : la salle de bain de Watermael-Boitsfort en grand, puis 3 autres chantiers dessous (extension, toiture, cuisine) : 4 en tout, curseurs à faire glisser soi-même. La suite est sur la page Réalisations.
 5. **Nos métiers** : liste des 11 métiers.
 6. **Chapitre sombre** : chiffres (12 ans · 11 métiers · devis gratuit), puis « Comment ça se passe » en 4 étapes.
 7. **FAQ** : 8 questions.

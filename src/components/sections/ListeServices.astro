@@ -47,6 +47,12 @@ const pairesParService = await Promise.all(services.map((service) => pairesDuSer
       const paire = paires[0];
       return (
         <section id={service.slug} class:list={['service', { 'service--inverse': index % 2 === 1 }]} aria-labelledby={`titre-${service.slug}`}>
+          <div class="service__texte service__entete">
+            <span class="service__num">{String(index + 1).padStart(2, '0')} / {String(services.length).padStart(2, '0')}</span>
+            <h2 id={`titre-${service.slug}`}>{service.nom[langue]}</h2>
+            <p class="service__intro">{service.texte[langue]}</p>
+          </div>
+
           <div class="service__visuel" data-reveal>
             {paire ? (
               <figure class:list={['service__comparaison', { 'service__comparaison--paysage': paire.paysage }]}>
@@ -78,11 +84,7 @@ const pairesParService = await Promise.all(services.map((service) => pairesDuSer
             )}
           </div>
 
-          <div class="service__texte">
-            <span class="service__num">{String(index + 1).padStart(2, '0')} / {String(services.length).padStart(2, '0')}</span>
-            <h2 id={`titre-${service.slug}`}>{service.nom[langue]}</h2>
-            <p class="service__intro">{service.texte[langue]}</p>
-
+          <div class="service__texte service__detail">
             <div class="service__exemples">
               <span class="service__exemples-titre">{bloc.exemplesTitre}</span>
               <ul>
@@ -154,9 +156,10 @@ const pairesParService = await Promise.all(services.map((service) => pairesDuSer
     flex-direction: column;
   }
 
+  /* Téléphone : le titre d'abord, puis la photo, puis le détail. */
   .service {
     display: grid;
-    gap: 32px;
+    gap: 28px;
     padding-block: 56px;
     border-top: 1px solid var(--color-border);
     scroll-margin-top: calc(var(--header-h) + 8px);
@@ -323,15 +326,39 @@ const pairesParService = await Promise.all(services.map((service) => pairesDuSer
   }
 
   @media (min-width: 1024px) {
+    /* Ordinateur : la photo sur un côté, le titre et le détail de l'autre, centrés en hauteur. */
     .service {
       grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-      align-items: center;
-      gap: 72px;
+      grid-template-rows: 1fr auto auto 1fr;
+      grid-template-areas:
+        'visuel .'
+        'visuel entete'
+        'visuel detail'
+        'visuel .';
+      gap: 0 72px;
       padding-block: 96px;
     }
 
-    .service--inverse .service__visuel {
-      order: 2;
+    .service--inverse {
+      grid-template-areas:
+        '. visuel'
+        'entete visuel'
+        'detail visuel'
+        '. visuel';
+    }
+
+    .service__visuel {
+      grid-area: visuel;
+      align-self: center;
+    }
+
+    .service__entete {
+      grid-area: entete;
+    }
+
+    .service__detail {
+      grid-area: detail;
+      margin-top: 18px;
     }
   }
 </style>

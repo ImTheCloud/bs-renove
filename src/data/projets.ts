@@ -62,7 +62,7 @@ const ID_VITRINE = 'salle-de-bain-watermael-boitsfort/apres-1';
 const IDS_ACCUEIL = [
   'extension-maison/apres-1',
   'toiture-woluwe-saint-pierre/detail-1',
-  'renovation-parquet-menuiseries/detail-3',
+  'renovation-woluwe-saint-pierre/detail-3',
 ];
 
 export async function paireVitrine(): Promise<Paire | undefined> {

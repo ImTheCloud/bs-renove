@@ -132,6 +132,16 @@ const autres = await pairesAccueil();
     .aa__autres :global(.grille) {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
+
+    /* Ici, même une photo horizontale prend une seule case, au même format que les autres. */
+    .aa__autres :global(.paire--paysage) {
+      grid-column: auto;
+    }
+
+    .aa__autres :global(.paire--paysage .curseur) {
+      height: auto;
+      aspect-ratio: 3 / 4;
+    }
   }
 
   .aa__visuel {
