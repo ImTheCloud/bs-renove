@@ -64,6 +64,8 @@ const paires = await pairesAccueil();
                         style={`object-position: ${paire.cadrageAvant}`}
                         alt={`${aa.avant} : ${paire.legende[langue]}`}
                         widths={[400, 640, 880]}
+                        width={880}
+                        quality={70}
                         sizes={paire.paysage ? "(min-width: 1024px) 50vw, 92vw" : "(min-width: 1024px) 30vw, 78vw"}
                         loading="lazy"
                       />
@@ -74,6 +76,8 @@ const paires = await pairesAccueil();
                         style={`object-position: ${paire.cadrageApres}`}
                         alt={`${aa.apres} : ${paire.legende[langue]}`}
                         widths={[400, 640, 880]}
+                        width={880}
+                        quality={70}
                         sizes={paire.paysage ? "(min-width: 1024px) 50vw, 92vw" : "(min-width: 1024px) 30vw, 78vw"}
                         loading="lazy"
                       />

@@ -18,7 +18,7 @@ const { surFonce = false } = Astro.props;
 ---
 
 <span class:list={['logo', { 'logo--fonce': surFonce }]}>
-  <Image src={icone} alt="" height={64} class="logo__icone logo__icone--jour" />
+  <Image src={icone} alt="" height={64} loading="eager" class="logo__icone logo__icone--jour" />
   <Image src={iconeNuit} alt="" height={64} class="logo__icone logo__icone--nuit" />
   <span class="logo__nom" aria-hidden="true">
     <span class="logo__bs">BS</span>{' '}<span class="logo__renove">Renove</span>

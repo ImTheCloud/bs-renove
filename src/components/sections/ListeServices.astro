@@ -62,6 +62,8 @@ const pairesParService = await Promise.all(services.map((service) => pairesDuSer
                   src={photoSeuleParService[service.slug]!.image}
                   alt={photoSeuleParService[service.slug]!.legende[langue]}
                   widths={[400, 700, 1000]}
+                  width={1000}
+                  quality={70}
                   sizes="(min-width: 1024px) 30vw, 90vw"
                   loading="lazy"
                 />

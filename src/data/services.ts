@@ -1,10 +1,10 @@
 /**
- * Les 8 services, source : docs/brief.md § 6.
+ * Les 11 métiers, source : docs/brief.md § 5.
  * Servent à l'accueil et à la page Services.
  *
  * Les textes décrivent le métier, pas l'entreprise : aucune promesse,
  * aucun chiffre, aucune garantie. Tout cela reste à faire valider par le
- * client, et les textes néerlandais par un natif (docs/contenu-manquant.md).
+ * client (docs/contenu-manquant.md).
  */
 import type { Langue } from '~/i18n';
 
