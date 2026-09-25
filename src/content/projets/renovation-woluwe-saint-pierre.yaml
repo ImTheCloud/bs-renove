@@ -30,8 +30,8 @@ avantApres:
   - avant: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-22.jpg
     apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-2.jpg
     legende:
-      fr: Séjour : parquet posé, murs et plafond repeints
-      nl: Woonkamer: parket gelegd, muren en plafond geschilderd
+      fr: "Séjour : parquet posé, murs et plafond repeints"
+      nl: "Woonkamer: parket gelegd, muren en plafond geschilderd"
     categorie: sejour
   - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-3.jpg
     apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-3.jpg
