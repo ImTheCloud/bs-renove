@@ -26,7 +26,7 @@ Objectif : qu'un propriétaire qui arrive sur le site ait confiance et prenne co
 
 ## Stack
 
-- **Astro** (sortie statique, TypeScript), déployé depuis Git (Cloudflare Pages ou Netlify).
+- **Astro** (sortie statique, TypeScript), déployé depuis GitHub sur **Netlify** (`netlify.toml`). Domaine `bsrenovesrl.com` acheté chez Wix.
 - **CSS** : variables dans `src/styles/tokens.css` + styles scoped des composants. Pas de framework CSS.
 - **Langues** : FR par défaut sans préfixe (`/`), NL sous `/nl/`. Textes dans `src/i18n/fr.ts` et `nl.ts` (même structure). Le sélecteur FR/NL mène à la même page dans l'autre langue.
 - **Réalisations** : content collection `projets` (un fichier YAML par chantier), logique dans `src/data/projets.ts`.

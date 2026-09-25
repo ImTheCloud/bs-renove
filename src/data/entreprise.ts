@@ -35,8 +35,8 @@ export const entreprise = {
   /** Expérience personnelle du gérant (confirmée le 22 septembre 2026), pas l'âge de l'entreprise. */
   anneesExperience: 12,
 
-  /** À renseigner au déploiement (ex. « Cloudflare, Inc. ») : la mention s'affiche alors. */
-  hebergeur: null as string | null,
+  /** L'hébergeur du site, affiché dans les mentions légales (null = mention masquée). */
+  hebergeur: 'Netlify, Inc., San Francisco (USA) · www.netlify.com' as string | null,
 } as const;
 
 /** Adresse sur une ligne, pour le pied de page. */

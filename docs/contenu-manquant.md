@@ -7,7 +7,7 @@ Liste à jour après la refonte et le nettoyage du 25 septembre 2026. L'historiq
 | Quoi | Où | Action |
 |---|---|---|
 | **Domaine** `bsrenovesrl.com` (acheté chez Wix, avec un forfait Premium Essentiel) | à brancher sur l'hébergeur ; couper le renouvellement du forfait Wix | `SITE` dans `astro.config.mjs` et `robots.txt` déjà à jour |
-| **Clé Web3Forms** | `.env` (`WEB3FORMS_KEY=…`) et chez l'hébergeur | à recréer ; sans clé, le formulaire ouvre un email pré-rempli |
+| **Clé Web3Forms** | `.env` (fait, en local) et dans Netlify (Environment variables) | compte de Claudiu ; ajouter l'email de Sergiu comme destinataire (Linked Emails + Settings) |
 | **« 30+ chantiers terminés »** | chiffres de l'accueil (`accueil.chiffres` dans `src/i18n/fr.ts` et `nl.ts`) | valeur donnée par Claudiu, à confirmer par Sergiu |
 | **Relecture des textes juridiques** | pages Mentions légales et Vie privée (`[À RELIRE]`) | par Sergiu ou son comptable ; RPM/RPR (« RPM Gand, division Dendermonde » ?) et nom de l'hébergeur à ajouter |
 
@@ -54,6 +54,6 @@ Ces avant/après s'affichent avec « Belgique ». Remplacer `[À CONFIRMER : com
 
 ## 6. Technique
 
-- **Page 404 néerlandaise** : l'hébergeur ne sert qu'une seule 404 par défaut ; à configurer au déploiement.
+- **Page 404 néerlandaise** : réglée dans `netlify.toml` (tout ce qui commence par `/nl/`).
 - **Mesure Lighthouse** à faire une fois le site en ligne.
 - Le dossier d'origine « Rénovation Avenue manoir d'anjou » n'est plus dans Téléchargements (photos de Woluwe déjà importées, rien de perdu sur le site).

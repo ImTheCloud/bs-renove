@@ -58,4 +58,4 @@ La paire apparaît automatiquement sur la page Réalisations et dans le métier 
 
 ## Formulaire de devis
 
-Envoi par Web3Forms : mettre la clé dans `.env` (`WEB3FORMS_KEY=…`) et chez l'hébergeur. Sans clé, le formulaire ouvre la messagerie du visiteur avec la demande déjà écrite.
+Envoi par Web3Forms : mettre la clé dans `.env` (`WEB3FORMS_KEY=…`) et dans Netlify (Project configuration → Environment variables). Sans clé, le formulaire ouvre la messagerie du visiteur avec la demande déjà écrite.
