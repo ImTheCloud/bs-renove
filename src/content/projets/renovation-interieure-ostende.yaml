@@ -34,12 +34,12 @@ avantApres:
       nl: "Dak: afbraak en werken in uitvoering"
     categorie: toiture
     enCours: true
-  - avant: ../../assets/projets/renovation-interieure-ostende/chantier-4.jpg
+  - avant: ../../assets/projets/renovation-interieure-ostende/avant-1.jpg
     apres: ../../assets/projets/renovation-interieure-ostende/detail-1.jpg
     legende:
-      fr: Douche, avant carrelage et terminée
-      nl: Douche, voor het tegelwerk en afgewerkt
-    categorie: salle-de-bain
+      fr: Douche à l'italienne, de l'ossature au carrelage
+      nl: Inloopdouche, van het skelet tot de tegels
+    categorie: douche
 galerie:
   - image: ../../assets/projets/renovation-interieure-ostende/detail-7.jpg
     alt:

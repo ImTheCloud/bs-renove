@@ -1019,3 +1019,13 @@ endroit**.
   dans Escaliers et remplace l'escalier du garage dans la bande de l'accueil. Sa légende dit
   désormais « avant et après » : **à confirmer par Sergiu que la photo montre bien le travail
   fini** (sinon remettre `enCours: true`).
+
+### Puis : la douche d'Ostende (même jour)
+
+Correction de Claudiu : le vrai « avant » de la douche d'Ostende est l'ossature métallique avec
+les arrivées d'eau (original `WhatsApp Image 2026-09-20 at 11.48.38 (2).jpeg` du dossier
+« Rénovation intérieur Molenstraat oostende »), importée en `avant-1.jpg` (réencodée, sans
+métadonnées). Un ouvrier y est visible de dos, sans visage : c'est l'équipe, pas le client.
+Nouvelle catégorie **Douche** (rangée sous Salles de bain) ; légende « Douche à l'italienne,
+de l'ossature au carrelage ». L'ancien « avant » (`chantier-4`, panneaux d'étanchéité) reste
+dans les fichiers, non affiché.
