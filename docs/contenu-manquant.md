@@ -1029,3 +1029,14 @@ métadonnées). Un ouvrier y est visible de dos, sans visage : c'est l'équipe, 
 Nouvelle catégorie **Douche** (rangée sous Salles de bain) ; légende « Douche à l'italienne,
 de l'ossature au carrelage ». L'ancien « avant » (`chantier-4`, panneaux d'étanchéité) reste
 dans les fichiers, non affiché.
+
+### Puis : auvent et couloir (même jour)
+
+Corrections de Claudiu sur deux avant/après de Woluwe-Saint-Pierre :
+- l'« Auvent » n'est pas une toiture au sens classique mais la petite toiture au-dessus de la
+  porte d'entrée : nouvelle catégorie **Auvent** (toujours rangée sous le métier Toiture, après
+  la vraie toiture), légende « Petite toiture au-dessus de la porte d'entrée » ;
+- la « Chambre » est en fait un couloir, et la photo montre la **pose du parquet** (pas la
+  finition des murs) : nouvelle catégorie **Couloir** (rangée sous Peinture et finitions, qui
+  couvre le parquet), légende « Couloir, pose du parquet ». La catégorie Chambre n'est plus
+  utilisée (elle disparaît des filtres).

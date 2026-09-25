@@ -96,10 +96,10 @@ const CATEGORIES_PAR_SERVICE: Record<string, string[]> = {
   carrelage: [],
   terrasses: ['exterieur'],
   escaliers: ['escalier'],
-  toiture: ['toiture'],
+  toiture: ['toiture', 'auvent'],
   'maconnerie-facades': ['facade'],
   electricite: [],
-  'peinture-finitions': ['sejour', 'chambre'],
+  'peinture-finitions': ['sejour', 'chambre', 'couloir'],
 };
 
 /** Les paires à montrer en premier dans leur métier (la vitrine, l'escalier principal). */

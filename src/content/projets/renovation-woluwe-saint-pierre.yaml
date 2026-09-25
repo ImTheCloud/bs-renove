@@ -36,9 +36,9 @@ avantApres:
   - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-3.jpg
     apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-3.jpg
     legende:
-      fr: Auvent au-dessus de la porte d'entrée
-      nl: Luifel boven de voordeur
-    categorie: toiture
+      fr: Petite toiture au-dessus de la porte d'entrée
+      nl: Klein dakje boven de voordeur
+    categorie: auvent
   - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-4.jpg
     apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-4.jpg
     legende:
@@ -85,9 +85,9 @@ avantApres:
   - avant: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-20.jpg
     apres: ../../assets/projets/renovation-woluwe-saint-pierre/detail-16.jpg
     legende:
-      fr: Chambre, chantier et parquet terminé
-      nl: Slaapkamer, werken en afgewerkt parket
-    categorie: chambre
+      fr: Couloir, pose du parquet
+      nl: Gang, plaatsing van het parket
+    categorie: couloir
 galerie:
   - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-1.jpg
     alt:

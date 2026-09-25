@@ -20,9 +20,11 @@ export const categories: Categorie[] = [
   { slug: 'cuisine', nom: { fr: 'Cuisine', nl: 'Keuken' } },
   { slug: 'sejour', nom: { fr: 'Séjour', nl: 'Woonkamer' } },
   { slug: 'chambre', nom: { fr: 'Chambre', nl: 'Slaapkamer' } },
+  { slug: 'couloir', nom: { fr: 'Couloir', nl: 'Gang' } },
   { slug: 'toilette', nom: { fr: 'Toilette', nl: 'Toilet' } },
   { slug: 'escalier', nom: { fr: 'Escalier', nl: 'Trap' } },
   { slug: 'toiture', nom: { fr: 'Toiture', nl: 'Dak' } },
+  { slug: 'auvent', nom: { fr: 'Auvent', nl: 'Luifel' } },
   { slug: 'facade', nom: { fr: 'Façade', nl: 'Gevel' } },
   { slug: 'exterieur', nom: { fr: 'Terrasse', nl: 'Terras' } },
 ];
