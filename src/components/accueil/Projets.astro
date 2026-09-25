@@ -48,7 +48,7 @@ const paires = await pairesAccueil();
           <ul class="projets__piste" data-piste>
             {paires.map((paire, i) => {
               const piece = nomCategorie(paire.categorie, langue) ?? '';
-              const titre = paire.commune ? `${piece} · ${paire.commune[langue]}` : piece;
+              const titre = `${piece} · ${paire.commune[langue]}`;
               return (
                 <li class:list={['carte', { 'carte--paysage': paire.paysage }]}>
                   <button
@@ -86,7 +86,7 @@ const paires = await pairesAccueil();
                     <span class="carte__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
                     <span class="carte__infos">
                       <span class="carte__service">{piece}</span>
-                      {paire.commune && <span class="carte__commune">{paire.commune[langue]}</span>}
+                      <span class="carte__commune">{paire.commune[langue]}</span>
                     </span>
                   </button>
                 </li>

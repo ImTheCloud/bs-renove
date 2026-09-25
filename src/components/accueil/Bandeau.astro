@@ -14,7 +14,7 @@ interface Props {
 const { langue } = Astro.props;
 const textes = t(langue);
 const metiers = services.map((service) => service.nom[langue]);
-const rubalise = [textes.entete.tagline, 'BS Renove', textes.accueil.hero.faits[1], 'BS Renove'];
+const rubalise = [textes.entete.tagline, 'BS Renove', textes.actions.gratuit, 'BS Renove'];
 ---
 
 <section class="bandeau" id="suite" aria-label={textes.accueil.bandeauAria}>

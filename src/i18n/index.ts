@@ -3,7 +3,6 @@ import { nl } from './nl';
 
 export type Langue = 'fr' | 'nl';
 
-export const LANGUE_PAR_DEFAUT: Langue = 'fr';
 export const LANGUES: Langue[] = ['fr', 'nl'];
 
 const traductions = { fr, nl } as const;
@@ -13,11 +12,6 @@ export function t(langue: Langue) {
   return traductions[langue];
 }
 
-/** Devine la langue à partir de l'adresse de la page. */
-export function langueDeUrl(url: URL): Langue {
-  const premierSegment = url.pathname.split('/').filter(Boolean)[0];
-  return premierSegment === 'nl' ? 'nl' : 'fr';
-}
 
 /**
  * Les adresses de chaque page dans les deux langues.

@@ -1,26 +1,8 @@
 # Photos envoyées par Claudiu, introuvables dans Téléchargements : commune inconnue (« Belgique »).
-titre:
-  fr: Petite toiture le long de la façade
-  nl: Klein dak langs de gevel
 commune:
   fr: "[À CONFIRMER : commune]"
   nl: "[TE BEVESTIGEN: gemeente]"
-service: toiture
 ordre: 14
-misEnAvant: false
-couvertureAlt:
-  fr: Petite toiture le long de la façade
-  nl: Klein dak langs de gevel
-recit:
-  fr:
-    depart: "[À CONFIRMER]"
-    travaux: "[À CONFIRMER]"
-    resultat: "[À CONFIRMER]"
-  nl:
-    depart: "[TE BEVESTIGEN]"
-    travaux: "[TE BEVESTIGEN]"
-    resultat: "[TE BEVESTIGEN]"
-galerie: []
 avantApres:
   - avant: ../../assets/projets/petite-toiture/avant-1.jpg
     apres: ../../assets/projets/petite-toiture/apres-1.jpg

@@ -1,36 +1,27 @@
-import type { ImageMetadata } from 'astro';
 /**
- * Les réalisations, vues comme des avant/après indépendants.
+ * Les réalisations : uniquement des avant/après indépendants.
  *
- * Il n'y a plus de page par chantier : chaque comparaison avant/après vit
- * seule, avec sa pièce et sa commune. Les fichiers de `src/content/projets/`
- * servent seulement à ranger les paires par chantier d'origine (et à donner
- * la commune) ; leurs autres photos et leur récit ne sont plus affichés.
+ * Chaque fichier de `src/content/projets/` range les paires d'un chantier et
+ * donne leur commune ; chaque paire est ensuite affichée seule, avec sa pièce.
+ * Une paire est désignée par « <chantier>/<nom de la photo après> ».
  */
-import { getCollection, type CollectionEntry } from 'astro:content';
-import { services } from './services';
+import type { ImageMetadata } from 'astro';
+import { getCollection } from 'astro:content';
 import gainesElectriques from '~/assets/projets/renovation-woluwe-saint-pierre/chantier-3.jpg';
 import type { Langue } from '~/i18n';
 
-export type Projet = CollectionEntry<'projets'>;
-type PaireBrute = Projet['data']['avantApres'][number];
-
 export interface Paire {
-  /** Identifiant stable : `<fichier du chantier>-<numéro de la paire>`. */
+  /** Identifiant stable : `<chantier>/<nom de la photo après>`, ex. `extension-maison/apres-1`. */
   id: string;
-  avant: NonNullable<PaireBrute['avant']>;
-  apres: NonNullable<PaireBrute['apres']>;
+  avant: ImageMetadata;
+  apres: ImageMetadata;
   legende: Record<Langue, string>;
   categorie: string;
-  /** Absente tant que la commune n'est pas confirmée : on n'affiche rien plutôt qu'un marqueur. */
-  commune?: Record<Langue, string>;
-  /**
-   * Vrai dès qu'une des deux photos est horizontale : la comparaison s'affiche
-   * alors en horizontal (4/3), sinon la photo horizontale serait coupée à une
-   * bande étroite au milieu.
-   */
+  /** La commune, ou « Belgique » tant qu'elle n'est pas confirmée. */
+  commune: Record<Langue, string>;
+  /** Une des deux photos est horizontale : la comparaison passe en 4/3 pour ne pas la couper. */
   paysage: boolean;
-  /** Le format du cadre, prêt pour `aspect-ratio`. */
+  /** Format du cadre, prêt pour `aspect-ratio`. */
   ratio: string;
   /** Position de départ de la poignée du curseur, en %. */
   depart: number;
@@ -39,67 +30,58 @@ export interface Paire {
   cadrageApres: string;
 }
 
-/**
- * Toutes les paires affichables : une vraie photo des deux côtés, et un
- * « après » qui montre un travail fini (les paires `enCours` sont masquées).
- */
+const BELGIQUE = { fr: 'Belgique', nl: 'België' };
+
+/** Le nom d'origine d'une image importée (« apres-1 ») : tout ce qui précède le premier point. */
+const nomFichier = (image: ImageMetadata) => image.src.split('/').pop()!.split('.')[0];
+
+/** Toutes les paires, dans l'ordre des chantiers. */
 export async function toutesLesPaires(): Promise<Paire[]> {
   const projets = (await getCollection('projets')).sort((a, b) => a.data.ordre - b.data.ordre);
-  const paires: Paire[] = [];
-  for (const projet of projets) {
-    const communeConnue = !projet.data.commune.fr.startsWith('[');
-    projet.data.avantApres.forEach((paire, index) => {
-      if (!paire.avant || !paire.apres || paire.enCours) return;
-      const paysage = [paire.avant, paire.apres].some((photo) => photo.width > photo.height);
-      paires.push({
+  return projets.flatMap((projet) => {
+    const commune = projet.data.commune.fr.startsWith('[') ? BELGIQUE : projet.data.commune;
+    return projet.data.avantApres.map((paire) => {
+      const paysage = paire.avant.width > paire.avant.height || paire.apres.width > paire.apres.height;
+      return {
+        ...paire,
+        id: `${projet.id}/${nomFichier(paire.apres)}`,
+        commune,
         paysage,
         ratio: paysage ? '4 / 3' : '3 / 4',
-        depart: paire.depart,
-        cadrageAvant: paire.cadrageAvant ?? '50% 50%',
-        cadrageApres: paire.cadrageApres ?? '50% 50%',
-        id: `${projet.id}-${index}`,
-        avant: paire.avant,
-        apres: paire.apres,
-        legende: paire.legende,
-        categorie: paire.categorie,
-        commune: communeConnue ? projet.data.commune : { fr: 'Belgique', nl: 'België' },
-      });
+      };
     });
-  }
-  return paires;
+  });
 }
 
-/** La comparaison en grand sur l'accueil : la plus spectaculaire. */
-const ID_VITRINE = 'salle-de-bain-watermael-boitsfort-0';
+const trouver = (paires: Paire[], id: string) => paires.find((paire) => paire.id === id);
 
-/** Celles de la bande « réalisations » de l'accueil, dans cet ordre. */
+/** La comparaison en grand sur l'accueil, pilotée par le défilement. */
+const ID_VITRINE = 'salle-de-bain-watermael-boitsfort/apres-1';
+
+/** La bande « réalisations » de l'accueil, dans cet ordre. */
 const IDS_ACCUEIL = [
-  'extension-maison-0',
-  'renovation-woluwe-saint-pierre-7',
-  'renovation-interieure-ostende-0',
-  'renovation-woluwe-saint-pierre-4',
-  'renovation-woluwe-saint-pierre-8',
-  'toiture-woluwe-saint-pierre-0',
-  'renovation-woluwe-saint-pierre-6',
-  'renovation-interieure-ostende-2',
-  'renovation-parquet-menuiseries-0',
+  'extension-maison/apres-1',
+  'renovation-woluwe-saint-pierre/detail-1',
+  'renovation-interieure-ostende/apres-1',
+  'renovation-woluwe-saint-pierre/chantier-26',
+  'renovation-woluwe-saint-pierre/detail-3',
+  'toiture-woluwe-saint-pierre/detail-1',
+  'renovation-woluwe-saint-pierre/detail-5',
+  'renovation-interieure-ostende/detail-1',
+  'renovation-parquet-menuiseries/detail-3',
 ];
 
 export async function paireVitrine(): Promise<Paire | undefined> {
   const paires = await toutesLesPaires();
-  return paires.find((paire) => paire.id === ID_VITRINE) ?? paires[0];
+  return trouver(paires, ID_VITRINE) ?? paires[0];
 }
 
 export async function pairesAccueil(): Promise<Paire[]> {
   const paires = await toutesLesPaires();
-  const choisies = IDS_ACCUEIL.map((id) => paires.find((paire) => paire.id === id)).filter(
-    (paire): paire is Paire => paire !== undefined,
-  );
-  // Si la sélection ne trouve plus rien (fichiers renommés), on prend les premières.
-  return choisies.length > 0 ? choisies : paires.filter((paire) => paire.id !== ID_VITRINE).slice(0, 8);
+  return IDS_ACCUEIL.map((id) => trouver(paires, id)).filter((paire): paire is Paire => paire !== undefined);
 }
 
-/** Quels types de pièce illustrent chaque métier. */
+/** Quels types de pièce illustrent chaque métier (page Services). */
 const CATEGORIES_PAR_SERVICE: Record<string, string[]> = {
   'renovation-complete': ['maison'],
   'salles-de-bain': ['salle-de-bain', 'douche', 'toilette'],
@@ -108,42 +90,35 @@ const CATEGORIES_PAR_SERVICE: Record<string, string[]> = {
   terrasses: ['exterieur', 'allee'],
   escaliers: ['escalier'],
   toiture: ['toiture', 'auvent'],
-  'maconnerie-facades': ['extension', 'facade'],
+  'maconnerie-facades': ['extension'],
   plomberie: ['egouttage'],
-  electricite: [],
-  'peinture-finitions': ['sejour', 'chambre', 'couloir'],
+  'peinture-finitions': ['sejour', 'couloir'],
 };
 
 /**
- * L'avant/après mis en avant pour chaque métier sur la page Services : celui où
- * le travail du métier se voit le mieux. Il peut venir d'une autre catégorie
- * (ex. le carrelage se voit le mieux dans une salle de bain).
+ * L'avant/après montré en premier pour un métier : celui où son travail se voit
+ * le mieux. Il peut venir d'une autre catégorie (le carrelage se voit le mieux
+ * dans une salle de bain).
  */
 const VITRINE_PAR_SERVICE: Record<string, string> = {
   'salles-de-bain': ID_VITRINE,
-  carrelage: 'salle-de-bain-baignoire-0',
-  escaliers: 'renovation-woluwe-saint-pierre-4',
-  'maconnerie-facades': 'extension-maison-0',
+  carrelage: 'salle-de-bain-baignoire/apres-1',
+  escaliers: 'renovation-woluwe-saint-pierre/chantier-26',
+  'maconnerie-facades': 'extension-maison/apres-1',
 };
 
 /** Les avant/après d'un métier, sa vitrine en premier. */
 export async function pairesDuService(slug: string): Promise<Paire[]> {
-  const categories = CATEGORIES_PAR_SERVICE[slug] ?? [];
   const toutes = await toutesLesPaires();
-  const paires = toutes.filter((paire) => categories.includes(paire.categorie));
-  const vitrine = toutes.find((paire) => paire.id === VITRINE_PAR_SERVICE[slug]);
-  return vitrine ? [vitrine, ...paires.filter((paire) => paire.id !== vitrine.id)] : paires;
-}
-
-/** Le nom lisible d'un service. */
-export function nomService(slug: string, langue: Langue): string | undefined {
-  return services.find((service) => service.slug === slug)?.nom[langue];
+  const categories = CATEGORIES_PAR_SERVICE[slug] ?? [];
+  const vitrine = trouver(toutes, VITRINE_PAR_SERVICE[slug] ?? '');
+  const autres = toutes.filter((paire) => categories.includes(paire.categorie) && paire !== vitrine);
+  return vitrine ? [vitrine, ...autres] : autres;
 }
 
 /**
- * Exception à la règle « uniquement des avant/après » : pour les métiers dont le
- * travail disparaît une fois le chantier fini (sous la chape, dans les murs), une
- * seule photo « pendant ». Affichée seulement si le métier n'a aucun avant/après.
+ * Seule exception à la règle « uniquement des avant/après » : un métier dont le
+ * travail disparaît une fois fini (sous la chape) montre une seule photo.
  */
 export const photoSeuleParService: Partial<Record<string, { image: ImageMetadata; legende: Record<Langue, string> }>> = {
   electricite: {

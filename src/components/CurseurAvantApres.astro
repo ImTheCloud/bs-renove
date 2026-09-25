@@ -6,41 +6,38 @@
  * à la souris, au doigt ET au clavier (flèches gauche/droite), sans
  * une ligne de code en plus. Aucune librairie externe.
  *
- * Les deux images passent par les emplacements « avant » et « apres ».
+ * Il affiche une paire de src/data/projets.ts (photos, cadrage, format).
  */
+import { Image } from 'astro:assets';
+import type { Paire } from '~/data/projets';
 import { t, type Langue } from '~/i18n';
 
 interface Props {
   langue: Langue;
-  /** Identifiant unique : il peut y avoir plusieurs curseurs sur une page. */
-  id: string;
-  /** Proportion de l'image. */
-  ratio?: string;
-  /** Précise de quoi parle la comparaison, quand il y en a plusieurs sur la page. */
-  precision?: string;
-  /** Position de départ de la poignée, en %. */
+  paire: Paire;
+  /** Taille affichée, pour que le navigateur charge la bonne image. */
+  sizes: string;
+  /** Position de départ de la poignée, en % (celle de la paire sinon). */
   depart?: number;
 }
 
-const { langue, id, ratio = '4 / 3', precision, depart = 50 } = Astro.props;
-const textes = t(langue);
-const avantApres = textes.accueil.avantApres;
+const { langue, paire, sizes, depart = paire.depart } = Astro.props;
+const avantApres = t(langue).accueil.avantApres;
+const id = `curseur-${paire.id.replace('/', '-')}`;
 const aideId = `${id}-aide`;
-// Sans précision, l'intitulé générique suffit (un seul curseur sur la page).
-const intitule = precision
-  ? `${avantApres.curseurLabel} — ${precision}`
-  : avantApres.curseurLabel;
+const legende = paire.legende[langue];
+const photo = { widths: [480, 720, 960, 1200], sizes, loading: 'lazy' as const };
 ---
 
-<div class="curseur" data-curseur style={`--ratio: ${ratio}; --position: ${depart}%;`}>
+<div class="curseur" data-curseur style={`--ratio: ${paire.ratio}; --position: ${depart}%;`}>
   <!-- Fond : la photo « après ». Elle est visible à droite du trait. -->
   <div class="curseur__couche curseur__couche--apres">
-    <slot name="apres" />
+    <Image src={paire.apres} alt={`${avantApres.apres} : ${legende}`} style={`object-position: ${paire.cadrageApres}`} {...photo} />
   </div>
 
   <!-- Dessus : la photo « avant », rognée à gauche du trait. -->
-  <div class="curseur__couche curseur__couche--avant" data-avant>
-    <slot name="avant" />
+  <div class="curseur__couche curseur__couche--avant">
+    <Image src={paire.avant} alt={`${avantApres.avant} : ${legende}`} style={`object-position: ${paire.cadrageAvant}`} {...photo} />
   </div>
 
   <span class="curseur__etiquette curseur__etiquette--avant">{avantApres.avant}</span>
@@ -66,7 +63,7 @@ const intitule = precision
     </span>
   </div>
 
-  <label class="sr-only" for={id}>{intitule}</label>
+  <label class="sr-only" for={id}>{avantApres.curseurLabel} — {legende}</label>
   <input
     type="range"
     id={id}

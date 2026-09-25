@@ -23,11 +23,6 @@ if (!calme) {
   requestAnimationFrame(boucle);
 }
 
-/** Pour les composants qui veulent faire défiler la page (ex. vers le formulaire). */
-export function defilerVers(cible: HTMLElement) {
-  if (lenis) lenis.scrollTo(cible, { offset: -90 });
-  else cible.scrollIntoView({ behavior: calme ? 'auto' : 'smooth' });
-}
 
 /** Bloque le défilement de la page (menu ouvert). */
 export function bloquerDefilement(bloque: boolean) {

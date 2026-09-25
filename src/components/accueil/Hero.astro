@@ -6,7 +6,7 @@
 import Bouton from '../Bouton.astro';
 import Icon from '../Icon.astro';
 import MaisonCoupe from './MaisonCoupe.astro';
-import { lienDevis, lienWhatsApp } from '~/data/entreprise';
+import { entreprise, lienDevis } from '~/data/entreprise';
 import { services } from '~/data/services';
 import { chemin, t, type Langue } from '~/i18n';
 
@@ -36,23 +36,16 @@ const hero = textes.accueil.hero;
 
       <div class="hero__actions">
         <Bouton href={lienDevis(langue)} variante="principal" iconeApres="fleche-diag" large>
-          {textes.actions.devis}
+          {hero.devisGratuit}
         </Bouton>
-        <Bouton
-          href={lienWhatsApp(textes.whatsappMessage)}
-          variante="whatsapp"
-          icone="whatsapp"
-          large
-          target="_blank"
-          rel="noopener"
-        >
-          WhatsApp
-        </Bouton>
+        <p class="hero__experience">
+          <span class="hero__experience-nombre">{entreprise.anneesExperience}</span>
+          <span class="hero__experience-texte">
+            <strong>{hero.experience}</strong>
+            {hero.experienceDetail}
+          </span>
+        </p>
       </div>
-
-      <ul class="hero__faits">
-        {hero.faits.map((fait) => <li>{fait}</li>)}
-      </ul>
     </div>
 
     <div class="hero__visuel">
@@ -152,7 +145,6 @@ const hero = textes.accueil.hero;
 
   .hero__titre,
   .hero__intro,
-  .hero__faits,
   .hero__puces a,
   .etiquette-section,
   .hero__defiler {
@@ -224,30 +216,41 @@ const hero = textes.accueil.hero;
   .hero__actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    align-items: center;
+    gap: 16px 32px;
   }
 
-  .hero__faits {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px 14px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    font-size: var(--size-tiny);
-    font-weight: 600;
-    color: var(--color-muted);
-  }
-
-  .hero__faits li {
+  /* Les années de métier, en grand à côté du bouton. */
+  .hero__experience {
     display: inline-flex;
     align-items: center;
     gap: 14px;
+    margin: 0;
   }
 
-  .hero__faits li:not(:last-child)::after {
-    content: '✳';
+  .hero__experience-nombre {
+    font-family: var(--font-title);
+    font-size: clamp(64px, 6vw, 88px);
+    font-weight: 800;
+    line-height: 0.8;
+    letter-spacing: -0.06em;
     color: var(--color-accent);
+  }
+
+  .hero__experience-texte {
+    display: flex;
+    flex-direction: column;
+    font-size: var(--size-small);
+    line-height: 1.25;
+    color: var(--color-muted);
+  }
+
+  .hero__experience-texte strong {
+    font-family: var(--font-title);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
   }
 
   .hero__visuel {
@@ -393,7 +396,6 @@ const hero = textes.accueil.hero;
     .hero__surtitre,
     .hero__intro,
     .hero__actions,
-    .hero__faits,
     .hero__bas {
       animation: fondu 1000ms var(--ease-out) backwards;
     }
@@ -401,7 +403,6 @@ const hero = textes.accueil.hero;
     .hero__surtitre { animation-delay: 0ms; }
     .hero__intro { animation-delay: 420ms; }
     .hero__actions { animation-delay: 520ms; }
-    .hero__faits { animation-delay: 620ms; }
     .hero__bas { animation-delay: 1600ms; }
 
     @keyframes monter {

@@ -1,25 +1,7 @@
-titre:
-  fr: Rénovation intérieure à Ostende
-  nl: Binnenrenovatie in Oostende
 commune:
   fr: Ostende
   nl: Oostende
-service: renovation-complete
 ordre: 2
-misEnAvant: false
-couverture: ../../assets/projets/renovation-interieure-ostende/cover.jpg
-couvertureAlt:
-  fr: Salle de bain terminée, miroir rond doré et sol en terrazzo
-  nl: Afgewerkte badkamer, ronde gouden spiegel en terrazzovloer
-recit:
-  fr:
-    depart: "[À CONFIRMER : l'état au départ, en une ou deux phrases.]"
-    travaux: "Rénovation intérieure complète : plomberie et structure repris, nouvelle salle de bain avec douche et baignoire, et reprise de la toiture (démolition, charpente, tuiles neuves)."
-    resultat: "[À CONFIRMER : le résultat, vu par le propriétaire.]"
-  nl:
-    depart: "[TE BEVESTIGEN: de begintoestand, in één of twee zinnen.]"
-    travaux: "Volledige binnenrenovatie: loodgieterij en structuur vernieuwd, nieuwe badkamer met douche en bad, en het dak volledig vernieuwd (afbraak, dakstructuur, nieuwe pannen)."
-    resultat: "[TE BEVESTIGEN: het resultaat, gezien door de eigenaar.]"
 avantApres:
   - avant: ../../assets/projets/renovation-interieure-ostende/chantier-3.jpg
     apres: ../../assets/projets/renovation-interieure-ostende/apres-1.jpg
@@ -27,32 +9,9 @@ avantApres:
       fr: Salle de bain, avant les travaux et terminée
       nl: Badkamer, voor de werken en afgewerkt
     categorie: salle-de-bain
-  - avant: ../../assets/projets/renovation-interieure-ostende/chantier-6.jpg
-    apres: ../../assets/projets/renovation-interieure-ostende/detail-5.jpg
-    legende:
-      fr: "Toiture : démolition et travaux en cours"
-      nl: "Dak: afbraak en werken in uitvoering"
-    categorie: toiture
-    enCours: true
   - avant: ../../assets/projets/renovation-interieure-ostende/avant-1.jpg
     apres: ../../assets/projets/renovation-interieure-ostende/detail-1.jpg
     legende:
       fr: Douche à l'italienne, de l'ossature au carrelage
       nl: Inloopdouche, van het skelet tot de tegels
     categorie: douche
-galerie:
-  - image: ../../assets/projets/renovation-interieure-ostende/detail-7.jpg
-    alt:
-      fr: Détail de la façade restaurée
-      nl: Detail van de gerestaureerde gevel
-    type: detail
-  - image: ../../assets/projets/renovation-interieure-ostende/chantier-1.jpg
-    alt:
-      fr: Plomberie avant la pose du sous-plancher
-      nl: Sanitair voor de plaatsing van de onderlaag
-    type: chantier
-  - image: ../../assets/projets/renovation-interieure-ostende/detail-2.jpg
-    alt:
-      fr: Vasque et miroir rond, détail
-      nl: Wastafel en ronde spiegel, detail
-    type: detail

@@ -1,26 +1,8 @@
 # Photos envoyées par Claudiu, introuvables dans Téléchargements : commune inconnue (« Belgique »).
-titre:
-  fr: Toiture en tuiles rouges
-  nl: Dak met rode pannen
 commune:
   fr: "[À CONFIRMER : commune]"
   nl: "[TE BEVESTIGEN: gemeente]"
-service: toiture
 ordre: 13
-misEnAvant: false
-couvertureAlt:
-  fr: Toiture en tuiles rouges
-  nl: Dak met rode pannen
-recit:
-  fr:
-    depart: "[À CONFIRMER]"
-    travaux: "[À CONFIRMER]"
-    resultat: "[À CONFIRMER]"
-  nl:
-    depart: "[TE BEVESTIGEN]"
-    travaux: "[TE BEVESTIGEN]"
-    resultat: "[TE BEVESTIGEN]"
-galerie: []
 avantApres:
   - avant: ../../assets/projets/toiture-tuiles-rouges/avant-1.jpg
     apres: ../../assets/projets/toiture-tuiles-rouges/apres-1.jpg

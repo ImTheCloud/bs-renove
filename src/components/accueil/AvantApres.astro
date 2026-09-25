@@ -5,7 +5,6 @@
  * la salle de bain d'origine laisse place à celle d'aujourd'hui.
  * La poignée reste utilisable à la main (souris, doigt, clavier).
  */
-import { Image } from 'astro:assets';
 import Bouton from '../Bouton.astro';
 import CurseurAvantApres from '../CurseurAvantApres.astro';
 import { paireVitrine } from '~/data/projets';
@@ -35,7 +34,7 @@ const vitrine = await paireVitrine();
 
             <div class="aa__lieu" data-reveal>
               <span class="aa__lieu-label">{vitrine.legende[langue]}</span>
-              {vitrine.commune && <span class="aa__lieu-commune">{vitrine.commune[langue]}</span>}
+              <span class="aa__lieu-commune">{vitrine.commune[langue]}</span>
             </div>
 
             <div class="aa__actions" data-reveal>
@@ -52,26 +51,7 @@ const vitrine = await paireVitrine();
             </p>
 
             <div class="aa__cadre">
-              <CurseurAvantApres langue={langue} id="curseur-accueil" ratio={vitrine.ratio} depart={100} precision={vitrine.legende[langue]}>
-                <Image
-                  slot="avant"
-                  src={vitrine.avant}
-                  style={`object-position: ${vitrine.cadrageAvant}`}
-                  alt={textes.photos.avant}
-                  widths={[480, 720, 960, 1200]}
-                  sizes="(min-width: 1024px) 44vw, 92vw"
-                  loading="lazy"
-                />
-                <Image
-                  slot="apres"
-                  src={vitrine.apres}
-                  style={`object-position: ${vitrine.cadrageApres}`}
-                  alt={textes.photos.apres}
-                  widths={[480, 720, 960, 1200]}
-                  sizes="(min-width: 1024px) 44vw, 92vw"
-                  loading="lazy"
-                />
-              </CurseurAvantApres>
+              <CurseurAvantApres langue={langue} paire={vitrine} depart={100} sizes="(min-width: 1024px) 44vw, 92vw" />
               <div class="aa__jauge" aria-hidden="true"><span data-jauge></span></div>
             </div>
 

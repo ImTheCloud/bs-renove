@@ -1,7 +1,7 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
 import { categories } from './data/categories';
-import { services } from './data/services';
 
 /** Un texte qui doit exister dans les deux langues. */
 const bilingue = z.object({
@@ -9,64 +9,36 @@ const bilingue = z.object({
   nl: z.string(),
 });
 
+/**
+ * Un fichier par chantier. Il ne sert qu'à ranger les avant/après et à donner
+ * leur commune : chaque avant/après est ensuite affiché seul (src/data/projets.ts).
+ */
 const projets = defineCollection({
-  // Pas de sous-dossiers : l'adresse d'un projet n'a qu'un seul segment.
   loader: glob({ pattern: '*.yaml', base: './src/content/projets' }),
   schema: ({ image }) =>
     z.object({
-      titre: bilingue,
-      /** Seulement la commune : jamais la rue ni le numéro du client.
-       *  Bilingue : beaucoup de communes belges ont deux noms officiels. */
-      commune: bilingue,
-      /** Doit correspondre à un slug de src/data/services.ts : le build échoue sinon. */
-      service: z.enum(services.map((s) => s.slug) as [string, ...string[]]),
-      dureeSemaines: z.number().optional(),
-      recit: z.object({
-        fr: z.object({ depart: z.string(), travaux: z.string(), resultat: z.string() }),
-        nl: z.object({ depart: z.string(), travaux: z.string(), resultat: z.string() }),
-      }),
-      couverture: image().optional(),
-      couvertureAlt: bilingue,
       /**
-       * Une paire par comparaison avant/après. La catégorie (type de pièce,
-       * pas métier — src/data/categories.ts) sert à les regrouper toutes
-       * ensemble sur la page Réalisations, peu importe le chantier d'origine.
+       * Seulement la commune, jamais la rue ni le numéro. Bilingue : beaucoup de
+       * communes belges ont deux noms. Tant qu'elle n'est pas confirmée, mettre
+       * « [À CONFIRMER : commune] » : le site affiche alors « Belgique ».
        */
-      avantApres: z
-        .array(
-          z.object({
-            avant: image().optional(),
-            apres: image().optional(),
-            legende: bilingue,
-            categorie: z.enum(categories.map((c) => c.slug) as [string, ...string[]]),
-            /** L'« après » montre un chantier pas encore fini : la paire n'est pas affichée. */
-            enCours: z.boolean().default(false),
-            /**
-             * Où démarre la poignée du curseur, en % (50 par défaut). Plus petit :
-             * on voit davantage l'« après » (utile quand l'essentiel est à gauche).
-             */
-            depart: z.number().min(0).max(100).default(50),
-            /**
-             * Cadrage d'une photo recadrée dans le cadre (CSS object-position),
-             * ex. « 50% 20% » pour garder le haut. Centré par défaut.
-             */
-            cadrageAvant: z.string().default('50% 50%'),
-            cadrageApres: z.string().default('50% 50%'),
-          }),
-        )
-        .default([]),
-      /** Photos de détails et de chantier, pour la galerie. */
-      galerie: z
-        .array(
-          z.object({
-            image: image().optional(),
-            alt: bilingue,
-            type: z.enum(['detail', 'chantier']),
-          }),
-        )
-        .default([]),
+      commune: bilingue,
+      /** Ordre d'affichage sur la page Réalisations (le plus petit d'abord). */
       ordre: z.number(),
-      misEnAvant: z.boolean().default(false),
+      avantApres: z.array(
+        z.object({
+          avant: image(),
+          apres: image(),
+          legende: bilingue,
+          /** Type de pièce (src/data/categories.ts) : sert aux filtres et aux métiers. */
+          categorie: z.enum(categories.map((c) => c.slug) as [string, ...string[]]),
+          /** Où démarre la poignée du curseur, en % (plus petit : on voit plus l'« après »). */
+          depart: z.number().min(0).max(100).default(50),
+          /** Cadrage d'une photo recadrée (CSS object-position), ex. « 50% 20% » pour garder le haut. */
+          cadrageAvant: z.string().default('50% 50%'),
+          cadrageApres: z.string().default('50% 50%'),
+        }),
+      ),
     }),
 });
 

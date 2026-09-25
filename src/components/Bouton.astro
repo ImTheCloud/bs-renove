@@ -2,6 +2,7 @@
 /**
  * Bouton en forme de pilule. Toujours un vrai <a> (lien) ou <button> (action).
  * La flèche finale vit dans une pastille ronde qui s'anime au survol.
+ * Variantes : principal (encre), secondaire (contour), signal (jaune), whatsapp (vert).
  */
 import Icon, { type NomIcone } from './Icon.astro';
 
@@ -9,8 +10,6 @@ type Variante =
   | 'principal'
   | 'secondaire'
   | 'signal'
-  | 'ink-principal'
-  | 'ink-secondaire'
   | 'whatsapp';
 
 interface Props {
@@ -168,27 +167,6 @@ const classes = [
 
   .bouton--signal:hover {
     background: #ffcb1f;
-  }
-
-  /* Sur fond encre */
-  .bouton--ink-principal {
-    background: var(--color-on-ink);
-    color: var(--color-ink);
-  }
-
-  .bouton--ink-principal:hover {
-    background: #fff;
-  }
-
-  .bouton--ink-secondaire {
-    background: transparent;
-    border-color: rgba(245, 242, 236, 0.35);
-    color: var(--color-on-ink);
-  }
-
-  .bouton--ink-secondaire:hover {
-    background: rgba(245, 242, 236, 0.1);
-    border-color: rgba(245, 242, 236, 0.6);
   }
 
   .bouton--whatsapp {

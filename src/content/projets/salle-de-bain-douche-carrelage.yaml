@@ -2,28 +2,10 @@
 # douche : 10.58.46 (1) → 10.58.49 (6) ; lavabos : 10.58.46 (4) → 10.58.50 (1).
 # Même série de photos, même salle de bain (le meuble lavabo se voit sur la photo de la douche).
 # Tant que la commune n'est pas confirmée, elle n'est pas affichée.
-titre:
-  fr: Salle de bain avec douche
-  nl: Badkamer met douche
 commune:
   fr: "[À CONFIRMER : commune]"
   nl: "[TE BEVESTIGEN: gemeente]"
-service: salles-de-bain
 ordre: 8
-misEnAvant: false
-couvertureAlt:
-  fr: Douche terminée, carrelage gris et paroi coulissante
-  nl: Afgewerkte douche, grijze tegels en schuifwand
-recit:
-  fr:
-    depart: "[À CONFIRMER]"
-    travaux: "[À CONFIRMER]"
-    resultat: "[À CONFIRMER]"
-  nl:
-    depart: "[TE BEVESTIGEN]"
-    travaux: "[TE BEVESTIGEN]"
-    resultat: "[TE BEVESTIGEN]"
-galerie: []
 avantApres:
   - avant: ../../assets/projets/salle-de-bain-douche-carrelage/avant-1.jpg
     apres: ../../assets/projets/salle-de-bain-douche-carrelage/apres-1.jpg

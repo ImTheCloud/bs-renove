@@ -30,8 +30,6 @@ export const entreprise = {
 
   /** Confirmé par Sergiu le 22 septembre 2026. */
   anneesExperience: 12,
-  /** « Une douzaine de personnes, avec des indépendants » : confirmé le 22 septembre 2026. */
-  tailleEquipe: 12,
 } as const;
 
 /** Adresse sur une ligne, pour le pied de page. */

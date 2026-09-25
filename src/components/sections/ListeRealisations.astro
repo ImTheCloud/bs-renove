@@ -6,7 +6,6 @@
  */
 import CurseurAvantApres from '../CurseurAvantApres.astro';
 import EntetePage from '../EntetePage.astro';
-import PhotoProjet from '../PhotoProjet.astro';
 import { categories, nomCategorie } from '~/data/categories';
 import { toutesLesPaires } from '~/data/projets';
 import { t, type Langue } from '~/i18n';
@@ -45,39 +44,12 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
         )}
 
         <div class="liste__paires" data-galerie-paires>
-          {paires.map((paire, index) => (
+          {paires.map((paire) => (
             <figure class:list={['paire', { 'paire--paysage': paire.paysage }]} data-categorie={paire.categorie}>
-              <CurseurAvantApres
-                langue={langue}
-                id={`curseur-${paire.id}`}
-                depart={paire.depart}
-                ratio={paire.ratio}
-                precision={paire.legende[langue]}
-              >
-                <PhotoProjet
-                  slot="avant"
-                  image={paire.avant}
-                  cadrage={paire.cadrageAvant}
-                  alt={textes.photos.avant}
-                  langue={langue}
-                  ratio={paire.ratio}
-                  ton="moyen"
-                  prioritaire={index === 0}
-                />
-                <PhotoProjet
-                  slot="apres"
-                  image={paire.apres}
-                  cadrage={paire.cadrageApres}
-                  alt={textes.photos.apres}
-                  langue={langue}
-                  ratio={paire.ratio}
-                  ton="fonce"
-                  prioritaire={index === 0}
-                />
-              </CurseurAvantApres>
+              <CurseurAvantApres langue={langue} paire={paire} sizes="(min-width: 1100px) 30vw, (min-width: 700px) 46vw, 92vw" />
               <figcaption class="paire__legende">
                 <span class="paire__categorie">{nomCategorie(paire.categorie, langue)}</span>
-                {paire.commune && <span class="paire__commune">{paire.commune[langue]}</span>}
+                <span class="paire__commune">{paire.commune[langue]}</span>
                 <span class="paire__texte">{paire.legende[langue]}</span>
               </figcaption>
             </figure>

@@ -9,7 +9,6 @@ import type { Traductions } from './fr';
 export const nl: Traductions = {
   code: 'nl',
   htmlLang: 'nl-BE',
-  nomLangue: 'Nederlands',
 
   nav: {
     services: 'Diensten',
@@ -20,10 +19,9 @@ export const nl: Traductions = {
 
   actions: {
     devis: 'Offerte aanvragen',
+    gratuit: 'Gratis offerte',
     whatsapp: 'Schrijf ons op WhatsApp',
-    whatsappCourt: 'WhatsApp',
     appeler: 'Bellen',
-    appelerLong: 'of bel',
   },
 
   whatsappMessage: 'Hallo, ik zou graag een offerte voor…',
@@ -60,21 +58,7 @@ export const nl: Traductions = {
     allerAuContenu: 'Naar de inhoud',
   },
 
-  enConstruction: {
-    etiquette: 'In opbouw',
-    texte: 'Deze pagina komt binnenkort. Bel ons ondertussen of schrijf ons op WhatsApp',
-  },
-
   aConfirmer: 'TE BEVESTIGEN',
-
-  photos: {
-    aVenir: 'Foto volgt',
-    principale: 'De mooiste realisatie, in liggend formaat',
-    service: 'Foto van de dienst',
-    avant: 'Foto voor',
-    apres: 'Foto na, zelfde hoek',
-    gerant: 'Foto van Sergiu op een werf',
-  },
 
   accueil: {
     hero: {
@@ -84,7 +68,9 @@ export const nl: Traductions = {
       titreFin: 'van A tot Z.',
       texte:
         'Badkamer, keuken, dak, tegelwerk… Wij nemen uw hele werf voor onze rekening, van de eerste offerte tot de laatste afwerking.',
-      faits: ['12 jaar ervaring', 'Gratis offerte', 'Nederlands · Français'],
+      devisGratuit: 'Gratis offerte aanvragen',
+      experience: 'jaar ervaring',
+      experienceDetail: 'in de bouw',
       maisonAria: 'Tekening van een huis in doorsnede: elke ruimte leidt naar de bijhorende dienst',
       maisonAide: 'Tik op een ruimte',
       maisonAideSouris: 'Beweeg over een ruimte',
@@ -121,9 +107,7 @@ export const nl: Traductions = {
         'Scroll verder, of neem de schuifknop vast: de badkamer midden in de werken maakt plaats voor het resultaat.',
       noteAvant: 'midden in de werken…',
       noteApres: '… en bijna klaar!',
-      voirProjet: 'Bekijk deze werf',
       voirTout: 'Alle voor/na-foto’s',
-      autresProjets: 'Andere projecten',
       avant: 'Voor',
       apres: 'Na',
       curseurLabel: 'Voor en na vergelijken',
@@ -185,7 +169,6 @@ export const nl: Traductions = {
       titreDebut: 'Werven,',
       titreSerif: 'geen beloftes.',
       voirTout: 'Alle realisaties',
-      glisser: 'schuif →',
       aideSouris: 'Beweeg over een foto om het resultaat te zien',
       aideToucher: 'Tik op een foto om het resultaat te zien',
       basculer: 'Voor of na tonen',
@@ -227,7 +210,6 @@ export const nl: Traductions = {
 
     pourquoi: {
       surtitre: 'Waarom BS Renove',
-      titre: 'Van de eerste offerte tot de laatste afwerking',
       texte:
         'Wij begeleiden u bij elke stap van uw project, voor een duidelijke en efficiënte uitvoering, zonder onaangename verrassingen',
       points: [
@@ -239,9 +221,6 @@ export const nl: Traductions = {
     },
 
     contact: {
-      titre: 'Hebt u een project? Laten we erover praten',
-      texte:
-        'Bouwen, renoveren of verbouwen: leg ons uw project uit en ontvang een eerste raming',
       labelTelephone: 'Telefoon',
       labelEmail: 'E-mail',
       labelZone: 'Werkgebied',
@@ -273,7 +252,6 @@ export const nl: Traductions = {
     precedent: 'Terug',
     envoyer: 'Mijn aanvraag versturen',
     envoiEnCours: 'Versturen…',
-    obligatoire: 'verplicht',
     facultatif: 'niet verplicht',
 
     erreurChoix: 'Kies minstens één type werken.',
@@ -310,11 +288,6 @@ export const nl: Traductions = {
     titre: 'Werven, geen beloftes',
     intro:
       'Versleep de schuifknop om het verschil te zien. Filter op ruimte om direct te vinden wat u zoekt',
-    voirLeProjet: 'Bekijk de volledige werf',
-    commune: 'Gemeente',
-    service: 'Type werken',
-    duree: 'Duur',
-    semaines: 'weken',
     aucun: 'De eerste voor/na-foto’s volgen binnenkort',
     toutes: 'Alles bekijken',
     filtrerAria: 'Filteren op type ruimte',
@@ -344,63 +317,16 @@ export const nl: Traductions = {
       'Hallo,\n\nIk wil graag bij het team van BS Renove komen werken.\n\nNaam: \nTelefoon: \nVak / ervaring: \nBeschikbaarheid: \n\n\nAlvast bedankt,',
   },
 
-  projet: {
-    retour: 'Alle realisaties',
-    avantApres: 'Voor, na',
-    recitTitre: 'De werf',
-    depart: 'Bij de start',
-    travaux: 'De werken',
-    resultat: 'Het resultaat',
-    galerie: 'In beeld',
-    agrandir: 'Foto vergroten',
-    fermer: 'Sluiten',
-    precedente: 'Vorige foto',
-    suivante: 'Volgende foto',
-    similaireTitre: 'Een gelijkaardig project?',
-    similaireTexte:
-      'Vertel ons wat u in gedachten hebt, wij komen bij u terug met een eerste raming',
-  },
-
   servicesPage: {
     surtitre: 'Onze diensten',
     titre: 'Wat wij doen',
     intro:
       'Een algemene aannemer: alle vakgebieden van een renovatie, van de eerste offerte tot de laatste afwerking',
     grilleTitre: 'Al onze werken',
-    grilleIntro: 'Een overzicht van onze vakgebieden, klik op een kaart voor de details',
     exemplesTitre: 'Bijvoorbeeld',
     projetsLies: 'Bekijk de voor/na-foto’s',
     devisPour: 'Offerte aanvragen',
     avantChape: 'Wat u na de werken niet meer ziet',
-  },
-
-  contactPage: {
-    surtitre: 'Contact',
-    titre: 'Laten we over uw project praten',
-    intro:
-      'Beschrijf ons wat u in gedachten hebt. Wij komen bij u terug met een eerste raming',
-    devisTitre: 'Offerte aanvragen via email',
-    devisTexte:
-      'Eén klik opent uw mailprogramma met een kant-en-klare email: u hoeft enkel uw gegevens en uw project te beschrijven',
-    ouTitre: 'Sneller',
-    ouTexte: 'Telefoon en WhatsApp blijven het meest rechtstreeks',
-  },
-
-  /** Onderwerp en inhoud van de vooraf ingevulde mail achter elke "offerte"-knop. */
-  devisEmail: {
-    sujet: 'Offerteaanvraag',
-    corps: `Hallo,
-
-Ik zou graag een offerte ontvangen voor de volgende werken:
-
-Naam:
-Telefoon:
-Gemeente van de werf:
-Type werken:
-Beschrijving van het project:
-
-
-Alvast bedankt,`,
   },
 
   legal: {

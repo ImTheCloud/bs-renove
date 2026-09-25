@@ -1,25 +1,7 @@
-titre:
-  fr: Rénovation à Woluwe-Saint-Pierre
-  nl: Renovatie in Sint-Pieters-Woluwe
 commune:
   fr: Woluwe-Saint-Pierre
   nl: Sint-Pieters-Woluwe
-service: renovation-complete
 ordre: 6
-misEnAvant: true
-couverture: ../../assets/projets/renovation-woluwe-saint-pierre/detail-7.jpg
-couvertureAlt:
-  fr: Terrasse vue depuis la maison
-  nl: Terras gezien vanuit de woning
-recit:
-  fr:
-    depart: "[À CONFIRMER : l'état général de la maison au départ, en une ou deux phrases.]"
-    travaux: "Rénovation complète de la maison : plomberie et électricité entièrement reprises, nouvelle salle de bain avec douche à l'italienne, toilette refaite, deux escaliers (intérieur et garage), plafonds, cuisine, et auvent d'entrée."
-    resultat: "[À CONFIRMER : le résultat, vu par le propriétaire.]"
-  nl:
-    depart: "[TE BEVESTIGEN: de algemene toestand van de woning bij aanvang, in één of twee zinnen.]"
-    travaux: "Volledige renovatie van de woning: loodgieterij en elektriciteit volledig vernieuwd, nieuwe badkamer met inloopdouche, nieuw toilet, twee trappen (binnen en garage), plafonds, keuken en luifel boven de voordeur."
-    resultat: "[TE BEVESTIGEN: het resultaat, gezien door de eigenaar.]"
 avantApres:
   - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-1.jpg
     apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-1.jpg
@@ -75,13 +57,6 @@ avantApres:
       fr: Cuisine, chantier et îlot terminé
       nl: Keuken, werken en afgewerkt kookeiland
     categorie: cuisine
-  - avant: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-18.jpg
-    apres: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-17.jpg
-    legende:
-      fr: Salle de bain, panneau étanche puis carrelage en cours
-      nl: Badkamer, waterdicht paneel en tegelwerk in uitvoering
-    categorie: salle-de-bain
-    enCours: true
   - avant: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-20.jpg
     apres: ../../assets/projets/renovation-woluwe-saint-pierre/detail-16.jpg
     legende:
@@ -100,69 +75,3 @@ avantApres:
       fr: Douche, du carrelage à l'installation
       nl: Douche, van tegelwerk tot installatie
     categorie: douche
-galerie:
-  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-1.jpg
-    alt:
-      fr: Passage des tuyaux avant la chape
-      nl: Leidingen voor het storten van de dekvloer
-    type: chantier
-  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-8.jpg
-    alt:
-      fr: Local technique avec chaudière et ballon d'eau chaude
-      nl: Technische ruimte met verwarmingsketel en boiler
-    type: detail
-  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-9.jpg
-    alt:
-      fr: Chambre sous les combles, parquet terminé
-      nl: Slaapkamer onder het schuine dak, parket klaar
-    type: detail
-  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-10.jpg
-    alt:
-      fr: Autre pièce avec le même parquet
-      nl: Andere kamer met hetzelfde parket
-    type: detail
-  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-3.jpg
-    alt:
-      fr: Gaines électriques avant la chape
-      nl: Elektriciteitsleidingen voor het storten van de dekvloer
-    type: chantier
-  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-7.jpg
-    alt:
-      fr: Réseau de plomberie en cours d'installation
-      nl: Loodgieterijnetwerk tijdens de installatie
-    type: chantier
-  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-9.jpg
-    alt:
-      fr: Tuyaux de plomberie au sol
-      nl: Loodgietersleidingen op de vloer
-    type: chantier
-  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-10.jpg
-    alt:
-      fr: Passage des tuyaux avant la chape
-      nl: Doorvoer van leidingen voor de dekvloer
-    type: chantier
-  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-11.jpg
-    alt:
-      fr: Réseau de plomberie, vue d'ensemble
-      nl: Loodgieterijnetwerk, overzicht
-    type: chantier
-  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-12.jpg
-    alt:
-      fr: Raccordements de plomberie
-      nl: Loodgietersaansluitingen
-    type: chantier
-  - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-13.jpg
-    alt:
-      fr: Tuyaux d'évacuation avant la chape
-      nl: Afvoerleidingen voor de dekvloer
-    type: chantier
-  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-14.jpg
-    alt:
-      fr: Local technique, autre vue
-      nl: Technische ruimte, ander zicht
-    type: detail
-  - image: ../../assets/projets/renovation-woluwe-saint-pierre/detail-15.jpg
-    alt:
-      fr: Chambre avec parquet posé
-      nl: Slaapkamer met geplaatst parket
-    type: detail

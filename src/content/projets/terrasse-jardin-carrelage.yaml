@@ -1,28 +1,10 @@
 # Photos du dossier « Carrelage sur plusieurs endroits » (commune inconnue) :
 # originaux WhatsApp 2026-09-20 at 10.58.45 (6) (avant) et 10.59.07 (1) (après).
 # Tant que la commune n'est pas confirmée, elle n'est pas affichée.
-titre:
-  fr: Terrasse de jardin carrelée
-  nl: Betegeld tuinterras
 commune:
   fr: "[À CONFIRMER : commune]"
   nl: "[TE BEVESTIGEN: gemeente]"
-service: terrasses
 ordre: 9
-misEnAvant: false
-couvertureAlt:
-  fr: Terrasse terminée, grandes dalles grises
-  nl: Afgewerkt terras, grote grijze tegels
-recit:
-  fr:
-    depart: "[À CONFIRMER]"
-    travaux: "[À CONFIRMER]"
-    resultat: "[À CONFIRMER]"
-  nl:
-    depart: "[TE BEVESTIGEN]"
-    travaux: "[TE BEVESTIGEN]"
-    resultat: "[TE BEVESTIGEN]"
-galerie: []
 avantApres:
   - avant: ../../assets/projets/terrasse-jardin-carrelage/avant-1.jpg
     apres: ../../assets/projets/terrasse-jardin-carrelage/apres-1.jpg

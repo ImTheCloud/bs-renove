@@ -1,26 +1,8 @@
 # Photos envoyées par Claudiu : commune inconnue (« Belgique »).
-titre:
-  fr: Extension de maison sur deux niveaux
-  nl: Uitbreiding van een woning over twee verdiepingen
 commune:
   fr: "[À CONFIRMER : commune]"
   nl: "[TE BEVESTIGEN: gemeente]"
-service: maconnerie-facades
 ordre: 0
-misEnAvant: false
-couvertureAlt:
-  fr: Extension terminée, grandes baies vitrées au rez-de-chaussée et à l'étage
-  nl: Afgewerkte uitbreiding, grote glaspartijen op het gelijkvloers en de verdieping
-recit:
-  fr:
-    depart: "[À CONFIRMER]"
-    travaux: "[À CONFIRMER]"
-    resultat: "[À CONFIRMER]"
-  nl:
-    depart: "[TE BEVESTIGEN]"
-    travaux: "[TE BEVESTIGEN]"
-    resultat: "[TE BEVESTIGEN]"
-galerie: []
 avantApres:
   - avant: ../../assets/projets/extension-maison/avant-1.jpg
     apres: ../../assets/projets/extension-maison/apres-1.jpg

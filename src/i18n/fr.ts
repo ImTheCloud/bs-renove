@@ -2,7 +2,6 @@
 export const fr = {
   code: 'fr',
   htmlLang: 'fr-BE',
-  nomLangue: 'Français',
 
   nav: {
     services: 'Services',
@@ -13,10 +12,9 @@ export const fr = {
 
   actions: {
     devis: 'Demander un devis',
+    gratuit: 'Devis gratuit',
     whatsapp: 'Écrire sur WhatsApp',
-    whatsappCourt: 'WhatsApp',
     appeler: 'Appeler',
-    appelerLong: 'ou appelez le',
   },
 
   /** Message déjà écrit quand on ouvre WhatsApp. */
@@ -54,23 +52,8 @@ export const fr = {
     allerAuContenu: 'Aller au contenu',
   },
 
-  enConstruction: {
-    etiquette: 'En construction',
-    texte: 'Cette page arrive bientôt. En attendant, appelez-nous ou écrivez-nous sur WhatsApp',
-  },
-
   /** Marqueur visible tant qu'une information n'est pas confirmée par le client. */
   aConfirmer: 'À CONFIRMER',
-
-  /** Blocs « photo à venir », en attendant les vraies photos. */
-  photos: {
-    aVenir: 'Photo à venir',
-    principale: 'La plus belle réalisation, en format horizontal',
-    service: 'Photo du service',
-    avant: 'Photo avant',
-    apres: 'Photo après, même angle',
-    gerant: 'Photo de Sergiu sur un chantier',
-  },
 
   accueil: {
     hero: {
@@ -80,7 +63,9 @@ export const fr = {
       titreFin: 'de A à Z.',
       texte:
         'Salle de bain, cuisine, toiture, carrelage… Nous prenons en charge tout votre chantier, du premier devis à la dernière finition.',
-      faits: ['12 ans de métier', 'Devis gratuit', 'Français · Nederlands'],
+      devisGratuit: 'Demander un devis gratuit',
+      experience: 'ans de métier',
+      experienceDetail: 'dans la construction',
       maisonAria: 'Dessin d’une maison en coupe : chaque pièce mène au service correspondant',
       maisonAide: 'Touchez une pièce',
       maisonAideSouris: 'Survolez une pièce',
@@ -117,9 +102,7 @@ export const fr = {
         'Faites défiler, ou attrapez la poignée : la salle de bain en plein chantier laisse place au résultat.',
       noteAvant: 'en plein chantier…',
       noteApres: '… et presque terminée !',
-      voirProjet: 'Voir ce chantier',
       voirTout: 'Tous les avant/après',
-      autresProjets: 'Autres projets',
       avant: 'Avant',
       apres: 'Après',
       curseurLabel: 'Comparer avant et après',
@@ -181,7 +164,6 @@ export const fr = {
       titreDebut: 'Des chantiers,',
       titreSerif: 'pas des promesses.',
       voirTout: 'Toutes les réalisations',
-      glisser: 'glissez →',
       aideSouris: 'Survolez une photo pour voir l’après',
       aideToucher: 'Touchez une photo pour voir l’après',
       basculer: 'Afficher avant ou après',
@@ -223,7 +205,6 @@ export const fr = {
 
     pourquoi: {
       surtitre: 'Pourquoi BS Renove',
-      titre: 'Du premier devis à la dernière finition',
       texte:
         'Nous vous accompagnons à chaque étape de votre projet, pour une réalisation claire, efficace et sans mauvaises surprises',
       points: [
@@ -235,9 +216,6 @@ export const fr = {
     },
 
     contact: {
-      titre: 'Vous avez un projet ? Parlons-en',
-      texte:
-        'Construction, rénovation ou transformation : expliquez-nous votre projet et recevez une première estimation',
       labelTelephone: 'Téléphone',
       labelEmail: 'Email',
       labelZone: "Zone d'intervention",
@@ -270,7 +248,6 @@ export const fr = {
     precedent: 'Retour',
     envoyer: 'Envoyer ma demande',
     envoiEnCours: 'Envoi…',
-    obligatoire: 'obligatoire',
     facultatif: 'facultatif',
 
     erreurChoix: 'Choisissez au moins un type de travaux.',
@@ -307,11 +284,6 @@ export const fr = {
     titre: 'Des chantiers, pas des promesses',
     intro:
       'Faites glisser le curseur pour voir la différence. Filtrez par pièce pour aller droit à ce qui vous intéresse',
-    voirLeProjet: 'Voir le chantier complet',
-    commune: 'Commune',
-    service: 'Type de travaux',
-    duree: 'Durée',
-    semaines: 'semaines',
     aucun: 'Les premiers avant/après arrivent bientôt',
     toutes: 'Tout voir',
     filtrerAria: 'Filtrer par type de pièce',
@@ -341,63 +313,16 @@ export const fr = {
       'Bonjour,\n\nJe souhaite rejoindre l’équipe BS Renove.\n\nNom : \nTéléphone : \nMétier / expérience : \nDisponibilité : \n\n\nMerci d’avance,',
   },
 
-  projet: {
-    retour: 'Toutes les réalisations',
-    avantApres: 'Avant, après',
-    recitTitre: 'Le chantier',
-    depart: 'Au départ',
-    travaux: 'Les travaux',
-    resultat: 'Le résultat',
-    galerie: 'En images',
-    agrandir: 'Agrandir la photo',
-    fermer: 'Fermer',
-    precedente: 'Photo précédente',
-    suivante: 'Photo suivante',
-    similaireTitre: 'Un projet similaire ?',
-    similaireTexte:
-      'Expliquez-nous ce que vous avez en tête, nous revenons vers vous avec une première estimation',
-  },
-
   servicesPage: {
     surtitre: 'Nos services',
     titre: 'Ce que nous faisons',
     intro:
       'Une entreprise générale : tous les corps de métier d’une rénovation, du premier devis à la dernière finition',
     grilleTitre: 'Tous nos travaux',
-    grilleIntro: 'Un aperçu de nos métiers, cliquez sur une carte pour les détails',
     exemplesTitre: 'Par exemple',
     projetsLies: 'Voir les avant/après',
     devisPour: 'Demander un devis',
     avantChape: 'Ce qu’on ne voit plus une fois fini',
-  },
-
-  contactPage: {
-    surtitre: 'Contact',
-    titre: 'Parlons de votre projet',
-    intro:
-      'Décrivez-nous ce que vous avez en tête. Nous revenons vers vous avec une première estimation',
-    devisTitre: 'Demander un devis par email',
-    devisTexte:
-      'Un clic ouvre votre messagerie avec un email déjà prêt : il ne reste qu’à compléter vos coordonnées et le décrire',
-    ouTitre: 'Plus rapide',
-    ouTexte: 'Le téléphone et WhatsApp restent le plus direct',
-  },
-
-  /** Le sujet et le corps du mail pré-rempli derrière chaque bouton « devis ». */
-  devisEmail: {
-    sujet: 'Demande de devis',
-    corps: `Bonjour,
-
-Je souhaite recevoir un devis pour les travaux suivants :
-
-Nom :
-Téléphone :
-Commune du chantier :
-Type de travaux :
-Description du projet :
-
-
-Merci d'avance,`,
   },
 
   legal: {

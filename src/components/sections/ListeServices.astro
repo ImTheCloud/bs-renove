@@ -24,7 +24,6 @@ const { langue } = Astro.props;
 const textes = t(langue);
 const bloc = textes.servicesPage;
 
-const aa = textes.accueil.avantApres;
 const pairesParService = await Promise.all(services.map((service) => pairesDuService(service.slug)));
 ---
 
@@ -51,13 +50,10 @@ const pairesParService = await Promise.all(services.map((service) => pairesDuSer
           <div class="service__visuel" data-reveal>
             {paire ? (
               <figure class:list={['service__comparaison', { 'service__comparaison--paysage': paire.paysage }]}>
-                <CurseurAvantApres langue={langue} id={`curseur-${service.slug}`} ratio={paire.ratio} depart={paire.depart} precision={paire.legende[langue]}>
-                  <Image slot="avant" style={`object-position: ${paire.cadrageAvant}`} src={paire.avant} alt={`${aa.avant} : ${paire.legende[langue]}`} widths={[400, 700, 1000]} sizes="(min-width: 1024px) 30vw, 90vw" loading="lazy" />
-                  <Image slot="apres" style={`object-position: ${paire.cadrageApres}`} src={paire.apres} alt={`${aa.apres} : ${paire.legende[langue]}`} widths={[400, 700, 1000]} sizes="(min-width: 1024px) 30vw, 90vw" loading="lazy" />
-                </CurseurAvantApres>
+                <CurseurAvantApres langue={langue} paire={paire} sizes="(min-width: 1024px) 30vw, 90vw" />
                 <figcaption class="service__legende">
                   {paire.legende[langue]}
-                  {paire.commune && <span> · {paire.commune[langue]}</span>}
+                  <span> · {paire.commune[langue]}</span>
                 </figcaption>
               </figure>
             ) : photoSeuleParService[service.slug] ? (
@@ -102,7 +98,7 @@ const pairesParService = await Promise.all(services.map((service) => pairesDuSer
                 {bloc.devisPour}
               </Bouton>
               {paires.length > 1 && (
-                <Bouton href={`${chemin('realisations', langue)}#${paire?.categorie}`} variante="secondaire">
+                <Bouton href={`${chemin('realisations', langue)}#${paire.categorie}`} variante="secondaire">
                   {bloc.projetsLies} ({paires.length})
                 </Bouton>
               )}
