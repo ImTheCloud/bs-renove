@@ -313,9 +313,6 @@ export const fr = {
     semaines: 'semaines',
     aucun: 'Les premiers avant/après arrivent bientôt',
     toutes: 'Tout voir',
-    etapes: 'Les étapes',
-    pendant: 'Pendant',
-    rejouer: 'Rejouer le chantier',
     filtrerAria: 'Filtrer par type de pièce',
   },
 

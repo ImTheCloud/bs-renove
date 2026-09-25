@@ -46,14 +46,6 @@ const projets = defineCollection({
              * on voit davantage l'« après » (utile quand l'essentiel est à gauche).
              */
             depart: z.number().min(0).max(100).default(50),
-            /**
-             * Photos intermédiaires, dans l'ordre du chantier. Si la paire en a,
-             * tout le chantier se joue dans un seul cadre (CurseurEtapes).
-             */
-            etapes: z.array(z.object({ image: image(), legende: bilingue })).default([]),
-            /** Nom de la première et de la dernière étape (« Avant » / « Après » sinon). */
-            legendeAvant: bilingue.optional(),
-            legendeApres: bilingue.optional(),
           }),
         )
         .default([]),

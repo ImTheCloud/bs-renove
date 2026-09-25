@@ -1,4 +1,3 @@
-import type { ImageMetadata } from 'astro';
 /**
  * Les réalisations, vues comme des avant/après indépendants.
  *
@@ -33,10 +32,6 @@ export interface Paire {
   ratio: string;
   /** Position de départ de la poignée du curseur, en %. */
   depart: number;
-  /** Photos intermédiaires, dans l'ordre du chantier. */
-  etapes: { image: ImageMetadata; legende: Record<Langue, string> }[];
-  legendeAvant?: Record<Langue, string>;
-  legendeApres?: Record<Langue, string>;
 }
 
 /**
@@ -55,15 +50,12 @@ export async function toutesLesPaires(): Promise<Paire[]> {
         paysage,
         ratio: paysage ? '4 / 3' : '3 / 4',
         depart: paire.depart,
-        etapes: paire.etapes ?? [],
-        legendeAvant: paire.legendeAvant,
-        legendeApres: paire.legendeApres,
         id: `${projet.id}-${index}`,
         avant: paire.avant,
         apres: paire.apres,
         legende: paire.legende,
         categorie: paire.categorie,
-        commune: communeConnue ? projet.data.commune : undefined,
+        commune: communeConnue ? projet.data.commune : { fr: 'Belgique', nl: 'België' },
       });
     });
   }

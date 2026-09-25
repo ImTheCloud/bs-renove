@@ -1,4 +1,4 @@
-# Trois photos envoyées par Claudiu (début, pendant, terminé) ; commune inconnue.
+# Photos envoyées par Claudiu (caisson, puis terminé) ; commune inconnue.
 titre:
   fr: Toiture et lucarne
   nl: Dak en dakkapel
@@ -22,24 +22,9 @@ recit:
     resultat: "[TE BEVESTIGEN]"
 galerie: []
 avantApres:
-  - avant: ../../assets/projets/toiture-lucarne/debut-1.jpg
+  - avant: ../../assets/projets/toiture-lucarne/avant-1.jpg
     apres: ../../assets/projets/toiture-lucarne/apres-1.jpg
-    legendeAvant:
-      fr: La structure
-      nl: De structuur
-    etapes:
-      - image: ../../assets/projets/toiture-lucarne/avant-1.jpg
-        legende:
-          fr: Le caisson
-          nl: De kast
-      - image: ../../assets/projets/toiture-lucarne/pendant-1.jpg
-        legende:
-          fr: Les lattes
-          nl: De latten
-    legendeApres:
-      fr: Terminé
-      nl: Klaar
     legende:
-      fr: Lucarne et toiture, de la structure aux tuiles
-      nl: Dakkapel en dak, van structuur tot pannen
+      fr: Lucarne et toiture, du caisson aux tuiles
+      nl: Dakkapel en dak, van kast tot pannen
     categorie: toiture

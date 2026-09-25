@@ -5,7 +5,6 @@
  * apprécié du site : ici il occupe toute la place, en grand.
  */
 import CurseurAvantApres from '../CurseurAvantApres.astro';
-import CurseurEtapes from '../CurseurEtapes.astro';
 import EntetePage from '../EntetePage.astro';
 import PhotoProjet from '../PhotoProjet.astro';
 import { categories, nomCategorie } from '~/data/categories';
@@ -48,46 +47,32 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
         <div class="liste__paires" data-galerie-paires>
           {paires.map((paire, index) => (
             <figure class:list={['paire', { 'paire--paysage': paire.paysage }]} data-categorie={paire.categorie}>
-              {paire.etapes.length > 0 ? (
-                <CurseurEtapes
+              <CurseurAvantApres
+                langue={langue}
+                id={`curseur-${paire.id}`}
+                depart={paire.depart}
+                ratio={paire.ratio}
+                precision={paire.legende[langue]}
+              >
+                <PhotoProjet
+                  slot="avant"
+                  image={paire.avant}
+                  alt={textes.photos.avant}
                   langue={langue}
-                  id={`chantier-${paire.id}`}
                   ratio={paire.ratio}
-                  precision={paire.legende[langue]}
-                  etapes={[
-                    { image: paire.avant, libelle: paire.legendeAvant?.[langue] ?? textes.accueil.avantApres.avant },
-                    ...paire.etapes.map((etape) => ({ image: etape.image, libelle: etape.legende[langue] })),
-                    { image: paire.apres, libelle: paire.legendeApres?.[langue] ?? textes.accueil.avantApres.apres },
-                  ]}
+                  ton="moyen"
+                  prioritaire={index === 0}
                 />
-              ) : (
-                <CurseurAvantApres
+                <PhotoProjet
+                  slot="apres"
+                  image={paire.apres}
+                  alt={textes.photos.apres}
                   langue={langue}
-                  id={`curseur-${paire.id}`}
-                  depart={paire.depart}
                   ratio={paire.ratio}
-                  precision={paire.legende[langue]}
-                >
-                  <PhotoProjet
-                    slot="avant"
-                    image={paire.avant}
-                    alt={textes.photos.avant}
-                    langue={langue}
-                    ratio={paire.ratio}
-                    ton="moyen"
-                    prioritaire={index === 0}
-                  />
-                  <PhotoProjet
-                    slot="apres"
-                    image={paire.apres}
-                    alt={textes.photos.apres}
-                    langue={langue}
-                    ratio={paire.ratio}
-                    ton="fonce"
-                    prioritaire={index === 0}
-                  />
-                </CurseurAvantApres>
-              )}
+                  ton="fonce"
+                  prioritaire={index === 0}
+                />
+              </CurseurAvantApres>
               <figcaption class="paire__legende">
                 <span class="paire__categorie">{nomCategorie(paire.categorie, langue)}</span>
                 {paire.commune && <span class="paire__commune">{paire.commune[langue]}</span>}

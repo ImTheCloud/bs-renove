@@ -1135,3 +1135,9 @@ qu'il apparaît, le chantier se joue tout seul, puis on glisse, clique une étap
 Lucarne : 4 étapes (La structure → Le caisson → Les lattes → Terminé). La première photo
 (`debut-1.jpg`) est une capture d'écran en basse résolution (679 × 552) : **l'original de
 Sergiu serait meilleur**.
+
+### Abandonné : les étapes intermédiaires (même jour)
+
+Après essai, Claudiu préfère de simples avant/après. Frise et « chantier en accéléré » retirés
+(composant et champs supprimés). Lucarne : avant = le caisson, après = terminé.
+**Règle : uniquement des paires avant/après, pas de photos « pendant ».**

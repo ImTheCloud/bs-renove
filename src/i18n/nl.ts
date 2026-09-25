@@ -316,9 +316,6 @@ export const nl: Traductions = {
     semaines: 'weken',
     aucun: 'De eerste voor/na-foto’s volgen binnenkort',
     toutes: 'Alles bekijken',
-    etapes: 'De stappen',
-    pendant: 'Tijdens',
-    rejouer: 'Werf opnieuw afspelen',
     filtrerAria: 'Filteren op type ruimte',
   },
 
