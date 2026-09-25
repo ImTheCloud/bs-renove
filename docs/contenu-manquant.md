@@ -1149,3 +1149,8 @@ commune inconnue → « Belgique »). Avant horizontal recadré à gauche pour s
 feuille posée sur l'appui ; après vertical cadré sur la lucarne. Nouveau réglage par paire
 `cadrageAvant` / `cadrageApres` (ex. « 50% 24% ») pour choisir la partie visible d'une photo
 recadrée.
+
+### Puis : salle de bain avec baignoire, commune inconnue (même jour)
+
+Photos de Claudiu (`salle-de-bain-baignoire.yaml`), introuvables dans Téléchargements → « Belgique ».
+L'« après » montre le carrelage posé avec les croisillons encore en place (presque fini).

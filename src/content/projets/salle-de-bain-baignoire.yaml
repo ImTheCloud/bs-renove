@@ -1,0 +1,30 @@
+# Photos envoyées par Claudiu, introuvables dans Téléchargements : commune inconnue (« Belgique »).
+titre:
+  fr: Salle de bain avec baignoire
+  nl: Badkamer met bad
+commune:
+  fr: "[À CONFIRMER : commune]"
+  nl: "[TE BEVESTIGEN: gemeente]"
+service: salles-de-bain
+ordre: 12
+misEnAvant: false
+couvertureAlt:
+  fr: Baignoire habillée de carrelage, sol en grandes dalles
+  nl: Bad bekleed met tegels, vloer in grote tegels
+recit:
+  fr:
+    depart: "[À CONFIRMER]"
+    travaux: "[À CONFIRMER]"
+    resultat: "[À CONFIRMER]"
+  nl:
+    depart: "[TE BEVESTIGEN]"
+    travaux: "[TE BEVESTIGEN]"
+    resultat: "[TE BEVESTIGEN]"
+galerie: []
+avantApres:
+  - avant: ../../assets/projets/salle-de-bain-baignoire/avant-1.jpg
+    apres: ../../assets/projets/salle-de-bain-baignoire/apres-1.jpg
+    legende:
+      fr: Salle de bain sous le toit, baignoire habillée et sol carrelé
+      nl: Badkamer onder het dak, beklede bad en betegelde vloer
+    categorie: salle-de-bain
