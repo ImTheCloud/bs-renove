@@ -8,7 +8,8 @@ Objectif : qu'un propriétaire qui arrive sur le site ait confiance et prenne co
 
 - Contenu, pages, textes : `docs/brief.md`
 - Suivi avec le client (hors site) : `docs/suivi-client.md`
-- Architecture du code : `README.md`
+- Présentation du site : `README.md` (vitrine du dépôt, sans détail interne)
+- Guide technique (lancer, modifier le contenu, mise en ligne, DNS) : `docs/guide-technique.md`
 
 ## Règles non négociables
 
@@ -23,6 +24,7 @@ Objectif : qu'un propriétaire qui arrive sur le site ait confiance et prenne co
 - **Ne pas écrire « un seul interlocuteur »** (ni équivalents) : jugé sans valeur ajoutée.
 - À la fin de chaque changement : `npm run build` sans erreur, commit clair, push.
 - Réponses courtes et directes, sans jargon.
+- **README** : il présente le site (ce qu'il offre, captures, design, crédits), jamais la façon dont il a été développé ni les détails internes (DNS, Wix, clés, fichiers). Ne pas le mettre à jour à chaque changement : quand le projet approche d'une fin (livraison, mise en ligne, fin d'une série de modifications), **rappeler** à l'utilisateur qu'il faut le mettre à jour.
 
 ## Stack
 

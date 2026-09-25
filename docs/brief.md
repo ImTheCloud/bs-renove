@@ -1,6 +1,6 @@
 # Brief : site BS Renove
 
-État du site après la refonte « Atelier » (septembre 2026). Les règles de design et de code sont dans `CLAUDE.md`, l'organisation du code dans `README.md`, le suivi avec le client dans `docs/suivi-client.md`.
+État du site après la refonte « Atelier » (septembre 2026). Les règles de design et de code sont dans `CLAUDE.md`, l'organisation du code et les guides dans `docs/guide-technique.md`, le suivi avec le client dans `docs/suivi-client.md`.
 
 ## 1. L'entreprise (faits vérifiés)
 
@@ -57,7 +57,7 @@ Page Services : une section par métier (texte, exemples de travaux, devis) avec
 ## 6. Réalisations : uniquement des avant/après
 
 - Chaque comparaison avant/après est indépendante, avec sa pièce (catégorie, `src/data/categories.ts`) et sa commune (« Belgique » si inconnue). Pas de page par chantier, pas de photo « pendant ».
-- Les paires sont rangées par chantier dans `src/content/projets/*.yaml` (voir `README.md` pour en ajouter une).
+- Les paires sont rangées par chantier dans `src/content/projets/*.yaml` (voir `docs/guide-technique.md` pour en ajouter une).
 - Page Réalisations : toutes les paires, filtrables par pièce ; le filtre se lit dans l'adresse (`/realisations/#douche`). Les photos horizontales passent en 4/3 sur deux colonnes, à la même hauteur que les verticales.
 - Réglages par paire : position de départ de la poignée (`depart`), cadrage de chaque photo (`cadrageAvant`, `cadrageApres`).
 
