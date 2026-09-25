@@ -210,6 +210,21 @@
   outline-offset: 2px;
 }
 
+/* Le champ qui apparaît sous les tuiles (« Quel autre métier ? »). */
+.formulaire .champ--precision {
+  margin: 14px 0 0;
+}
+
+.formulaire .champ--precision[hidden] {
+  display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .formulaire .champ--precision:not([hidden]) {
+    animation: formulaire-etape-entre 350ms var(--ease-out);
+  }
+}
+
 /* --- Petites questions à pastilles (un ou plusieurs choix) --- */
 .formulaire .question {
   min-width: 0;

@@ -5,7 +5,7 @@
  * src/styles/formulaire.css) :
  * 1. le métier (tuiles, plusieurs choix) ;
  * 2. l'expérience (depuis quand, statut, ce qu'on cherche, disponibilité) ;
- * 3. sur le chantier (permis, véhicule, outils, VCA, déplacements, langues) ;
+ * 3. sur le chantier (permis, véhicule, outils, langues) ;
  * 4. les coordonnées et un mot sur le parcours.
  * Après l'envoi : CV et photos par WhatsApp ou email, candidature déjà écrite.
  *
@@ -58,8 +58,6 @@ const questionsChantier: Question[] = [
   { nom: 'permis', label: f.permis, choix: [f.oui, f.non] },
   { nom: 'vehicule', label: f.vehicule, choix: [f.oui, f.non] },
   { nom: 'outils', label: f.outils, choix: f.outilsChoix },
-  { nom: 'vca', label: f.vca, choix: f.vcaChoix },
-  { nom: 'deplacements', label: f.deplacements, choix: f.deplacementsChoix },
   { nom: 'langues', label: f.langues, choix: f.languesChoix, multiple: true },
 ];
 
@@ -67,6 +65,7 @@ const questionsChantier: Question[] = [
 const r = f.recap;
 const recap = [
   ['metier', r.metier],
+  ['metier_autre', r.metier_autre],
   '',
   ...questionsExperience.map((q) => [q.nom, r[q.nom as keyof typeof r]]),
   '',
@@ -122,13 +121,25 @@ const recap = [
         {
           metiers.map((metier) => (
             <label class="tuile">
-              <input type="checkbox" name="metier" value={f.metiers[metier.cle]} data-cles={metier.services} />
+              <input
+                type="checkbox"
+                name="metier"
+                value={f.metiers[metier.cle]}
+                data-cles={metier.services}
+                data-precision={metier.cle === 'autre' ? `${id}-metier-autre` : undefined}
+              />
               <span class="tuile__icone"><Icon nom={metier.icone} taille={24} /></span>
               <span class="tuile__nom">{f.metiers[metier.cle]}</span>
               <span class="tuile__coche" aria-hidden="true"><Icon nom="check" taille={14} epaisseur={3} /></span>
             </label>
           ))
         }
+      </div>
+
+      <!-- « Autre métier » coché : on écrit lequel (le champ apparaît). -->
+      <div class="champ champ--precision" data-precision-champ>
+        <label for={`${id}-metier-autre`}>{f.metierAutre}</label>
+        <input type="text" id={`${id}-metier-autre`} name="metier_autre" placeholder={f.metierAutreExemple} data-erreur={f.erreurMetierAutre} />
       </div>
     </fieldset>
 

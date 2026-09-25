@@ -10,6 +10,8 @@
  *   tout déjà écrit ;
  * - après l'envoi, [data-suite-whatsapp] et [data-suite-email] ouvrent un
  *   message qui reprend toute la demande (pour envoyer des photos, un CV…) ;
+ * - une case avec data-precision="id" fait apparaître le champ id (ex. « Autre
+ *   métier » → « Quel autre métier ? »), obligatoire tant que la case est cochée ;
  * - pré-sélection par l'adresse : ?<data-param>=valeur coche les cases dont
  *   data-cles contient cette valeur.
  *
@@ -83,7 +85,7 @@ function initialiser(bloc: HTMLElement) {
 
     for (const champ of Array.from(etape.querySelectorAll<HTMLInputElement>('input[required], textarea[required]'))) {
       if (champ.type === 'checkbox' && !champ.checked) return signaler(d.erreurConsentement ?? '', champ);
-      if (champ.type !== 'checkbox' && !champ.value.trim()) return signaler(d.erreurChamp ?? '', champ);
+      if (champ.type !== 'checkbox' && !champ.value.trim()) return signaler(champ.dataset.erreur ?? d.erreurChamp ?? '', champ);
     }
 
     const email = etape.querySelector<HTMLInputElement>('input[type="email"]');
@@ -208,6 +210,19 @@ function initialiser(bloc: HTMLElement) {
     afficher(etapes.length - 1);
   });
 
+  // Les champs de précision (« Quel autre métier ? ») suivent leur case.
+  const precisions = Array.from(form.querySelectorAll<HTMLInputElement>('input[data-precision]'));
+  const majPrecisions = () =>
+    precisions.forEach((caseACocher) => {
+      const champ = document.getElementById(caseACocher.dataset.precision ?? '') as HTMLInputElement | null;
+      const bloc = champ?.closest<HTMLElement>('[data-precision-champ]');
+      if (!champ || !bloc) return;
+      bloc.hidden = !caseACocher.checked;
+      champ.required = caseACocher.checked;
+      if (!caseACocher.checked) champ.removeAttribute('aria-invalid');
+    });
+  precisions.forEach((caseACocher) => caseACocher.addEventListener('change', majPrecisions));
+
   // Pré-sélection depuis l'adresse (ex. ?travaux=toiture, ?metier=carrelage).
   const valeur = d.param ? new URLSearchParams(location.search).get(d.param) : null;
   if (valeur) {
@@ -216,6 +231,7 @@ function initialiser(bloc: HTMLElement) {
     });
   }
 
+  majPrecisions();
   afficher(0, false);
 }
 
