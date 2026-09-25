@@ -1,3 +1,4 @@
+import type { ImageMetadata } from 'astro';
 /**
  * Les réalisations, vues comme des avant/après indépendants.
  *
@@ -32,6 +33,8 @@ export interface Paire {
   ratio: string;
   /** Position de départ de la poignée du curseur, en %. */
   depart: number;
+  /** Photos « pendant », dans l'ordre du chantier. */
+  etapes: ImageMetadata[];
 }
 
 /**
@@ -50,6 +53,7 @@ export async function toutesLesPaires(): Promise<Paire[]> {
         paysage,
         ratio: paysage ? '4 / 3' : '3 / 4',
         depart: paire.depart,
+        etapes: paire.etapes,
         id: `${projet.id}-${index}`,
         avant: paire.avant,
         apres: paire.apres,

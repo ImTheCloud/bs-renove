@@ -1117,3 +1117,11 @@ Remarque de Claudiu : la porte et le garage sont côté rue (à gauche), le jard
 Porte et auvent déplacés dans le mur de gauche ; garage (avec la voiture) et **allée pavée**
 dessinés à gauche, avec une pièce « l'allée » vers l'avant/après de l'allée ; l'arbre et la
 terrasse passent à droite, côté jardin.
+
+### Essai : frise avant → pendant → après (même jour)
+
+Nouveau champ facultatif `etapes` sur une paire (photos « pendant »). Sur la page Réalisations,
+une frise de miniatures s'affiche sous la comparaison. Premier essai : toiture avec lucarne
+(`src/content/projets/toiture-lucarne.yaml`), trois photos envoyées par Claudiu, introuvables
+dans les dossiers de Téléchargements : **commune à demander à Sergiu**. Un ouvrier est visible
+de loin sur la photo « avant » (l'équipe).

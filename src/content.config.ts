@@ -46,6 +46,8 @@ const projets = defineCollection({
              * on voit davantage l'« après » (utile quand l'essentiel est à gauche).
              */
             depart: z.number().min(0).max(100).default(50),
+            /** Photos intermédiaires (« pendant »), montrées en frise sous la comparaison. */
+            etapes: z.array(image()).default([]),
           }),
         )
         .default([]),
