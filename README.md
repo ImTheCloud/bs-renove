@@ -85,7 +85,9 @@ WEB3FORMS_KEY=la-clé-web3forms
 | Vie privée | `/vie-privee/` | `/nl/privacy/` |
 | Page introuvable | `404` | `/nl/404/` |
 
-Le sélecteur FR/NL mène toujours à **la même page** dans l'autre langue.
+Le sélecteur FR/NL mène toujours à **la même page** dans l'autre langue ; sur téléphone, il est directement dans l'en-tête.
+
+**Langue automatique** : à l'arrivée, un appareil réglé en néerlandais voit le site en NL, tous les autres en FR. Un choix fait avec le sélecteur est retenu et prime ensuite. Rien ne se passe pendant la navigation interne, ni pour les robots (Google, aperçus WhatsApp).
 
 ### Les éléments marquants
 

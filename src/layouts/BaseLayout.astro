@@ -43,6 +43,11 @@ const alternatives = LANGUES.map((code) => ({
 }));
 const xDefault = alternatives.find((alternative) => alternative.code === 'fr');
 
+// Pour choisir la langue selon l'appareil (voir le script dans <head>).
+const versFr = memePageDansLaLangue(cheminActuel, 'fr');
+const versNl = memePageDansLaLangue(cheminActuel, 'nl');
+const langueAuto = !noindex;
+
 // Image de partage (WhatsApp, Facebook…) dans la langue de la page.
 const imagePartage = langue === 'nl' ? imagePartageNl : imagePartageFr;
 const urlPartage = new URL(imagePartage.src, Astro.site).href;
@@ -57,6 +62,36 @@ const urlPartage = new URL(imagePartage.src, Astro.site).href;
 
     {/* Posé avant tout affichage : les animations d'apparition ne s'activent qu'avec JS. */}
     <script is:inline>document.documentElement.classList.add('js');</script>
+
+    {/*
+      Langue selon l'appareil, à l'arrivée sur le site uniquement :
+      - un choix fait avec le sélecteur FR/NL est retenu et prime toujours ;
+      - sinon, téléphone ou ordinateur réglé en néerlandais → NL, tout le reste → FR ;
+      - jamais pendant la navigation interne, jamais pour les robots (Google, aperçus WhatsApp).
+    */}
+    <script is:inline define:vars={{ pageLangue: langue, versFr, versNl, langueAuto }}>
+      (function () {
+        document.addEventListener('click', function (e) {
+          var lien = e.target.closest && e.target.closest('[data-choix-langue]');
+          if (lien) try { localStorage.setItem('langue', lien.getAttribute('data-choix-langue')); } catch (x) {}
+        });
+        if (!langueAuto) return;
+        if (/bot|crawl|spider|slurp|lighthouse|facebookexternalhit|whatsapp|preview/i.test(navigator.userAgent)) return;
+        try { if (document.referrer && new URL(document.referrer).host === location.host) return; } catch (x) {}
+        var cible = null;
+        try { cible = localStorage.getItem('langue'); } catch (x) {}
+        if (cible !== 'fr' && cible !== 'nl') {
+          cible = 'fr';
+          var langues = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+          for (var i = 0; i < langues.length; i++) {
+            var code = String(langues[i]).toLowerCase();
+            if (code.indexOf('nl') === 0) { cible = 'nl'; break; }
+            if (code.indexOf('fr') === 0) break;
+          }
+        }
+        if (cible !== pageLangue) location.replace((cible === 'nl' ? versNl : versFr) + location.search + location.hash);
+      })();
+    </script>
 
     <link rel="preload" href={policeTitre} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={policeTexte} as="font" type="font/woff2" crossorigin />

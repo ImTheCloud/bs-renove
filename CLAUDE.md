@@ -28,7 +28,7 @@ Objectif : qu'un propriétaire qui arrive sur le site ait confiance et prenne co
 
 - **Astro** (sortie statique, TypeScript), déployé depuis GitHub sur **Netlify** (`netlify.toml`). Domaine `bsrenovesrl.com` acheté chez Wix.
 - **CSS** : variables dans `src/styles/tokens.css` + styles scoped des composants. Pas de framework CSS.
-- **Langues** : FR par défaut sans préfixe (`/`), NL sous `/nl/`. Textes dans `src/i18n/fr.ts` et `nl.ts` (même structure). Le sélecteur FR/NL mène à la même page dans l'autre langue.
+- **Langues** : FR par défaut sans préfixe (`/`), NL sous `/nl/`. Textes dans `src/i18n/fr.ts` et `nl.ts` (même structure). Le sélecteur FR/NL mène à la même page dans l'autre langue (visible directement dans l'en-tête sur mobile). À l'arrivée sur le site, la langue suit celle de l'appareil (NL si réglé en néerlandais, sinon FR) ; un choix fait avec le sélecteur est retenu et prime (script dans `BaseLayout.astro`).
 - **Réalisations** : content collection `projets` (un fichier YAML par chantier), logique dans `src/data/projets.ts`.
 - **Formulaire de devis** : 2 étapes, Web3Forms (clé `WEB3FORMS_KEY` dans `.env` et chez l'hébergeur), champ anti-spam caché. Sans clé, il ouvre un email pré-rempli avec toutes les réponses.
 - **JavaScript** : vanilla + Lenis (défilement fluide). Moteur commun : `src/scripts/site.ts`.
@@ -62,7 +62,7 @@ Apparitions au défilement, titres mot par mot, Lenis, transitions entre pages. 
 
 ### Principes
 
-- Mobile d'abord : dock flottant en bas (Appeler, WhatsApp, Devis). Menu mobile : panneau **clair** (papier), le bouton affiche « Fermer » quand il est ouvert. Zones tactiles ≥ 44 px.
+- Mobile d'abord : dock flottant en bas (Appeler, WhatsApp, Devis). Menu mobile : panneau **clair** (papier), bouton rond jaune (croix quand il est ouvert), FR/NL à côté. Favicon rond bleu nuit (`public/favicon.png`). Zones tactiles ≥ 44 px.
 - Accessibilité : contraste AA, focus clavier visible, vrais `<button>`/`<a>`, texte alternatif, curseurs utilisables au clavier.
 - Performance : images en WebP aux bonnes tailles (qualité 70), chargement différé sauf le haut de page.
 

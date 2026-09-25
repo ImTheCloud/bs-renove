@@ -10,9 +10,11 @@ interface Props {
   langue: Langue;
   cheminActuel: string;
   surFonce?: boolean;
+  /** Version resserrée (en-tête sur téléphone). */
+  compact?: boolean;
 }
 
-const { langue, cheminActuel, surFonce = false } = Astro.props;
+const { langue, cheminActuel, surFonce = false, compact = false } = Astro.props;
 const textes = t(langue);
 
 const options = LANGUES.map((code) => ({
@@ -24,13 +26,14 @@ const options = LANGUES.map((code) => ({
 }));
 ---
 
-<nav class:list={['langues', { 'langues--fonce': surFonce }]} aria-label={textes.langues.choisirAria}>
+<nav class:list={['langues', { 'langues--fonce': surFonce, 'langues--compact': compact }]} aria-label={textes.langues.choisirAria}>
   {
     options.map((option) => (
       <a
         href={option.href}
         class:list={['langues__lien', { 'langues__lien--actif': option.actif }]}
         hreflang={option.code}
+        data-choix-langue={option.code}
         lang={option.code}
         aria-current={option.actif ? 'true' : undefined}
         title={option.actif ? undefined : option.titre}
@@ -81,6 +84,17 @@ const options = LANGUES.map((code) => ({
     color: var(--color-on-ink);
   }
 
+  .langues--compact {
+    padding: 2px;
+  }
+
+  .langues--compact .langues__lien {
+    min-width: 38px;
+    min-height: 44px;
+    padding: 0 6px;
+    font-size: 12px;
+  }
+
   .langues--fonce {
     border-color: var(--color-line-on-ink);
   }
@@ -103,15 +117,15 @@ const options = LANGUES.map((code) => ({
   }
 
   /* En-tête sur fond sombre, avant défilement (pas dans le menu mobile, qui est clair) */
-  :global(.entete--sur-fonce:not(.entete--defile) .entete__actions) .langues {
+  :global(body:not(.menu-ouvert) .entete--sur-fonce:not(.entete--defile) :is(.entete__actions, .entete__langue-mobile)) .langues {
     border-color: var(--color-line-on-ink);
   }
 
-  :global(.entete--sur-fonce:not(.entete--defile) .entete__actions) .langues__lien {
+  :global(body:not(.menu-ouvert) .entete--sur-fonce:not(.entete--defile) :is(.entete__actions, .entete__langue-mobile)) .langues__lien {
     color: var(--color-on-ink-label);
   }
 
-  :global(.entete--sur-fonce:not(.entete--defile) .entete__actions) .langues__lien--actif {
+  :global(body:not(.menu-ouvert) .entete--sur-fonce:not(.entete--defile) :is(.entete__actions, .entete__langue-mobile)) .langues__lien--actif {
     background: var(--color-on-ink);
     color: var(--color-ink);
   }

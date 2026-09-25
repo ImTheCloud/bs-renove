@@ -47,6 +47,11 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
       </Bouton>
     </div>
 
+    <!-- Téléphone : FR / NL toujours à portée de main, à côté du menu. -->
+    <div class="entete__langue-mobile">
+      <SelecteurLangue langue={langue} cheminActuel={cheminActuel} compact />
+    </div>
+
     <button
       type="button"
       class="entete__burger"
@@ -214,35 +219,41 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
   }
 
   /* --- Bouton menu --- */
+  /* Téléphone : un rond jaune avec deux traits (croix quand le menu est ouvert). Le mot « Menu » reste lu par les lecteurs d'écran. */
   .entete__burger {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
-    min-height: var(--tap-min);
-    padding: 0 8px 0 20px;
-    background: var(--color-ink);
+    justify-content: center;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    background: transparent;
     border: none;
-    border-radius: var(--radius-pill);
-    color: var(--color-on-ink);
-    font: 650 15px/1 var(--font-text);
+    border-radius: 50%;
     cursor: pointer;
     position: relative;
     z-index: 2;
   }
 
+  .entete__burger-texte {
+    display: none;
+  }
+
   .entete__burger-traits {
     position: relative;
     display: inline-block;
-    width: 34px;
-    height: 34px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     background: var(--color-signal);
+    box-shadow: 0 4px 12px -4px rgba(15, 22, 38, 0.3);
   }
 
   .entete__burger-traits span {
     position: absolute;
-    left: 10px;
-    right: 10px;
+    left: 15px;
+    right: 15px;
     height: 2px;
     border-radius: 2px;
     background: var(--color-ink);
@@ -250,11 +261,11 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
   }
 
   .entete__burger-traits span:first-child {
-    top: 13px;
+    top: 20px;
   }
 
   .entete__burger-traits span:last-child {
-    top: 19px;
+    top: 26px;
   }
 
   .entete__burger[aria-expanded='true'] .entete__burger-traits span:first-child {
@@ -387,10 +398,6 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
     color: var(--color-signal);
   }
 
-  .entete--sur-fonce:not(.entete--defile) .entete__burger {
-    background: var(--color-on-ink);
-    color: var(--color-ink);
-  }
 
   :global(body.menu-ouvert) .entete__barre {
     background: transparent;
@@ -408,29 +415,68 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
     color: var(--color-accent);
   }
 
-  :global(body.menu-ouvert) .entete .entete__burger.entete__burger {
-    background: var(--color-ink);
-    color: var(--color-on-ink);
-  }
+
 
   .entete__logo {
     position: relative;
     z-index: 2;
   }
 
-  @media (max-width: 360px) {
+  @media (max-width: 1023px) {
     .entete__barre {
       gap: 8px;
+    }
+  }
+
+  /* Les plus petits téléphones (≤ 340 px) : l'en-tête s'approche des bords pour tout faire tenir. */
+  @media (max-width: 340px) {
+    .entete {
+      padding-inline: 8px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .entete__logo :global(.logo__nom) {
+      font-size: 22px;
+    }
+  }
+
+  .entete__langue-mobile {
+    margin-left: auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  @media (max-width: 360px) {
+    .entete__barre {
+      gap: 6px;
       padding-left: 10px;
     }
 
-    .entete__burger {
-      padding-left: 14px;
-      gap: 8px;
-    }
+
+
 
     .entete__logo :global(.logo__nom) {
       font-size: 22px;
+    }
+
+    .entete__langue-mobile :global(.langues__lien) {
+      min-width: 34px;
+      padding: 0 4px;
+    }
+
+    .entete__burger,
+    .entete__burger-traits {
+      width: 44px;
+      height: 44px;
+    }
+
+    .entete__burger-traits span:first-child {
+      top: 18px;
+    }
+
+    .entete__burger-traits span:last-child {
+      top: 24px;
     }
   }
 
@@ -486,6 +532,7 @@ const estActif = (href: string) => cheminActuel.startsWith(href);
     }
 
     .entete__burger,
+    .entete__langue-mobile,
     .panneau {
       display: none;
     }
