@@ -1,81 +1,74 @@
-
-
-Claude · MD
 # BS Renove : site vitrine
- 
+
 ## Le projet
- 
+
 Site vitrine de BS Renove SRL, entreprise générale de rénovation belge (siège à Denderleeuw, intervient dans toute la Belgique). Site en français et en néerlandais.
- 
-Objectif : qu'un propriétaire qui arrive sur le site ait confiance et prenne contact, par téléphone, WhatsApp ou formulaire de devis.
- 
-- Contenu, pages, textes et plan de travail : `docs/brief.md`
-- Ancienne maquette : `docs/maquette-c.html`, **abandonnée** depuis la refonte (voir « Design »). Ne plus s'en servir comme référence.
-- Infos manquantes : `docs/contenu-manquant.md` (à créer et tenir à jour)
+
+Objectif : qu'un propriétaire qui arrive sur le site ait confiance et prenne contact, par formulaire de devis, téléphone ou WhatsApp.
+
+- Contenu, pages, textes : `docs/brief.md`
+- Ce qui reste à confirmer avec le client : `docs/contenu-manquant.md` (à tenir à jour)
+- Architecture du code : `README.md`
+
 ## Règles non négociables
- 
-- **Ne jamais inventer d'information sur l'entreprise** : années d'expérience, taille de l'équipe, garanties, assurances, avis clients, chiffres, certifications. Si une info manque, mettre un texte visible `[À CONFIRMER : …]` et l'ajouter à `docs/contenu-manquant.md`.
-- **Avant/après : seulement la commune**, jamais la rue ni le numéro du client.
-- **Photos : toujours dans `src/assets/`** et affichées avec `astro:assets` (`<Image>` / `<Picture>`). Jamais dans `public/` : les originaux peuvent contenir la position GPS de la maison du client.
-- **Tout texte visible existe en FR et en NL.** Chaque texte NL est à faire relire par un natif : le noter dans `docs/contenu-manquant.md`.
+
+- **Ne jamais inventer d'information sur l'entreprise** : années d'expérience, taille de l'équipe, garanties, assurances, avis clients, chiffres, certifications. Si une info manque, ne rien afficher (ou un texte visible `[À CONFIRMER : …]`) et l'ajouter à `docs/contenu-manquant.md`.
+- **Photos : jamais d'adresse client.** Seule la commune est affichée (« Belgique » si elle est inconnue). Avant tout import, **masquer par un aplat** les numéros de maison, visages, plaques, coordonnées, puis vérifier à l'œil.
+- **Photos dans `src/assets/`**, affichées avec `astro:assets`, importées **sans métadonnées** (sharp). Jamais dans `public/` : les originaux contiennent la position GPS de la maison.
+- **Réalisations : uniquement des avant/après** (deux photos du même endroit). Pas de photo « pendant », pas de page par chantier. Seule exception : l'Électricité, qui montre une photo seule.
+- **Pas d'image générée par IA présentée comme un chantier.** Ce qui manque est illustré en SVG.
+- **Tout texte visible existe en FR et en NL.**
 - **Pas de base de données, pas de backend.** Site 100 % statique.
 - **Pas de cookies de suivi**, pas d'appel à Google Fonts (polices hébergées sur le site).
-- **Une phase à la fois** : avant de coder, propose un plan court et attends mon accord. À la fin, `npm run build` doit passer sans erreur, puis résume simplement ce qui est fait et ce qui reste.
-- **À la fin de chaque phase** : `npm run build` sans erreur, puis un commit clair et un push sur GitHub.
-- Explique tes choix simplement, sans jargon.
+- **Ne pas écrire « un seul interlocuteur »** (ni équivalents) : jugé sans valeur ajoutée.
+- À la fin de chaque changement : `npm run build` sans erreur, commit clair, push.
+- Réponses courtes et directes, sans jargon.
+
 ## Stack
- 
-- **Astro** (dernière version stable), sortie statique, TypeScript.
-- **CSS** : variables CSS dans `src/styles/tokens.css` + styles scoped des composants Astro. Pas de framework CSS lourd, pas de librairie de composants.
-- **Langues** : routage i18n intégré d'Astro. FR par défaut sans préfixe (`/`), NL sous `/nl/`. Textes d'interface dans `src/i18n/fr.ts` et `src/i18n/nl.ts`. Balises `hreflang`. Le sélecteur FR/NL mène à la même page dans l'autre langue.
-- **Réalisations** : uniquement des avant/après indépendants, pas de page par chantier. Content collection `projets` (un fichier par chantier, qui range les paires et donne la commune) ; logique dans `src/data/projets.ts`. Détail : `docs/brief.md` § 7.
-- **Formulaire de devis** : 3 étapes, Web3Forms (clé `WEB3FORMS_KEY` dans `.env` et chez l'hébergeur), champ anti-spam caché. Sans clé, il ouvre un email pré-rempli avec toutes les réponses.
-- **JavaScript** : vanilla, plus Lenis pour le défilement fluide. Le moteur commun est dans `src/scripts/site.ts` (apparitions, scènes pilotées par le défilement).
-- **Polices** : Fontsource (Bricolage Grotesque, Figtree, Instrument Serif, Caveat), hébergées sur le site.
-- **Sitemap** : `@astrojs/sitemap`.
-- **Hébergement** : Cloudflare Pages ou Netlify, déployé depuis Git.
-## Design : direction « Atelier » (refonte de septembre 2026)
 
-La maquette `docs/maquette-c.html` (direction C, fond blanc) est **abandonnée** : le site a été entièrement refait. Référence aimée par le client : https://ark-eng.be (annotations manuscrites, fond crème, surlignages).
+- **Astro** (sortie statique, TypeScript), déployé depuis Git (Cloudflare Pages ou Netlify).
+- **CSS** : variables dans `src/styles/tokens.css` + styles scoped des composants. Pas de framework CSS.
+- **Langues** : FR par défaut sans préfixe (`/`), NL sous `/nl/`. Textes dans `src/i18n/fr.ts` et `nl.ts` (même structure). Le sélecteur FR/NL mène à la même page dans l'autre langue.
+- **Réalisations** : content collection `projets` (un fichier YAML par chantier), logique dans `src/data/projets.ts`.
+- **Formulaire de devis** : 2 étapes, Web3Forms (clé `WEB3FORMS_KEY` dans `.env` et chez l'hébergeur), champ anti-spam caché. Sans clé, il ouvre un email pré-rempli avec toutes les réponses.
+- **JavaScript** : vanilla + Lenis (défilement fluide). Moteur commun : `src/scripts/site.ts`.
+- **Polices** : Fontsource (Bricolage Grotesque, Figtree, Instrument Serif, Caveat).
 
-### Couleurs
+## Design : direction « Atelier »
 
-Toutes dans `src/styles/tokens.css` : changer une couleur prend une ligne.
+### Couleurs (`src/styles/tokens.css`)
 
 - Papier `#F5F2EC` (fond), surfaces `#ECE7DE` / `#E3DDD1`
-- Encre `#121418` (titres, sections sombres, bouton principal)
-- Bleu du logo `#0066B4` (mots en italique, liens, annotations) ; `#7CBCFF` sur fond sombre
-- Jaune marqueur `#FFD447` (surlignages, pastilles de flèche, états actifs) : jamais comme couleur de texte sur fond clair
-- Bleu nuit `#0F1626` (mode nuit de l’accueil, bloc devis)
+- Encre `#121418` : titres, bouton principal, sections sombres
+- Bleu du logo `#0066B4` : mots en italique, liens, annotations, « 12 ans » du hero ; `#7CBCFF` sur fond sombre
+- Jaune marqueur `#FFD447` : surlignages, pastilles de flèche, points de la maison (jamais du texte sur fond clair)
+- Bleu nuit `#0F1626` : mode nuit de l'accueil, bloc devis
 - WhatsApp `#0E8449`
+
+Essayé et refusé par le client : tout passer au bleu du logo (trop sage).
 
 ### Typographie
 
-- **Bricolage Grotesque** (titres, 700, interlettrage très serré), **Instrument Serif italique** (les derniers mots d'un titre, en bleu ou en jaune), **Figtree** (texte), **Caveat** (annotations écrites à la main, avec petites flèches).
-- Tailles fluides (`clamp`) dans les tokens.
+**Bricolage Grotesque** (titres), **Instrument Serif italique** (fin des titres, en bleu), **Figtree** (texte), **Caveat** (annotations manuscrites). Tailles fluides (`clamp`).
 
 ### Éléments signature
 
-- **Maison en coupe dessinée en SVG** dans le hero (`src/components/accueil/MaisonCoupe.astro`) : se trace à l'arrivée, visite guidée des pièces, chaque pièce mène au service. **Mode nuit** : un clic sur le soleil passe le haut de l'accueil en nuit (fond bleu nuit, lune, étoiles, fenêtres et lampe allumées), un clic sur la lune revient au jour. En nuit, le bouton principal devient jaune (en-tête compris) et le logo prend son icône aux traits clairs (`icone-logo-nuit.png`), sans pastille blanche.
-- **Avant/après piloté par le défilement** sur l'accueil (section épinglée).
-- Bandeau « rubalise » qui défile, liste des métiers avec photo qui suit la souris, chiffres qui comptent, réalisations en défilement horizontal, FAQ en accordéon, formulaire de devis en 3 étapes.
-- Grain de papier léger sur toute la page, fond millimétré derrière les en-têtes.
+- **Maison en coupe (SVG)** dans le hero (`MaisonCoupe.astro`) : se trace à l'arrivée, visite guidée des pièces, chaque pièce mène à son métier ou à ses avant/après. Côté rue à gauche (porte, petite toiture, allée pavée), jardin à droite (terrasse, arbre), cave au sous-sol. **Mode nuit** au clic sur le soleil (lune, étoiles, fenêtres allumées, boutons jaunes, logo aux traits clairs).
+- **Hero** : « Demander un devis gratuit » + « 12 ans de métier » en grand. Pas de WhatsApp dans le hero.
+- **Avant/après piloté par le défilement** (section épinglée), bande de cartes avant/après qui basculent, chiffres qui comptent, FAQ en accordéon, formulaire en 2 étapes, pied de page avec bande « rubalise » jaune.
 
 ### Mouvement
 
-- Animations au défilement autorisées (apparitions, titres mot par mot), défilement fluide (Lenis), transitions entre pages (`@view-transition`).
-- **Tout se coupe avec `prefers-reduced-motion`**, et tout le contenu reste visible et utilisable sans JavaScript.
+Apparitions au défilement, titres mot par mot, Lenis, transitions entre pages. **Tout se coupe avec `prefers-reduced-motion`**, et le contenu reste utilisable sans JavaScript.
 
-### Principes qui restent
+### Principes
 
-- Mobile d'abord : dock flottant en bas (Appeler, WhatsApp, Devis). Zones tactiles d'au moins 44-48px.
-- Accessibilité : contraste AA, focus clavier visible, vrais `<button>` et `<a>`, texte alternatif sur chaque photo, curseur avant/après au clavier.
-- Photos : **seuls les avant/après sont affichés** (les photos isolées de chantier ne le sont plus). **Pas d'image générée par IA présentée comme un chantier** ; ce qui manque est illustré en SVG (dessins, icônes), jamais inventé.
+- Mobile d'abord : dock flottant en bas (Appeler, WhatsApp, Devis). Zones tactiles ≥ 44 px.
+- Accessibilité : contraste AA, focus clavier visible, vrais `<button>`/`<a>`, texte alternatif, curseurs utilisables au clavier.
+- Performance : images en WebP aux bonnes tailles (qualité 70), chargement différé sauf le haut de page.
 
 ## Commandes
- 
-- `npm run dev` : serveur local
-- `npm run build` : construction du site (doit passer à chaque fin de phase)
-- `npm run preview` : aperçu du site construit
- 
 
+- `npm run dev` : serveur local (après un changement de schéma ou d'images : `rm -rf .astro` puis relancer)
+- `npm run build` : vérification des types + construction du site
+- `npm run preview` : aperçu du site construit
