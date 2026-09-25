@@ -426,7 +426,7 @@ const choix = [
     content: '';
     position: absolute;
     inset: 0;
-    background: var(--color-accent);
+    background: var(--color-ink);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 600ms var(--ease-out);
@@ -510,7 +510,7 @@ const choix = [
   }
 
   .tuile:hover {
-    border-color: var(--color-accent);
+    border-color: var(--color-ink);
   }
 
   .tuile:active {
@@ -558,8 +558,8 @@ const choix = [
   }
 
   .tuile:has(input:checked) {
-    border-color: var(--color-accent);
-    background: #eef5fc;
+    border-color: var(--color-ink);
+    background: #fffbea;
   }
 
   .tuile:has(input:checked) .tuile__icone {
@@ -567,8 +567,8 @@ const choix = [
   }
 
   .tuile:has(input:checked) .tuile__coche {
-    background: var(--color-accent);
-    border-color: var(--color-accent);
+    background: var(--color-ink);
+    border-color: var(--color-ink);
     color: var(--color-signal);
   }
 
@@ -627,7 +627,7 @@ const choix = [
   .champ input:focus,
   .champ textarea:focus {
     outline: none;
-    border-color: var(--color-accent);
+    border-color: var(--color-ink);
     box-shadow: 0 0 0 4px rgba(255, 212, 71, 0.55);
   }
 
@@ -674,8 +674,8 @@ const choix = [
   }
 
   .consentement input:checked + .consentement__case {
-    background: var(--color-accent);
-    border-color: var(--color-accent);
+    background: var(--color-ink);
+    border-color: var(--color-ink);
     color: var(--color-signal);
   }
 
