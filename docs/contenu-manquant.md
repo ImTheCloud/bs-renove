@@ -1079,3 +1079,9 @@ endroits » (WhatsApp `10.58.46 (1)` avant, `10.58.49 (6)` après) : chape fraî
 l'évacuation, puis douche carrelée avec paroi coulissante. Même pièce (mur de briques à droite).
 Nouveau fichier `src/content/projets/salle-de-bain-douche-carrelage.yaml`, catégorie **Douche**.
 **Commune à demander à Sergiu** : tant qu'elle manque, l'avant/après s'affiche sans commune.
+
+Même salle de bain, deuxième avant/après (lavabos) : WhatsApp `10.58.46 (4)` (murs à nu,
+sol démoli) → `10.58.50 (1)` (double lavabo, miroir, sol carrelé). Même dossier, même minute
+de prise de vue que la douche. Catégorie **Salle de bain**, légende « Salle de bain, double
+lavabo et miroir ». Une étiquette de produit de magasin est visible sur l'« avant » : rien de
+personnel. **Commune toujours à demander à Sergiu.**

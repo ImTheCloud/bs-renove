@@ -41,6 +41,11 @@ const projets = defineCollection({
             categorie: z.enum(categories.map((c) => c.slug) as [string, ...string[]]),
             /** L'« après » montre un chantier pas encore fini : la paire n'est pas affichée. */
             enCours: z.boolean().default(false),
+            /**
+             * Où démarre la poignée du curseur, en % (50 par défaut). Plus petit :
+             * on voit davantage l'« après » (utile quand l'essentiel est à gauche).
+             */
+            depart: z.number().min(0).max(100).default(50),
           }),
         )
         .default([]),

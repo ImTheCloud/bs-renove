@@ -30,6 +30,8 @@ export interface Paire {
   paysage: boolean;
   /** Le format du cadre, prêt pour `aspect-ratio`. */
   ratio: string;
+  /** Position de départ de la poignée du curseur, en %. */
+  depart: number;
 }
 
 /**
@@ -47,6 +49,7 @@ export async function toutesLesPaires(): Promise<Paire[]> {
       paires.push({
         paysage,
         ratio: paysage ? '4 / 3' : '3 / 4',
+        depart: paire.depart,
         id: `${projet.id}-${index}`,
         avant: paire.avant,
         apres: paire.apres,

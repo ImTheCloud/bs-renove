@@ -1,5 +1,6 @@
 # Photos du dossier « Carrelage sur plusieurs endroits » (commune inconnue) :
-# originaux WhatsApp 2026-09-20 at 10.58.46 (1) (avant) et 10.58.49 (6) (après).
+# douche : 10.58.46 (1) → 10.58.49 (6) ; lavabos : 10.58.46 (4) → 10.58.50 (1).
+# Même série de photos, même salle de bain (le meuble lavabo se voit sur la photo de la douche).
 # Tant que la commune n'est pas confirmée, elle n'est pas affichée.
 titre:
   fr: Salle de bain avec douche
@@ -30,3 +31,11 @@ avantApres:
       fr: Douche, de la chape au carrelage et à la paroi vitrée
       nl: Douche, van chape tot tegels en glazen wand
     categorie: douche
+  - avant: ../../assets/projets/salle-de-bain-douche-carrelage/avant-2.jpg
+    apres: ../../assets/projets/salle-de-bain-douche-carrelage/apres-2.jpg
+    legende:
+      fr: Salle de bain, double lavabo et miroir
+      nl: Badkamer, dubbele wastafel en spiegel
+    categorie: salle-de-bain
+    # Le lavabo est à gauche de la photo « après » : la poignée démarre à gauche.
+    depart: 15
