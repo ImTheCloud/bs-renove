@@ -371,6 +371,7 @@ export const nl: Traductions = {
     exemplesTitre: 'Bijvoorbeeld',
     projetsLies: 'Bekijk de voor/na-foto’s',
     devisPour: 'Offerte aanvragen',
+    avantChape: 'Wat u na de werken niet meer ziet',
   },
 
   contactPage: {

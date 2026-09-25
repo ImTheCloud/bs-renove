@@ -1175,3 +1175,10 @@ métiers : 11.
 ### Puis : rénovation complète d’une maison (même jour)
 
 `renovation-maison-58.yaml` : façade au début du chantier → baies neuves, escalier et allée carrelés. **Numéro de maison masqué** sur les deux photos. Catégorie **Maison entière**, sous Rénovation complète. Commune : « Belgique » ; probablement Woluwe-Saint-Pierre (même numéro que le tag « Terasse exterieur »), **à confirmer**. L’avant/après « égouttage » semble être la même maison (mêmes bornes et dalles).
+
+### Exception : une photo seule pour l'Électricité (même jour)
+
+Décision de Claudiu : l'électricité n'a pas d'avant/après possible (tout disparaît sous la chape).
+La section Électricité montre une seule photo (`chantier-3`, gaines au sol avant la chape) avec
+le badge « Ce qu'on ne voit plus une fois fini ». Réglage : `photoSeuleParService` dans
+`src/data/projets.ts`. Seule exception à la règle « uniquement des avant/après ».

@@ -368,6 +368,7 @@ export const fr = {
     exemplesTitre: 'Par exemple',
     projetsLies: 'Voir les avant/après',
     devisPour: 'Demander un devis',
+    avantChape: 'Ce qu’on ne voit plus une fois fini',
   },
 
   contactPage: {

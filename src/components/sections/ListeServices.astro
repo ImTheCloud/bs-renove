@@ -13,7 +13,7 @@ import EntetePage from '../EntetePage.astro';
 import Icon from '../Icon.astro';
 import { lienDevis } from '~/data/entreprise';
 import { nomCategorie } from '~/data/categories';
-import { pairesDuService } from '~/data/projets';
+import { pairesDuService, photoSeuleParService } from '~/data/projets';
 import { iconeService, services } from '~/data/services';
 import { chemin, t, type Langue } from '~/i18n';
 
@@ -60,6 +60,18 @@ const pairesParService = await Promise.all(services.map((service) => pairesDuSer
                   {nomCategorie(paire.categorie, langue)}
                   {paire.commune && <span> · {paire.commune[langue]}</span>}
                 </figcaption>
+              </figure>
+            ) : photoSeuleParService[service.slug] ? (
+              <figure class="service__comparaison service__photo-seule">
+                <Image
+                  src={photoSeuleParService[service.slug]!.image}
+                  alt={photoSeuleParService[service.slug]!.legende[langue]}
+                  widths={[400, 700, 1000]}
+                  sizes="(min-width: 1024px) 30vw, 90vw"
+                  loading="lazy"
+                />
+                <span class="service__badge">{bloc.avantChape}</span>
+                <figcaption class="service__legende">{photoSeuleParService[service.slug]!.legende[langue]}</figcaption>
               </figure>
             ) : (
               <div class="service__illustration" aria-hidden="true">
@@ -172,6 +184,33 @@ const pairesParService = await Promise.all(services.map((service) => pairesDuSer
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  .service__photo-seule {
+    position: relative;
+  }
+
+  .service__photo-seule :global(img) {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    height: auto;
+    object-fit: cover;
+    border-radius: var(--radius-photo);
+  }
+
+  .service__badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    padding: 7px 14px;
+    border-radius: var(--radius-pill);
+    background: rgba(245, 242, 236, 0.94);
+    color: var(--color-ink);
+    font-size: 12px;
+    font-weight: 750;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
   }
 
   .service__legende {

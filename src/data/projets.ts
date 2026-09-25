@@ -1,3 +1,4 @@
+import type { ImageMetadata } from 'astro';
 /**
  * Les réalisations, vues comme des avant/après indépendants.
  *
@@ -8,6 +9,7 @@
  */
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { services } from './services';
+import gainesElectriques from '~/assets/projets/renovation-woluwe-saint-pierre/chantier-3.jpg';
 import type { Langue } from '~/i18n';
 
 export type Projet = CollectionEntry<'projets'>;
@@ -126,3 +128,18 @@ export async function pairesDuService(slug: string): Promise<Paire[]> {
 export function nomService(slug: string, langue: Langue): string | undefined {
   return services.find((service) => service.slug === slug)?.nom[langue];
 }
+
+/**
+ * Exception à la règle « uniquement des avant/après » : pour les métiers dont le
+ * travail disparaît une fois le chantier fini (sous la chape, dans les murs), une
+ * seule photo « pendant ». Affichée seulement si le métier n'a aucun avant/après.
+ */
+export const photoSeuleParService: Partial<Record<string, { image: ImageMetadata; legende: Record<Langue, string> }>> = {
+  electricite: {
+    image: gainesElectriques,
+    legende: {
+      fr: 'Gaines électriques posées au sol, avant la chape',
+      nl: 'Elektriciteitsbuizen op de vloer, vóór de chape',
+    },
+  },
+};
