@@ -98,6 +98,7 @@ export const fr = {
         terrasses: 'la terrasse',
         cave: 'la cave',
         auvent: 'l’auvent',
+        allee: 'l’allée',
         electricite: 'l’électricité',
         'peinture-finitions': 'la peinture',
         'maconnerie-facades': 'murs & façades',

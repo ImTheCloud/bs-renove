@@ -1110,3 +1110,10 @@ sur les deux photos**, ainsi qu'une plaque d'hydrant et un sac de fournisseur av
 téléphone : les trois sont **masqués par un aplat de couleur** avant import (vérifié à l'œil).
 Nouvelle catégorie **Allée** (NL « Oprit »), rangée sous **Terrasses et jardins** ; exemple
 « Allées de jardin » devenu « Allées et pavage » (à valider par Sergiu). **Commune à demander.**
+
+### Puis : la maison dessinée, côté rue et côté jardin (même jour)
+
+Remarque de Claudiu : la porte et le garage sont côté rue (à gauche), le jardin à droite.
+Porte et auvent déplacés dans le mur de gauche ; garage (avec la voiture) et **allée pavée**
+dessinés à gauche, avec une pièce « l'allée » vers l'avant/après de l'allée ; l'arbre et la
+terrasse passent à droite, côté jardin.

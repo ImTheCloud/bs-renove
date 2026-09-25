@@ -24,6 +24,7 @@ const lien = (slug: string) => `${chemin('services', langue)}#${slug}`;
 const lienCave = `${chemin('realisations', langue)}#cave`;
 /** La porte d'entrée et sa petite toiture mènent à l'avant/après de l'auvent. */
 const lienAuvent = `${chemin('realisations', langue)}#auvent`;
+const lienAllee = `${chemin('realisations', langue)}#allee`;
 
 /** L'ordre de la visite guidée. */
 const visite = [
@@ -37,6 +38,7 @@ const visite = [
   'terrasses',
   'cave',
   'auvent',
+  'allee',
   'maconnerie-facades',
   'renovation-complete',
 ];
@@ -85,7 +87,7 @@ const visite = [
         <path d="M8 560H150M570 560H712" pathLength="1" class="t" />
         <rect x="140" y="560" width="440" height="18" class="mur-plein" />
         <rect x="140" y="560" width="440" height="18" pathLength="1" class="t" />
-        <path d="M22 560l4-9M30 560l-2-8M596 560l3-8M604 560l-3-9M676 560l4-9M684 560l-2-7M44 560l3-7" pathLength="1" class="t t--fin" />
+        <path d="M648 560l3-8M656 560l-3-9M700 560l4-9M708 560l-2-7" pathLength="1" class="t t--fin" />
       </g>
 
       <!-- Cave (sous-sol) : chauffe-eau, gaines, étagères, sol carrelé -->
@@ -117,16 +119,35 @@ const visite = [
         <rect x="556" y="300" width="14" height="260" pathLength="1" class="t" />
       </g>
 
-      <!-- Porte d'entrée (mur de droite) et sa petite toiture -->
+      <!-- Côté rue (à gauche) : porte d'entrée et sa petite toiture -->
       <g class="t-groupe" style="--d: 1600">
-        <rect x="554" y="490" width="18" height="58" class="porte-fond" />
-        <rect x="554" y="490" width="18" height="58" pathLength="1" class="t" />
-        <rect x="559" y="498" width="8" height="14" class="lumiere" />
-        <rect x="559" y="498" width="8" height="14" pathLength="1" class="t t--fin" />
-        <circle cx="568" cy="522" r="1.6" class="poignee" />
-        <path d="M570 474l46 10v8l-46-4z" class="auvent-toit" />
-        <path d="M570 474l46 10v8l-46-4z" pathLength="1" class="t" />
-        <path d="M570 500l24-9" pathLength="1" class="t t--fin" />
+        <rect x="148" y="490" width="18" height="58" class="porte-fond" />
+        <rect x="148" y="490" width="18" height="58" pathLength="1" class="t" />
+        <rect x="153" y="498" width="8" height="14" class="lumiere" />
+        <rect x="153" y="498" width="8" height="14" pathLength="1" class="t t--fin" />
+        <circle cx="152" cy="522" r="1.6" class="poignee" />
+        <path d="M150 474l-42 10v8l42-4z" class="auvent-toit" />
+        <path d="M150 474l-42 10v8l42-4z" pathLength="1" class="t" />
+        <path d="M150 500l-22-9" pathLength="1" class="t t--fin" />
+      </g>
+
+      <!-- Côté rue : garage et allée pavée -->
+      <g class="t-groupe" style="--d: 1700">
+        <rect x="14" y="484" width="94" height="8" class="mur-plein" />
+        <rect x="14" y="492" width="8" height="60" class="mur-plein" />
+        <rect x="100" y="492" width="8" height="60" class="mur-plein" />
+        <rect x="14" y="484" width="94" height="8" pathLength="1" class="t" />
+        <rect x="14" y="492" width="8" height="60" pathLength="1" class="t" />
+        <rect x="100" y="492" width="8" height="60" pathLength="1" class="t" />
+        <path d="M60 492v6M52 504l4-6h8l4 6z" pathLength="1" class="t t--fin" />
+        <g transform="translate(-468.4 82) scale(0.85)">
+          <path d="M584 546v-9a4 4 0 0 1 4-4h8l10-11h30l11 11h10a4 4 0 0 1 4 4v9z" pathLength="1" class="t" />
+          <path d="M604 533l6-8h12v8zM626 525h9l7 8h-16z" pathLength="1" class="t t--fin" />
+          <circle cx="600" cy="547" r="6" pathLength="1" class="t" />
+          <circle cx="646" cy="547" r="6" pathLength="1" class="t" />
+        </g>
+        <rect x="0" y="552" width="150" height="8" class="sol-carrele" />
+        <path d="M0 552h150M12 552v8M24 552v8M36 552v8M48 552v8M60 552v8M72 552v8M84 552v8M96 552v8M108 552v8M120 552v8M132 552v8M144 552v8" pathLength="1" class="t t--fin" />
       </g>
 
       <!-- Dalles et cloisons -->
@@ -211,11 +232,11 @@ const visite = [
 
       <!-- Jardin -->
       <g class="t-groupe" style="--d: 1750">
-        <path d="M70 560v-72M70 516l-14-14M70 504l14-14" pathLength="1" class="t" />
-        <path d="M70 438c20 0 34 14 34 32s-14 30-34 30-34-12-34-30 14-32 34-32z" pathLength="1" class="t" />
-        <rect x="574" y="552" width="126" height="8" class="sol-carrele" />
-        <path d="M574 552h126M590 552v8M606 552v8M622 552v8M638 552v8M654 552v8M670 552v8M686 552v8" pathLength="1" class="t t--fin" />
-        <path d="M672 552l3-12h14l3 12M682 540c-6-8-3-16 0-20M682 540c5-6 9-9 13-11M682 540c-7-3-11-7-13-11" pathLength="1" class="t" />
+        <path d="M680 560v-72M680 516l-14-14M680 504l14-14" pathLength="1" class="t" />
+        <path d="M680 438c20 0 34 14 34 32s-14 30-34 30-34-12-34-30 14-32 34-32z" pathLength="1" class="t" />
+        <rect x="570" y="552" width="70" height="8" class="sol-carrele" />
+        <path d="M570 552h70M586 552v8M602 552v8M618 552v8" pathLength="1" class="t t--fin" />
+        <path d="M618 552l3-12h14l3 12M628 540c-6-8-3-16 0-20M628 540c5-6 9-9 13-11M628 540c-7-3-11-7-13-11" pathLength="1" class="t" />
       </g>
     </g>
 
@@ -270,10 +291,10 @@ const visite = [
       </a>
 
       <a href={lien('terrasses')} class="piece" data-piece="terrasses" aria-label={pieces.terrasses}>
-        <rect class="zone" x="574" y="552" width="126" height="8" />
-        <circle class="point" cx="626" cy="556" r="11" />
-        <text x="684" y="494" text-anchor="end" class="note">{pieces.terrasses}</text>
-        <path class="fleche" d="M650 508c-6 10-12 20-18 34" pathLength="1" />
+        <rect class="zone" x="570" y="552" width="70" height="8" />
+        <circle class="point" cx="596" cy="556" r="11" />
+        <text x="718" y="612" text-anchor="end" class="note">{pieces.terrasses}</text>
+        <path class="fleche" d="M612 590c-4-6-8-12-12-20" pathLength="1" />
       </a>
 
       <a href={lienCave} class="piece" data-piece="cave" aria-label={pieces.cave}>
@@ -295,17 +316,24 @@ const visite = [
         <rect class="zone" x="150" y="300" width="14" height="260" />
         <rect class="zone" x="556" y="300" width="14" height="260" />
         <path class="zone" d="M480 214V176H510V238Z" />
-        <circle class="point" cx="157" cy="470" r="11" />
+        <circle class="point" cx="157" cy="362" r="11" />
         <text x="8" y="404" class="note">{pieces['maconnerie-facades']}</text>
-        <path class="fleche" d="M66 416c30 10 56 28 80 46" pathLength="1" />
+        <path class="fleche" d="M66 390c28-4 54-12 80-24" pathLength="1" />
       </a>
 
       <a href={lienAuvent} class="piece" data-piece="auvent" aria-label={pieces.auvent}>
-        <path class="zone" d="M570 474l46 10v8l-46-4z" />
-        <rect class="zone" x="554" y="490" width="18" height="58" />
-        <circle class="point" cx="604" cy="458" r="11" />
-        <text x="716" y="424" text-anchor="end" class="note">{pieces.auvent}</text>
-        <path class="fleche" d="M662 432c-16 8-28 14-44 22" pathLength="1" />
+        <path class="zone" d="M150 474l-42 10v8l42-4z" />
+        <rect class="zone" x="148" y="490" width="18" height="58" />
+        <circle class="point" cx="118" cy="460" r="11" />
+        <text x="6" y="436" class="note">{pieces.auvent}</text>
+        <path class="fleche" d="M62 444c14 4 28 8 42 12" pathLength="1" />
+      </a>
+
+      <a href={lienAllee} class="piece" data-piece="allee" aria-label={pieces.allee}>
+        <rect class="zone" x="0" y="552" width="150" height="8" />
+        <circle class="point" cx="126" cy="556" r="11" />
+        <text x="20" y="640" class="note">{pieces.allee}</text>
+        <path class="fleche" d="M70 618c16-16 30-32 46-50" pathLength="1" />
       </a>
     </g>
   </svg>
