@@ -318,6 +318,7 @@ export const nl: Traductions = {
     toutes: 'Alles bekijken',
     etapes: 'De stappen',
     pendant: 'Tijdens',
+    rejouer: 'Werf opnieuw afspelen',
     filtrerAria: 'Filteren op type ruimte',
   },
 

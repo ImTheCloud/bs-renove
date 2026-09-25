@@ -1,0 +1,454 @@
+---
+/**
+ * Le chantier en accéléré : toutes les étapes d'un avant/après dans un seul cadre.
+ *
+ * - Une frise sous la photo (vrai <input type="range">) fait défiler le chantier :
+ *   chaque étape se dévoile sur la précédente par un volet qui balaie la photo.
+ * - La première fois qu'il apparaît à l'écran, le chantier se « joue » tout seul,
+ *   étape par étape. On peut ensuite glisser, cliquer une étape ou rejouer.
+ * - Clavier : flèches gauche/droite = étape précédente/suivante.
+ * - « Réduire les animations » : pas de lecture automatique, changements directs.
+ */
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Icon from './Icon.astro';
+import { t, type Langue } from '~/i18n';
+
+interface Etape {
+  image: ImageMetadata;
+  libelle: string;
+}
+
+interface Props {
+  langue: Langue;
+  id: string;
+  etapes: Etape[];
+  ratio?: string;
+  /** Décrit le chantier pour les lecteurs d'écran. */
+  precision?: string;
+}
+
+const { langue, id, etapes, ratio = '4 / 3', precision } = Astro.props;
+const textes = t(langue);
+const bloc = textes.realisations;
+const max = (etapes.length - 1) * 100;
+---
+
+<div class="chantier" data-chantier style={`--ratio: ${ratio}; --n: ${etapes.length};`}>
+  <div class="chantier__cadre">
+    {
+      etapes.map((etape, i) => (
+        <div class="chantier__couche" data-couche={i} style={i === 0 ? '' : 'clip-path: inset(0 100% 0 0)'}>
+          <Image
+            src={etape.image}
+            alt={`${etape.libelle}${precision ? ` : ${precision}` : ''}`}
+            widths={[480, 800, 1200]}
+            sizes="(min-width: 1100px) 60vw, 92vw"
+            loading="lazy"
+          />
+        </div>
+      ))
+    }
+    <span class="chantier__volet" data-volet aria-hidden="true"></span>
+    <span class="chantier__etiquette" aria-hidden="true">
+      <span class="chantier__compteur" data-compteur>1/{etapes.length}</span>
+      <span data-nom>{etapes[0].libelle}</span>
+    </span>
+    <button type="button" class="chantier__rejouer" data-rejouer aria-label={bloc.rejouer}>
+      <Icon nom="fleche" taille={16} epaisseur={2.2} />
+      <span>{bloc.rejouer}</span>
+    </button>
+  </div>
+
+  <div class="chantier__frise">
+    <div class="chantier__piste" aria-hidden="true">
+      <span class="chantier__remplissage" data-remplissage></span>
+    </div>
+    <ol class="chantier__etapes">
+      {
+        etapes.map((etape, i) => (
+          <li style={`--pos: ${etapes.length > 1 ? (i / (etapes.length - 1)) * 100 : 0}%`}>
+            <button type="button" class="chantier__point" data-aller={i} tabindex="-1" aria-hidden="true">
+              <span class="chantier__rond" />
+              <span class="chantier__libelle">{etape.libelle}</span>
+            </button>
+          </li>
+        ))
+      }
+    </ol>
+    <label class="sr-only" for={id}>
+      {bloc.etapes}
+      {precision ? ` : ${precision}` : ''}
+    </label>
+    <input
+      type="range"
+      id={id}
+      class="chantier__range"
+      min="0"
+      max={String(max)}
+      step="1"
+      value="0"
+      aria-valuetext={etapes[0].libelle}
+      data-range
+      data-libelles={JSON.stringify(etapes.map((e) => e.libelle))}
+    />
+  </div>
+</div>
+
+<script>
+  const calme = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.querySelectorAll<HTMLElement>('[data-chantier]').forEach((bloc) => {
+    const range = bloc.querySelector<HTMLInputElement>('[data-range]');
+    const couches = Array.from(bloc.querySelectorAll<HTMLElement>('[data-couche]'));
+    const volet = bloc.querySelector<HTMLElement>('[data-volet]');
+    const compteur = bloc.querySelector<HTMLElement>('[data-compteur]');
+    const nom = bloc.querySelector<HTMLElement>('[data-nom]');
+    const remplissage = bloc.querySelector<HTMLElement>('[data-remplissage]');
+    const points = Array.from(bloc.querySelectorAll<HTMLElement>('[data-aller]'));
+    if (!range || couches.length < 2) return;
+    const libelles = JSON.parse(range.dataset.libelles ?? '[]') as string[];
+    const n = couches.length;
+
+    /** Dessine l'état pour une position p entre 0 et n-1 (continue). */
+    const dessiner = (p: number) => {
+      const i = Math.min(n - 1, Math.floor(p));
+      const f = p - i;
+      couches.forEach((couche, k) => {
+        if (k <= i) couche.style.clipPath = 'inset(0 0 0 0)';
+        else if (k === i + 1) couche.style.clipPath = `inset(0 ${(1 - f) * 100}% 0 0)`;
+        else couche.style.clipPath = 'inset(0 100% 0 0)';
+      });
+      const enCours = f > 0.001 && i < n - 1;
+      if (volet) {
+        volet.style.left = `${f * 100}%`;
+        volet.style.opacity = enCours ? '1' : '0';
+      }
+      const courante = Math.min(n - 1, Math.round(p));
+      if (compteur) compteur.textContent = `${courante + 1}/${n}`;
+      if (nom) nom.textContent = libelles[courante] ?? '';
+      if (remplissage) remplissage.style.transform = `scaleX(${n > 1 ? p / (n - 1) : 0})`;
+      points.forEach((point, k) => point.classList.toggle('atteint', k <= courante));
+      range.setAttribute('aria-valuetext', libelles[courante] ?? '');
+      bloc.classList.toggle('chantier--fin', courante === n - 1);
+    };
+
+    let animation = 0;
+    const arreter = () => cancelAnimationFrame(animation);
+    const position = () => Number(range.value) / 100;
+
+    /** Va doucement jusqu'à la position cible. */
+    const allerA = (cible: number, duree = 900) =>
+      new Promise<void>((fin) => {
+        arreter();
+        const depart = position();
+        if (calme || duree === 0 || depart === cible) {
+          range.value = String(cible * 100);
+          dessiner(cible);
+          fin();
+          return;
+        }
+        const t0 = performance.now();
+        const pas = (maintenant: number) => {
+          const t = Math.min(1, (maintenant - t0) / duree);
+          const adouci = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+          const p = depart + (cible - depart) * adouci;
+          range.value = String(Math.round(p * 100));
+          dessiner(p);
+          if (t < 1) animation = requestAnimationFrame(pas);
+          else fin();
+        };
+        animation = requestAnimationFrame(pas);
+      });
+
+    /** Le chantier en accéléré : étape par étape, avec une pause sur chacune. */
+    let lecture = 0;
+    const jouer = async () => {
+      const moi = ++lecture;
+      bloc.classList.add('chantier--lecture');
+      await allerA(0, 400);
+      for (let k = 1; k < n; k += 1) {
+        await new Promise((r) => setTimeout(r, 650));
+        if (moi !== lecture) return;
+        await allerA(k, 1100);
+        if (moi !== lecture) return;
+      }
+      bloc.classList.remove('chantier--lecture');
+    };
+    const interrompre = () => {
+      lecture += 1;
+      arreter();
+      bloc.classList.remove('chantier--lecture');
+    };
+
+    // Glisser : suit le doigt ou la souris, puis se cale sur l'étape la plus proche.
+    range.addEventListener('pointerdown', interrompre);
+    range.addEventListener('input', () => dessiner(position()));
+    range.addEventListener('change', () => allerA(Math.round(position()), 350));
+
+    // Clavier : une étape à la fois.
+    range.addEventListener('keydown', (e) => {
+      if (!['ArrowRight', 'ArrowUp', 'ArrowLeft', 'ArrowDown', 'Home', 'End'].includes(e.key)) return;
+      e.preventDefault();
+      interrompre();
+      const actuelle = Math.round(position());
+      const cible =
+        e.key === 'Home' ? 0 : e.key === 'End' ? n - 1 : e.key === 'ArrowRight' || e.key === 'ArrowUp' ? Math.min(n - 1, actuelle + 1) : Math.max(0, actuelle - 1);
+      allerA(cible, 700);
+    });
+
+    // Clic sur une étape de la frise.
+    points.forEach((point) =>
+      point.addEventListener('click', () => {
+        interrompre();
+        allerA(Number(point.dataset.aller), 800);
+      }),
+    );
+
+    bloc.querySelector('[data-rejouer]')?.addEventListener('click', () => {
+      interrompre();
+      jouer();
+    });
+
+    dessiner(0);
+
+    // Première apparition à l'écran : le chantier se joue tout seul.
+    if (!calme) {
+      const observateur = new IntersectionObserver(
+        ([entree]) => {
+          if (!entree.isIntersecting) return;
+          observateur.disconnect();
+          setTimeout(jouer, 300);
+        },
+        { threshold: 0.6 },
+      );
+      observateur.observe(bloc);
+    }
+  });
+</script>
+
+<style>
+  .chantier {
+    position: relative;
+    width: 100%;
+  }
+
+  .chantier__cadre {
+    position: relative;
+    aspect-ratio: var(--ratio);
+    border-radius: var(--radius-photo);
+    overflow: hidden;
+    background: var(--color-surface);
+  }
+
+  .chantier__couche {
+    position: absolute;
+    inset: 0;
+  }
+
+  .chantier__couche :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Le bord du volet, qui balaie la photo d'une étape à l'autre. */
+  .chantier__volet {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+    width: 4px;
+    margin-left: -2px;
+    background: var(--color-signal);
+    box-shadow: 0 0 18px rgba(255, 212, 71, 0.8);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms var(--ease);
+  }
+
+  .chantier__etiquette {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 14px 7px 7px;
+    border-radius: var(--radius-pill);
+    background: rgba(245, 242, 236, 0.94);
+    color: var(--color-ink);
+    font-size: 13px;
+    font-weight: 700;
+    backdrop-filter: blur(6px);
+  }
+
+  .chantier__compteur {
+    padding: 3px 9px;
+    border-radius: var(--radius-pill);
+    background: var(--color-ink);
+    color: var(--color-signal);
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .chantier--fin .chantier__compteur {
+    background: var(--color-signal);
+    color: var(--color-ink);
+  }
+
+  .chantier__rejouer {
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 40px;
+    padding: 0 14px;
+    border: 0;
+    border-radius: var(--radius-pill);
+    background: rgba(18, 20, 24, 0.78);
+    color: var(--color-on-ink);
+    font: 650 13px/1 var(--font-text);
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    transition: opacity 300ms var(--ease);
+  }
+
+  .chantier--lecture .chantier__rejouer {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* --- La frise --- */
+  .chantier__frise {
+    position: relative;
+    margin: 18px 12px 0;
+    padding-bottom: 40px;
+  }
+
+  .chantier__piste {
+    position: relative;
+    height: 4px;
+    margin-top: 10px;
+    border-radius: 4px;
+    background: var(--color-border);
+    overflow: hidden;
+  }
+
+  .chantier__remplissage {
+    position: absolute;
+    inset: 0;
+    background: var(--color-ink);
+    transform-origin: left;
+    transform: scaleX(0);
+  }
+
+  .chantier__etapes {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 24px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .chantier__etapes li {
+    position: absolute;
+    top: 0;
+    left: var(--pos);
+    transform: translateX(-50%);
+  }
+
+  .chantier__point {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    font: inherit;
+  }
+
+  .chantier__rond {
+    width: 18px;
+    height: 18px;
+    margin-top: 3px;
+    border-radius: 50%;
+    border: 3px solid var(--color-border);
+    background: var(--color-bg);
+    transition:
+      border-color 300ms var(--ease),
+      background-color 300ms var(--ease),
+      transform 300ms var(--ease-out);
+  }
+
+  .chantier__point.atteint .chantier__rond {
+    border-color: var(--color-ink);
+    background: var(--color-signal);
+  }
+
+  .chantier__point:hover .chantier__rond {
+    transform: scale(1.2);
+  }
+
+  .chantier__libelle {
+    font-size: 12px;
+    font-weight: 650;
+    color: var(--color-muted);
+    white-space: nowrap;
+    transition: color 300ms var(--ease);
+  }
+
+  .chantier__point.atteint .chantier__libelle {
+    color: var(--color-ink);
+  }
+
+  /* La première et la dernière étiquette restent dans le cadre. */
+  .chantier__etapes li:first-child {
+    transform: translateX(-9px);
+  }
+
+  .chantier__etapes li:first-child .chantier__point {
+    align-items: flex-start;
+  }
+
+  .chantier__etapes li:last-child {
+    transform: translateX(calc(-100% + 9px));
+  }
+
+  .chantier__etapes li:last-child .chantier__point {
+    align-items: flex-end;
+  }
+
+  /* Le vrai curseur : invisible, il couvre la piste et se manipule partout. */
+  .chantier__range {
+    position: absolute;
+    inset: -8px 0 auto;
+    width: 100%;
+    height: 40px;
+    margin: 0;
+    opacity: 0;
+    cursor: ew-resize;
+  }
+
+  .chantier:has(.chantier__range:focus-visible) .chantier__piste {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 6px;
+  }
+
+  @media (max-width: 599px) {
+    .chantier__libelle {
+      font-size: 11px;
+    }
+
+    .chantier__etapes li:not(:first-child):not(:last-child) .chantier__libelle {
+      display: none;
+    }
+  }
+</style>

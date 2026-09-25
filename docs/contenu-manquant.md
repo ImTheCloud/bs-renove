@@ -1125,3 +1125,13 @@ une frise de miniatures s'affiche sous la comparaison. Premier essai : toiture a
 (`src/content/projets/toiture-lucarne.yaml`), trois photos envoyées par Claudiu, introuvables
 dans les dossiers de Téléchargements : **commune à demander à Sergiu**. Un ouvrier est visible
 de loin sur la photo « avant » (l'équipe).
+
+### Remplacé : le chantier en accéléré (même jour)
+
+La frise de miniatures faisait doublon avec le curseur (retour de Claudiu). Remplacée par
+`CurseurEtapes` : **un seul cadre** où tout le chantier se joue. Une frise sous la photo fait
+défiler les étapes, chacune se dévoile sur la précédente par un volet ; la première fois
+qu'il apparaît, le chantier se joue tout seul, puis on glisse, clique une étape ou rejoue.
+Lucarne : 4 étapes (La structure → Le caisson → Les lattes → Terminé). La première photo
+(`debut-1.jpg`) est une capture d'écran en basse résolution (679 × 552) : **l'original de
+Sergiu serait meilleur**.

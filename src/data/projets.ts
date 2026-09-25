@@ -33,8 +33,10 @@ export interface Paire {
   ratio: string;
   /** Position de départ de la poignée du curseur, en %. */
   depart: number;
-  /** Photos « pendant », dans l'ordre du chantier. */
-  etapes: ImageMetadata[];
+  /** Photos intermédiaires, dans l'ordre du chantier. */
+  etapes: { image: ImageMetadata; legende: Record<Langue, string> }[];
+  legendeAvant?: Record<Langue, string>;
+  legendeApres?: Record<Langue, string>;
 }
 
 /**
@@ -54,6 +56,8 @@ export async function toutesLesPaires(): Promise<Paire[]> {
         ratio: paysage ? '4 / 3' : '3 / 4',
         depart: paire.depart,
         etapes: paire.etapes ?? [],
+        legendeAvant: paire.legendeAvant,
+        legendeApres: paire.legendeApres,
         id: `${projet.id}-${index}`,
         avant: paire.avant,
         apres: paire.apres,
