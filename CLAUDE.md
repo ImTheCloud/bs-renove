@@ -39,7 +39,7 @@ Objectif : qu'un propriétaire qui arrive sur le site ait confiance et prenne co
 ### Couleurs (`src/styles/tokens.css`)
 
 - Papier `#F5F2EC` (fond), surfaces `#ECE7DE` / `#E3DDD1`
-- Bleu nuit `#0F1626` : titres, boutons (principal, menu), sections sombres, mode nuit, bloc devis. **Jamais de noir** (demande du client), survol du bouton principal `#1F3056`
+- Bleu nuit `#0F1626` : titres, boutons (principal, menu), sections sombres, mode nuit, bloc devis. **Jamais de noir** et **un seul bleu nuit partout** (demande du client) : pas de variante plus claire ni de transparence sur les fonds sombres (cartes = bordure seule) ; seul le survol du bouton principal passe à `#1F3056`
 - Bleu du logo `#0066B4` : mots en italique, liens, annotations, « 12 ans » du hero ; `#7CBCFF` sur fond sombre
 - Jaune marqueur `#FFD447` : surlignages, pastilles de flèche, points de la maison (jamais du texte sur fond clair)
 - WhatsApp `#0E8449`

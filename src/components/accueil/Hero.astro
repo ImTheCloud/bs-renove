@@ -36,7 +36,7 @@ const hero = textes.accueil.hero;
       <p class="hero__intro">{hero.texte}</p>
 
       <div class="hero__actions">
-        <Bouton href={lienDevis(langue)} variante="principal" iconeApres="fleche-diag" large>
+        <Bouton href={lienDevis(langue)} variante="principal" iconeApres="fleche-diag" large class="hero__devis">
           {hero.devisGratuit}
         </Bouton>
         <p class="hero__experience">
@@ -135,7 +135,7 @@ const hero = textes.accueil.hero;
   }
 
   .hero--nuit .hero__puces a {
-    background: rgba(245, 242, 236, 0.06);
+    background: transparent;
   }
 
   .hero--nuit .hero__puces a:hover,
@@ -223,6 +223,13 @@ const hero = textes.accueil.hero;
     flex-wrap: wrap;
     align-items: center;
     gap: 16px 32px;
+  }
+
+  /* Téléphone et tablette : le dock du bas propose déjà le devis, pas de doublon ici. */
+  @media (max-width: 1023px) {
+    .hero__actions :global(.hero__devis) {
+      display: none;
+    }
   }
 
   /* Les années de métier, en grand à côté du bouton. */

@@ -11,7 +11,6 @@
   --color-surface: #ece7de;     /* cartes, pastilles */
   --color-surface-2: #e3ddd1;   /* conteneurs secondaires */
   --color-ink: #0f1626;         /* bleu nuit (jamais de noir) : titres, boutons, sections sombres */
-  --color-ink-2: #1a2438;       /* cartes sur fond sombre */
   --color-nuit: #0f1626;        /* bleu nuit : mode nuit de l'accueil, bloc devis */
   --color-accent: #0066b4;      /* bleu du logo : liens, détails */
   --color-accent-vif: #7cbcff;  /* le même bleu, lisible sur fond sombre */
