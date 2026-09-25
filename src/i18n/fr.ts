@@ -243,8 +243,11 @@ export const fr = {
 
     merciTitre: 'Merci, c’est envoyé !',
     merciTexte:
-      'Votre demande est bien partie. Vous avez des photos du chantier ? Envoyez-les par WhatsApp, c’est ce qui aide le plus à préparer le devis.',
+      'Votre demande est bien partie. Vous avez des photos du chantier ? Envoyez-les par WhatsApp ou par email, c’est ce qui aide le plus à préparer le devis. Votre demande y est déjà écrite.',
     merciWhatsApp: 'Envoyer des photos',
+    merciEmail: 'Par email',
+    photosIntro: 'Bonjour, voici des photos pour ma demande de devis envoyée sur le site :',
+    sujetPhotos: 'Photos pour ma demande de devis',
     recommencer: 'Nouvelle demande',
 
     secoursTitre: 'Presque fini !',

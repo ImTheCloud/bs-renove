@@ -44,6 +44,9 @@ const choix = [
   data-devis
   data-cle={cle ? 'oui' : 'non'}
   data-email={entreprise.email ?? ''}
+  data-whatsapp={entreprise.whatsappNumero}
+  data-photos-intro={f.photosIntro}
+  data-sujet-photos={f.sujetPhotos}
   data-sujet-email={f.sujetEmail}
   data-recap={JSON.stringify(f.recap)}
   data-noms-etapes={JSON.stringify(f.etapes)}
@@ -162,9 +165,14 @@ const choix = [
       <Bouton href={`mailto:${entreprise.email ?? ''}`} variante="principal" icone="email" data-lien-email hidden>
         {f.secoursLien}
       </Bouton>
-      <Bouton href={lienWhatsApp(textes.whatsappMessage)} variante="whatsapp" icone="whatsapp" target="_blank" rel="noopener">
+      <Bouton href={lienWhatsApp(textes.whatsappMessage)} variante="whatsapp" icone="whatsapp" target="_blank" rel="noopener" data-photos-whatsapp>
         {f.merciWhatsApp}
       </Bouton>
+      {entreprise.email && (
+        <Bouton href={`mailto:${entreprise.email}`} variante="secondaire" icone="email" data-photos-email>
+          {f.merciEmail}
+        </Bouton>
+      )}
       <button type="button" class="devis__retour" data-recommencer>{f.recommencer}</button>
     </div>
   </div>
@@ -278,7 +286,7 @@ const choix = [
       caseACocher.addEventListener('change', () => montrerErreur('')),
     );
 
-    /** Le résumé lisible de la demande, pour l'email de secours. */
+    /** Le résumé lisible de la demande (email de secours, envoi des photos). */
     const resume = (): string => {
       const donnees = new FormData(form);
       const recap = JSON.parse(d.recap ?? '{}') as Record<string, string>;
@@ -297,6 +305,16 @@ const choix = [
       form.hidden = true;
       if (!panneau) return;
       if (panneau === merci) {
+        // Photos par WhatsApp ou par email : le message reprend déjà toute la demande.
+        const message = `${d.photosIntro ?? ''}\n\n${resume()}`;
+        const whatsapp = panneau.querySelector<HTMLAnchorElement>('[data-photos-whatsapp]');
+        if (whatsapp) whatsapp.href = `https://wa.me/${d.whatsapp}?text=${encodeURIComponent(message)}`;
+        const email = panneau.querySelector<HTMLAnchorElement>('[data-photos-email]');
+        if (email) {
+          email.href = `mailto:${d.email}?subject=${encodeURIComponent(d.sujetPhotos ?? '')}&body=${encodeURIComponent(message)}`;
+          // En mode secours, l'email de la demande s'ouvre déjà : pas de doublon.
+          email.hidden = secours;
+        }
         const titre = panneau.querySelector<HTMLElement>('[data-fin-titre]');
         const texte = panneau.querySelector<HTMLElement>('[data-fin-texte]');
         if (titre) titre.textContent = (secours ? titre.dataset.titreSecours : titre.dataset.titreMerci) ?? '';

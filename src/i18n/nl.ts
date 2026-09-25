@@ -247,8 +247,11 @@ export const nl: Traductions = {
 
     merciTitre: 'Bedankt, het is verstuurd!',
     merciTexte:
-      'Uw aanvraag is goed vertrokken. Hebt u foto’s van de werf? Stuur ze via WhatsApp, dat helpt het meest om de offerte voor te bereiden.',
+      'Uw aanvraag is goed vertrokken. Hebt u foto’s van de werf? Stuur ze via WhatsApp of e-mail, dat helpt het meest om de offerte voor te bereiden. Uw aanvraag staat er al in.',
     merciWhatsApp: 'Foto’s versturen',
+    merciEmail: 'Via e-mail',
+    photosIntro: 'Hallo, hier zijn foto’s voor mijn offerteaanvraag via de website:',
+    sujetPhotos: 'Foto’s voor mijn offerteaanvraag',
     recommencer: 'Nieuwe aanvraag',
 
     secoursTitre: 'Bijna klaar!',
