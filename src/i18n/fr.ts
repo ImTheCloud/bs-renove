@@ -91,6 +91,7 @@ export const fr = {
         cuisines: 'la cuisine',
         carrelage: 'le carrelage',
         escaliers: 'l’escalier',
+        terrasses: 'la terrasse',
         electricite: 'l’électricité',
         'peinture-finitions': 'la peinture',
         'maconnerie-facades': 'murs & façades',
@@ -135,7 +136,7 @@ export const fr = {
       items: [
         { valeur: 12, prefixe: '', suffixe: '', mot: '', texte: 'ans de métier dans la construction' },
         { valeur: 30, prefixe: '', suffixe: '+', mot: '', texte: 'chantiers terminés' },
-        { valeur: 9, prefixe: '', suffixe: '', mot: '', texte: 'métiers : carrelage, escaliers, toiture, peinture…' },
+        { valeur: 10, prefixe: '', suffixe: '', mot: '', texte: 'métiers : carrelage, terrasses, escaliers, toiture…' },
         { valeur: 0, prefixe: '', suffixe: '', mot: 'Gratuit', texte: 'le devis' },
       ],
     },

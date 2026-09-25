@@ -81,8 +81,24 @@ export const services: Service[] = [
       nl: 'Tegelwerk is ons basisvak. Voorbereiding van de ondergrond, plaatsing en voegen: een goed geplaatste vloer valt vooral op wanneer hij slecht gelegd is',
     },
     exemples: {
-      fr: ['Sols intérieurs', 'Faïence murale', 'Terrasses et extérieurs', 'Ragréage et préparation des supports'],
-      nl: ['Binnenvloeren', 'Wandtegels', 'Terrassen en buitenruimtes', 'Egaliseren en voorbereiding van de ondergrond'],
+      fr: ['Sols intérieurs', 'Faïence murale', 'Salles de bain et cuisines', 'Ragréage et préparation des supports'],
+      nl: ['Binnenvloeren', 'Wandtegels', 'Badkamers en keukens', 'Egaliseren en voorbereiding van de ondergrond'],
+    },
+  },
+  {
+    slug: 'terrasses',
+    nom: { fr: 'Terrasses et jardins', nl: 'Terrassen en tuinen' },
+    phrase: {
+      fr: 'Carrelage de terrasse et de jardin, sur une base solide',
+      nl: 'Terras- en tuintegels, op een stevige ondergrond',
+    },
+    texte: {
+      fr: "Une terrasse se prépare comme un sol intérieur, en plus exigeant : elle vit dehors toute l'année. Nous préparons la base et posons le carrelage de votre terrasse et de vos allées de jardin",
+      nl: 'Een terras bereidt u voor zoals een binnenvloer, maar strenger: het ligt het hele jaar buiten. Wij bereiden de ondergrond voor en leggen de tegels van uw terras en tuinpaden',
+    },
+    exemples: {
+      fr: ['Terrasses carrelées', 'Allées de jardin', 'Chape et ferraillage', 'Joints et finitions'],
+      nl: ['Betegelde terrassen', 'Tuinpaden', 'Chape en wapening', 'Voegen en afwerking'],
     },
   },
   {
@@ -173,6 +189,7 @@ export const iconesServices = {
   'salles-de-bain': 'bain',
   cuisines: 'cuisine',
   carrelage: 'carrelage',
+  terrasses: 'terrasse',
   escaliers: 'escalier',
   toiture: 'toit',
   'maconnerie-facades': 'brique',

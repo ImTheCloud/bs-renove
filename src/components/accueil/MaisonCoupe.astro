@@ -30,6 +30,7 @@ const visite = [
   'cuisines',
   'carrelage',
   'escaliers',
+  'terrasses',
   'maconnerie-facades',
   'renovation-complete',
 ];
@@ -156,7 +157,9 @@ const visite = [
       <g class="t-groupe" style="--d: 1750">
         <path d="M70 560v-72M70 516l-14-14M70 504l14-14" pathLength="1" class="t" />
         <path d="M70 438c20 0 34 14 34 32s-14 30-34 30-34-12-34-30 14-32 34-32z" pathLength="1" class="t" />
-        <path d="M600 560a26 22 0 0 1 52 0" pathLength="1" class="t" />
+        <rect x="574" y="552" width="126" height="8" class="sol-carrele" />
+        <path d="M574 552h126M590 552v8M606 552v8M622 552v8M638 552v8M654 552v8M670 552v8M686 552v8" pathLength="1" class="t t--fin" />
+        <path d="M672 552l3-12h14l3 12M682 540c-6-8-3-16 0-20M682 540c5-6 9-9 13-11M682 540c-7-3-11-7-13-11" pathLength="1" class="t" />
       </g>
     </g>
 
@@ -208,6 +211,13 @@ const visite = [
         <circle class="point" cx="494" cy="494" r="11" />
         <text x="592" y="512" class="note">{pieces.escaliers}</text>
         <path class="fleche" d="M596 520c-26 6-60 -2-86-18" pathLength="1" />
+      </a>
+
+      <a href={lien('terrasses')} class="piece" data-piece="terrasses" aria-label={pieces.terrasses}>
+        <rect class="zone" x="574" y="552" width="126" height="8" />
+        <circle class="point" cx="626" cy="556" r="11" />
+        <text x="684" y="494" text-anchor="end" class="note">{pieces.terrasses}</text>
+        <path class="fleche" d="M650 508c-6 10-12 20-18 34" pathLength="1" />
       </a>
 
       <a href={lien('carrelage')} class="piece" data-piece="carrelage" aria-label={pieces.carrelage}>

@@ -942,7 +942,7 @@ Les chiffres de l'accueil, choisis par Claudiu (`accueil.chiffres` dans `src/i18
 |---|---|---|
 | 12 ans de métier | ✅ confirmé (22 septembre) | — |
 | 30+ chantiers terminés | ⚠ valeur donnée par Claudiu | Combien de chantiers avez-vous terminés, à peu près ? |
-| 9 métiers (carrelage, escaliers, toiture, peinture…) | ✅ ce sont les 9 services du site | rappel § 9 : électricité et peinture hors activités enregistrées |
+| 10 métiers (carrelage, terrasses, escaliers, toiture…) | ✅ ce sont les 10 services du site | rappel § 9 : électricité et peinture hors activités enregistrées |
 | Gratuit : le devis | ✅ confirmé (22 septembre) | — |
 
 **À confirmer avant la mise en ligne : « 30+ chantiers ».** Si le vrai chiffre est différent,
@@ -967,3 +967,18 @@ de Woluwe comprenait bien « deux escaliers (intérieur et garage) ».
 
 **À faire valider par Sergiu** (FR et NL) : la phrase courte, le texte et les 4 exemples de
 travaux du service Escaliers. Ils décrivent le métier sans promesse, mais c'est du nouveau texte.
+
+### Puis : Terrasses et jardins (même jour)
+
+Même logique : l'avant/après de la terrasse de Woluwe-Saint-Pierre est un carrelage de
+jardin, pas un carrelage intérieur. Nouveau service `terrasses` (icône, pièce « la terrasse »
+dans la maison dessinée, où une petite terrasse carrelée remplace le buisson du jardin).
+La catégorie « Extérieur » s'appelle désormais « Terrasse » (NL « Terras »). Le chiffre des
+métiers passe à 10.
+
+- **Carrelage n'a plus d'avant/après** : il affiche son panneau illustré. Un avant/après de
+  carrelage intérieur (sol, faïence) serait bienvenu.
+- Dans les exemples du Carrelage, « Terrasses et extérieurs » devient « Salles de bain et
+  cuisines » (pour ne pas doubler le nouveau service).
+- **À faire valider par Sergiu** (FR et NL) : textes du service Terrasses et jardins, et le
+  nouvel exemple du Carrelage.
