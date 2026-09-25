@@ -1071,3 +1071,11 @@ Précision de Claudiu : l'avant/après « Garage » (`avant-7` / `apres-7`) mont
 technique, sol carrelé et murs finis ». Dans la maison dessinée, le garage est retiré et une
 **cave au sous-sol** est ajoutée (chauffe-eau, gaines, étagères, sol carrelé), avec sa pièce
 « la cave » qui mène aux réalisations filtrées sur la cave.
+
+### Puis : une troisième douche, commune inconnue (même jour)
+
+Deux photos envoyées par Claudiu, retrouvées dans le dossier « Carrelage sur plusieurs
+endroits » (WhatsApp `10.58.46 (1)` avant, `10.58.49 (6)` après) : chape fraîche avec
+l'évacuation, puis douche carrelée avec paroi coulissante. Même pièce (mur de briques à droite).
+Nouveau fichier `src/content/projets/salle-de-bain-douche-carrelage.yaml`, catégorie **Douche**.
+**Commune à demander à Sergiu** : tant qu'elle manque, l'avant/après s'affiche sans commune.

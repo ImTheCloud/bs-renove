@@ -1,0 +1,32 @@
+# Photos du dossier « Carrelage sur plusieurs endroits » (commune inconnue) :
+# originaux WhatsApp 2026-09-20 at 10.58.46 (1) (avant) et 10.58.49 (6) (après).
+# Tant que la commune n'est pas confirmée, elle n'est pas affichée.
+titre:
+  fr: Salle de bain avec douche
+  nl: Badkamer met douche
+commune:
+  fr: "[À CONFIRMER : commune]"
+  nl: "[TE BEVESTIGEN: gemeente]"
+service: salles-de-bain
+ordre: 8
+misEnAvant: false
+couvertureAlt:
+  fr: Douche terminée, carrelage gris et paroi coulissante
+  nl: Afgewerkte douche, grijze tegels en schuifwand
+recit:
+  fr:
+    depart: "[À CONFIRMER]"
+    travaux: "[À CONFIRMER]"
+    resultat: "[À CONFIRMER]"
+  nl:
+    depart: "[TE BEVESTIGEN]"
+    travaux: "[TE BEVESTIGEN]"
+    resultat: "[TE BEVESTIGEN]"
+galerie: []
+avantApres:
+  - avant: ../../assets/projets/salle-de-bain-douche-carrelage/avant-1.jpg
+    apres: ../../assets/projets/salle-de-bain-douche-carrelage/apres-1.jpg
+    legende:
+      fr: Douche, de la chape au carrelage et à la paroi vitrée
+      nl: Douche, van chape tot tegels en glazen wand
+    categorie: douche
