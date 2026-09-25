@@ -1154,3 +1154,9 @@ recadrée.
 
 Photos de Claudiu (`salle-de-bain-baignoire.yaml`), introuvables dans Téléchargements → « Belgique ».
 L'« après » montre le carrelage posé avec les croisillons encore en place (presque fini).
+
+### Puis : deux toitures, commune inconnue (même jour)
+
+- `toiture-tuiles-rouges.yaml` : charpente mise à nu → tuiles rouges neuves (catégorie Toiture).
+- `petite-toiture.yaml` : petite toiture le long d’une façade, isolation → tuiles (catégorie renommée « Petite toiture », NL « Klein dak », qui regroupe aussi l’auvent de Woluwe).
+Photos de Claudiu, introuvables dans Téléchargements → « Belgique ». Ouvriers visibles (l’équipe) ; façades voisines sans numéro lisible.

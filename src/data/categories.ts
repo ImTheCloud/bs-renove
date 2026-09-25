@@ -25,7 +25,7 @@ export const categories: Categorie[] = [
   { slug: 'escalier', nom: { fr: 'Escalier', nl: 'Trap' } },
   { slug: 'cave', nom: { fr: 'Cave', nl: 'Kelder' } },
   { slug: 'toiture', nom: { fr: 'Toiture', nl: 'Dak' } },
-  { slug: 'auvent', nom: { fr: 'Auvent', nl: 'Luifel' } },
+  { slug: 'auvent', nom: { fr: 'Petite toiture', nl: 'Klein dak' } },
   { slug: 'facade', nom: { fr: 'Façade', nl: 'Gevel' } },
   { slug: 'exterieur', nom: { fr: 'Terrasse', nl: 'Terras' } },
   { slug: 'allee', nom: { fr: 'Allée', nl: 'Oprit' } },
