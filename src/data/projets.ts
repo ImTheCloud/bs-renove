@@ -93,7 +93,7 @@ const CATEGORIES_PAR_SERVICE: Record<string, string[]> = {
   'renovation-complete': [],
   'salles-de-bain': ['salle-de-bain', 'douche', 'toilette'],
   cuisines: ['cuisine'],
-  carrelage: ['garage'],
+  carrelage: ['cave'],
   terrasses: ['exterieur'],
   escaliers: ['escalier'],
   toiture: ['toiture', 'auvent'],

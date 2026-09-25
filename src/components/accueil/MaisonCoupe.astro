@@ -20,7 +20,8 @@ const textes = t(langue);
 const hero = textes.accueil.hero;
 const pieces = hero.pieces;
 const lien = (slug: string) => `${chemin('services', langue)}#${slug}`;
-const lienGarage = `${chemin('realisations', langue)}#garage`;
+/** La cave n'est pas un métier : elle mène à son avant/après. */
+const lienCave = `${chemin('realisations', langue)}#cave`;
 
 /** L'ordre de la visite guidée. */
 const visite = [
@@ -32,7 +33,7 @@ const visite = [
   'carrelage',
   'escaliers',
   'terrasses',
-  'garage',
+  'cave',
   'maconnerie-facades',
   'renovation-complete',
 ];
@@ -41,7 +42,7 @@ const visite = [
 <figure class="maison" data-maison data-visite={visite.join(',')}>
   <svg
     class="maison__svg"
-    viewBox="0 0 800 620"
+    viewBox="0 0 720 710"
     role="group"
     aria-label={hero.maisonAria}
   >
@@ -78,10 +79,31 @@ const visite = [
 
       <!-- Sol -->
       <g class="t-groupe" style="--d: 0">
-        <path d="M8 560H150M570 560H796" pathLength="1" class="t" />
+        <path d="M8 560H150M570 560H712" pathLength="1" class="t" />
         <rect x="140" y="560" width="440" height="18" class="mur-plein" />
         <rect x="140" y="560" width="440" height="18" pathLength="1" class="t" />
-        <path d="M22 560l4-9M30 560l-2-8M44 560l3-7" pathLength="1" class="t t--fin" />
+        <path d="M22 560l4-9M30 560l-2-8M596 560l3-8M604 560l-3-9M676 560l4-9M684 560l-2-7M44 560l3-7" pathLength="1" class="t t--fin" />
+      </g>
+
+      <!-- Cave (sous-sol) : chauffe-eau, gaines, étagères, sol carrelé -->
+      <g class="t-groupe" style="--d: 300">
+        <path d="M24 596l6 4M70 628l6 4M36 664l6 4M112 604l6 4M96 684l6 4M606 598l6 4M660 630l6 4M622 672l6 4M690 690l6 4" pathLength="1" class="t t--fin terre" />
+        <rect x="150" y="578" width="14" height="92" class="mur-plein" />
+        <rect x="556" y="578" width="14" height="92" class="mur-plein" />
+        <rect x="150" y="660" width="420" height="10" class="mur-plein" />
+        <rect x="150" y="578" width="14" height="92" pathLength="1" class="t" />
+        <rect x="556" y="578" width="14" height="92" pathLength="1" class="t" />
+        <rect x="150" y="660" width="420" height="10" pathLength="1" class="t" />
+        <rect x="164" y="652" width="392" height="8" class="sol-carrele" />
+        <path d="M164 652h392M192 652v8M220 652v8M248 652v8M276 652v8M304 652v8M332 652v8M360 652v8M388 652v8M416 652v8M444 652v8M472 652v8M500 652v8M528 652v8" pathLength="1" class="t t--fin" />
+        <rect x="186" y="598" width="30" height="54" rx="10" pathLength="1" class="t" />
+        <path d="M194 598v-8h14v8M201 590v-8h44" pathLength="1" class="t t--fin" />
+        <path d="M236 582h160M236 594h160M252 582v12M268 582v12M284 582v12M300 582v12M316 582v12M332 582v12M348 582v12M364 582v12M380 582v12" pathLength="1" class="t t--fin" />
+        <path d="M420 578v10" pathLength="1" class="t t--fin" />
+        <circle cx="420" cy="592" r="4" pathLength="1" class="t t--fin" />
+        <path d="M468 604h72M468 628h72M474 604v48M534 604v48" pathLength="1" class="t" />
+        <rect x="480" y="592" width="18" height="12" pathLength="1" class="t t--fin" />
+        <rect x="504" y="616" width="24" height="12" pathLength="1" class="t t--fin" />
       </g>
 
       <!-- Murs porteurs (hachurés : la maçonnerie coupée) -->
@@ -176,26 +198,9 @@ const visite = [
       <g class="t-groupe" style="--d: 1750">
         <path d="M70 560v-72M70 516l-14-14M70 504l14-14" pathLength="1" class="t" />
         <path d="M70 438c20 0 34 14 34 32s-14 30-34 30-34-12-34-30 14-32 34-32z" pathLength="1" class="t" />
-        <rect x="690" y="552" width="106" height="8" class="sol-carrele" />
-        <path d="M690 552h106M706 552v8M722 552v8M738 552v8M754 552v8M770 552v8M786 552v8" pathLength="1" class="t t--fin" />
-        <path d="M766 552l3-12h14l3 12M776 540c-6-8-3-16 0-20M776 540c5-6 9-9 13-11M776 540c-7-3-11-7-13-11" pathLength="1" class="t" />
-      </g>
-
-      <!-- Garage : toit plat, mur hachuré, voiture, sol carrelé -->
-      <g class="t-groupe" style="--d: 1650">
-        <rect x="566" y="462" width="120" height="8" class="mur-plein" />
-        <rect x="672" y="470" width="10" height="90" class="mur-plein" />
-        <rect x="566" y="560" width="120" height="12" class="mur-plein" />
-        <rect x="566" y="462" width="120" height="8" pathLength="1" class="t" />
-        <rect x="672" y="470" width="10" height="90" pathLength="1" class="t" />
-        <rect x="566" y="560" width="120" height="12" pathLength="1" class="t" />
-        <rect x="570" y="552" width="102" height="8" class="sol-carrele" />
-        <path d="M570 552h102M587 552v8M604 552v8M621 552v8M638 552v8M655 552v8" pathLength="1" class="t t--fin" />
-        <path d="M618 470v6M610 482l4-6h8l4 6z" pathLength="1" class="t t--fin" />
-        <path d="M584 546v-9a4 4 0 0 1 4-4h8l10-11h30l11 11h10a4 4 0 0 1 4 4v9z" pathLength="1" class="t" />
-        <path d="M604 533l6-8h12v8zM626 525h9l7 8h-16z" pathLength="1" class="t t--fin" />
-        <circle cx="600" cy="547" r="6" pathLength="1" class="t" />
-        <circle cx="646" cy="547" r="6" pathLength="1" class="t" />
+        <rect x="574" y="552" width="126" height="8" class="sol-carrele" />
+        <path d="M574 552h126M590 552v8M606 552v8M622 552v8M638 552v8M654 552v8M670 552v8M686 552v8" pathLength="1" class="t t--fin" />
+        <path d="M672 552l3-12h14l3 12M682 540c-6-8-3-16 0-20M682 540c5-6 9-9 13-11M682 540c-7-3-11-7-13-11" pathLength="1" class="t" />
       </g>
     </g>
 
@@ -250,25 +255,25 @@ const visite = [
       </a>
 
       <a href={lien('terrasses')} class="piece" data-piece="terrasses" aria-label={pieces.terrasses}>
-        <rect class="zone" x="690" y="552" width="106" height="8" />
-        <circle class="point" cx="742" cy="556" r="11" />
-        <text x="796" y="440" text-anchor="end" class="note">{pieces.terrasses}</text>
-        <path class="fleche" d="M752 452c-4 30-6 60-8 92" pathLength="1" />
+        <rect class="zone" x="574" y="552" width="126" height="8" />
+        <circle class="point" cx="626" cy="556" r="11" />
+        <text x="684" y="494" text-anchor="end" class="note">{pieces.terrasses}</text>
+        <path class="fleche" d="M650 508c-6 10-12 20-18 34" pathLength="1" />
       </a>
 
-      <a href={lienGarage} class="piece" data-piece="garage" aria-label={pieces.garage}>
-        <rect class="zone" x="570" y="470" width="102" height="82" />
-        <circle class="point" cx="626" cy="500" r="11" />
-        <text x="596" y="446" class="note">{pieces.garage}</text>
-        <path class="fleche" d="M650 452c-8 14-14 26-20 36" pathLength="1" />
+      <a href={lienCave} class="piece" data-piece="cave" aria-label={pieces.cave}>
+        <rect class="zone" x="164" y="578" width="392" height="74" />
+        <circle class="point" cx="330" cy="624" r="11" />
+        <text x="250" y="704" class="note">{pieces.cave}</text>
+        <path class="fleche" d="M292 682c10-14 22-30 32-44" pathLength="1" />
       </a>
 
       <a href={lien('carrelage')} class="piece" data-piece="carrelage" aria-label={pieces.carrelage}>
         <rect class="zone" x="386" y="548" width="170" height="12" />
         <rect class="zone" x="176" y="336" width="100" height="56" />
         <circle class="point" cx="455" cy="554" r="11" />
-        <text x="470" y="612" class="note">{pieces.carrelage}</text>
-        <path class="fleche" d="M476 592c-6-8-10-14-14-22" pathLength="1" />
+        <text x="582" y="612" class="note">{pieces.carrelage}</text>
+        <path class="fleche" d="M590 590c-40 0-92-10-120-24" pathLength="1" />
       </a>
 
       <a href={lien('maconnerie-facades')} class="piece" data-piece="maconnerie-facades" aria-label={pieces['maconnerie-facades']}>
@@ -570,11 +575,11 @@ const visite = [
     }
   }
 
-  /* Le bouton transparent posé sur l'astre (centre du soleil : 96, 74 sur 800 × 620). */
+  /* Le bouton transparent posé sur l'astre (centre du soleil : 96, 74 sur 720 × 710). */
   .maison__astre {
     position: absolute;
-    left: calc(96 / 800 * 100%);
-    top: calc(74 / 620 * 100%);
+    left: calc(96 / 720 * 100%);
+    top: calc(74 / 710 * 100%);
     z-index: 3;
     width: 76px;
     height: 76px;
@@ -598,8 +603,8 @@ const visite = [
 
   .maison__note-astre {
     position: absolute;
-    left: calc(96 / 800 * 100% + 44px);
-    top: calc(74 / 620 * 100% + 18px);
+    left: calc(96 / 720 * 100% + 44px);
+    top: calc(74 / 710 * 100% + 18px);
     z-index: 2;
     display: flex;
     align-items: flex-start;

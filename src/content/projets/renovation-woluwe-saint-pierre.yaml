@@ -91,9 +91,9 @@ avantApres:
   - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-7.jpg
     apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-7.jpg
     legende:
-      fr: Garage et local technique, sol carrelé et murs finis
-      nl: Garage en technische ruimte, betegelde vloer en afgewerkte muren
-    categorie: garage
+      fr: Cave et local technique, sol carrelé et murs finis
+      nl: Kelder en technische ruimte, betegelde vloer en afgewerkte muren
+    categorie: cave
   - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-8.jpg
     apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-8.jpg
     legende:

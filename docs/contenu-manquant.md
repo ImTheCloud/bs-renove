@@ -1063,3 +1063,11 @@ légende « Douche, du carrelage à l'installation » (FR/NL).
 
 Et : sur la page Réalisations, les avant/après horizontaux (deux colonnes) ont désormais la
 même hauteur que les verticaux.
+
+### Correction : c'est une cave, pas un garage (même jour)
+
+Précision de Claudiu : l'avant/après « Garage » (`avant-7` / `apres-7`) montre en fait une
+**cave** (local technique). Catégorie renommée **Cave** (NL « Kelder »), légende « Cave et local
+technique, sol carrelé et murs finis ». Dans la maison dessinée, le garage est retiré et une
+**cave au sous-sol** est ajoutée (chauffe-eau, gaines, étagères, sol carrelé), avec sa pièce
+« la cave » qui mène aux réalisations filtrées sur la cave.

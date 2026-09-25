@@ -96,7 +96,7 @@ export const fr = {
         carrelage: 'le carrelage',
         escaliers: 'l’escalier',
         terrasses: 'la terrasse',
-        garage: 'le garage',
+        cave: 'la cave',
         electricite: 'l’électricité',
         'peinture-finitions': 'la peinture',
         'maconnerie-facades': 'murs & façades',

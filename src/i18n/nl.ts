@@ -100,7 +100,7 @@ export const nl: Traductions = {
         carrelage: 'het tegelwerk',
         escaliers: 'de trap',
         terrasses: 'het terras',
-        garage: 'de garage',
+        cave: 'de kelder',
         electricite: 'de elektriciteit',
         'peinture-finitions': 'het schilderwerk',
         'maconnerie-facades': 'muren & gevels',
