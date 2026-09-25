@@ -1053,3 +1053,13 @@ Réencodées sans métadonnées ; rien de privé visible. Catégorie **Garage**,
 métier **Carrelage**, qui retrouve ainsi un avant/après. Légende « Garage et local technique,
 sol carrelé et murs finis » (FR/NL) : **à confirmer par Sergiu** (l'électricité n'est pas
 mentionnée, on ne la voit pas clairement sur les photos).
+
+### Puis : une deuxième douche, à Woluwe-Saint-Pierre (même jour)
+
+Deux photos envoyées directement par Claudiu (salle de bain du chantier de Woluwe) :
+`avant-8.jpg` (murs carrelés, bac pas encore posé) et `apres-8.jpg` (receveur, paroi vitrée,
+colonne de douche). Réencodées sans métadonnées ; rien de privé visible. Catégorie **Douche**,
+légende « Douche, du carrelage à l'installation » (FR/NL).
+
+Et : sur la page Réalisations, les avant/après horizontaux (deux colonnes) ont désormais la
+même hauteur que les verticaux.

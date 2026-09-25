@@ -94,6 +94,12 @@ avantApres:
       fr: Garage et local technique, sol carrelé et murs finis
       nl: Garage en technische ruimte, betegelde vloer en afgewerkte muren
     categorie: garage
+  - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-8.jpg
+    apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-8.jpg
+    legende:
+      fr: Douche, du carrelage à l'installation
+      nl: Douche, van tegelwerk tot installatie
+    categorie: douche
 galerie:
   - image: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-1.jpg
     alt:

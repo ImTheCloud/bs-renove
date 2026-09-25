@@ -183,6 +183,8 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
   .liste__paires {
     display: grid;
     gap: 40px 20px;
+    /* La grille sert de repère (cqw) pour caler la hauteur des paires horizontales. */
+    container-type: inline-size;
   }
 
   .paire {
@@ -196,6 +198,19 @@ const categoriesPresentes = categories.filter((c) => paires.some((p) => p.catego
 
     .paire--paysage {
       grid-column: span 2;
+    }
+
+    /* Plus large, mais aussi haute qu'une paire verticale (2 colonnes, écart 20px). */
+    .paire--paysage :global(.curseur) {
+      aspect-ratio: auto;
+      height: calc((100cqw - 20px) / 2 * 4 / 3);
+    }
+  }
+
+  @media (min-width: 1100px) {
+    /* Même principe sur 3 colonnes (écart 24px). */
+    .paire--paysage :global(.curseur) {
+      height: calc((100cqw - 48px) / 3 * 4 / 3);
     }
   }
 
