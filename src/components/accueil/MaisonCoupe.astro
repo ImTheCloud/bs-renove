@@ -22,7 +22,7 @@ const pieces = hero.pieces;
 const lien = (slug: string) => `${chemin('services', langue)}#${slug}`;
 /** La cave n'est pas un métier : elle mène à son avant/après. */
 const lienCave = `${chemin('realisations', langue)}#cave`;
-/** La porte d'entrée et sa petite toiture mènent à l'avant/après de l'auvent. */
+/** La porte d'entrée et sa petite toiture mènent aux avant/après « Petite toiture ». */
 const lienAuvent = `${chemin('realisations', langue)}#auvent`;
 const lienAllee = `${chemin('realisations', langue)}#allee`;
 
@@ -37,6 +37,7 @@ const visite = [
   'escaliers',
   'terrasses',
   'cave',
+  'plomberie',
   'auvent',
   'allee',
   'maconnerie-facades',
@@ -285,10 +286,17 @@ const visite = [
       </a>
 
       <a href={lienCave} class="piece" data-piece="cave" aria-label={pieces.cave}>
-        <rect class="zone" x="164" y="578" width="392" height="74" />
+        <rect class="zone" x="228" y="578" width="328" height="74" />
         <circle class="point" cx="330" cy="624" r="11" />
         <text x="250" y="704" class="note">{pieces.cave}</text>
         <path class="fleche" d="M292 682c10-14 22-30 32-44" pathLength="1" />
+      </a>
+
+      <a href={lien('plomberie')} class="piece" data-piece="plomberie" aria-label={pieces.plomberie}>
+        <rect class="zone" x="170" y="578" width="54" height="74" />
+        <circle class="point" cx="201" cy="622" r="11" />
+        <text x="30" y="704" class="note">{pieces.plomberie}</text>
+        <path class="fleche" d="M120 682c26-12 48-28 68-48" pathLength="1" />
       </a>
 
       <a href={lien('carrelage')} class="piece" data-piece="carrelage" aria-label={pieces.carrelage}>

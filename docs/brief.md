@@ -51,11 +51,11 @@ Plus une page 404 dans les deux langues.
 ## 5. Accueil, section par section (refonte de septembre 2026)
 
 1. **En-tête flottant** : logo, Services, Réalisations, À propos, Contact, sélecteur FR/NL, bouton « Demander un devis ». Sur mobile : bouton « Menu » (panneau plein écran) et dock flottant en bas (Appeler, WhatsApp, Devis).
-2. **Hero** : « Votre maison, *refaite* de A à Z. », texte, boutons Devis et WhatsApp, faits confirmés (12 ans de métier · Devis gratuit · Français · Nederlands). À droite : **la maison dessinée en coupe**, chaque pièce mène à son service. En dessous : les 10 métiers en pastilles.
+2. **Hero** : « Votre maison, *refaite* de A à Z. », texte, boutons Devis et WhatsApp, faits confirmés (12 ans de métier · Devis gratuit · Français · Nederlands). À droite : **la maison dessinée en coupe**, chaque pièce mène à son service. En dessous : les 11 métiers en pastilles.
 3. **Bandeau** qui défile (les métiers, façon rubalise de chantier).
 4. **Avant/après en vitrine**, piloté par le défilement (salle de bain de Watermael-Boitsfort).
-5. **Nos métiers** : grande liste des 10 services.
-6. **Chapitre sombre** : 4 chiffres (12 ans · 30+ chantiers, à confirmer · 10 métiers · devis gratuit), puis « Comment ça se passe » en 4 étapes.
+5. **Nos métiers** : grande liste des 11 services.
+6. **Chapitre sombre** : 4 chiffres (12 ans · 30+ chantiers, à confirmer · 11 métiers · devis gratuit), puis « Comment ça se passe » en 4 étapes.
 7. **Réalisations** : bande de cartes avant/après qui basculent de l'avant à l'après.
 8. **FAQ** (4 questions, réponses tirées de faits confirmés).
 9. **Devis** : titre, contacts directs, formulaire en 2 étapes.
