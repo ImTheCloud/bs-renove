@@ -320,6 +320,8 @@ export const nl: Traductions = {
     capacitesTitre: 'Wat wij kunnen doen',
     capacitesIntro:
       'Alle vakgebieden van een renovatie, intern of met onze vertrouwde zelfstandigen',
+    camionnettesAlt: 'Twee witte bestelwagens van BS Renove met het blauwe logo, geparkeerd in een straat',
+    camionnettesNote: 'Onze bestelwagens, klaar voor uw werf',
   },
 
   rejoindreEquipe: {

@@ -318,6 +318,8 @@ export const fr = {
     capacitesTitre: 'Ce que nous savons faire',
     capacitesIntro:
       "Tous les corps de métier d'une rénovation, en interne ou avec nos indépendants de confiance",
+    camionnettesAlt: 'Deux camionnettes blanches BS Renove, avec le logo bleu, garées dans une rue',
+    camionnettesNote: 'Nos camionnettes, prêtes pour votre chantier',
   },
 
   rejoindreEquipe: {
