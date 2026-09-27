@@ -68,9 +68,8 @@ const hero = textes.accueil.hero;
       }
     </ul>
     <a href="#suite" class="hero__defiler">
-      <span class="hero__defiler-trait" aria-hidden="true"></span>
-      {hero.defiler}
-      <Icon nom="fleche" taille={16} class="hero__defiler-icone" />
+      <span class="sr-only">{hero.defiler}</span>
+      <Icon nom="fleche" taille={18} class="hero__defiler-icone" />
     </a>
   </div>
 </section>
@@ -357,40 +356,44 @@ const hero = textes.accueil.hero;
       margin: 0;
     }
 
+    /* Puces un peu plus compactes : tous les métiers tiennent sur une ligne (FR et NL). */
+    .hero__bas {
+      gap: 16px;
+    }
+
     .hero__puces {
       flex-wrap: wrap;
+      gap: 5px;
       margin: 0;
       padding: 0;
       overflow: visible;
     }
 
-    .hero__defiler {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      flex-shrink: 0;
+    .hero__puces a {
+      padding: 0 11px;
       font-size: 13px;
-      font-weight: 650;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
+    }
+
+    /* L'invitation à défiler : une pastille ronde avec la flèche, au bout de la ligne. */
+    .hero__defiler {
+      display: inline-grid;
+      place-items: center;
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--color-border);
+      border-radius: 50%;
       color: var(--color-ink);
-      text-decoration: none;
+      transition:
+        background-color 300ms var(--ease),
+        border-color 300ms var(--ease),
+        color var(--speed-slow) var(--ease);
     }
 
-    .hero__defiler-trait {
-      position: relative;
-      width: 48px;
-      height: 1px;
-      background: var(--color-border);
-      overflow: hidden;
-    }
-
-    .hero__defiler-trait::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: var(--color-ink);
-      animation: glisser 2.2s var(--ease) infinite;
+    .hero__defiler:hover {
+      background: var(--color-signal);
+      border-color: var(--color-signal);
+      color: #0f1626;
     }
 
     :global(.hero__defiler-icone) {
@@ -452,12 +455,19 @@ const hero = textes.accueil.hero;
       }
     }
 
-    @keyframes glisser {
-      from {
-        transform: translateX(-100%);
+    /* La flèche descend doucement, puis revient. */
+    :global(.hero__defiler-icone) {
+      animation: descendre 2.2s var(--ease) infinite;
+    }
+
+    @keyframes descendre {
+      0%,
+      60%,
+      100% {
+        translate: 0 0;
       }
-      to {
-        transform: translateX(100%);
+      30% {
+        translate: 0 4px;
       }
     }
   }
