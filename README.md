@@ -22,28 +22,33 @@ Un propriétaire qui cherche quelqu'un pour refaire sa salle de bain, sa toiture
 
 <img src="docs/captures/accueil-ordinateur.jpg" alt="Accueil sur ordinateur : le titre et la maison dessinée en coupe" width="100%">
 
-<img src="docs/captures/mobile.jpg" alt="Le site sur téléphone : accueil, réalisations, demande de devis" width="100%">
+<img src="docs/captures/mobile.jpg" alt="Le site sur téléphone : accueil, fiche d'une pièce de la maison, demande de devis" width="100%">
 
 ---
 
 ## Ce qu'on y trouve
 
 **🏠 Une maison dessinée en coupe**
-Le haut de l'accueil montre une maison vue en coupe, qui se dessine trait par trait à l'arrivée puis fait visiter ses pièces une à une : toiture, salle de bain, cuisine, escalier, cave, allée… Chaque pièce mène au métier correspondant ou à ses avant/après. Et un clic sur le soleil fait passer la maison **en mode nuit** : lune, étoiles et fenêtres allumées.
+Le haut de l'accueil montre une maison vue en coupe, qui se dessine trait par trait à l'arrivée puis fait visiter ses pièces une à une : toiture, salle de bain, cuisine, escalier, cave, allée… Un clic sur une pièce ouvre sa fiche sans quitter la page : le métier en quelques mots, un petit avant/après à faire glisser et un bouton pour en savoir plus. Sur ordinateur, la fiche s'ouvre à côté de la pièce ; sur téléphone, elle monte du bas de l'écran. Et un clic sur le soleil fait passer la maison **en mode nuit** : lune, étoiles et fenêtres allumées.
+
+<img src="docs/captures/maison-ordinateur.jpg" alt="La fiche de la salle de bain, ouverte à côté de la maison" width="100%">
 
 **↔️ De vrais avant/après**
-29 comparaisons de chantiers réels. On fait glisser la poignée jaune pour passer de l'avant à l'après, au doigt, à la souris ou au clavier. La page Réalisations les range par pièce : salle de bain, douche, cuisine, toiture, terrasse…
+29 comparaisons de chantiers réels. On fait glisser la poignée jaune pour passer de l'avant à l'après, au doigt, à la souris ou au clavier ; sur téléphone, la page continue de défiler normalement. L'accueil en montre une sélection, la page Réalisations les range toutes par pièce : salle de bain, douche, cuisine, toiture, terrasse…
 
-<img src="docs/captures/avant-apres-ordinateur.jpg" alt="La section avant/après de l'accueil" width="100%">
+<img src="docs/captures/avant-apres-ordinateur.jpg" alt="La page Réalisations : les avant/après rangés par pièce" width="100%">
 
 **🧰 11 métiers**
-Rénovation complète, salles de bain, cuisines, carrelage, terrasses et jardins, escaliers, toiture, maçonnerie et extensions, plomberie, électricité, peinture et finitions. Chacun a sa description, ses exemples de travaux et son avant/après.
+Rénovation complète, salles de bain, cuisines, carrelage, terrasses et jardins, escaliers, toiture, maçonnerie et extensions, plomberie, électricité, peinture et finitions. Chacun a sa description, sa façon de travailler expliquée en quelques lignes, ses exemples de travaux et son avant/après. La page À propos présente l'entreprise, ses camionnettes et tout ce qu'elle sait faire.
 
 **📝 Un devis en deux étapes**
 1. Les travaux envisagés, à cocher.
 2. Le nom, le téléphone et un mot sur le projet.
 
 Une fois la demande envoyée, le visiteur peut ajouter ses photos par **WhatsApp** ou par **email**, avec sa demande déjà écrite dans le message.
+
+**👷 Rejoindre l'équipe**
+Les artisans peuvent poser leur candidature en quatre petites étapes, sur le même modèle que le devis : leur métier, leur expérience, ce qu'ils apportent sur le chantier (permis, véhicule, outils, langues) et leurs coordonnées. Ils envoient ensuite leur CV ou des photos de leurs chantiers par WhatsApp ou par email. Chaque métier de la page Services y mène directement, avec le métier déjà coché.
 
 **📱 Pensé d'abord pour le téléphone**
 Une barre toujours à portée de pouce (Appeler · WhatsApp · Devis), un menu plein écran, et le choix FR/NL directement en haut de l'écran.
@@ -71,10 +76,12 @@ Toutes les pages et tous les textes existent dans les deux langues. Le site s'ou
 
 | Lighthouse (mobile) | Performance | Accessibilité | Bonnes pratiques | SEO |
 |---|:---:|:---:|:---:|:---:|
-| Accueil | 94–98 | 100 | 100 | 100 |
-| Services | 96 | 100 | 100 | 100 |
+| Accueil | 94–95 | 100 | 100 | 100 |
+| Services | 96–100 | 100 | 100 | 100 |
+| Réalisations | 89–98 | 100 | 100 | 100 |
+| À propos | 95–98 | 100 | 100 | 100 |
 | Contact | 97 | 100 | 100 | 100 |
-| Réalisations | 91–93 | 100 | 100 | 100 |
+| Rejoindre l'équipe | 97–100 | 100 | 100 | 100 |
 
 **Accessible.** Lisible par tous : contrastes suffisants, navigation complète au clavier, texte alternatif sur chaque photo, curseurs avant/après utilisables sans souris. Les animations s'arrêtent pour ceux qui ont demandé à en voir moins.
 
