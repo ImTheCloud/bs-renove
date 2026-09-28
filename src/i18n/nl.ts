@@ -141,6 +141,7 @@ export const nl: Traductions = {
       surtitre: 'In een paar cijfers',
       items: [
         { valeur: 12, prefixe: '', suffixe: '', mot: '', texte: 'jaar ervaring van onze zaakvoerder in de bouw' },
+        { valeur: 100, prefixe: '', suffixe: '+', mot: '', texte: 'werven uitgevoerd door onze zaakvoerder in de loop der jaren' },
         { valeur: 0, prefixe: '', suffixe: '', mot: '', texte: 'vakgebieden: tegelwerk, loodgieterij, trappen, dakwerken…' },
         { valeur: 0, prefixe: '', suffixe: '', mot: 'Gratis', texte: 'de offerte' },
       ],

@@ -138,6 +138,7 @@ export const fr = {
       surtitre: 'En quelques chiffres',
       items: [
         { valeur: 12, prefixe: '', suffixe: '', mot: '', texte: 'ans d’expérience de notre gérant dans la construction' },
+        { valeur: 100, prefixe: '', suffixe: '+', mot: '', texte: 'chantiers réalisés par notre gérant au fil des années' },
         { valeur: 0, prefixe: '', suffixe: '', mot: '', texte: 'métiers : carrelage, plomberie, escaliers, toiture…' },
         { valeur: 0, prefixe: '', suffixe: '', mot: 'Gratuit', texte: 'le devis' },
       ],

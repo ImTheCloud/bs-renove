@@ -13,6 +13,7 @@
 - **Zone d'intervention** : toute la Belgique.
 - **Activités enregistrées** : plomberie, menuiserie, carrelage sols et murs, toiture, maçonnerie et rejointoiement, restauration de bâtiments.
 - **Confirmé par Sergiu (22 septembre 2026)** : 12 ans de métier, devis gratuit, une douzaine de personnes avec des indépendants. Pas de garantie ni d'assurance à afficher. Aucun avis client.
+- **Confirmé par Sergiu (28 septembre 2026)** : plus de 100 chantiers réalisés au cours de sa carrière (chiffre du gérant, pas de l'entreprise).
 - **Logo** : icône (bâtiments, maison, vague bleue) + « BS » en gras et « Renove » en italique bleu (`src/components/Logo.astro`). Bleu du logo : `#0066B4`.
 
 ## 2. Prise de contact
@@ -43,7 +44,7 @@ Plus une page 404 dans les deux langues.
 3. **Bandeau** qui défile (les métiers).
 4. **Avant/après** : la salle de bain de Watermael-Boitsfort en grand, puis 3 autres chantiers dessous (extension, toiture, cuisine) : 4 en tout, curseurs à faire glisser soi-même. La suite est sur la page Réalisations.
 5. **Nos métiers** : liste des 11 métiers.
-6. **Chapitre sombre** : chiffres (12 ans · 11 métiers · devis gratuit), puis « Comment ça se passe » en 4 étapes.
+6. **Chapitre sombre** : chiffres (12 ans · 100+ chantiers du gérant · 11 métiers · devis gratuit), puis « Comment ça se passe » en 4 étapes.
 7. **FAQ** : 8 questions.
 8. **Devis** : contacts directs et formulaire.
 9. **Pied de page** : bande « rubalise » jaune, appel au devis, colonnes d'infos, mentions légales.
