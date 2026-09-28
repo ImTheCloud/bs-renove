@@ -9,7 +9,7 @@
  */
 import type { Langue } from '~/i18n';
 
-export interface Categorie {
+interface Categorie {
   slug: string;
   nom: Record<Langue, string>;
 }

@@ -1,4 +1,8 @@
-# Photos envoyées par Claudiu (caisson, puis terminé) ; commune inconnue.
+# Photos envoyées par Claudiu (caisson, puis terminé).
+# Commune confirmée le 28 septembre 2026.
+commune:
+  fr: Woluwe-Saint-Pierre
+  nl: Sint-Pieters-Woluwe
 ordre: 11
 avantApres:
   - avant: ../../assets/projets/toiture-lucarne/avant-1.jpg

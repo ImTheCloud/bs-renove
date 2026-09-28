@@ -16,7 +16,7 @@ export function t(langue: Langue) {
  * Les adresses de chaque page dans les deux langues.
  * Une seule source : le sélecteur de langue et la navigation s'en servent tous les deux.
  */
-export const ROUTES = {
+const ROUTES = {
   accueil: { fr: '/', nl: '/nl/' },
   services: { fr: '/services/', nl: '/nl/diensten/' },
   realisations: { fr: '/realisations/', nl: '/nl/realisaties/' },

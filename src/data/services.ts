@@ -7,7 +7,7 @@
  */
 import type { Langue } from '~/i18n';
 
-export interface Service {
+interface Service {
   /** Sert pour l'ancre dans la page et le nom du dossier de photos. */
   slug: string;
   nom: Record<Langue, string>;

@@ -1,4 +1,8 @@
-# Photos envoyées par Claudiu : commune inconnue (« Belgique »).
+# Photos envoyées par Claudiu.
+# Commune confirmée le 28 septembre 2026.
+commune:
+  fr: Woluwe-Saint-Pierre
+  nl: Sint-Pieters-Woluwe
 ordre: 15
 avantApres:
   - avant: ../../assets/projets/egouttage-allee/avant-1.jpg

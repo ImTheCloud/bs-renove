@@ -1,4 +1,8 @@
-# Photos envoyées par Claudiu, introuvables dans Téléchargements : commune inconnue (« Belgique »).
+# Photos envoyées par Claudiu, introuvables dans Téléchargements.
+# Commune confirmée le 28 septembre 2026.
+commune:
+  fr: Watermael-Boitsfort
+  nl: Watermaal-Bosvoorde
 ordre: 14
 avantApres:
   - avant: ../../assets/projets/petite-toiture/avant-1.jpg
