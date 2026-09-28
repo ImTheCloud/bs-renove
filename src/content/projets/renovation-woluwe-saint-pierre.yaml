@@ -69,9 +69,3 @@ avantApres:
       fr: Carrelage de la cave et du local technique
       nl: Tegelwerk van de kelder en de technische ruimte
     categorie: cave
-  - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-8.jpg
-    apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-8.jpg
-    legende:
-      fr: Douche, du carrelage à l'installation
-      nl: Douche, van tegelwerk tot installatie
-    categorie: douche
