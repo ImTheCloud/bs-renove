@@ -1,0 +1,12 @@
+# Photos envoyées par Claudiu (28 septembre 2026). Commune inconnue (« Belgique »).
+# Les deux photos ne sont pas prises sous le même angle (validé par Claudiu). Étiquette de la poubelle masquée.
+ordre: -1
+avantApres:
+  - avant: ../../assets/projets/jardin-terrasse/avant-1.jpg
+    apres: ../../assets/projets/jardin-terrasse/apres-1.jpg
+    legende:
+      fr: Jardin refait, avec terrasse, escalier, murets et gazon
+      nl: Vernieuwde tuin met terras, trap, muurtjes en gazon
+    categorie: exterieur
+    # Poignée à gauche au départ : l'escalier et le gazon de l'après sont visibles tout de suite.
+    depart: 25
