@@ -1,0 +1,12 @@
+# Photos envoyées par Claudiu (28 septembre 2026). Commune inconnue (« Belgique »).
+# Vitrine du métier Cuisines et parmi les avant/après de l'accueil.
+ordre: -0.5
+avantApres:
+  - avant: ../../assets/projets/cuisine-ilot/avant-1.jpg
+    apres: ../../assets/projets/cuisine-ilot/apres-1.jpg
+    legende:
+      fr: Cuisine avec îlot, de la démolition à la pose
+      nl: Keuken met eiland, van afbraak tot plaatsing
+    categorie: cuisine
+    # Poignée plus à gauche au départ : on voit d'abord la cuisine finie.
+    depart: 30

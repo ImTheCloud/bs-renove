@@ -58,9 +58,9 @@ const trouver = (paires: Paire[], id: string) => paires.find((paire) => paire.id
 /** La comparaison en grand sur l'accueil. */
 const ID_VITRINE = 'renovation-complete-maison/apres-1';
 
-/** Les 3 avant/après sous la vitrine de l'accueil (4 en tout), des métiers différents. */
+/** Les 3 avant/après sous la vitrine de l'accueil (4 en tout). */
 const IDS_ACCUEIL = [
-  'extension-maison/apres-1',
+  'cuisine-ilot/apres-1',
   'toiture-woluwe-saint-pierre/detail-1',
   'renovation-woluwe-saint-pierre/cuisine-apres',
 ];
@@ -96,6 +96,7 @@ const CATEGORIES_PAR_SERVICE: Record<string, string[]> = {
  */
 const VITRINE_PAR_SERVICE: Record<string, string> = {
   'salles-de-bain': 'salle-de-bain-watermael-boitsfort/apres-1',
+  cuisines: 'cuisine-ilot/apres-1',
   carrelage: 'salle-de-bain-baignoire/apres-1',
   escaliers: 'renovation-woluwe-saint-pierre/chantier-26',
   'maconnerie-extensions': 'extension-maison/apres-1',
