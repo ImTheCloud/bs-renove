@@ -97,7 +97,7 @@ const CATEGORIES_PAR_SERVICE: Record<string, string[]> = {
 const VITRINE_PAR_SERVICE: Record<string, string> = {
   'salles-de-bain': 'salle-de-bain-watermael-boitsfort/apres-1',
   cuisines: 'cuisine-ilot/apres-1',
-  carrelage: 'salle-de-bain-baignoire/apres-1',
+  carrelage: 'salle-de-bain-douche-carrelage/apres-1',
   escaliers: 'renovation-woluwe-saint-pierre/chantier-26',
   'maconnerie-extensions': 'extension-maison/apres-1',
 };
