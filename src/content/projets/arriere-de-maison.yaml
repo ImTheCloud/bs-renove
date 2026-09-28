@@ -1,0 +1,10 @@
+# Photos envoyées par Claudiu (28 septembre 2026). Commune inconnue (« Belgique »).
+# Visage de l'ouvrier masqué sur l'avant. En tête des réalisations et en grand sur l'accueil.
+ordre: -1
+avantApres:
+  - avant: ../../assets/projets/arriere-de-maison/avant-1.jpg
+    apres: ../../assets/projets/arriere-de-maison/apres-1.jpg
+    legende:
+      fr: Toiture, façade, baies coulissantes et terrasse, côté jardin
+      nl: Dak, gevel, schuiframen en terras aan de tuinkant
+    categorie: maison

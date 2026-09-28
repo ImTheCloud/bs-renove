@@ -118,7 +118,7 @@ export const nl: Traductions = {
       titreDebut: 'Dezelfde ruimte.',
       titreSerif: 'Een nieuw leven.',
       texte:
-        'Versleep de schuifknop: de badkamer midden in de werken maakt plaats voor het resultaat.',
+        'Versleep de schuifknop: de woning midden in de werken maakt plaats voor het resultaat.',
       noteAvant: 'midden in de werken…',
       noteApres: '… en bijna klaar!',
       voirTout: 'Alle voor/na-foto’s',

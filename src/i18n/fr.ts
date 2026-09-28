@@ -115,7 +115,7 @@ export const fr = {
       titreDebut: 'Même pièce.',
       titreSerif: 'Autre vie.',
       texte:
-        'Faites glisser la poignée : la salle de bain en plein chantier laisse place au résultat.',
+        'Faites glisser la poignée : la maison en plein chantier laisse place au résultat.',
       noteAvant: 'en plein chantier…',
       noteApres: '… et presque terminée !',
       voirTout: 'Tous les avant/après',

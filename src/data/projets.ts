@@ -55,8 +55,8 @@ export async function toutesLesPaires(): Promise<Paire[]> {
 
 const trouver = (paires: Paire[], id: string) => paires.find((paire) => paire.id === id);
 
-/** La comparaison en grand sur l'accueil, pilotée par le défilement. */
-const ID_VITRINE = 'salle-de-bain-watermael-boitsfort/apres-1';
+/** La comparaison en grand sur l'accueil. */
+const ID_VITRINE = 'arriere-de-maison/apres-1';
 
 /** Les 3 avant/après sous la vitrine de l'accueil (4 en tout), des métiers différents. */
 const IDS_ACCUEIL = [
