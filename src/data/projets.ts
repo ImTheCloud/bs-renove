@@ -62,7 +62,7 @@ const ID_VITRINE = 'renovation-complete-maison/apres-1';
 const IDS_ACCUEIL = [
   'extension-maison/apres-1',
   'toiture-woluwe-saint-pierre/detail-1',
-  'renovation-woluwe-saint-pierre/detail-3',
+  'renovation-woluwe-saint-pierre/cuisine-apres',
 ];
 
 export async function paireVitrine(): Promise<Paire | undefined> {
@@ -95,7 +95,7 @@ const CATEGORIES_PAR_SERVICE: Record<string, string[]> = {
  * dans une salle de bain).
  */
 const VITRINE_PAR_SERVICE: Record<string, string> = {
-  'salles-de-bain': ID_VITRINE,
+  'salles-de-bain': 'salle-de-bain-watermael-boitsfort/apres-1',
   carrelage: 'salle-de-bain-baignoire/apres-1',
   escaliers: 'renovation-woluwe-saint-pierre/chantier-26',
   'maconnerie-extensions': 'extension-maison/apres-1',

@@ -51,8 +51,8 @@ avantApres:
       fr: Salle de bain, chantier et double vasque terminée
       nl: Badkamer, werken en afgewerkte dubbele wastafel
     categorie: salle-de-bain
-  - avant: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-37.jpg
-    apres: ../../assets/projets/renovation-woluwe-saint-pierre/detail-3.jpg
+  - avant: ../../assets/projets/renovation-woluwe-saint-pierre/cuisine-avant.jpg
+    apres: ../../assets/projets/renovation-woluwe-saint-pierre/cuisine-apres.jpg
     legende:
       fr: Cuisine, chantier et îlot terminé
       nl: Keuken, werken en afgewerkt kookeiland
