@@ -1,4 +1,8 @@
-# Photos envoyées par Claudiu, introuvables dans Téléchargements : commune inconnue (« Belgique »).
+# Photos envoyées par Claudiu, introuvables dans Téléchargements.
+# Commune confirmée le 28 septembre 2026.
+commune:
+  fr: Knokke-Heist
+  nl: Knokke-Heist
 ordre: 12
 avantApres:
   - avant: ../../assets/projets/salle-de-bain-baignoire/avant-1.jpg
