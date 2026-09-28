@@ -1,8 +1,13 @@
+# Avant remplacé le 28 septembre 2026 (la pièce en démolition, vue depuis l'escalier).
+# Commune confirmée le 28 septembre 2026.
+commune:
+  fr: Knokke-Heist
+  nl: Knokke-Heist
 ordre: 7
 avantApres:
-  - avant: ../../assets/projets/renovation-parquet-menuiseries/chantier-2.jpg
+  - avant: ../../assets/projets/renovation-parquet-menuiseries/avant-1.jpg
     apres: ../../assets/projets/renovation-parquet-menuiseries/detail-3.jpg
     legende:
-      fr: Sous-plancher posé, parquet terminé
-      nl: Onderlaag geplaatst, parket afgewerkt
+      fr: Séjour, de la démolition au parquet posé
+      nl: Woonkamer, van afbraak tot gelegd parket
     categorie: sejour
