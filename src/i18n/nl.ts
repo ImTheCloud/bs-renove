@@ -115,7 +115,7 @@ export const nl: Traductions = {
 
     avantApres: {
       surtitre: 'Voor, na',
-      titreDebut: 'Dezelfde ruimte.',
+      titreDebut: 'Dezelfde woning.',
       titreSerif: 'Een nieuw leven.',
       texte:
         'Versleep de schuifknop: de woning midden in de werken maakt plaats voor het resultaat.',

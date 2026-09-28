@@ -112,7 +112,7 @@ export const fr = {
 
     avantApres: {
       surtitre: 'Avant, après',
-      titreDebut: 'Même pièce.',
+      titreDebut: 'Même maison.',
       titreSerif: 'Autre vie.',
       texte:
         'Faites glisser la poignée : la maison en plein chantier laisse place au résultat.',
