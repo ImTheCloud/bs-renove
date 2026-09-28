@@ -61,7 +61,7 @@ const ID_VITRINE = 'renovation-complete-maison/apres-1';
 /** Les 3 avant/après sous la vitrine de l'accueil (4 en tout). */
 const IDS_ACCUEIL = [
   'cuisine-ilot/apres-1',
-  'toiture-woluwe-saint-pierre/detail-1',
+  'renovation-interieure-ostende/apres-1',
   'renovation-woluwe-saint-pierre/cuisine-apres',
 ];
 
