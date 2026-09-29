@@ -30,7 +30,8 @@ const avantApres = t(langue).accueil.avantApres;
 const dp = t(langue).deuxPoints;
 const id = `curseur-${paire.id.replace('/', '-')}${idSuffixe}`;
 const aideId = `${id}-aide`;
-const legende = paire.legende[langue];
+// Le texte des photos (lu par Google et les lecteurs d'écran) : la légende et la commune.
+const legende = `${paire.legende[langue]}, ${paire.commune[langue]}`;
 const photo = {
   // 960 px suffit même sur un grand téléphone ; qualité 62 : invisible à l'œil, bien plus léger en 4G.
   widths: [480, 720, 960],

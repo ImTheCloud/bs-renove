@@ -1,6 +1,6 @@
 # Hébergement Netlify : construit depuis GitHub à chaque push.
-# La clé du formulaire (WEB3FORMS_KEY) se règle dans Netlify :
-# Project configuration → Environment variables (jamais dans ce fichier).
+# Les formulaires (devis, candidature) passent par Netlify Forms : détection et
+# emails de notification se règlent dans Netlify → Forms (pas dans ce fichier).
 
 [build]
   command = "npm run build"

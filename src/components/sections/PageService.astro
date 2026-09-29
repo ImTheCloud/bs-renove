@@ -1,0 +1,144 @@
+---
+/**
+ * La page d'un métier (/services/<slug>/, /nl/diensten/<slug>/) : c'est elle
+ * que Google montre pour « rénovation salle de bain », « pose de carrelage »…
+ * Le métier en détail, tous ses avant/après, les autres métiers, puis le
+ * devis avec ce métier déjà coché. Données structurées : le service et le fil
+ * d'Ariane (Accueil › Services › métier).
+ */
+import Bouton from '../Bouton.astro';
+import EntetePage from '../EntetePage.astro';
+import GrilleAvantApres from '../GrilleAvantApres.astro';
+import Icon from '../Icon.astro';
+import SectionDevis from '../accueil/SectionDevis.astro';
+import SectionService from './SectionService.astro';
+import { pairesDuService } from '~/data/projets';
+import { cheminService, iconeService, services, type Service } from '~/data/services';
+import { chemin, t, type Langue } from '~/i18n';
+
+interface Props {
+  langue: Langue;
+  service: Service;
+}
+
+const { langue, service } = Astro.props;
+const textes = t(langue);
+const bloc = textes.servicesPage;
+const paires = await pairesDuService(service.slug);
+const autres = services.filter((autre) => autre.slug !== service.slug);
+
+const url = (chemin: string) => new URL(chemin, Astro.site).href;
+const donnees = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: service.titre[langue],
+    serviceType: service.nom[langue],
+    description: service.texte[langue],
+    url: url(cheminService(service.slug, langue)),
+    provider: { '@id': url('/#entreprise') },
+    areaServed: { '@type': 'Country', name: langue === 'fr' ? 'Belgique' : 'België' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { name: 'BS Renove', item: url(chemin('accueil', langue)) },
+      { name: textes.nav.services, item: url(chemin('services', langue)) },
+      { name: service.nom[langue], item: url(cheminService(service.slug, langue)) },
+    ].map((etape, i) => ({ '@type': 'ListItem', position: i + 1, ...etape })),
+  },
+];
+---
+
+<EntetePage surtitre={bloc.surtitre} titre={service.titre[langue]} intro={service.texte[langue]}>
+  <Bouton href="#devis" variante="principal" iconeApres="fleche-diag" large>
+    {textes.actions.devis}
+  </Bouton>
+</EntetePage>
+
+<div class="wrap">
+  <SectionService langue={langue} service={service} paire={paires[0]} />
+</div>
+
+{
+  paires.length > 1 && (
+    <section class="wrap page-service__bloc" aria-labelledby="plus-avant-apres">
+      <h2 id="plus-avant-apres" class="page-service__titre">{bloc.plusAvantApres}</h2>
+      <GrilleAvantApres langue={langue} paires={paires.slice(1)} />
+    </section>
+  )
+}
+
+<nav class="wrap page-service__bloc" aria-labelledby="autres-metiers">
+  <h2 id="autres-metiers" class="page-service__titre">{bloc.autresTitre}</h2>
+  <ul class="page-service__autres">
+    {
+      autres.map((autre) => (
+        <li>
+          <a href={cheminService(autre.slug, langue)}>
+            <Icon nom={iconeService(autre.slug)} taille={20} />
+            {autre.nom[langue]}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  <a class="page-service__tous" href={chemin('services', langue)}>
+    {bloc.tousLesServices}
+    <Icon nom="fleche" taille={16} />
+  </a>
+</nav>
+
+<SectionDevis langue={langue} travaux={service.slug} />
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(donnees)} />
+
+<style>
+  .page-service__bloc {
+    padding-top: var(--section-gap);
+  }
+
+  .page-service__titre {
+    margin-bottom: 32px;
+    font-size: clamp(30px, 3.4vw, 48px);
+  }
+
+  .page-service__autres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .page-service__autres a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 0 18px 0 14px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    font-weight: 600;
+    color: var(--color-ink);
+    text-decoration: none;
+    transition: background-color 300ms var(--ease), border-color 300ms var(--ease);
+  }
+
+  .page-service__autres a:hover {
+    background: var(--color-signal);
+    border-color: var(--color-signal);
+  }
+
+  .page-service__tous {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    margin-top: 16px;
+    font-weight: 650;
+    color: var(--color-accent);
+  }
+</style>

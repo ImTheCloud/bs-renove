@@ -285,15 +285,10 @@ export const nl: Traductions = {
     sujetPhotos: 'Foto’s voor mijn offerteaanvraag',
     recommencer: 'Nieuwe aanvraag',
 
-    secoursTitre: 'Bijna klaar!',
-    secoursLien: 'E-mail openen',
-    secoursTexte:
-      'Uw mailprogramma opent met uw aanvraag al ingevuld: u hoeft ze enkel nog te versturen. Opent er niets? Bel ons of schrijf ons op WhatsApp.',
-
     erreurTitre: 'Het versturen is mislukt.',
     erreurTexte: 'U kunt het opnieuw proberen, of ons rechtstreeks bellen op',
 
-    sujetEmail: 'Offerteaanvraag via de website',
+    sujetFormulaire: 'Nieuwe offerteaanvraag · website BS Renove',
     recap: {
       travaux: 'Werken',
       message: 'Project',
@@ -391,9 +386,7 @@ export const nl: Traductions = {
     cvEmail: 'Mijn cv via e-mail',
     cvIntro: 'Hallo, hier is mijn cv (en foto’s van mijn werven) voor mijn sollicitatie via de website:',
     sujetSuite: 'Mijn cv voor mijn sollicitatie',
-    secoursTexte: 'Uw mailprogramma opent met uw sollicitatie al ingevuld: u hoeft ze enkel nog te versturen.',
     sujetFormulaire: 'Nieuwe sollicitatie · website BS Renove',
-    sujetEmail: 'Sollicitatie via de website',
     recap: {
       metier: 'Vak',
       metier_autre: 'Ander vak',
@@ -421,11 +414,17 @@ export const nl: Traductions = {
       'Een algemene aannemer: alle vakgebieden van een renovatie, van de eerste offerte tot de laatste afwerking',
     grilleTitre: 'Al onze werken',
     exemplesTitre: 'Bijvoorbeeld',
-    projetsLies: 'Bekijk de voor/na-foto’s',
+    toutSurCeMetier: 'Alles over dit vak',
     devisPour: 'Offerte aanvragen',
     avantChape: 'Wat u na de werken niet meer ziet',
     rejoindreQuestion: 'Oefent u dit vak uit?',
     rejoindreBouton: 'Word lid van ons team',
+    // La page de chaque métier
+    plusAvantApres: 'Meer voor/na-foto’s',
+    autresTitre: 'Onze andere vakgebieden',
+    tousLesServices: 'Al onze diensten',
+    titreFin: ' in België · BS Renove',
+    descriptionFin: 'Gratis offerte, in heel België.',
   },
 
   legal: {
@@ -445,32 +444,34 @@ export const nl: Traductions = {
 
   pages: {
     accueil: {
-      titre: 'BS Renove · Algemene aannemer voor renovatie in België',
+      titre: 'BS Renove · Renovatiebedrijf in Denderleeuw, België',
       description:
-        'Badkamers, keukens, tegelwerk, dakwerken en metselwerk. Wij begeleiden uw werf van de eerste offerte tot de laatste afwerking.',
+        'Algemene renovatieonderneming uit Denderleeuw: badkamers, keukens, tegelwerk, dakwerken, metselwerk en uitbreidingen, in heel België. Gratis offerte.',
     },
     services: {
-      titre: 'Onze diensten · BS Renove',
+      titre: 'Renovatiewerken: badkamer, keuken, dakwerken · BS Renove',
       description:
-        'Volledige renovatie, badkamers, keukens, tegelwerk, terrassen, trappen, dakwerken, metselwerk en loodgieterij.',
+        'Volledige renovatie, badkamers, keukens, tegelwerk, terrassen, trappen, dakwerken, metselwerk en uitbreidingen, loodgieterij, elektriciteit, schilderwerk. Gratis offerte.',
     },
     realisations: {
-      titre: 'Onze realisaties · BS Renove',
-      description: 'Enkele recente werven in beeld, voor en na.',
+      titre: 'Onze renovaties in voor/na-foto’s · BS Renove',
+      description:
+        'Onze renovatiewerven in foto’s, voor en na: woningen, badkamers, keukens, daken en terrassen, in Sint-Pieters-Woluwe, Oostende, Knokke-Heist…',
     },
     contact: {
-      titre: 'Contact en offerte · BS Renove',
+      titre: 'Gratis offerte voor uw renovatiewerken · BS Renove',
       description:
-        'Leg ons uw project uit en ontvang een gratis offerte. Via telefoon, WhatsApp of e-mail.',
+        'Beschrijf uw renovatiewerken en ontvang een gratis offerte: formulier in twee stappen, telefoon of WhatsApp. BS Renove, Denderleeuw, heel België.',
     },
     apropos: {
-      titre: 'Over ons · BS Renove',
+      titre: 'Over ons · BS Renove, renovatiebedrijf in Denderleeuw',
       description:
-        'Algemene renovatieonderneming in Denderleeuw, actief in heel België: alle vakgebieden van een renovatie.',
+        'BS Renove, algemene renovatieonderneming in Denderleeuw, geleid door Sergiu Bivol: 12 jaar ervaring, meer dan 100 werven, in heel België.',
     },
     rejoindre: {
-      titre: 'Word lid van ons team · BS Renove',
-      description: 'Stuur uw kandidatuur naar BS Renove, algemene renovatieonderneming.',
+      titre: 'Werken bij BS Renove · Word lid van ons team',
+      description:
+        'Tegelzetter, loodgieter, elektricien, dakdekker, metselaar, schilder… Stuur uw sollicitatie naar BS Renove, renovatiebedrijf in Denderleeuw.',
     },
     mentionsLegales: {
       titre: 'Juridische informatie · BS Renove',

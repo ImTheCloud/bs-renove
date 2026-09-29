@@ -13,12 +13,6 @@ export interface BlocLegal {
   titre: Record<Langue, string>;
   paragraphes?: Record<Langue, string[]>;
   liste?: Record<Langue, string[]>;
-  /**
-   * Bloc affiché seulement dans certains cas : « web3forms » si le formulaire
-   * envoie par Web3Forms (clé configurée), « email » sinon, « hebergeur » si
-   * l'hébergeur est renseigné dans src/data/entreprise.ts.
-   */
-  si?: 'web3forms' | 'email' | 'hebergeur';
 }
 
 export const mentionsLegales: BlocLegal[] = [
@@ -42,7 +36,6 @@ export const mentionsLegales: BlocLegal[] = [
   },
   {
     titre: { fr: 'Hébergement', nl: 'Hosting' },
-    si: 'hebergeur',
     paragraphes: {
       fr: ['Le site est hébergé par {hebergeur}. Il ne comporte ni base de données, ni espace de connexion.'],
       nl: ['De website wordt gehost door {hebergeur}. Hij heeft geen databank en geen inlogzone.'],
@@ -123,28 +116,13 @@ export const viePrivee: BlocLegal[] = [
   },
   {
     titre: { fr: 'Par où passent-elles', nl: 'Langs waar gaan ze' },
-    si: 'web3forms',
     paragraphes: {
       fr: [
-        "Les formulaires (devis et candidature) sont transmis par Web3Forms, un service qui transforme votre demande en email et nous l'envoie. Web3Forms agit comme sous-traitant et traite les données sur des serveurs situés hors de l'Union européenne (États-Unis). En cochant la case du formulaire, vous consentez expressément à ce transfert (article 49 du RGPD).",
+        "Les formulaires (devis et candidature) sont reçus par notre hébergeur, Netlify, qui nous les transmet par email. Netlify agit comme sous-traitant et traite les données sur des serveurs situés hors de l'Union européenne (États-Unis). En cochant la case du formulaire, vous consentez expressément à ce transfert (article 49 du RGPD).",
         "Un appel passe par votre opérateur téléphonique, un message WhatsApp par les services de Meta, chacun selon ses propres règles de confidentialité.",
       ],
       nl: [
-        'De formulieren (offerte en sollicitatie) worden doorgestuurd via Web3Forms, een dienst die uw aanvraag omzet in een e-mail en naar ons stuurt. Web3Forms treedt op als verwerker en verwerkt de gegevens op servers buiten de Europese Unie (Verenigde Staten). Door het vakje van het formulier aan te vinken, geeft u uitdrukkelijk toestemming voor deze doorgifte (artikel 49 van de AVG).',
-        'Een telefoontje verloopt via uw telefoonoperator, een WhatsApp-bericht via de diensten van Meta, elk volgens hun eigen privacyregels.',
-      ],
-    },
-  },
-  {
-    titre: { fr: 'Par où passent-elles', nl: 'Langs waar gaan ze' },
-    si: 'email',
-    paragraphes: {
-      fr: [
-        "Les formulaires n'envoient rien eux-mêmes : ils ouvrent votre messagerie avec la demande déjà écrite, et c'est vous qui l'envoyez, depuis votre propre adresse email, vers la nôtre. Aucun service tiers n'intervient entre vous et nous.",
-        "Un appel passe par votre opérateur téléphonique, un message WhatsApp par les services de Meta, chacun selon ses propres règles de confidentialité.",
-      ],
-      nl: [
-        'De formulieren versturen zelf niets: ze openen uw mailprogramma met de aanvraag al ingevuld, en u verstuurt ze zelf, vanaf uw eigen e-mailadres, naar het onze. Er komt geen enkele derde dienst tussen u en ons.',
+        'De formulieren (offerte en sollicitatie) worden ontvangen door onze hostingprovider, Netlify, die ze per e-mail naar ons doorstuurt. Netlify treedt op als verwerker en verwerkt de gegevens op servers buiten de Europese Unie (Verenigde Staten). Door het vakje van het formulier aan te vinken, geeft u uitdrukkelijk toestemming voor deze doorgifte (artikel 49 van de AVG).',
         'Een telefoontje verloopt via uw telefoonoperator, een WhatsApp-bericht via de diensten van Meta, elk volgens hun eigen privacyregels.',
       ],
     },

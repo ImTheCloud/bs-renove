@@ -20,22 +20,12 @@ const L = textes.legal;
 
 const email = entreprise.email ?? entreprise.telephoneAffiche;
 
-// Seuls les blocs qui correspondent à la configuration réelle du site sont affichés.
-const web3forms = Boolean((import.meta.env.WEB3FORMS_KEY ?? '').trim());
-const visibles = blocs.filter(
-  (bloc) =>
-    !bloc.si ||
-    (bloc.si === 'web3forms' && web3forms) ||
-    (bloc.si === 'email' && !web3forms) ||
-    (bloc.si === 'hebergeur' && entreprise.hebergeur),
-);
-
 /** Remplace les marques {email} et {telephone} dans les textes. */
 const remplacer = (texte: string) =>
   texte
     .replaceAll('{email}', email)
     .replaceAll('{telephone}', entreprise.telephoneAffiche)
-    .replaceAll('{hebergeur}', entreprise.hebergeur ?? '');
+    .replaceAll('{hebergeur}', entreprise.hebergeur);
 
 const identite: { label: string; valeur: string }[] = [
   { label: L.nomLegal, valeur: entreprise.nomLegal },
@@ -69,7 +59,7 @@ const identite: { label: string; valeur: string }[] = [
   </section>
 
   {
-    visibles.map((bloc) => (
+    blocs.map((bloc) => (
       <section class="legale__bloc">
         <h2>{bloc.titre[langue]}</h2>
         {bloc.paragraphes?.[langue].map((p) => <p>{remplacer(p)}</p>)}

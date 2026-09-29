@@ -127,7 +127,7 @@ const urlPartage = new URL(imagePartage.src, Astro.site).href;
 
     <meta name="theme-color" content="#f5f2ec" />
 
-    {(cheminActuel === '/' || cheminActuel === '/nl/') && <DonneesStructurees langue={langue} />}
+    {(cheminActuel === '/' || cheminActuel === '/nl/') && <DonneesStructurees langue={langue} image={urlPartage} />}
   </head>
 
   <body>

@@ -5,13 +5,14 @@ Document interne (n'apparaît pas sur le site). Le site est en production sur `h
 ## Mis en ligne
 
 - Hébergement Netlify (construit depuis `main`), domaine `bsrenovesrl.com` chez Wix, HTTPS actif.
-- Formulaire de devis par Web3Forms (clé dans Netlify → Environment variables).
-- Mentions légales et Vie privée : hébergeur Netlify, RPM, Web3Forms.
+- Formulaires (devis et candidature) par Netlify Forms : notifications email réglées dans Netlify → Forms.
+- Mentions légales et Vie privée : hébergeur Netlify (qui reçoit aussi les formulaires), RPM.
 
-## À régler côté Wix et Web3Forms
+## À régler côté Wix, Netlify et Google
 
-- **Wix** : désactiver le renouvellement du forfait Premium ; garder celui du domaine (6 septembre 2027). Ne jamais cliquer sur « Réessayer » dans Domaines (remettrait le domaine sur Wix). DNS : A `@` → `75.2.60.5`, CNAME `www` → `bs-renove.netlify.app`.
-- **Web3Forms** : ajouter l'email de Sergiu (Linked Emails → Settings → Recipient). Dans sa boîte : marquer « Non spam » et filtrer `notify@web3forms.com` pour qu'il n'aille jamais en spam.
+- **Wix** : renouvellement du forfait Premium désactivé ; garder celui du domaine (6 septembre 2027). Ne jamais cliquer sur « Réessayer » dans Domaines (remettrait le domaine sur Wix). DNS : A `@` → `75.2.60.5`, CNAME `www` → `bs-renove.netlify.app`.
+- **Netlify Forms** : Forms → détection activée ; Forms → Submission notifications → une notification email pour Sergiu et une pour Claudiu. Dans chaque boîte : marquer le premier email « Non spam » et approuver `formresponses@netlify.com`.
+- **Google** : Search Console (propriété `bsrenovesrl.com`, sitemap `https://bsrenovesrl.com/sitemap-index.xml`) et fiche Google Business de BS Renove avec le lien du site. Demander un avis à chaque client satisfait.
 
 ## Améliorations possibles
 
@@ -20,6 +21,6 @@ Document interne (n'apparaît pas sur le site). Le site est en production sur `h
 - **Assurance décennale** : rien n'est affiché ; à voir avec son assureur (loi Peeters-Borsus).
 - **Email professionnel** (ex. `info@bsrenovesrl.com`) à la place du Hotmail : une ligne dans `src/data/entreprise.ts`.
 - **Photos** : un avant/après de plomberie en intérieur, un « après » pour l'électricité, et pour les prochains avant/après deux photos prises du même endroit.
-- **Textes à relire avec Sergiu** : les deux paragraphes ajoutés à chaque métier (page Services) et les questions du formulaire de candidature (expérience, statut, langues, permis, disponibilité).
+- **Textes à relire avec Sergiu** : les deux paragraphes « en détail » de chaque métier (pages métier) et les questions du formulaire de candidature (expérience, statut, langues, permis, disponibilité).
 - **Néerlandais** : une relecture par un néerlandophone rendrait les textes plus naturels.
 - **Lighthouse** (mobile, 26 septembre 2026) : accessibilité, bonnes pratiques et SEO à 100 partout ; performance 94 à 97 (Réalisations 92-93, beaucoup de photos).

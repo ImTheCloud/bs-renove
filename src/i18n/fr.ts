@@ -242,7 +242,7 @@ export const fr = {
     },
   },
 
-  /** Le formulaire de devis, en trois étapes. */
+  /** Le formulaire de devis, en deux étapes. */
   formulaire: {
     etape: 'Étape',
     sur: 'sur',
@@ -283,15 +283,10 @@ export const fr = {
     sujetPhotos: 'Photos pour ma demande de devis',
     recommencer: 'Nouvelle demande',
 
-    secoursTitre: 'Presque fini !',
-    secoursLien: 'Ouvrir l’email',
-    secoursTexte:
-      'Votre messagerie s’ouvre avec votre demande déjà écrite : il ne reste qu’à l’envoyer. Rien ne s’ouvre ? Appelez-nous ou écrivez-nous sur WhatsApp.',
-
     erreurTitre: 'L’envoi n’a pas fonctionné.',
     erreurTexte: 'Vous pouvez réessayer, ou nous appeler directement au',
 
-    sujetEmail: 'Demande de devis via le site',
+    sujetFormulaire: 'Nouvelle demande de devis · site BS Renove',
     recap: {
       travaux: 'Travaux',
       message: 'Projet',
@@ -389,9 +384,7 @@ export const fr = {
     cvEmail: 'Mon CV par email',
     cvIntro: 'Bonjour, voici mon CV (et des photos de mes chantiers) pour ma candidature envoyée sur le site :',
     sujetSuite: 'Mon CV pour ma candidature',
-    secoursTexte: 'Votre messagerie s’ouvre avec votre candidature déjà écrite : il ne reste qu’à l’envoyer.',
     sujetFormulaire: 'Nouvelle candidature · site BS Renove',
-    sujetEmail: 'Candidature via le site',
     recap: {
       metier: 'Métier',
       metier_autre: 'Autre métier',
@@ -419,11 +412,17 @@ export const fr = {
       'Une entreprise générale : tous les corps de métier d’une rénovation, du premier devis à la dernière finition',
     grilleTitre: 'Tous nos travaux',
     exemplesTitre: 'Par exemple',
-    projetsLies: 'Voir les avant/après',
+    toutSurCeMetier: 'Tout sur ce métier',
     devisPour: 'Demander un devis',
     avantChape: 'Ce qu’on ne voit plus une fois fini',
     rejoindreQuestion: 'Vous exercez ce métier ?',
     rejoindreBouton: 'Rejoindre l’équipe',
+    // La page de chaque métier
+    plusAvantApres: 'Plus d’avant/après',
+    autresTitre: 'Nos autres métiers',
+    tousLesServices: 'Tous nos services',
+    titreFin: ' en Belgique · BS Renove',
+    descriptionFin: 'Devis gratuit, partout en Belgique.',
   },
 
   legal: {
@@ -443,32 +442,34 @@ export const fr = {
 
   pages: {
     accueil: {
-      titre: 'BS Renove · Entreprise générale de rénovation en Belgique',
+      titre: 'BS Renove · Entreprise de rénovation à Denderleeuw, Belgique',
       description:
-        "Salles de bain, cuisines, carrelage, toiture et maçonnerie. Nous nous occupons de votre chantier, du premier devis jusqu'à la dernière finition.",
+        'Entreprise générale de rénovation à Denderleeuw : salles de bain, cuisines, carrelage, toiture, maçonnerie et extensions, partout en Belgique. Devis gratuit.',
     },
     services: {
-      titre: 'Nos services · BS Renove',
+      titre: 'Travaux de rénovation : salle de bain, cuisine, toiture · BS Renove',
       description:
-        'Rénovation complète, salles de bain, cuisines, carrelage, terrasses, escaliers, toiture, maçonnerie et plomberie.',
+        'Rénovation complète, salles de bain, cuisines, carrelage, terrasses, escaliers, toiture, maçonnerie et extensions, plomberie, électricité, peinture. Devis gratuit.',
     },
     realisations: {
-      titre: 'Nos réalisations · BS Renove',
-      description: 'Quelques chantiers récents, en photos, avant et après.',
+      titre: 'Nos rénovations en photos avant/après · BS Renove',
+      description:
+        'Nos chantiers de rénovation en photos avant et après : maisons, salles de bain, cuisines, toitures et terrasses, à Woluwe-Saint-Pierre, Ostende, Knokke-Heist…',
     },
     contact: {
-      titre: 'Contact et devis · BS Renove',
+      titre: 'Devis gratuit pour vos travaux de rénovation · BS Renove',
       description:
-        'Expliquez-nous votre projet et recevez un devis gratuit. Par téléphone, WhatsApp ou email.',
+        'Décrivez vos travaux de rénovation et recevez un devis gratuit : formulaire en deux étapes, téléphone ou WhatsApp. BS Renove, Denderleeuw, toute la Belgique.',
     },
     apropos: {
-      titre: 'À propos · BS Renove',
+      titre: 'À propos · BS Renove, entreprise de rénovation à Denderleeuw',
       description:
-        "Entreprise générale de rénovation à Denderleeuw, active dans toute la Belgique : tous les corps de métier d’une rénovation.",
+        "BS Renove SRL, entreprise générale de rénovation à Denderleeuw, dirigée par Sergiu Bivol : 12 ans d'expérience, plus de 100 chantiers, dans toute la Belgique.",
     },
     rejoindre: {
-      titre: 'Rejoindre l’équipe · BS Renove',
-      description: 'Envoyez votre candidature à BS Renove, entreprise générale de rénovation.',
+      titre: 'Travailler chez BS Renove · Rejoindre l’équipe',
+      description:
+        'Carreleur, plombier, électricien, couvreur, maçon, peintre… Envoyez votre candidature à BS Renove, entreprise de rénovation à Denderleeuw.',
     },
     mentionsLegales: {
       titre: 'Mentions légales · BS Renove',

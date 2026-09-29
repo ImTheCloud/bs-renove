@@ -14,11 +14,7 @@ npm run preview   # aperçu du site construit
 > **Le serveur local affiche une ancienne version ou le menu ne répond plus ?**
 > Le cache s'est emmêlé : `Ctrl+C`, puis `rm -rf node_modules/.vite .astro`, puis `npm run dev`, et **Cmd+Maj+R** dans le navigateur.
 
-Pour que le formulaire envoie vraiment les demandes en local, créer un fichier `.env` à la racine (il n'est jamais envoyé sur GitHub) :
-
-```bash
-WEB3FORMS_KEY=la-clé-web3forms
-```
+Les formulaires (devis, candidature) passent par **Netlify Forms** : ils n'envoient rien en local (le message d'erreur s'affiche, c'est normal) et fonctionnent une fois le site en ligne. Aucune clé, aucun fichier `.env`.
 
 ## Comment c'est construit
 
@@ -40,30 +36,33 @@ flowchart LR
     D --> F --> E
     E --> G[dist/<br/>HTML statique]
     G --> H[Netlify<br/>bsrenovesrl.com]
-    I[Formulaire] -. envoi .-> J[Web3Forms] -. email .-> K[Boîte de Sergiu]
+    I[Formulaires] -. envoi .-> J[Netlify Forms] -. email .-> K[Adresses réglées dans Netlify]
 ```
 
 ### L'arborescence
 
 ```
 src/
-├── pages/                Une page par adresse (FR à la racine, NL sous nl/)
+├── pages/                Une page par adresse (FR à la racine, NL sous nl/),
+│                         dont une page par métier : services/[slug].astro, nl/diensten/[slug].astro
 ├── layouts/
 │   └── BaseLayout.astro  <head>, SEO, hreflang, image de partage, en-tête, pied de page
 ├── components/
 │   ├── accueil/          Sections de l'accueil : Hero, MaisonCoupe, AvantApres, Methode, Faq…
-│   ├── sections/         Contenu des pages intérieures : Services, Réalisations, À propos, pages légales
+│   ├── sections/         Contenu des pages intérieures : Services, page d'un métier, Réalisations,
+│   │                     À propos, pages légales
 │   └── *.astro           Briques communes : Bouton, Icon, Logo, CurseurAvantApres,
-│                         GrilleAvantApres, FormulaireDevis, Entete, PiedDePage…
+│                         GrilleAvantApres, FormulaireDevis, FormulaireCandidature, Entete…
 ├── content/projets/      Un fichier YAML par chantier : sa commune et ses avant/après
 ├── data/
 │   ├── entreprise.ts     Faits vérifiés : nom, adresse, téléphone, TVA, RPM, hébergeur
-│   ├── services.ts       Les 11 métiers (textes FR/NL, exemples, icônes)
+│   ├── services.ts       Les 11 métiers : titre de leur page, textes FR/NL, exemples, icônes
 │   ├── categories.ts     Les types de pièce (filtres de la page Réalisations)
 │   ├── projets.ts        Quelles paires vont où : vitrine, accueil, chaque métier
 │   └── textes-legaux.ts  Mentions légales et vie privée (FR/NL)
 ├── i18n/                 Tous les textes d'interface (fr.ts et nl.ts, même structure)
-├── scripts/site.ts       Défilement fluide (Lenis), apparitions au défilement
+├── scripts/              site.ts : défilement fluide (Lenis), apparitions au défilement
+│                         formulaire-etapes.ts : le moteur commun des deux formulaires
 ├── styles/               tokens.css (couleurs, tailles, rayons) et global.css
 └── assets/               Photos des chantiers, logo, images de partage
 
@@ -78,7 +77,6 @@ netlify.toml              Construction, cache, en-têtes de sécurité, 404 née
 |---|---|
 | `importer-photos.mjs` | Importe des photos de chantier **en effaçant leurs métadonnées** (dont la position GPS de la maison du client) |
 | `generer-image-partage.mjs` | Fabrique l'image affichée quand on partage le lien sur WhatsApp ou Facebook (FR et NL) |
-| `scanner-tags-finder.mjs` · `decoder-tags-finder.mjs` | Retrouvent les photos triées avec des tags Finder sur le Mac |
 
 
 ## Modifier le contenu
@@ -144,9 +142,9 @@ Tout est dans **un seul fichier** : `src/data/entreprise.ts`. Le site entier sui
 </details>
 
 <details>
-<summary><b>🧰 Masquer ou réafficher un métier</b></summary>
+<summary><b>🧰 Modifier un métier</b></summary>
 
-`NON_ENREGISTRES` dans `src/data/services.ts` : un métier ajouté à cette liste disparaît de l'accueil, de la page Services, du formulaire et de la maison dessinée.
+Tout est dans `src/data/services.ts` : `titre` (le titre de sa page et dans Google), `texte` (son intro, aussi la description Google), `exemples` et `enDetail`. Sa page `/services/<slug>/` (et `/nl/diensten/<slug>/`) se construit toute seule, avec ses avant/après.
 
 </details>
 
@@ -157,7 +155,7 @@ Tout est dans **un seul fichier** : `src/data/entreprise.ts`. Le site entier sui
 node scripts/generer-image-partage.mjs
 ```
 
-Écrit `src/assets/partage.jpg` (FR) et `src/assets/partage-nl.jpg` (NL), 1200 × 630.
+Écrit `src/assets/partage.jpg` (FR) et `src/assets/partage-nl.jpg` (NL), 1200 × 630, avec l'avant/après de la vitrine de l'accueil. Si la vitrine change (`ID_VITRINE` dans `src/data/projets.ts`), changer aussi le dossier de photos dans le script.
 
 </details>
 
@@ -170,9 +168,21 @@ node scripts/generer-image-partage.mjs
 | **Domaine** | Wix | `bsrenovesrl.com`, renouvelé chaque année. Le forfait Premium Wix n'est plus utilisé |
 | **DNS** (chez Wix) | Enregistrements | `A @ → 75.2.60.5` · `CNAME www → bs-renove.netlify.app` |
 | **HTTPS** | Netlify | Certificat Let's Encrypt automatique |
-| **Formulaire** | Web3Forms | Variable `WEB3FORMS_KEY` dans Netlify → *Environment variables* |
+| **Formulaires** | Netlify Forms | Netlify → **Forms** : détection activée ; **Forms → Submission notifications** : une notification email par adresse. Demandes aussi visibles dans **Forms** |
 
 > ⚠️ Dans Wix, page **Domaines** : ne jamais cliquer sur **« Réessayer »** ou **« Connecter »**. Cela remettrait le domaine sur un site Wix et le site disparaîtrait.
+
+## Référencement Google
+
+Ce qui est dans le code :
+
+- un **titre** et une **description** propres à chaque page (`pages` dans `src/i18n/fr.ts` et `nl.ts`, `titre` et `texte` des métiers) ;
+- **une page par métier**, en FR et en NL, reliées entre elles (hreflang) ;
+- des **données structurées** : l'entreprise sur l'accueil (`DonneesStructurees.astro`), le service et le fil d'Ariane sur chaque page métier ;
+- le **sitemap** (`/sitemap-index.xml`, avec les deux langues) et `public/robots.txt` ;
+- des textes alternatifs avec la commune sur chaque photo.
+
+Hors du code : **Google Search Console** (propriété `bsrenovesrl.com`, sitemap envoyé), **fiche Google Business** de BS Renove avec le lien du site, et les avis clients sur cette fiche.
 
 ---
 
@@ -185,6 +195,7 @@ Les règles complètes sont dans [`CLAUDE.md`](../CLAUDE.md). L'essentiel :
 - **Uniquement de vrais avant/après**, jamais d'image générée présentée comme un chantier.
 - **Tout texte existe en FR et en NL.**
 - Le site est en production : **aucune mention « à confirmer » ou provisoire** ne doit apparaître.
+- **Aucun code mort** : à chaque changement, supprimer les images, textes et bouts de code devenus inutiles.
 - À chaque changement : `npm run build` sans erreur, commit clair, push sur `main`.
 
 Le suivi avec le client (améliorations possibles, points administratifs) est dans [`suivi-client.md`](suivi-client.md), et le contenu page par page dans [`brief.md`](brief.md).

@@ -6,8 +6,8 @@
  * - une étape à la fois, barre de progression, « Continuer » / « Retour » ;
  * - validation : [data-choix-requis="nom"] (au moins une case cochée),
  *   champs required, email valide, case de consentement ;
- * - envoi par Web3Forms (data-cle="oui"), sinon la messagerie s'ouvre avec
- *   tout déjà écrit ;
+ * - envoi en arrière-plan par Netlify Forms (le formulaire porte data-netlify),
+ *   puis confirmation sur place ; en cas d'échec, les contacts directs ;
  * - après l'envoi, [data-suite-whatsapp] et [data-suite-email] ouvrent un
  *   message qui reprend toute la demande (pour envoyer des photos, un CV…) ;
  * - une case avec data-precision="id" fait apparaître le champ id (ex. « Autre
@@ -128,7 +128,7 @@ function initialiser(bloc: HTMLElement) {
       .trim();
   };
 
-  const terminer = (panneau: HTMLElement | null, secours = false) => {
+  const terminer = (panneau: HTMLElement | null) => {
     form.hidden = true;
     if (!panneau) return;
     if (panneau === merci) {
@@ -136,15 +136,7 @@ function initialiser(bloc: HTMLElement) {
       const whatsapp = panneau.querySelector<HTMLAnchorElement>('[data-suite-whatsapp]');
       if (whatsapp) whatsapp.href = `https://wa.me/${d.whatsapp}?text=${encodeURIComponent(message)}`;
       const email = panneau.querySelector<HTMLAnchorElement>('[data-suite-email]');
-      if (email) {
-        email.href = `mailto:${d.email}?subject=${encodeURIComponent(d.sujetSuite ?? '')}&body=${encodeURIComponent(message)}`;
-        // En mode secours, l'email de la demande s'ouvre déjà : pas de doublon.
-        email.hidden = secours;
-      }
-      const titre = panneau.querySelector<HTMLElement>('[data-fin-titre]');
-      const texte = panneau.querySelector<HTMLElement>('[data-fin-texte]');
-      if (titre) titre.textContent = (secours ? titre.dataset.titreSecours : titre.dataset.titreMerci) ?? '';
-      if (texte) texte.textContent = (secours ? texte.dataset.texteSecours : texte.dataset.texteMerci) ?? '';
+      if (email) email.href = `mailto:${d.email}?subject=${encodeURIComponent(d.sujetSuite ?? '')}&body=${encodeURIComponent(message)}`;
     }
     panneau.hidden = false;
     panneau.focus({ preventScroll: true });
@@ -154,39 +146,23 @@ function initialiser(bloc: HTMLElement) {
   form.addEventListener('submit', async (evenement) => {
     evenement.preventDefault();
     if (!valider(courante)) return;
-    if (form.querySelector<HTMLInputElement>('input[name="botcheck"]')?.checked) return;
-
-    // Pas de clé : la messagerie s'ouvre avec toute la demande déjà écrite.
-    if (d.cle !== 'oui') {
-      const lien = `mailto:${d.email}?subject=${encodeURIComponent(d.sujetEmail ?? '')}&body=${encodeURIComponent(resume())}`;
-      const bouton = merci?.querySelector<HTMLAnchorElement>('[data-lien-secours]');
-      if (bouton) {
-        bouton.href = lien;
-        bouton.hidden = false;
-      }
-      terminer(merci, true);
-      window.location.href = lien;
-      return;
-    }
 
     const texteBouton = boutonEnvoyer?.querySelector('.bouton__texte');
     const texteInitial = texteBouton?.textContent ?? '';
     if (boutonEnvoyer) boutonEnvoyer.disabled = true;
     if (texteBouton) texteBouton.textContent = d.enCours ?? '…';
 
-    const corps: Record<string, string> = {};
-    new FormData(form).forEach((valeur, cle) => {
-      corps[cle] = corps[cle] ? `${corps[cle]}, ${valeur}` : String(valeur);
-    });
+    // Netlify Forms : les réponses encodées comme un formulaire classique, envoyées à la racine du site.
+    const donnees = new URLSearchParams();
+    new FormData(form).forEach((valeur, cle) => donnees.append(cle, String(valeur)));
 
     try {
-      const reponse = await fetch(form.action, {
+      const reponse = await fetch('/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(corps),
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: donnees.toString(),
       });
-      const resultat = await reponse.json().catch(() => ({ success: false }));
-      terminer(reponse.ok && resultat.success ? merci : echec);
+      terminer(reponse.ok ? merci : echec);
     } catch {
       terminer(echec);
     } finally {
@@ -200,8 +176,6 @@ function initialiser(bloc: HTMLElement) {
     form.hidden = false;
     if (merci) merci.hidden = true;
     if (echec) echec.hidden = true;
-    const secours = merci?.querySelector<HTMLElement>('[data-lien-secours]');
-    if (secours) secours.hidden = true;
     afficher(0);
   });
   bloc.querySelector('[data-reessayer]')?.addEventListener('click', () => {

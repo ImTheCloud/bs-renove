@@ -7,6 +7,7 @@
  * 2. l'expérience (depuis quand, statut, ce qu'on cherche, disponibilité) ;
  * 3. sur le chantier (permis, véhicule, outils, langues) ;
  * 4. les coordonnées et un mot sur le parcours.
+ * Envoi par Netlify Forms (formulaire « candidature »), comme le devis.
  * Après l'envoi : CV et photos par WhatsApp ou email, candidature déjà écrite.
  *
  * Un métier est coché d'avance depuis la page Services : ?metier=carrelage
@@ -27,9 +28,6 @@ const textes = t(langue);
 const f = textes.rejoindreEquipe;
 const commun = textes.formulaire;
 const id = 'candidature-form';
-
-const cle = (import.meta.env.WEB3FORMS_KEY ?? '').trim();
-const action = cle ? 'https://api.web3forms.com/submit' : `mailto:${entreprise.email ?? ''}`;
 
 /** Les métiers proposés, avec leur icône et les métiers du site qui leur correspondent. */
 const metiers: { cle: keyof typeof f.metiers; icone: NomIcone; services: string }[] = [
@@ -61,7 +59,7 @@ const questionsChantier: Question[] = [
   { nom: 'langues', label: f.langues, choix: f.languesChoix, multiple: true },
 ];
 
-/** Le récapitulatif (email de secours, CV par email ou WhatsApp), dans l'ordre du formulaire. */
+/** Le récapitulatif (CV par email ou WhatsApp), dans l'ordre du formulaire. */
 const r = f.recap;
 const recap = [
   ['metier', r.metier],
@@ -80,12 +78,10 @@ const recap = [
   class="formulaire"
   data-formulaire
   data-param="metier"
-  data-cle={cle ? 'oui' : 'non'}
   data-email={entreprise.email ?? ''}
   data-whatsapp={entreprise.whatsappNumero}
   data-intro-suite={f.cvIntro}
   data-sujet-suite={f.sujetSuite}
-  data-sujet-email={f.sujetEmail}
   data-recap={JSON.stringify(recap)}
   data-deux-points={textes.deuxPoints}
   data-noms-etapes={JSON.stringify(f.etapes)}
@@ -95,11 +91,11 @@ const recap = [
   data-erreur-consentement={f.erreurConsentement}
   data-en-cours={commun.envoiEnCours}
 >
-  <form class="formulaire__form" id={id} action={action} method="POST" enctype={cle ? undefined : 'text/plain'} novalidate data-form>
-    {cle && <input type="hidden" name="access_key" value={cle} />}
+  <form class="formulaire__form" id={id} name="candidature" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate data-form>
+    <input type="hidden" name="form-name" value="candidature" />
     <input type="hidden" name="subject" value={f.sujetFormulaire} />
-    <input type="hidden" name="from_name" value="BS Renove" />
-    <input type="checkbox" name="botcheck" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" />
+    <input type="hidden" name="langue" value={langue.toUpperCase()} />
+    <input type="text" name="bot-field" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
     <!-- Progression -->
     <div class="formulaire__progression" aria-hidden="true">
@@ -249,12 +245,9 @@ const recap = [
       <circle cx="40" cy="40" r="36" pathLength="1" />
       <path d="M24 41l11 11 21-24" pathLength="1" />
     </svg>
-    <h3 class="formulaire__fin-titre" data-fin-titre data-titre-merci={f.merciTitre} data-titre-secours={commun.secoursTitre}>{f.merciTitre}</h3>
-    <p data-fin-texte data-texte-merci={f.merciTexte} data-texte-secours={f.secoursTexte}>{f.merciTexte}</p>
+    <h3 class="formulaire__fin-titre">{f.merciTitre}</h3>
+    <p>{f.merciTexte}</p>
     <div class="formulaire__fin-actions">
-      <Bouton href={`mailto:${entreprise.email ?? ''}`} variante="principal" icone="email" data-lien-secours hidden>
-        {commun.secoursLien}
-      </Bouton>
       <Bouton href={`https://wa.me/${entreprise.whatsappNumero}`} variante="whatsapp" icone="whatsapp" target="_blank" rel="noopener" data-suite-whatsapp>
         {f.cvWhatsApp}
       </Bouton>

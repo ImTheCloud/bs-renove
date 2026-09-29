@@ -1,30 +1,33 @@
 /**
  * Les 11 métiers, source : docs/brief.md § 5.
- * Servent à l'accueil et à la page Services.
+ * Servent à l'accueil, à la page Services et aux pages de chaque métier.
  *
  * Les textes décrivent le métier, pas l'entreprise : aucune promesse,
  * aucun chiffre, aucune garantie.
  */
-import type { Langue } from '~/i18n';
+import { chemin, type Langue } from '~/i18n';
 
-interface Service {
-  /** Sert pour l'ancre dans la page et le nom du dossier de photos. */
+export interface Service {
+  /** L'adresse de la page du métier (/services/<slug>/) et l'ancre dans la page Services. */
   slug: string;
   nom: Record<Langue, string>;
+  /** Le titre de la page du métier : son h1 et le début de son titre dans Google. */
+  titre: Record<Langue, string>;
   /** Une phrase, pour les cartes de l'accueil. */
   phrase: Record<Langue, string>;
   /** Deux ou trois phrases, pour la page Services. */
   texte: Record<Langue, string>;
   /** Exemples de travaux courants du métier. */
   exemples: Record<Langue, string[]>;
-  /** Deux paragraphes de plus sur le métier (page Services, « Voir ce métier » depuis la maison). */
+  /** Deux paragraphes de plus sur le métier, sur sa page. */
   enDetail: Record<Langue, string[]>;
 }
 
-const tousLesServices: Service[] = [
+export const services: Service[] = [
   {
     slug: 'renovation-complete',
     nom: { fr: 'Rénovation complète', nl: 'Volledige renovatie' },
+    titre: { fr: 'Rénovation complète de maison', nl: 'Volledige renovatie van uw woning' },
     phrase: {
       fr: 'Maison ou appartement, on reprend tout de A à Z',
       nl: 'Huis of appartement, wij pakken alles aan van A tot Z',
@@ -45,6 +48,7 @@ const tousLesServices: Service[] = [
   {
     slug: 'salles-de-bain',
     nom: { fr: 'Salles de bain', nl: 'Badkamers' },
+    titre: { fr: 'Rénovation de salle de bain', nl: 'Badkamerrenovatie' },
     phrase: {
       fr: 'Carrelage, sanitaires et plomberie, clé en main',
       nl: 'Tegelwerk, sanitair en loodgieterij, sleutel op de deur',
@@ -65,6 +69,7 @@ const tousLesServices: Service[] = [
   {
     slug: 'cuisines',
     nom: { fr: 'Cuisines', nl: 'Keukens' },
+    titre: { fr: 'Pose et rénovation de cuisine', nl: 'Keukenrenovatie en plaatsing van keukens' },
     phrase: {
       fr: 'Pose, menuiserie et finitions, adaptées à votre espace',
       nl: 'Plaatsing, schrijnwerk en afwerking, op maat van uw ruimte',
@@ -85,6 +90,7 @@ const tousLesServices: Service[] = [
   {
     slug: 'carrelage',
     nom: { fr: 'Carrelage', nl: 'Tegelwerk' },
+    titre: { fr: 'Pose de carrelage, sols et murs', nl: 'Tegelwerk voor vloeren en muren' },
     phrase: {
       fr: "Sols et murs, à l'intérieur comme à l'extérieur",
       nl: 'Vloeren en muren, zowel binnen als buiten',
@@ -105,6 +111,7 @@ const tousLesServices: Service[] = [
   {
     slug: 'terrasses',
     nom: { fr: 'Terrasses et jardins', nl: 'Terrassen en tuinen' },
+    titre: { fr: 'Terrasses et allées de jardin', nl: 'Terrassen en tuinpaden' },
     phrase: {
       fr: 'Carrelage de terrasse et de jardin, sur une base solide',
       nl: 'Terras- en tuintegels, op een stevige ondergrond',
@@ -125,6 +132,7 @@ const tousLesServices: Service[] = [
   {
     slug: 'escaliers',
     nom: { fr: 'Escaliers', nl: 'Trappen' },
+    titre: { fr: "Rénovation d'escaliers", nl: 'Renovatie van trappen' },
     phrase: {
       fr: 'Rénovation et habillage d’escaliers',
       nl: 'Renovatie en bekleding van trappen',
@@ -145,6 +153,7 @@ const tousLesServices: Service[] = [
   {
     slug: 'toiture',
     nom: { fr: 'Toiture', nl: 'Dakwerken' },
+    titre: { fr: 'Toiture : réparation et rénovation de toit', nl: 'Dakwerken: herstelling en renovatie van daken' },
     phrase: {
       fr: 'Rénovation et réparation de toitures',
       nl: 'Renovatie en herstelling van daken',
@@ -165,6 +174,7 @@ const tousLesServices: Service[] = [
   {
     slug: 'maconnerie-extensions',
     nom: { fr: 'Maçonnerie & extensions', nl: 'Metselwerk & uitbreidingen' },
+    titre: { fr: 'Maçonnerie et extension de maison', nl: 'Metselwerk en uitbreiding van uw woning' },
     phrase: {
       fr: 'Gros œuvre, extensions et maçonnerie',
       nl: 'Ruwbouw, uitbreidingen en metselwerk',
@@ -185,6 +195,7 @@ const tousLesServices: Service[] = [
   {
     slug: 'plomberie',
     nom: { fr: 'Plomberie', nl: 'Loodgieterij' },
+    titre: { fr: 'Plomberie et égouttage', nl: 'Loodgieterij en riolering' },
     phrase: {
       fr: 'Arrivées d’eau, évacuations et égouttage',
       nl: 'Wateraanvoer, afvoer en riolering',
@@ -205,6 +216,7 @@ const tousLesServices: Service[] = [
   {
     slug: 'electricite',
     nom: { fr: 'Électricité', nl: 'Elektriciteit' },
+    titre: { fr: 'Électricité : installation et rénovation', nl: 'Elektriciteit: installatie en renovatie' },
     phrase: {
       fr: 'Installation et rénovation électrique pour votre maison',
       nl: 'Elektrische installatie en renovatie voor uw woning',
@@ -225,6 +237,7 @@ const tousLesServices: Service[] = [
   {
     slug: 'peinture-finitions',
     nom: { fr: 'Peinture et finitions', nl: 'Schilderwerk en afwerking' },
+    titre: { fr: 'Peinture, parquet et finitions', nl: 'Schilderwerk, parket en afwerking' },
     phrase: {
       fr: 'Murs et plafonds peints, parquet posé, finitions intérieures',
       nl: 'Geschilderde muren en plafonds, gelegd parket, binnenafwerking',
@@ -245,18 +258,6 @@ const tousLesServices: Service[] = [
 ];
 
 /**
- * Métiers à masquer du site (accueil, Services, formulaire, maison dessinée).
- * Vide : tout est affiché. L'électricité (NACE 43.21) et la peinture (NACE 43.34)
- * ne sont pas encore enregistrées à la BCE ; pour les masquer, ajouter ici
- * 'electricite' et 'peinture-finitions'.
- */
-const NON_ENREGISTRES: string[] = [];
-
-/** Les métiers proposés sur le site (accueil, Services, formulaire, maison dessinée). */
-export const services = tousLesServices.filter((service) => !NON_ENREGISTRES.includes(service.slug));
-
-/** L'icône au trait de chaque service (voir src/components/Icon.astro). */
-/**
  * Savoir-faire sans avant/après à montrer : affichés seulement sur la page
  * À propos (« Ce que nous savons faire »), avec un lien vers le devis.
  */
@@ -271,7 +272,8 @@ export const autresSavoirFaire = [
   },
 ] as const;
 
-export const iconesServices = {
+/** L'icône au trait de chaque service (voir src/components/Icon.astro). */
+const iconesServices = {
   'renovation-complete': 'maison',
   'salles-de-bain': 'bain',
   cuisines: 'cuisine',
@@ -284,6 +286,11 @@ export const iconesServices = {
   electricite: 'eclair',
   'peinture-finitions': 'rouleau',
 } as const satisfies Record<string, string>;
+
+/** L'adresse de la page d'un métier : /services/salles-de-bain/, /nl/diensten/salles-de-bain/. */
+export function cheminService(slug: string, langue: Langue): string {
+  return `${chemin('services', langue)}${slug}/`;
+}
 
 export function iconeService(slug: string) {
   return (iconesServices as Record<string, (typeof iconesServices)[keyof typeof iconesServices]>)[slug] ?? 'maison';

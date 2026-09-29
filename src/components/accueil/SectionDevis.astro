@@ -17,9 +17,11 @@ interface Props {
   titrePrincipal?: boolean;
   /** Le formulaire affiché : demande de devis (par défaut) ou candidature. */
   formulaire?: 'devis' | 'candidature';
+  /** Sur la page d'un métier : ce métier est coché d'avance dans le devis. */
+  travaux?: string;
 }
 
-const { langue, titrePrincipal = false, formulaire = 'devis' } = Astro.props;
+const { langue, titrePrincipal = false, formulaire = 'devis', travaux } = Astro.props;
 const textes = t(langue);
 const candidature = formulaire === 'candidature';
 const bloc = candidature ? textes.rejoindreEquipe : textes.accueil.devis;
@@ -72,7 +74,7 @@ const Titre = titrePrincipal ? 'h1' : 'h2';
     </div>
 
     <div class="devis-section__form" data-reveal="zoom">
-      {candidature ? <FormulaireCandidature langue={langue} /> : <FormulaireDevis langue={langue} />}
+      {candidature ? <FormulaireCandidature langue={langue} /> : <FormulaireDevis langue={langue} travaux={travaux} />}
     </div>
   </div>
 </section>

@@ -1,8 +1,8 @@
 /**
  * Fabrique l'image affichée quand on partage le site sur WhatsApp,
  * Facebook ou LinkedIn (1200 × 630), en français et en néerlandais :
- * le titre du site à gauche, l'avant/après de la salle de bain de
- * Watermael-Boitsfort à droite (la vitrine de l'accueil).
+ * le titre du site à gauche, l'avant/après de la maison rénovée (côté
+ * jardin) à droite : la vitrine de l'accueil (ID_VITRINE dans src/data/projets.ts).
  *
  * Rendue par le navigateur (Playwright) pour avoir exactement les polices
  * du site ; les photos passent d'abord par sharp (recadrées, sans métadonnées).
@@ -20,7 +20,7 @@ const police = (chemin) => enBase64(`node_modules/${chemin}`, 'font/woff2');
 // Photos recadrées au format du cadre (moitié gauche = avant, moitié droite = après).
 const photo = async (nom) =>
   `data:image/jpeg;base64,${(
-    await sharp(`src/assets/projets/salle-de-bain-watermael-boitsfort/${nom}.jpg`).rotate().resize(540, 560, { fit: 'cover' }).jpeg({ quality: 88 }).toBuffer()
+    await sharp(`src/assets/projets/renovation-complete-maison/${nom}.jpg`).rotate().resize(540, 560, { fit: 'cover' }).jpeg({ quality: 88 }).toBuffer()
   ).toString('base64')}`;
 const avant = await photo('avant-1');
 const apres = await photo('apres-1');

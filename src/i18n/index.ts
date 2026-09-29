@@ -27,7 +27,7 @@ const ROUTES = {
   rejoindre: { fr: '/rejoindre-lequipe/', nl: '/nl/word-lid-van-ons-team/' },
 } as const satisfies Record<string, Record<Langue, string>>;
 
-export type PageCle = keyof typeof ROUTES;
+type PageCle = keyof typeof ROUTES;
 
 /** L'adresse d'une page dans une langue donnée. */
 export function chemin(cle: PageCle, langue: Langue): string {

@@ -20,8 +20,8 @@ export const entreprise = {
   tva: 'BE 1002.240.127',
   /** Tribunal de l'entreprise compétent pour le siège (Denderleeuw) : obligatoire (CSA art. 2:20). */
   rpm: { fr: 'RPM Gand, division Termonde', nl: 'RPR Gent, afdeling Dendermonde' },
-  /** Date de création dans la BCE. */
-  creation: '14 novembre 2023',
+  /** Date de création dans la BCE (14 novembre 2023), au format des données structurées. */
+  creation: '2023-11-14',
 
   /** Affiché à l'écran, format belge. */
   telephoneAffiche: '0485 38 43 90',
@@ -35,8 +35,8 @@ export const entreprise = {
   /** Expérience personnelle du gérant (confirmée le 22 septembre 2026), pas l'âge de l'entreprise. */
   anneesExperience: 12,
 
-  /** L'hébergeur du site, affiché dans les mentions légales (null = mention masquée). */
-  hebergeur: 'Netlify, Inc., San Francisco (USA) · www.netlify.com' as string | null,
+  /** L'hébergeur du site (il reçoit aussi les formulaires), affiché dans les mentions légales. */
+  hebergeur: 'Netlify, Inc., San Francisco (USA) · www.netlify.com',
 } as const;
 
 /** Adresse sur une ligne, pour le pied de page. */

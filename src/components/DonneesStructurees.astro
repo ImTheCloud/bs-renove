@@ -1,28 +1,37 @@
 ---
 /**
- * Données structurées JSON-LD, lues par Google.
- * Tout vient de src/data/entreprise.ts : aucune information inventée,
- * et un champ non confirmé est simplement absent plutôt que faux.
+ * Données structurées JSON-LD de l'entreprise (accueil), lues par Google.
+ * Tout vient de src/data/entreprise.ts et src/data/services.ts : aucune
+ * information inventée, et un champ non confirmé est absent plutôt que faux.
+ * Les pages des métiers y renvoient par l'@id « /#entreprise ».
  */
 import { entreprise } from '~/data/entreprise';
-import { t, type Langue } from '~/i18n';
+import { cheminService, services } from '~/data/services';
+import { chemin, t, type Langue } from '~/i18n';
 
 interface Props {
   langue: Langue;
+  /** L'image de partage de la page, en adresse complète. */
+  image: string;
 }
 
-const { langue } = Astro.props;
+const { langue, image } = Astro.props;
 const textes = t(langue);
+const url = (chemin: string) => new URL(chemin, Astro.site).href;
 
 const fiche: Record<string, unknown> = {
   '@context': 'https://schema.org',
-  '@type': 'HomeAndConstructionBusiness',
+  '@type': 'GeneralContractor',
+  '@id': url('/#entreprise'),
   name: entreprise.nomLegal,
   alternateName: entreprise.nomCourt,
   description: textes.pages.accueil.description,
-  url: new URL(langue === 'fr' ? '/' : '/nl/', Astro.site).href,
+  url: url(chemin('accueil', langue)),
+  logo: url('/apple-touch-icon.png'),
+  image,
   telephone: entreprise.telephoneLien,
   vatID: entreprise.tva.replace(/[\s.]/g, ''),
+  foundingDate: entreprise.creation,
   address: {
     '@type': 'PostalAddress',
     streetAddress: entreprise.adresse.rue,
@@ -32,16 +41,29 @@ const fiche: Record<string, unknown> = {
   },
   areaServed: {
     '@type': 'Country',
-    name: 'Belgique',
+    name: langue === 'fr' ? 'Belgique' : 'België',
   },
   // « employee » plutôt que « founder » : le seul fait vérifié est qu'il est
   // gérant, pas qu'il a fondé l'entreprise.
   employee: {
     '@type': 'Person',
     name: entreprise.gerant,
-    jobTitle: 'Gérant',
+    jobTitle: langue === 'fr' ? 'Gérant' : 'Zaakvoerder',
   },
   availableLanguage: ['fr-BE', 'nl-BE'],
+  // Les métiers, chacun avec sa page.
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: textes.nav.services,
+    itemListElement: services.map((service) => ({
+      '@type': 'Offer',
+      itemOffered: {
+        '@type': 'Service',
+        name: service.titre[langue],
+        url: url(cheminService(service.slug, langue)),
+      },
+    })),
+  },
 };
 
 // L'email n'est ajouté que s'il existe vraiment.

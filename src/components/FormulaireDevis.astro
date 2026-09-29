@@ -3,15 +3,12 @@
  * Demande de devis en deux étapes : les travaux, puis les coordonnées et un mot sur le projet.
  * (Pas d'adresse ni de commune : elle se donne plus tard, en parlant du devis.)
  *
- * C'est la source de clients du site : elle doit marcher dans tous les cas.
- * - Avec la clé Web3Forms (variable WEB3FORMS_KEY) : envoi en arrière-plan,
- *   confirmation affichée sur place.
- * - Sans clé : la messagerie du visiteur s'ouvre avec la demande déjà écrite
- *   (toutes ses réponses), il n'a plus qu'à l'envoyer.
- * - Sans JavaScript : les deux étapes s'affichent l'une sous l'autre et le
- *   navigateur envoie le formulaire lui-même.
+ * Envoi par Netlify Forms (formulaire « devis ») : Netlify reçoit la demande
+ * et l'envoie par email aux adresses réglées dans Netlify (Forms → notifications).
+ * Sans JavaScript, les deux étapes s'affichent l'une sous l'autre et le
+ * navigateur envoie le formulaire lui-même.
  *
- * Un champ caché sert de piège à robots : un humain ne le remplit jamais.
+ * Le champ caché « bot-field » sert de piège à robots : un humain ne le remplit jamais.
  *
  * Même moteur et même style que la candidature : src/scripts/formulaire-etapes.ts
  * et src/styles/formulaire.css.
@@ -27,16 +24,14 @@ interface Props {
   langue: Langue;
   /** Identifiant unique si plusieurs formulaires sur la même page. */
   id?: string;
+  /** Le métier coché d'avance (page d'un métier). */
+  travaux?: string;
 }
 
-const { langue, id = 'devis-form' } = Astro.props;
+const { langue, id = 'devis-form', travaux } = Astro.props;
 const textes = t(langue);
 const f = textes.formulaire;
 
-const cle = (import.meta.env.WEB3FORMS_KEY ?? '').trim();
-const action = cle ? 'https://api.web3forms.com/submit' : `mailto:${entreprise.email ?? ''}`;
-const sujet =
-  langue === 'fr' ? 'Nouvelle demande de devis · site BS Renove' : 'Nieuwe offerteaanvraag · website BS Renove';
 const choix = [
   ...services.map((service) => ({ valeur: service.nom[langue], icone: iconeService(service.slug), slug: service.slug })),
   { valeur: f.autre, icone: 'autre' as const, slug: 'autre' },
@@ -47,12 +42,10 @@ const choix = [
   class="formulaire"
   data-formulaire
   data-param="travaux"
-  data-cle={cle ? 'oui' : 'non'}
   data-email={entreprise.email ?? ''}
   data-whatsapp={entreprise.whatsappNumero}
   data-intro-suite={f.photosIntro}
   data-sujet-suite={f.sujetPhotos}
-  data-sujet-email={f.sujetEmail}
   data-recap={JSON.stringify([['travaux', f.recap.travaux], ['message', f.recap.message], '', ['nom', f.recap.nom], ['telephone', f.recap.telephone], ['email', f.recap.email]])}
   data-deux-points={textes.deuxPoints}
   data-noms-etapes={JSON.stringify(f.etapes)}
@@ -62,19 +55,11 @@ const choix = [
   data-erreur-consentement={f.erreurConsentement}
   data-en-cours={f.envoiEnCours}
 >
-  <form
-    class="formulaire__form"
-    id={id}
-    action={action}
-    method="POST"
-    enctype={cle ? undefined : 'text/plain'}
-    novalidate
-    data-form
-  >
-    {cle && <input type="hidden" name="access_key" value={cle} />}
-    <input type="hidden" name="subject" value={sujet} />
-    <input type="hidden" name="from_name" value="BS Renove" />
-    <input type="checkbox" name="botcheck" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" />
+  <form class="formulaire__form" id={id} name="devis" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate data-form>
+    <input type="hidden" name="form-name" value="devis" />
+    <input type="hidden" name="subject" value={f.sujetFormulaire} />
+    <input type="hidden" name="langue" value={langue.toUpperCase()} />
+    <input type="text" name="bot-field" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
     <!-- Progression -->
     <div class="formulaire__progression" aria-hidden="true">
@@ -96,7 +81,7 @@ const choix = [
         {
           choix.map((option) => (
             <label class="tuile">
-              <input type="checkbox" name="travaux" value={option.valeur} data-cles={option.slug} />
+              <input type="checkbox" name="travaux" value={option.valeur} data-cles={option.slug} checked={option.slug === travaux} />
               <span class="tuile__icone"><Icon nom={option.icone} taille={24} /></span>
               <span class="tuile__nom">{option.valeur}</span>
               <span class="tuile__coche" aria-hidden="true"><Icon nom="check" taille={14} epaisseur={3} /></span>
@@ -165,12 +150,9 @@ const choix = [
       <circle cx="40" cy="40" r="36" pathLength="1" />
       <path d="M24 41l11 11 21-24" pathLength="1" />
     </svg>
-    <h3 class="formulaire__fin-titre" data-fin-titre data-titre-merci={f.merciTitre} data-titre-secours={f.secoursTitre}>{f.merciTitre}</h3>
-    <p data-fin-texte data-texte-merci={f.merciTexte} data-texte-secours={f.secoursTexte}>{f.merciTexte}</p>
+    <h3 class="formulaire__fin-titre">{f.merciTitre}</h3>
+    <p>{f.merciTexte}</p>
     <div class="formulaire__fin-actions">
-      <Bouton href={`mailto:${entreprise.email ?? ''}`} variante="principal" icone="email" data-lien-secours hidden>
-        {f.secoursLien}
-      </Bouton>
       <Bouton href={lienWhatsApp(textes.whatsappMessage)} variante="whatsapp" icone="whatsapp" target="_blank" rel="noopener" data-suite-whatsapp>
         {f.merciWhatsApp}
       </Bouton>

@@ -1,0 +1,404 @@
+---
+/**
+ * Un métier : son avant/après (ou sa photo, ou son icône), ses exemples de
+ * travaux et ses boutons. Deux usages :
+ * - page Services (avec numero) : le titre h2 mène à la page du métier ;
+ * - page du métier (sans numero) : le titre est le h1 de la page, on ajoute
+ *   les deux paragraphes « en détail ».
+ * Un métier sans avant/après affiche un panneau illustré (son icône en grand).
+ */
+import { Image } from 'astro:assets';
+import Bouton from '../Bouton.astro';
+import CurseurAvantApres from '../CurseurAvantApres.astro';
+import Icon from '../Icon.astro';
+import { photoSeuleParService, type Paire } from '~/data/projets';
+import { cheminService, iconeService, services, type Service } from '~/data/services';
+import { chemin, t, type Langue } from '~/i18n';
+
+interface Props {
+  langue: Langue;
+  service: Service;
+  /** Le premier avant/après du métier. */
+  paire?: Paire;
+  /** Sa place dans la page Services (1, 2…) ; absent sur la page du métier. */
+  numero?: number;
+}
+
+const { langue, service, paire, numero } = Astro.props;
+const bloc = t(langue).servicesPage;
+const surSaPage = numero === undefined;
+const photo = photoSeuleParService[service.slug];
+const deuxChiffres = (n: number) => String(n).padStart(2, '0');
+const lienDevis = surSaPage ? '#devis' : `${chemin('contact', langue)}?travaux=${service.slug}#devis`;
+---
+
+<section
+  id={surSaPage ? undefined : service.slug}
+  class:list={['service', { 'service--inverse': !surSaPage && numero % 2 === 0, 'service--page': surSaPage }]}
+  aria-labelledby={surSaPage ? undefined : `titre-${service.slug}`}
+  aria-label={surSaPage ? service.nom[langue] : undefined}
+>
+  {
+    !surSaPage && (
+      <div class="service__texte service__entete">
+        <span class="service__num">
+          {deuxChiffres(numero)} / {deuxChiffres(services.length)}
+        </span>
+        <h2 id={`titre-${service.slug}`}>
+          <a href={cheminService(service.slug, langue)}>{service.nom[langue]}</a>
+        </h2>
+        <p class="service__intro">{service.texte[langue]}</p>
+      </div>
+    )
+  }
+
+  <div class="service__visuel" data-reveal>
+    {
+      paire ? (
+        <figure class:list={['service__comparaison', { 'service__comparaison--paysage': paire.paysage }]}>
+          <CurseurAvantApres langue={langue} paire={paire} sizes="(min-width: 1024px) 30vw, 90vw" />
+          <figcaption class="service__legende">
+            {paire.legende[langue]}
+            <span> · {paire.commune[langue]}</span>
+          </figcaption>
+        </figure>
+      ) : photo ? (
+        <figure class="service__comparaison service__photo-seule">
+          <Image
+            src={photo.image}
+            alt={photo.legende[langue]}
+            widths={[400, 700, 1000]}
+            width={1000}
+            quality={70}
+            sizes="(min-width: 1024px) 30vw, 90vw"
+            loading="lazy"
+          />
+          <span class="service__badge">{bloc.avantChape}</span>
+          <figcaption class="service__legende">{photo.legende[langue]}</figcaption>
+        </figure>
+      ) : (
+        <div class="service__illustration" aria-hidden="true">
+          <Icon nom={iconeService(service.slug)} taille={120} epaisseur={1.1} />
+          <span class="manuscrit service__illustration-note">{service.nom[langue]}</span>
+        </div>
+      )
+    }
+  </div>
+
+  <div class="service__texte service__detail">
+    {
+      surSaPage && (
+        <div class="service__en-detail">
+          {service.enDetail[langue].map((paragraphe) => (
+            <p>{paragraphe}</p>
+          ))}
+        </div>
+      )
+    }
+
+    <div class="service__exemples">
+      <span class="service__exemples-titre">{bloc.exemplesTitre}</span>
+      <ul>
+        {
+          service.exemples[langue].map((exemple) => (
+            <li>
+              <Icon nom="check" taille={16} epaisseur={2.4} />
+              {exemple}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="service__actions">
+      <Bouton href={lienDevis} variante="principal" iconeApres="fleche-diag">
+        {bloc.devisPour}
+      </Bouton>
+      {
+        !surSaPage && (
+          <Bouton href={cheminService(service.slug, langue)} variante="secondaire" iconeApres="fleche">
+            {bloc.toutSurCeMetier}
+          </Bouton>
+        )
+      }
+    </div>
+
+    <p class="service__rejoindre">
+      <span>{bloc.rejoindreQuestion}</span>
+      <a href={`${chemin('rejoindre', langue)}?metier=${service.slug}#candidature`}>
+        <Icon nom="casque" taille={18} />
+        {bloc.rejoindreBouton}
+        <Icon nom="fleche" taille={16} />
+      </a>
+    </p>
+  </div>
+</section>
+
+<style>
+  /* --- Un métier --- */
+  /* Téléphone : le titre d'abord, puis la photo, puis le détail. */
+  .service {
+    display: grid;
+    gap: 28px;
+    padding-block: 56px;
+    border-top: 1px solid var(--color-border);
+    scroll-margin-top: calc(var(--header-h) + 8px);
+  }
+
+  .service__visuel {
+    display: grid;
+    gap: 10px;
+  }
+
+  .service__comparaison {
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
+  .service__comparaison--paysage {
+    max-width: 640px;
+  }
+
+  .service__comparaison :global(.curseur img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .service__photo-seule {
+    position: relative;
+  }
+
+  .service__photo-seule :global(img) {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    height: auto;
+    object-fit: cover;
+    border-radius: var(--radius-photo);
+  }
+
+  .service__badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    padding: 7px 14px;
+    border-radius: var(--radius-pill);
+    background: rgba(245, 242, 236, 0.94);
+    color: var(--color-ink);
+    font-size: 12px;
+    font-weight: 750;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .service__legende {
+    padding-top: 12px;
+    font-size: var(--size-small);
+    font-weight: 650;
+    color: var(--color-ink);
+  }
+
+  .service__legende span {
+    font-weight: 500;
+    color: var(--color-muted);
+  }
+
+  .service__illustration {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 16 / 11;
+    border-radius: var(--radius-card);
+    background:
+      linear-gradient(rgba(255, 212, 71, 0.12) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 212, 71, 0.12) 1px, transparent 1px),
+      var(--color-ink);
+    background-size: 32px 32px, 32px 32px, auto;
+    color: var(--color-signal);
+  }
+
+  .service__illustration-note {
+    position: absolute;
+    left: 24px;
+    bottom: 20px;
+    font-size: 30px;
+    color: var(--color-on-ink);
+    transform: rotate(-3deg);
+  }
+
+  .service__texte {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .service__num {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--color-muted);
+  }
+
+  .service__texte h2 {
+    font-size: clamp(36px, 4.2vw, 64px);
+  }
+
+  .service__texte h2 a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--speed) var(--ease);
+  }
+
+  .service__texte h2 a:hover {
+    color: var(--color-accent);
+  }
+
+  .service__intro {
+    max-width: 48ch;
+    font-size: var(--size-lead);
+    line-height: 1.5;
+  }
+
+  .service__en-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 56ch;
+    line-height: 1.6;
+  }
+
+  .service__en-detail p {
+    margin: 0;
+  }
+
+  /* « Vous exercez ce métier ? » : discret, sous les boutons. */
+  .service__rejoindre {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 12px;
+    margin: 6px 0 0;
+    padding-top: 16px;
+    border-top: 1px dashed var(--color-border);
+    width: 100%;
+    font-size: var(--size-small);
+    color: var(--color-muted);
+  }
+
+  .service__rejoindre a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 16px 0 12px;
+    border: 1.5px solid var(--color-ink);
+    border-radius: var(--radius-pill);
+    font-weight: 650;
+    color: var(--color-ink);
+    text-decoration: none;
+    transition: background-color var(--speed) var(--ease), color var(--speed) var(--ease);
+  }
+
+  .service__rejoindre a:hover {
+    background: var(--color-ink);
+    color: var(--color-on-ink);
+  }
+
+  .service__exemples {
+    width: 100%;
+    padding: 20px 22px;
+    background: var(--color-surface);
+    border-radius: var(--radius-card-img);
+  }
+
+  .service__exemples-titre {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .service__exemples ul {
+    display: grid;
+    gap: 8px 20px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .service__exemples li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: var(--size-small);
+    font-weight: 550;
+    color: var(--color-ink);
+  }
+
+  .service__exemples li :global(svg) {
+    flex-shrink: 0;
+    color: var(--color-accent);
+  }
+
+  .service__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 6px;
+  }
+
+  @media (min-width: 700px) {
+    .service__exemples ul {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    /* Ordinateur : la photo sur un côté, le titre et le détail de l'autre, centrés en hauteur. */
+    .service {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      grid-template-rows: 1fr auto auto 1fr;
+      grid-template-areas:
+        'visuel .'
+        'visuel entete'
+        'visuel detail'
+        'visuel .';
+      gap: 0 72px;
+      padding-block: 96px;
+    }
+
+    .service--inverse {
+      grid-template-areas:
+        '. visuel'
+        'entete visuel'
+        'detail visuel'
+        '. visuel';
+    }
+
+    .service__visuel {
+      grid-area: visuel;
+      align-self: center;
+    }
+
+    .service__entete {
+      grid-area: entete;
+    }
+
+    .service__detail {
+      grid-area: detail;
+      margin-top: 18px;
+    }
+
+    /* Sur la page du métier, le titre est plus haut : le détail commence en haut. */
+    .service--page .service__detail {
+      margin-top: 0;
+    }
+  }
+</style>

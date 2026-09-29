@@ -12,8 +12,8 @@ import Icon from '../Icon.astro';
 import Methode from '../accueil/Methode.astro';
 import SectionDevis from '../accueil/SectionDevis.astro';
 import { lienDevis } from '~/data/entreprise';
-import { autresSavoirFaire, iconeService, services } from '~/data/services';
-import { chemin, t, type Langue } from '~/i18n';
+import { autresSavoirFaire, cheminService, iconeService, services } from '~/data/services';
+import { t, type Langue } from '~/i18n';
 import photoCamionnettes from '~/assets/entreprise/camionnettes.jpg';
 
 interface Props {
@@ -74,7 +74,7 @@ const pourquoi = textes.accueil.pourquoi;
     {
       services.map((service, index) => (
         <li data-reveal style={`--delai: ${(index % 4) * 70}ms`}>
-          <a class="capacite" href={`${chemin('services', langue)}#${service.slug}`}>
+          <a class="capacite" href={cheminService(service.slug, langue)}>
             <span class="capacite__haut">
               <span class="capacite__icone"><Icon nom={iconeService(service.slug)} taille={26} /></span>
               <span class="capacite__numero">{String(index + 1).padStart(2, '0')}</span>

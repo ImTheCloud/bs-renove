@@ -7,8 +7,8 @@ import Bouton from '../Bouton.astro';
 import Icon from '../Icon.astro';
 import MaisonCoupe from './MaisonCoupe.astro';
 import { entreprise, lienDevis } from '~/data/entreprise';
-import { services } from '~/data/services';
-import { chemin, t, type Langue } from '~/i18n';
+import { cheminService, services } from '~/data/services';
+import { t, type Langue } from '~/i18n';
 
 interface Props {
   langue: Langue;
@@ -60,7 +60,7 @@ const hero = textes.accueil.hero;
       {
         services.map((service) => (
           <li>
-            <a href={`${chemin('services', langue)}#${service.slug}`} data-vers-piece={service.slug}>
+            <a href={cheminService(service.slug, langue)} data-vers-piece={service.slug}>
               {service.nom[langue]}
             </a>
           </li>
