@@ -1,0 +1,10 @@
+# Photos envoyées par Claudiu (29 septembre 2026). Commune inconnue (« Belgique »).
+# L'après était horizontal : recadré en vertical sur la maison, comme l'avant.
+ordre: -2.5
+avantApres:
+  - avant: ../../assets/projets/renovation-maison-jardin/avant-1.jpg
+    apres: ../../assets/projets/renovation-maison-jardin/apres-1.jpg
+    legende:
+      fr: Côté jardin, extension avec grandes baies, escalier et terrasse
+      nl: Tuinkant, uitbreiding met grote ramen, trap en terras
+    categorie: maison
