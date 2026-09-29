@@ -274,12 +274,12 @@ export const fr = {
     erreurEmail: 'Cette adresse email ne semble pas complète.',
     erreurConsentement: 'Cochez la case pour que nous puissions vous répondre.',
 
-    merciTitre: 'Merci, c’est envoyé !',
+    merciTitre: 'C’est envoyé à BS Renove !',
     merciTexte:
-      'Votre demande est bien partie. Vous avez des photos du chantier ? Envoyez-les par WhatsApp ou par email, c’est ce qui aide le plus à préparer le devis. Votre demande y est déjà écrite.',
-    merciWhatsApp: 'Envoyer des photos',
+      'Votre demande nous est bien parvenue par email. Pour aller plus vite, envoyez-nous la même demande sur WhatsApp : elle est déjà écrite, il ne vous reste qu’à ajouter quelques photos.',
+    merciWhatsApp: 'Envoyer sur WhatsApp',
     merciEmail: 'Par email',
-    photosIntro: 'Bonjour, voici des photos pour ma demande de devis envoyée sur le site :',
+    photosIntro: 'Bonjour, voici ma demande de devis envoyée sur le site, avec quelques photos :',
     sujetPhotos: 'Photos pour ma demande de devis',
     recommencer: 'Nouvelle demande',
 

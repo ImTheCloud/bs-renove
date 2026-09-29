@@ -276,12 +276,12 @@ export const nl: Traductions = {
     erreurEmail: 'Dit e-mailadres lijkt niet volledig.',
     erreurConsentement: 'Vink het vakje aan zodat wij u kunnen antwoorden.',
 
-    merciTitre: 'Bedankt, het is verstuurd!',
+    merciTitre: 'Verstuurd naar BS Renove!',
     merciTexte:
-      'Uw aanvraag is goed vertrokken. Hebt u foto’s van de werf? Stuur ze via WhatsApp of e-mail, dat helpt het meest om de offerte voor te bereiden. Uw aanvraag staat er al in.',
-    merciWhatsApp: 'Foto’s versturen',
+      'Uw aanvraag is per e-mail bij ons aangekomen. Wilt u het sneller? Stuur dezelfde aanvraag via WhatsApp: ze is al ingevuld, u voegt enkel nog een paar foto’s toe.',
+    merciWhatsApp: 'Versturen via WhatsApp',
     merciEmail: 'Via e-mail',
-    photosIntro: 'Hallo, hier zijn foto’s voor mijn offerteaanvraag via de website:',
+    photosIntro: 'Hallo, hier is mijn offerteaanvraag via de website, met een paar foto’s:',
     sujetPhotos: 'Foto’s voor mijn offerteaanvraag',
     recommencer: 'Nieuwe aanvraag',
 
