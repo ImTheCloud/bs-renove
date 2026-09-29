@@ -5,7 +5,7 @@ node_modules/
 dist/
 .astro/
 
-# Variables d'environnement (clé du formulaire, etc.)
+# Variables d'environnement locales (le site n'en a besoin d'aucune)
 .env
 .env.production
 .env.local

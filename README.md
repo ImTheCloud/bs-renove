@@ -34,12 +34,14 @@ Le haut de l'accueil montre une maison vue en coupe, qui se dessine trait par tr
 <img src="docs/captures/maison-ordinateur.jpg" alt="La fiche de la salle de bain, ouverte à côté de la maison" width="100%">
 
 **↔️ De vrais avant/après**
-29 comparaisons de chantiers réels. On fait glisser la poignée jaune pour passer de l'avant à l'après, au doigt, à la souris ou au clavier ; sur téléphone, la page continue de défiler normalement. L'accueil en montre une sélection, la page Réalisations les range toutes par pièce : salle de bain, douche, cuisine, toiture, terrasse…
+32 comparaisons de chantiers réels. On fait glisser la poignée jaune pour passer de l'avant à l'après, au doigt, à la souris ou au clavier ; sur téléphone, la page continue de défiler normalement. L'accueil en montre une sélection, la page Réalisations les range toutes par pièce : salle de bain, douche, cuisine, toiture, terrasse…
 
 <img src="docs/captures/avant-apres-ordinateur.jpg" alt="La page Réalisations : les avant/après rangés par pièce" width="100%">
 
 **🧰 11 métiers**
-Rénovation complète, salles de bain, cuisines, carrelage, terrasses et jardins, escaliers, toiture, maçonnerie et extensions, plomberie, électricité, peinture et finitions. Chacun a sa description, sa façon de travailler expliquée en quelques lignes, ses exemples de travaux et son avant/après. La page À propos présente l'entreprise, ses camionnettes et tout ce qu'elle sait faire.
+Rénovation complète, salles de bain, cuisines, carrelage, terrasses et jardins, escaliers, toiture, maçonnerie et extensions, plomberie, électricité, peinture et finitions. La page Services les présente tous ; chacun a aussi **sa propre page** : sa façon de travailler expliquée en quelques lignes, ses exemples de travaux, tous ses avant/après et un devis où il est déjà coché. La page À propos présente l'entreprise, ses camionnettes et tout ce qu'elle sait faire.
+
+<img src="docs/captures/metier-ordinateur.jpg" alt="La page d'un métier : la rénovation de salle de bain" width="100%">
 
 **📝 Un devis en deux étapes**
 1. Les travaux envisagés, à cocher.
@@ -48,7 +50,7 @@ Rénovation complète, salles de bain, cuisines, carrelage, terrasses et jardins
 Une fois la demande envoyée, le visiteur peut ajouter ses photos par **WhatsApp** ou par **email**, avec sa demande déjà écrite dans le message.
 
 **👷 Rejoindre l'équipe**
-Les artisans peuvent poser leur candidature en quatre petites étapes, sur le même modèle que le devis : leur métier, leur expérience, ce qu'ils apportent sur le chantier (permis, véhicule, outils, langues) et leurs coordonnées. Ils envoient ensuite leur CV ou des photos de leurs chantiers par WhatsApp ou par email. Chaque métier de la page Services y mène directement, avec le métier déjà coché.
+Les artisans peuvent poser leur candidature en quatre petites étapes, sur le même modèle que le devis : leur métier, leur expérience, ce qu'ils apportent sur le chantier (permis, véhicule, outils, langues) et leurs coordonnées. Ils envoient ensuite leur CV ou des photos de leurs chantiers par WhatsApp ou par email. Chaque métier y mène directement, avec le métier déjà coché.
 
 **📱 Pensé d'abord pour le téléphone**
 Une barre toujours à portée de pouce (Appeler · WhatsApp · Devis), un menu plein écran, et le choix FR/NL directement en haut de l'écran.
@@ -62,6 +64,7 @@ Toutes les pages et tous les textes existent dans les deux langues. Le site s'ou
 |---|---|---|
 | Accueil | Accueil | Startpagina |
 | Les métiers | Services | Diensten |
+| Un métier (×11) | Services › Salles de bain… | Diensten › Badkamers… |
 | Les chantiers | Réalisations | Realisaties |
 | L'entreprise | À propos | Over ons |
 | Le devis | Contact | Contact |
@@ -76,12 +79,15 @@ Toutes les pages et tous les textes existent dans les deux langues. Le site s'ou
 
 | Lighthouse (mobile) | Performance | Accessibilité | Bonnes pratiques | SEO |
 |---|:---:|:---:|:---:|:---:|
-| Accueil | 94–95 | 100 | 100 | 100 |
-| Services | 96–100 | 100 | 100 | 100 |
-| Réalisations | 89–98 | 100 | 100 | 100 |
-| À propos | 95–98 | 100 | 100 | 100 |
-| Contact | 97 | 100 | 100 | 100 |
-| Rejoindre l'équipe | 97–100 | 100 | 100 | 100 |
+| Accueil | 95 | 100 | 100 | 100 |
+| Services | 97 | 100 | 100 | 100 |
+| Page d'un métier | 96–97 | 100 | 100 | 100 |
+| Réalisations | 92–94 | 100 | 100 | 100 |
+| À propos | 95–97 | 100 | 100 | 100 |
+| Contact | 98–99 | 100 | 100 | 100 |
+| Rejoindre l'équipe | 98–99 | 100 | 100 | 100 |
+
+**Facile à trouver.** Chaque page a son propre titre et sa propre description pour Google, chaque métier a sa page, en français et en néerlandais, et les moteurs de recherche reçoivent une fiche claire de l'entreprise et de ses métiers.
 
 **Accessible.** Lisible par tous : contrastes suffisants, navigation complète au clavier, texte alternatif sur chaque photo, curseurs avant/après utilisables sans souris. Les animations s'arrêtent pour ceux qui ont demandé à en voir moins.
 
