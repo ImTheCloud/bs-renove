@@ -40,6 +40,7 @@ export const entreprise = {
 } as const;
 
 /** Adresse sur une ligne, pour le pied de page. */
+/** L'adresse complète : seulement dans les mentions légales (obligation légale), jamais ailleurs sur le site. */
 export const adresseUneLigne = `${entreprise.adresse.rue}, ${entreprise.adresse.codePostal} ${entreprise.adresse.ville}`;
 
 /** Construit le lien WhatsApp avec le message déjà écrit. */

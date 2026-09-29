@@ -41,7 +41,6 @@ export const fr = {
   },
 
   piedDePage: {
-    siege: 'Siège social',
     tva: 'TVA',
     mentionsLegales: 'Mentions légales',
     viePrivee: 'Vie privée',

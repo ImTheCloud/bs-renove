@@ -12,9 +12,11 @@ interface Props {
   langue: Langue;
   titre: string;
   blocs: BlocLegal[];
+  /** Mentions légales : l'adresse du siège (obligatoire). La page Vie privée ne l'affiche pas. */
+  avecAdresse?: boolean;
 }
 
-const { langue, titre, blocs } = Astro.props;
+const { langue, titre, blocs, avecAdresse = false } = Astro.props;
 const textes = t(langue);
 const L = textes.legal;
 
@@ -31,7 +33,7 @@ const identite: { label: string; valeur: string }[] = [
   { label: L.nomLegal, valeur: entreprise.nomLegal },
   { label: L.formeJuridique, valeur: L.formeJuridiqueValeur },
   { label: L.gerant, valeur: entreprise.gerant },
-  { label: L.siege, valeur: adresseUneLigne },
+  ...(avecAdresse ? [{ label: L.siege, valeur: adresseUneLigne }] : []),
   { label: L.entreprise, valeur: entreprise.tva },
   { label: L.rpm, valeur: entreprise.rpm[langue] },
   { label: L.telephone, valeur: entreprise.telephoneAffiche },
@@ -51,7 +53,7 @@ const identite: { label: string; valeur: string }[] = [
         identite.map((ligne) => (
           <div>
             <dt>{ligne.label}</dt>
-            <dd class:list={{ 'legale__manquant': ligne.valeur.startsWith('[') }}>{ligne.valeur}</dd>
+            <dd>{ligne.valeur}</dd>
           </div>
         ))
       }
@@ -140,10 +142,6 @@ const identite: { label: string; valeur: string }[] = [
     font-size: var(--size-small);
     font-weight: 600;
     color: var(--color-ink);
-  }
-
-  .legale__manquant {
-    color: var(--color-accent);
   }
 
   .legale__maj {

@@ -45,7 +45,6 @@ export const nl: Traductions = {
   },
 
   piedDePage: {
-    siege: 'Maatschappelijke zetel',
     tva: 'btw',
     mentionsLegales: 'Juridische informatie',
     viePrivee: 'Privacy',

@@ -1,6 +1,7 @@
 ---
 /**
  * Données structurées JSON-LD de l'entreprise (accueil), lues par Google.
+ * Adresse : la commune seulement, pas la rue (le siège est le domicile du gérant).
  * Tout vient de src/data/entreprise.ts et src/data/services.ts : aucune
  * information inventée, et un champ non confirmé est absent plutôt que faux.
  * Les pages des métiers y renvoient par l'@id « /#entreprise ».
@@ -34,7 +35,6 @@ const fiche: Record<string, unknown> = {
   foundingDate: entreprise.creation,
   address: {
     '@type': 'PostalAddress',
-    streetAddress: entreprise.adresse.rue,
     postalCode: entreprise.adresse.codePostal,
     addressLocality: entreprise.adresse.ville,
     addressCountry: entreprise.adresse.pays,

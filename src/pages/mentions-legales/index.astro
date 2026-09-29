@@ -9,5 +9,5 @@ const page = t(langue).pages.mentionsLegales;
 ---
 
 <BaseLayout langue={langue} titre={page.titre} description={page.description}>
-  <PageLegale langue={langue} titre={page.titre.split(' · ')[0]} blocs={mentionsLegales} />
+  <PageLegale langue={langue} titre={page.titre.split(' · ')[0]} blocs={mentionsLegales} avecAdresse />
 </BaseLayout>

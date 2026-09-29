@@ -8,7 +8,7 @@
 import Bouton from './Bouton.astro';
 import Logo from './Logo.astro';
 import SelecteurLangue from './SelecteurLangue.astro';
-import { adresseUneLigne, entreprise, lienDevis, lienWhatsApp } from '../data/entreprise';
+import { entreprise, lienDevis, lienWhatsApp } from '../data/entreprise';
 import { chemin, liensNavigation, t, type Langue } from '../i18n';
 
 interface Props {
@@ -75,7 +75,7 @@ const CONCEPTEUR = { nom: 'Claudiu Popadiuc', email: 'claudiu.dev@outlook.com' }
       <div class="pied__col">
         <span class="pied__titre">{pied.entreprise}</span>
         <span>{entreprise.nomLegal}</span>
-        <span>{adresseUneLigne}</span>
+        <span>{entreprise.adresse.ville} · {textes.accueil.contact.valeurZone}</span>
         <span>{pied.tva} {entreprise.tva}</span>
         <div class="pied__langues">
           <SelecteurLangue langue={langue} cheminActuel={cheminActuel} />
