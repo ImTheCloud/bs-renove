@@ -1,5 +1,8 @@
-# Photos envoyées par Claudiu (28 septembre 2026). Commune inconnue (« Belgique »).
+# Photos envoyées par Claudiu (28 septembre 2026). Commune : Welle (Denderleeuw), donnée par Claudiu le 30 septembre 2026.
 # Vitrine du métier Cuisines et parmi les avant/après de l'accueil.
+commune:
+  fr: Welle
+  nl: Welle
 ordre: -2
 avantApres:
   - avant: ../../assets/projets/cuisine-ilot/avant-1.jpg

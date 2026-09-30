@@ -1,5 +1,8 @@
-# Photos envoyées par Claudiu (28 septembre 2026). Commune inconnue (« Belgique »).
+# Photos envoyées par Claudiu (28 septembre 2026). Commune : Welle (Denderleeuw), donnée par Claudiu le 30 septembre 2026.
 # Les deux photos ne sont pas prises sous le même angle (validé par Claudiu). Étiquette de la poubelle masquée.
+commune:
+  fr: Welle
+  nl: Welle
 ordre: -1
 avantApres:
   - avant: ../../assets/projets/jardin-terrasse/avant-1.jpg
