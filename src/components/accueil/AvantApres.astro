@@ -64,6 +64,12 @@ const autres = await pairesAccueil();
         {autres.length > 0 && (
           <div class="wrap aa__autres">
             <GrilleAvantApres langue={langue} paires={autres} />
+            {/* Téléphone : les avant/après sont l'un sous l'autre, le bouton revient à la fin. */}
+            <div class="aa__fin">
+              <Bouton href={chemin('realisations', langue)} variante="principal" iconeApres="fleche-diag">
+                {bloc.voirTout}
+              </Bouton>
+            </div>
           </div>
         )}
     </section>
@@ -127,8 +133,19 @@ const autres = await pairesAccueil();
     margin-top: 72px;
   }
 
+  .aa__fin {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+  }
+
   /* Les 3 autres avant/après sur une seule ligne dès la tablette. */
   @media (min-width: 700px) {
+    /* Dès la tablette, les 3 tiennent sur une ligne, juste sous le premier bouton : pas besoin de le répéter. */
+    .aa__fin {
+      display: none;
+    }
+
     .aa__autres :global(.grille) {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
