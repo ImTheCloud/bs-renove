@@ -60,9 +60,9 @@ const ID_VITRINE = 'renovation-complete-maison/apres-1';
 
 /** Les 3 avant/après sous la vitrine de l'accueil (4 en tout). */
 const IDS_ACCUEIL = [
+  'renovation-maison-jardin/apres-1',
   'cuisine-ilot/apres-1',
   'renovation-interieure-ostende/apres-1',
-  'renovation-woluwe-saint-pierre/cuisine-apres',
 ];
 
 export async function paireVitrine(): Promise<Paire | undefined> {
