@@ -4,11 +4,12 @@ Document interne (n'apparaît pas sur le site). Le site est en production sur `h
 
 ## Mis en ligne
 
+- Livré au client le 30 septembre 2026 : devis testé en ligne, domaine Wix, Search Console et fiche Google Business faits.
 - Hébergement Netlify (construit depuis `main`), domaine `bsrenovesrl.com` chez Wix, HTTPS actif.
 - Formulaires (devis et candidature) par Netlify Forms : notifications email réglées dans Netlify → Forms.
 - Mentions légales et Vie privée : hébergeur Netlify (qui reçoit aussi les formulaires), RPM.
 
-## À régler côté Wix, Netlify et Google
+## Réglages côté Wix, Netlify et Google
 
 - **Wix** : renouvellement du forfait Premium désactivé ; garder celui du domaine (6 septembre 2027). Ne jamais cliquer sur « Réessayer » dans Domaines (remettrait le domaine sur Wix). DNS : A `@` → `75.2.60.5`, CNAME `www` → `bs-renove.netlify.app`.
 - **Netlify Forms** : Forms → détection activée ; Forms → Submission notifications → une notification email pour Sergiu et une pour Claudiu. Dans chaque boîte : marquer le premier email « Non spam » et approuver `formresponses@netlify.com`.
@@ -16,10 +17,8 @@ Document interne (n'apparaît pas sur le site). Le site est en production sur `h
 
 ## Améliorations possibles
 
-- **Communes** : les avant/après sans commune affichent « Belgique ». Pour en ajouter une, mettre `commune: { fr: …, nl: … }` dans le fichier du chantier (`src/content/projets/`).
-- **Électricité et peinture** : affichées, mais pas encore enregistrées à la BCE (NACE 43.21 et 43.34), à ajouter via un guichet d'entreprises.
+- **Électricité et peinture** : affichées, mais pas encore enregistrées à la BCE (NACE 43.21 et 43.34), à ajouter via un guichet d'entreprises (Sergiu prévenu le 30 septembre 2026).
 - **Assurance décennale** : rien n'est affiché ; à voir avec son assureur (loi Peeters-Borsus).
-- **Email professionnel** (ex. `info@bsrenovesrl.com`) à la place du Hotmail : une ligne dans `src/data/entreprise.ts`.
 - **Photos** : un avant/après de plomberie en intérieur, un « après » pour l'électricité, et pour les prochains avant/après deux photos prises du même endroit.
 - **Textes à relire avec Sergiu** : les deux paragraphes « en détail » de chaque métier (pages métier) et les questions du formulaire de candidature (expérience, statut, langues, permis, disponibilité).
 - **Néerlandais** : une relecture par un néerlandophone rendrait les textes plus naturels.
