@@ -169,6 +169,7 @@ node scripts/generer-image-partage.mjs
 | **DNS** (chez Wix) | Enregistrements | `A @ → 75.2.60.5` · `CNAME www → bs-renove.netlify.app` |
 | **HTTPS** | Netlify | Certificat Let's Encrypt automatique |
 | **Formulaires** | Netlify Forms | Netlify → **Forms** : détection activée ; **Forms → Submission notifications** : une notification email par adresse. Demandes aussi visibles dans **Forms** |
+| **QR code** (camionnettes) | `docs/qr-code/` | Mène directement à `https://bsrenovesrl.com`, sans service intermédiaire : ne change jamais tant que le domaine est renouvelé. SVG pour l'imprimeur, PNG 3000 px |
 
 > ⚠️ Dans Wix, page **Domaines** : ne jamais cliquer sur **« Réessayer »** ou **« Connecter »**. Cela remettrait le domaine sur un site Wix et le site disparaîtrait.
 
