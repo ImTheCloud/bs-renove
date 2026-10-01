@@ -47,7 +47,7 @@ export const fr = {
     rejoindre: 'Rejoindre l’équipe',
     droits: 'Tous droits réservés',
     projet: 'Un projet en tête ?',
-    zone: 'de Denderleeuw à toute la Belgique',
+    zone: 'de Welle à toute la Belgique',
     entreprise: 'L’entreprise',
     credit: 'Site conçu par',
     creditQuestion: 'Un site comme celui-ci ?',
@@ -114,9 +114,9 @@ export const fr = {
       titreDebut: 'Même maison.',
       titreSerif: 'Autre vie.',
       texte:
-        'Faites glisser la poignée : la maison en plein chantier laisse place au résultat.',
-      noteAvant: 'en plein chantier…',
-      noteApres: '… et presque terminée !',
+        'Faites glisser la poignée : la maison d'avant les travaux laisse place au résultat.',
+      noteAvant: 'avant les travaux…',
+      noteApres: '… et après !',
       voirTout: 'Tous les avant/après',
       avant: 'Avant',
       apres: 'Après',
@@ -179,7 +179,7 @@ export const fr = {
       items: [
         {
           q: 'Intervenez-vous près de chez moi ?',
-          r: 'Nous sommes basés à Denderleeuw et nous intervenons dans toute la Belgique.',
+          r: 'Nous sommes basés à Welle et nous intervenons dans toute la Belgique.',
         },
         {
           q: "Le devis est-il gratuit ?",
@@ -309,7 +309,7 @@ export const fr = {
     surtitre: 'À propos',
     titre: 'Rénover, c’est notre métier',
     intro:
-      "BS Renove SRL est une entreprise générale de rénovation basée à Denderleeuw, active dans toute la Belgique. Que ce soit un chantier complet ou un seul métier, nous coordonnons tout nous-mêmes, du premier jour au dernier",
+      "BS Renove SRL est une entreprise générale de rénovation basée à Welle, active dans toute la Belgique. Que ce soit un chantier complet ou un seul métier, nous coordonnons tout nous-mêmes, du premier jour au dernier",
     capacitesTitre: 'Ce que nous savons faire',
     capacitesIntro:
       "Tous les corps de métier d'une rénovation, en interne ou avec nos indépendants de confiance",
@@ -441,9 +441,9 @@ export const fr = {
 
   pages: {
     accueil: {
-      titre: 'BS Renove · Entreprise de rénovation à Denderleeuw, Belgique',
+      titre: 'BS Renove · Entreprise de rénovation à Welle, Belgique',
       description:
-        'Entreprise générale de rénovation à Denderleeuw : salles de bain, cuisines, carrelage, toiture, maçonnerie et extensions, partout en Belgique. Devis gratuit.',
+        'Entreprise générale de rénovation à Welle : salles de bain, cuisines, carrelage, toiture, maçonnerie et extensions, partout en Belgique. Devis gratuit.',
     },
     services: {
       titre: 'Travaux de rénovation : salle de bain, cuisine, toiture · BS Renove',
@@ -458,17 +458,17 @@ export const fr = {
     contact: {
       titre: 'Devis gratuit pour vos travaux de rénovation · BS Renove',
       description:
-        'Décrivez vos travaux de rénovation et recevez un devis gratuit : formulaire en deux étapes, téléphone ou WhatsApp. BS Renove, Denderleeuw, toute la Belgique.',
+        'Décrivez vos travaux de rénovation et recevez un devis gratuit : formulaire en deux étapes, téléphone ou WhatsApp. BS Renove, Welle, toute la Belgique.',
     },
     apropos: {
-      titre: 'À propos · BS Renove, entreprise de rénovation à Denderleeuw',
+      titre: 'À propos · BS Renove, entreprise de rénovation à Welle',
       description:
-        "BS Renove SRL, entreprise générale de rénovation à Denderleeuw, dirigée par Sergiu Bivol : 12 ans d'expérience, plus de 100 chantiers, dans toute la Belgique.",
+        "BS Renove SRL, entreprise générale de rénovation à Welle, dirigée par Sergiu Bivol : 12 ans d'expérience, plus de 100 chantiers, dans toute la Belgique.",
     },
     rejoindre: {
       titre: 'Travailler chez BS Renove · Rejoindre l’équipe',
       description:
-        'Carreleur, plombier, électricien, couvreur, maçon, peintre… Envoyez votre candidature à BS Renove, entreprise de rénovation à Denderleeuw.',
+        'Carreleur, plombier, électricien, couvreur, maçon, peintre… Envoyez votre candidature à BS Renove, entreprise de rénovation à Welle.',
     },
     mentionsLegales: {
       titre: 'Mentions légales · BS Renove',

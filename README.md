@@ -4,7 +4,7 @@
 
 # BS Renove
 
-**Le site de BS Renove SRL, entreprise générale de rénovation à Denderleeuw, active dans toute la Belgique.**
+**Le site de BS Renove SRL, entreprise générale de rénovation à Welle, active dans toute la Belgique.**
 
 [bsrenovesrl.com](https://bsrenovesrl.com) · Français & Nederlands
 

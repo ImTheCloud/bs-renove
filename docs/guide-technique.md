@@ -92,8 +92,8 @@ netlify.toml              Construction, cache, en-têtes de sécurité, 404 née
 3. Ajouter la paire dans `src/content/projets/nom-du-chantier.yaml` :
    ```yaml
    commune:                 # facultatif : sans commune, le site affiche « Belgique »
-     fr: Denderleeuw
-     nl: Denderleeuw
+     fr: Welle
+     nl: Welle
    ordre: 20
    avantApres:
      - avant: ../../assets/projets/nom-du-chantier/avant-1.jpg

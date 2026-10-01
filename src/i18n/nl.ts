@@ -51,7 +51,7 @@ export const nl: Traductions = {
     rejoindre: 'Word lid van ons team',
     droits: 'Alle rechten voorbehouden',
     projet: 'Een project in gedachten?',
-    zone: 'van Denderleeuw tot heel België',
+    zone: 'van Welle tot heel België',
     entreprise: 'De onderneming',
     credit: 'Website ontworpen door',
     creditQuestion: 'Een website zoals deze?',
@@ -117,9 +117,9 @@ export const nl: Traductions = {
       titreDebut: 'Dezelfde woning.',
       titreSerif: 'Een nieuw leven.',
       texte:
-        'Versleep de schuifknop: de woning midden in de werken maakt plaats voor het resultaat.',
-      noteAvant: 'midden in de werken…',
-      noteApres: '… en bijna klaar!',
+        'Versleep de schuifknop: de woning van vóór de werken maakt plaats voor het resultaat.',
+      noteAvant: 'vóór de werken…',
+      noteApres: '… en erna!',
       voirTout: 'Alle voor/na-foto’s',
       avant: 'Voor',
       apres: 'Na',
@@ -182,7 +182,7 @@ export const nl: Traductions = {
       items: [
         {
           q: 'Werkt u ook in mijn buurt?',
-          r: 'Wij zijn gevestigd in Denderleeuw en werken in heel België.',
+          r: 'Wij zijn gevestigd in Welle en werken in heel België.',
         },
         {
           q: "Is de offerte gratis?",
@@ -311,7 +311,7 @@ export const nl: Traductions = {
     surtitre: 'Over ons',
     titre: 'Renoveren is ons vak',
     intro:
-      'BS Renove SRL is een algemene renovatieonderneming met zetel in Denderleeuw, actief in heel België. Of het nu om een volledige werf of één vakgebied gaat, wij coördineren alles zelf, van de eerste tot de laatste dag',
+      'BS Renove SRL is een algemene renovatieonderneming met zetel in Welle, actief in heel België. Of het nu om een volledige werf of één vakgebied gaat, wij coördineren alles zelf, van de eerste tot de laatste dag',
     capacitesTitre: 'Wat wij kunnen doen',
     capacitesIntro:
       'Alle vakgebieden van een renovatie, intern of met onze vertrouwde zelfstandigen',
@@ -443,9 +443,9 @@ export const nl: Traductions = {
 
   pages: {
     accueil: {
-      titre: 'BS Renove · Renovatiebedrijf in Denderleeuw, België',
+      titre: 'BS Renove · Renovatiebedrijf in Welle, België',
       description:
-        'Algemene renovatieonderneming uit Denderleeuw: badkamers, keukens, tegelwerk, dakwerken, metselwerk en uitbreidingen, in heel België. Gratis offerte.',
+        'Algemene renovatieonderneming uit Welle: badkamers, keukens, tegelwerk, dakwerken, metselwerk en uitbreidingen, in heel België. Gratis offerte.',
     },
     services: {
       titre: 'Renovatiewerken: badkamer, keuken, dakwerken · BS Renove',
@@ -460,17 +460,17 @@ export const nl: Traductions = {
     contact: {
       titre: 'Gratis offerte voor uw renovatiewerken · BS Renove',
       description:
-        'Beschrijf uw renovatiewerken en ontvang een gratis offerte: formulier in twee stappen, telefoon of WhatsApp. BS Renove, Denderleeuw, heel België.',
+        'Beschrijf uw renovatiewerken en ontvang een gratis offerte: formulier in twee stappen, telefoon of WhatsApp. BS Renove, Welle, heel België.',
     },
     apropos: {
-      titre: 'Over ons · BS Renove, renovatiebedrijf in Denderleeuw',
+      titre: 'Over ons · BS Renove, renovatiebedrijf in Welle',
       description:
-        'BS Renove, algemene renovatieonderneming in Denderleeuw, geleid door Sergiu Bivol: 12 jaar ervaring, meer dan 100 werven, in heel België.',
+        'BS Renove, algemene renovatieonderneming in Welle, geleid door Sergiu Bivol: 12 jaar ervaring, meer dan 100 werven, in heel België.',
     },
     rejoindre: {
       titre: 'Werken bij BS Renove · Word lid van ons team',
       description:
-        'Tegelzetter, loodgieter, elektricien, dakdekker, metselaar, schilder… Stuur uw sollicitatie naar BS Renove, renovatiebedrijf in Denderleeuw.',
+        'Tegelzetter, loodgieter, elektricien, dakdekker, metselaar, schilder… Stuur uw sollicitatie naar BS Renove, renovatiebedrijf in Welle.',
     },
     mentionsLegales: {
       titre: 'Juridische informatie · BS Renove',

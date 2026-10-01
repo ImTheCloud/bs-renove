@@ -2,7 +2,7 @@
 
 ## Le projet
 
-Site vitrine de BS Renove SRL, entreprise générale de rénovation belge (siège à Denderleeuw, intervient dans toute la Belgique). Site en français et en néerlandais.
+Site vitrine de BS Renove SRL, entreprise générale de rénovation belge (siège à Welle (Denderleeuw), intervient dans toute la Belgique). Site en français et en néerlandais.
 
 Objectif : qu'un propriétaire qui arrive sur le site ait confiance et prenne contact, par formulaire de devis, téléphone ou WhatsApp.
 

@@ -13,12 +13,12 @@ export const entreprise = {
   adresse: {
     rue: 'Elf Dagwand 67',
     codePostal: '9473',
-    ville: 'Denderleeuw',
+    ville: 'Welle',
     pays: 'BE',
   },
 
   tva: 'BE 1002.240.127',
-  /** Tribunal de l'entreprise compétent pour le siège (Denderleeuw) : obligatoire (CSA art. 2:20). */
+  /** Tribunal de l'entreprise compétent pour le siège (Welle, commune de Denderleeuw) : obligatoire (CSA art. 2:20). */
   rpm: { fr: 'RPM Gand, division Termonde', nl: 'RPR Gent, afdeling Dendermonde' },
   /** Date de création dans la BCE (14 novembre 2023), au format des données structurées. */
   creation: '2023-11-14',

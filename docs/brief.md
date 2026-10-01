@@ -69,7 +69,7 @@ Deux photos superposées, l'« après » se dévoile selon la poignée (ronde, j
 
 ## 8. SEO et légal
 
-- `title` et description propres à chaque page et langue (mots recherchés : rénovation, salle de bain, cuisine, toiture, Denderleeuw, Belgique, devis gratuit), Open Graph, image de partage avec la vitrine de l'accueil.
+- `title` et description propres à chaque page et langue (mots recherchés : rénovation, salle de bain, cuisine, toiture, Welle, Belgique, devis gratuit), Open Graph, image de partage avec la vitrine de l'accueil.
 - Une page par métier, en FR et en NL.
 - JSON-LD `GeneralContractor` sur l'accueil (avec la liste des métiers), `Service` et fil d'Ariane sur chaque page métier ; `hreflang` fr-BE, nl-BE, x-default ; `sitemap.xml` et `robots.txt`.
 - Mentions légales et Vie privée : textes définitifs (hébergeur Netlify, qui reçoit aussi les formulaires ; RPM).
