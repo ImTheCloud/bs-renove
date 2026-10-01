@@ -114,7 +114,7 @@ export const fr = {
       titreDebut: 'Même maison.',
       titreSerif: 'Autre vie.',
       texte:
-        'Faites glisser la poignée : la maison d'avant les travaux laisse place au résultat.',
+        'Faites glisser la poignée : la maison d’avant les travaux laisse place au résultat.',
       noteAvant: 'avant les travaux…',
       noteApres: '… et après !',
       voirTout: 'Tous les avant/après',
