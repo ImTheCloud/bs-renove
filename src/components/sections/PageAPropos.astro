@@ -1,0 +1,310 @@
+---
+/**
+ * La page À propos : ce que BS Renove sait faire (mêmes données que la page
+ * Services, rien d'inventé), pourquoi la choisir, comment se passe un chantier,
+ * puis le formulaire de devis. Sous le titre, la photo des camionnettes
+ * (plaque et panneau de la maison masqués, sans métadonnées).
+ */
+import { Image } from 'astro:assets';
+import Bouton from '../Bouton.astro';
+import EntetePage from '../EntetePage.astro';
+import Icon from '../Icon.astro';
+import Methode from '../accueil/Methode.astro';
+import SectionDevis from '../accueil/SectionDevis.astro';
+import { lienDevis } from '~/data/entreprise';
+import { autresSavoirFaire, cheminService, iconeService, services } from '~/data/services';
+import { t, type Langue } from '~/i18n';
+import photoCamionnettes from '~/assets/entreprise/camionnettes.jpg';
+
+interface Props {
+  langue: Langue;
+}
+
+const { langue } = Astro.props;
+const textes = t(langue);
+const bloc = textes.aProposPage;
+const pourquoi = textes.accueil.pourquoi;
+---
+
+<EntetePage surtitre={bloc.surtitre} titre={bloc.titre} serifMots={2} intro={bloc.intro}>
+  <Bouton href={lienDevis(langue)} variante="principal" iconeApres="fleche-diag" large>
+    {textes.actions.devis}
+  </Bouton>
+</EntetePage>
+
+<figure class="wrap camionnettes" data-reveal>
+  <Image
+    src={photoCamionnettes}
+    alt={bloc.camionnettesAlt}
+    class="camionnettes__photo"
+    widths={[480, 800, 1200]}
+    width={1200}
+    quality={70}
+    sizes="(min-width: 1480px) 1400px, 100vw"
+    loading="eager"
+  />
+  <figcaption class="camionnettes__note manuscrit">
+    <svg width="34" height="24" viewBox="0 0 34 24" fill="none" aria-hidden="true"><path d="M32 20C24 20 10 16 4 4M4 4l8 2M4 4l-1 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+    {bloc.camionnettesNote}
+  </figcaption>
+</figure>
+
+<section class="wrap pourquoi" aria-labelledby="pourquoi-titre">
+  <p class="etiquette-section">{pourquoi.surtitre}</p>
+  <h2 id="pourquoi-titre" class="pourquoi__texte" data-mots>{pourquoi.texte}.</h2>
+  <ul class="pourquoi__points">
+    {
+      pourquoi.points.map((point, i) => (
+        <li data-reveal style={`--delai: ${i * 60}ms`}>
+          <span class="pourquoi__coche"><Icon nom="check" taille={18} epaisseur={2.6} /></span>
+          {point}
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<section class="wrap capacites" aria-labelledby="capacites-titre">
+  <div class="capacites__entete">
+    <h2 id="capacites-titre" data-mots>{bloc.capacitesTitre}</h2>
+    <p>{bloc.capacitesIntro}</p>
+  </div>
+
+  <ul class="capacites__grille">
+    {
+      services.map((service, index) => (
+        <li data-reveal style={`--delai: ${(index % 4) * 70}ms`}>
+          <a class="capacite" href={cheminService(service.slug, langue)}>
+            <span class="capacite__haut">
+              <span class="capacite__icone"><Icon nom={iconeService(service.slug)} taille={26} /></span>
+              <span class="capacite__numero">{String(index + 1).padStart(2, '0')}</span>
+            </span>
+            <h3 class="capacite__nom">{service.nom[langue]}</h3>
+            <ul class="capacite__liste">
+              {service.exemples[langue].map((exemple) => (
+                <li>{exemple}</li>
+              ))}
+            </ul>
+          </a>
+        </li>
+      ))
+    }
+    {
+      autresSavoirFaire.map((savoir, index) => (
+        <li data-reveal style={`--delai: ${((services.length + index) % 4) * 70}ms`}>
+          <a class="capacite" href={lienDevis(langue)}>
+            <span class="capacite__haut">
+              <span class="capacite__icone"><Icon nom={savoir.icone} taille={26} /></span>
+              <span class="capacite__numero">{String(services.length + index + 1).padStart(2, '0')}</span>
+            </span>
+            <h3 class="capacite__nom">{savoir.nom[langue]}</h3>
+            <ul class="capacite__liste">
+              {savoir.exemples[langue].map((exemple) => (
+                <li>{exemple}</li>
+              ))}
+            </ul>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<Methode langue={langue} />
+<SectionDevis langue={langue} />
+
+<style>
+  /* --- Les camionnettes --- */
+  .camionnettes {
+    margin-block: 0 24px;
+  }
+
+  .camionnettes__photo {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    /* Les deux camionnettes restent au centre, quel que soit le recadrage. */
+    object-position: 68% 45%;
+    border-radius: var(--radius-photo);
+  }
+
+  .camionnettes__note {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 14px;
+    padding-left: 12px;
+    font-size: 26px;
+    color: var(--color-accent);
+    transform: rotate(-1.5deg);
+  }
+
+  .camionnettes__note svg {
+    flex-shrink: 0;
+    margin-top: -6px;
+    transform: scaleX(-1);
+  }
+
+  @media (min-width: 700px) {
+    .camionnettes__photo {
+      aspect-ratio: 16 / 9;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .camionnettes__photo {
+      aspect-ratio: 21 / 9;
+    }
+
+    .camionnettes__note {
+      font-size: 30px;
+    }
+  }
+
+  /* --- Pourquoi --- */
+  .pourquoi {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-top: 40px;
+  }
+
+  .pourquoi__texte {
+    max-width: 22ch;
+    font-size: clamp(30px, 3.6vw, 54px);
+    line-height: 1.05;
+  }
+
+  .pourquoi__points {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 12px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pourquoi__points li {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 56px;
+    padding: 0 22px 0 8px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    font-weight: 650;
+    color: var(--color-ink);
+  }
+
+  .pourquoi__coche {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--color-signal);
+  }
+
+  /* --- Capacités --- */
+  .capacites {
+    padding-top: var(--section-gap);
+  }
+
+  .capacites__entete {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 640px;
+    margin-bottom: 40px;
+  }
+
+  .capacites__entete p {
+    font-size: var(--size-lead);
+    line-height: 1.5;
+  }
+
+  .capacites__grille {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .capacite {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    height: 100%;
+    padding: 24px;
+    background: var(--color-surface);
+    border-radius: var(--radius-card);
+    color: var(--color-text);
+    text-decoration: none;
+    transition:
+      background-color 400ms var(--ease),
+      transform 500ms var(--ease-out);
+  }
+
+  .capacite:hover {
+    background: var(--color-signal);
+    transform: translateY(-4px);
+  }
+
+  .capacite__haut {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .capacite__icone {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--color-bg);
+    color: var(--color-ink);
+  }
+
+  .capacite__numero {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-muted);
+  }
+
+  .capacite__nom {
+    font-size: 24px;
+  }
+
+  .capacite__liste {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--size-small);
+  }
+
+  .capacite__liste li::before {
+    content: '— ';
+    color: var(--color-muted);
+  }
+
+  @media (min-width: 700px) {
+    .capacites__grille {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .capacites__grille {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+</style>

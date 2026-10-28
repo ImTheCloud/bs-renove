@@ -1,0 +1,80 @@
+---
+/**
+ * La page Services : un sommaire, puis une section par métier (SectionService).
+ * Le détail de chaque métier est sur sa propre page (/services/<slug>/).
+ */
+import EntetePage from '../EntetePage.astro';
+import SectionService from './SectionService.astro';
+import { pairesDuService } from '~/data/projets';
+import { services } from '~/data/services';
+import { t, type Langue } from '~/i18n';
+
+interface Props {
+  langue: Langue;
+}
+
+const { langue } = Astro.props;
+const bloc = t(langue).servicesPage;
+
+const pairesParService = await Promise.all(services.map((service) => pairesDuService(service.slug)));
+---
+
+<EntetePage surtitre={bloc.surtitre} titre={bloc.titre} intro={bloc.intro}>
+  <nav class="sommaire" aria-label={bloc.grilleTitre}>
+    {
+      services.map((service, i) => (
+        <a href={`#${service.slug}`}>
+          <span class="sommaire__num">{String(i + 1).padStart(2, '0')}</span>
+          {service.nom[langue]}
+        </a>
+      ))
+    }
+  </nav>
+</EntetePage>
+
+<div class="wrap services">
+  {services.map((service, index) => <SectionService langue={langue} service={service} paire={pairesParService[index][0]} numero={index + 1} />)}
+</div>
+
+<style>
+  /* --- Sommaire --- */
+  .sommaire {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .sommaire a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 0 18px 0 14px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    background: rgba(245, 242, 236, 0.7);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-ink);
+    text-decoration: none;
+    transition: background-color 300ms var(--ease), border-color 300ms var(--ease);
+  }
+
+  .sommaire a:hover {
+    background: var(--color-signal);
+    border-color: var(--color-signal);
+  }
+
+  .sommaire__num {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-muted);
+  }
+
+  /* --- Les métiers, l'un sous l'autre --- */
+  .services {
+    display: flex;
+    flex-direction: column;
+  }
+</style>

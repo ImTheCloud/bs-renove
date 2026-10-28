@@ -1,0 +1,71 @@
+commune:
+  fr: Woluwe-Saint-Pierre
+  nl: Sint-Pieters-Woluwe
+ordre: 6
+avantApres:
+  - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-1.jpg
+    apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-1.jpg
+    legende:
+      fr: Salle de bain avec douche à l'italienne
+      nl: Badkamer met inloopdouche
+    categorie: salle-de-bain
+  - avant: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-22.jpg
+    apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-2.jpg
+    legende:
+      fr: "Séjour : parquet posé, murs et plafond repeints"
+      nl: "Woonkamer: parket gelegd, muren en plafond geschilderd"
+    categorie: sejour
+  - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-3.jpg
+    apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-3.jpg
+    legende:
+      fr: Petite toiture au-dessus de la porte d'entrée
+      nl: Klein dak boven de voordeur
+    categorie: auvent
+  - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-4.jpg
+    apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-4.jpg
+    legende:
+      fr: Escalier du garage
+      nl: Trap naar de garage
+    categorie: escalier
+  - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-5.jpg
+    apres: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-26.jpg
+    legende:
+      fr: Escalier principal, avant et après
+      nl: Hoofdtrap, voor en na
+    categorie: escalier
+  - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-6.jpg
+    apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-6.jpg
+    legende:
+      fr: Toilette
+      nl: Toilet
+    categorie: toilette
+  - avant: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-39.jpg
+    apres: ../../assets/projets/renovation-woluwe-saint-pierre/detail-5.jpg
+    legende:
+      fr: Terrasse, ferraillage et dallage terminé
+      nl: Terras, wapening en afgewerkte bestrating
+    categorie: exterieur
+  - avant: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-15.jpg
+    apres: ../../assets/projets/renovation-woluwe-saint-pierre/detail-1.jpg
+    legende:
+      fr: Salle de bain, chantier et double vasque terminée
+      nl: Badkamer, werken en afgewerkte dubbele wastafel
+    categorie: salle-de-bain
+  - avant: ../../assets/projets/renovation-woluwe-saint-pierre/cuisine-avant.jpg
+    apres: ../../assets/projets/renovation-woluwe-saint-pierre/cuisine-apres.jpg
+    legende:
+      fr: Cuisine, chantier et îlot terminé
+      nl: Keuken, werken en afgewerkt kookeiland
+    categorie: cuisine
+  - avant: ../../assets/projets/renovation-woluwe-saint-pierre/chantier-20.jpg
+    apres: ../../assets/projets/renovation-woluwe-saint-pierre/detail-16.jpg
+    legende:
+      fr: Couloir, pose du parquet
+      nl: Gang, plaatsing van het parket
+    categorie: couloir
+  - avant: ../../assets/projets/renovation-woluwe-saint-pierre/avant-7.jpg
+    apres: ../../assets/projets/renovation-woluwe-saint-pierre/apres-7.jpg
+    legende:
+      fr: Carrelage de la cave et du local technique
+      nl: Tegelwerk van de kelder en de technische ruimte
+    categorie: cave

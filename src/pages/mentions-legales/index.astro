@@ -1,0 +1,13 @@
+---
+import PageLegale from '~/components/sections/PageLegale.astro';
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { mentionsLegales } from '~/data/textes-legaux';
+import { t } from '~/i18n';
+
+const langue = 'fr' as const;
+const page = t(langue).pages.mentionsLegales;
+---
+
+<BaseLayout langue={langue} titre={page.titre} description={page.description}>
+  <PageLegale langue={langue} titre={page.titre.split(' · ')[0]} blocs={mentionsLegales} avecAdresse />
+</BaseLayout>

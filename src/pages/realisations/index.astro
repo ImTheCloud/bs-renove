@@ -1,0 +1,12 @@
+---
+import ListeRealisations from '~/components/sections/ListeRealisations.astro';
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { t } from '~/i18n';
+
+const langue = 'fr' as const;
+const page = t(langue).pages.realisations;
+---
+
+<BaseLayout langue={langue} titre={page.titre} description={page.description}>
+  <ListeRealisations langue={langue} />
+</BaseLayout>

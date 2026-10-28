@@ -1,0 +1,231 @@
+---
+/**
+ * Les avant/après de l'accueil : la salle de bain de Watermael-Boitsfort
+ * en grand, puis 3 autres chantiers dessous (4 en tout). Les curseurs se
+ * font glisser à la main ; la suite est sur la page Réalisations.
+ */
+import Bouton from '../Bouton.astro';
+import CurseurAvantApres from '../CurseurAvantApres.astro';
+import GrilleAvantApres from '../GrilleAvantApres.astro';
+import { pairesAccueil, paireVitrine } from '~/data/projets';
+import { chemin, t, type Langue } from '~/i18n';
+
+interface Props {
+  langue: Langue;
+}
+
+const { langue } = Astro.props;
+const textes = t(langue);
+const bloc = textes.accueil.avantApres;
+const vitrine = await paireVitrine();
+const autres = await pairesAccueil();
+---
+
+{
+  vitrine && (
+    <section class="aa" aria-labelledby="aa-titre">
+        <div class="wrap aa__interieur">
+          <div class="aa__texte">
+            <p class="etiquette-section">{bloc.surtitre}</p>
+            <h2 id="aa-titre" data-mots>
+              {bloc.titreDebut}{' '}<span class="serif">{bloc.titreSerif}</span>
+            </h2>
+            <p class="aa__intro" data-reveal>{bloc.texte}</p>
+
+            <div class="aa__lieu" data-reveal>
+              <span class="aa__lieu-label">{vitrine.legende[langue]}</span>
+              <span class="aa__lieu-commune">{vitrine.commune[langue]}</span>
+            </div>
+
+            <div class="aa__actions" data-reveal>
+              <Bouton href={chemin('realisations', langue)} variante="principal" iconeApres="fleche-diag">
+                {bloc.voirTout}
+              </Bouton>
+            </div>
+          </div>
+
+          <div class="aa__visuel">
+            <p class="aa__note aa__note--avant manuscrit" aria-hidden="true">
+              {bloc.noteAvant}
+              <svg width="60" height="46" viewBox="0 0 60 46" fill="none"><path d="M4 4c18 2 38 12 48 34M52 38l-10-3M52 38l2-10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" /></svg>
+            </p>
+
+            <div class="aa__cadre">
+              <CurseurAvantApres langue={langue} paire={vitrine} depart={50} sizes="(min-width: 1024px) 44vw, 92vw" />
+            </div>
+
+            <p class="aa__note aa__note--apres manuscrit" aria-hidden="true">
+              <svg width="60" height="46" viewBox="0 0 60 46" fill="none"><path d="M56 42C40 40 18 30 8 8M8 8l10 3M8 8L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" /></svg>
+              {bloc.noteApres}
+            </p>
+          </div>
+        </div>
+
+        {autres.length > 0 && (
+          <div class="wrap aa__autres">
+            <GrilleAvantApres langue={langue} paires={autres} />
+            {/* Téléphone : les avant/après sont l'un sous l'autre, le bouton revient à la fin. */}
+            <div class="aa__fin">
+              <Bouton href={chemin('realisations', langue)} variante="principal" iconeApres="fleche-diag">
+                {bloc.voirTout}
+              </Bouton>
+            </div>
+          </div>
+        )}
+    </section>
+  )
+}
+
+<style>
+  .aa {
+    position: relative;
+    padding-block: var(--section-gap) 0;
+  }
+
+  .aa__interieur {
+    display: grid;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .aa__texte {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .aa__texte h2 .serif {
+    color: var(--color-accent);
+  }
+
+  .aa__intro {
+    max-width: 38ch;
+    font-size: var(--size-lead);
+    line-height: 1.5;
+  }
+
+  .aa__lieu {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-left: 16px;
+    border-left: 3px solid var(--color-signal);
+  }
+
+  .aa__lieu-label {
+    font-weight: 650;
+    color: var(--color-ink);
+  }
+
+  .aa__lieu-commune {
+    font-size: var(--size-small);
+    color: var(--color-muted);
+  }
+
+  .aa__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .aa__autres {
+    margin-top: 72px;
+  }
+
+  .aa__fin {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+  }
+
+  /* Les 3 autres avant/après sur une seule ligne dès la tablette. */
+  @media (min-width: 700px) {
+    /* Dès la tablette, les 3 tiennent sur une ligne, juste sous le premier bouton : pas besoin de le répéter. */
+    .aa__fin {
+      display: none;
+    }
+
+    .aa__autres :global(.grille) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    /* Ici, même une photo horizontale prend une seule case, au même format que les autres. */
+    .aa__autres :global(.paire--paysage) {
+      grid-column: auto;
+    }
+
+    .aa__autres :global(.paire--paysage .curseur) {
+      height: auto;
+      aspect-ratio: 3 / 4;
+    }
+  }
+
+  .aa__visuel {
+    position: relative;
+    justify-self: center;
+    width: 100%;
+    max-width: 520px;
+  }
+
+  .aa__cadre {
+    position: relative;
+  }
+
+  .aa__cadre :global(.curseur) {
+    box-shadow: var(--shadow-float);
+  }
+
+  .aa__cadre :global(.curseur img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .aa__note {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    margin: 0 0 8px;
+    font-size: 26px;
+    color: var(--color-accent);
+  }
+
+  .aa__note--avant {
+    transform: rotate(-3deg);
+  }
+
+  .aa__note--apres {
+    justify-content: flex-end;
+    align-items: flex-start;
+    margin: 8px 0 0;
+    transform: rotate(-2deg);
+  }
+
+  @media (min-width: 1024px) {
+    .aa__interieur {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 64px;
+    }
+
+    .aa__note {
+      position: absolute;
+      z-index: 2;
+      margin: 0;
+      font-size: 30px;
+      white-space: nowrap;
+    }
+
+    .aa__note--avant {
+      bottom: calc(100% + 16px);
+      left: -12px;
+      align-items: flex-end;
+    }
+
+    .aa__note--apres {
+      top: calc(100% + 18px);
+      right: -12px;
+      align-items: flex-start;
+    }
+  }
+</style>

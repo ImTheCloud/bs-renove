@@ -1,0 +1,96 @@
+/* ==========================================================================
+   Les réglages du site, au même endroit.
+   Direction « Atelier » : papier chaud, encre bleu nuit (jamais de noir), bleu du logo,
+   jaune de marqueur pour souligner, annotations écrites à la main.
+   Changer une valeur ici la change partout.
+   ========================================================================== */
+
+:root {
+  /* --- Couleurs -------------------------------------------------------- */
+  --color-bg: #f5f2ec;          /* papier : fond de page */
+  --color-surface: #ece7de;     /* cartes, pastilles */
+  --color-surface-2: #e3ddd1;   /* conteneurs secondaires */
+  --color-ink: #0f1626;         /* bleu nuit (jamais de noir) : titres, boutons, sections sombres */
+  --color-nuit: #0f1626;        /* bleu nuit : mode nuit de l'accueil, bloc devis */
+  --color-accent: #0066b4;      /* bleu du logo : liens, détails */
+  --color-accent-vif: #7cbcff;  /* le même bleu, lisible sur fond sombre */
+  --color-signal: #ffd447;      /* marqueur jaune : surlignages, pastilles */
+  --color-text: #3a3d45;        /* texte courant */
+  --color-muted: #5d6068;       /* texte secondaire */
+  --color-border: #d6cfc2;      /* bordures */
+  --color-border-light: #e2dccf;
+  --color-border-field: #8a8578; /* bordure des champs : lisible */
+  --color-erreur: #b3261e;
+  --color-whatsapp: #0e8449;     /* vert sobre, 4,76:1 avec le blanc */
+  --color-whatsapp-dark: #0b6b3b;
+
+  /* Sur fond encre */
+  --color-on-ink: #f5f2ec;
+  --color-on-ink-soft: #c2c5cc;
+  --color-on-ink-label: #9ea2ab;
+  --color-line-on-ink: rgba(245, 242, 236, 0.14);
+
+  /* --- Polices --------------------------------------------------------- */
+  --font-title: 'Bricolage Grotesque Variable', 'Trebuchet MS', sans-serif;
+  --font-text: 'Figtree Variable', 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --font-main: 'Caveat Variable', 'Segoe Print', 'Bradley Hand', cursive;
+
+  /* --- Tailles de texte : elles grandissent avec l'écran --------------- */
+  --size-display: clamp(48px, 6vw, 112px);
+  --size-h1: clamp(44px, 6.4vw, 100px);
+  --size-h2: clamp(38px, 5vw, 80px);
+  --size-h3: clamp(22px, 1.9vw, 30px);
+  --size-lead: clamp(18px, 1.45vw, 22px);
+  --size-body: 17px;
+  --size-small: 15px;
+  --size-tiny: 13px;
+
+  --tracking-h1: -0.045em;
+  --tracking-h2: -0.04em;
+  --tracking-h3: -0.02em;
+
+  /* --- Arrondis -------------------------------------------------------- */
+  --radius-pill: 999px;
+  --radius-photo: 28px;
+  --radius-card: 24px;
+  --radius-card-img: 18px;
+  --radius-small: 14px;
+  --radius-large: 36px;
+
+  /* --- Ombres ---------------------------------------------------------- */
+  --shadow-float: 0 18px 50px -12px rgba(15, 22, 38, 0.28);
+  --shadow-soft: 0 10px 30px -14px rgba(15, 22, 38, 0.22);
+
+  /* --- Gabarit --------------------------------------------------------- */
+  --content-max: 1400px;
+  --gutter: 20px;
+  --section-gap: 96px;
+  --tap-min: 48px;
+  --header-h: 72px;
+
+  /* --- Mouvement ------------------------------------------------------- */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --speed: 240ms;
+  --speed-slow: 900ms;
+}
+
+@media (min-width: 900px) {
+  :root {
+    --size-body: 18px;
+    --size-small: 16px;
+    --size-tiny: 14px;
+    --gutter: 40px;
+    --section-gap: 160px;
+    --header-h: 88px;
+  }
+}
+
+/* Respecte le réglage « réduire les animations » du système. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --speed: 0ms;
+    --speed-slow: 0ms;
+  }
+}

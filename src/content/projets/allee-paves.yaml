@@ -1,0 +1,16 @@
+# Photos du dossier « Carrelage sur plusieurs endroits » :
+# originaux WhatsApp 2026-09-20 at 10.58.48 (3) (avant) et 10.58.51 (1) (après).
+# Numéro de maison, plaque d'hydrant et sac d'un fournisseur (téléphone) masqués
+# par un aplat avant import.
+# Commune confirmée le 28 septembre 2026.
+commune:
+  fr: Woluwe-Saint-Pierre
+  nl: Sint-Pieters-Woluwe
+ordre: 10
+avantApres:
+  - avant: ../../assets/projets/allee-paves/avant-1.jpg
+    apres: ../../assets/projets/allee-paves/apres-1.jpg
+    legende:
+      fr: Allée d'entrée, du terrassement aux pavés posés
+      nl: Oprit, van grondwerk tot gelegde kasseien
+    categorie: allee

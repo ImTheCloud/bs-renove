@@ -1,0 +1,273 @@
+---
+/**
+ * Candidature en quatre étapes, construite exactement comme le devis
+ * (même moteur : src/scripts/formulaire-etapes.ts, même style :
+ * src/styles/formulaire.css) :
+ * 1. le métier (tuiles, plusieurs choix) ;
+ * 2. l'expérience (depuis quand, statut, ce qu'on cherche, disponibilité) ;
+ * 3. sur le chantier (permis, véhicule, outils, langues) ;
+ * 4. les coordonnées et un mot sur le parcours.
+ * Envoi par Netlify Forms (formulaire « candidature »), comme le devis.
+ * Après l'envoi : CV et photos par WhatsApp ou email, candidature déjà écrite.
+ *
+ * Un métier est coché d'avance depuis la page Services : ?metier=carrelage
+ * (chaque tuile liste les métiers du site qui lui correspondent, data-cles).
+ */
+import Bouton from './Bouton.astro';
+import Icon, { type NomIcone } from './Icon.astro';
+import { entreprise } from '~/data/entreprise';
+import { chemin, t, type Langue } from '~/i18n';
+import '~/styles/formulaire.css';
+
+interface Props {
+  langue: Langue;
+}
+
+const { langue } = Astro.props;
+const textes = t(langue);
+const f = textes.rejoindreEquipe;
+const commun = textes.formulaire;
+const id = 'candidature-form';
+
+/** Les métiers proposés, avec leur icône et les métiers du site qui leur correspondent. */
+const metiers: { cle: keyof typeof f.metiers; icone: NomIcone; services: string }[] = [
+  { cle: 'carreleur', icone: 'carrelage', services: 'carrelage salles-de-bain terrasses' },
+  { cle: 'plombier', icone: 'goutte', services: 'plomberie salles-de-bain' },
+  { cle: 'electricien', icone: 'eclair', services: 'electricite' },
+  { cle: 'couvreur', icone: 'toit', services: 'toiture' },
+  { cle: 'macon', icone: 'brique', services: 'maconnerie-extensions' },
+  { cle: 'peintre', icone: 'rouleau', services: 'peinture-finitions' },
+  { cle: 'menuisier', icone: 'escalier', services: 'escaliers' },
+  { cle: 'plafonneur', icone: 'truelle', services: '' },
+  { cle: 'cuisiniste', icone: 'cuisine', services: 'cuisines' },
+  { cle: 'chefChantier', icone: 'casque', services: '' },
+  { cle: 'polyvalent', icone: 'maison', services: 'renovation-complete' },
+  { cle: 'autre', icone: 'autre', services: '' },
+];
+
+type Question = { nom: string; label: string; choix: string[]; multiple?: boolean };
+const questionsExperience: Question[] = [
+  { nom: 'experience', label: f.experience, choix: f.experiences },
+  { nom: 'statut', label: f.statut, choix: f.statuts },
+  { nom: 'recherche', label: f.recherche, choix: f.recherches },
+  { nom: 'disponibilite', label: f.disponibilite, choix: f.disponibilites },
+];
+const questionsChantier: Question[] = [
+  { nom: 'permis', label: f.permis, choix: [f.oui, f.non] },
+  { nom: 'vehicule', label: f.vehicule, choix: [f.oui, f.non] },
+  { nom: 'outils', label: f.outils, choix: f.outilsChoix },
+  { nom: 'langues', label: f.langues, choix: f.languesChoix, multiple: true },
+];
+
+/** Le récapitulatif (CV par email ou WhatsApp), dans l'ordre du formulaire. */
+const r = f.recap;
+const recap = [
+  ['metier', r.metier],
+  ['metier_autre', r.metier_autre],
+  '',
+  ...questionsExperience.map((q) => [q.nom, r[q.nom as keyof typeof r]]),
+  '',
+  ...questionsChantier.map((q) => [q.nom, r[q.nom as keyof typeof r]]),
+  ['langues_autres', r.langues_autres],
+  '',
+  ...(['nom', 'telephone', 'email', 'commune', 'parcours'] as const).map((nom) => [nom, r[nom]]),
+];
+---
+
+<div
+  class="formulaire"
+  data-formulaire
+  data-param="metier"
+  data-email={entreprise.email ?? ''}
+  data-whatsapp={entreprise.whatsappNumero}
+  data-intro-suite={f.cvIntro}
+  data-sujet-suite={f.sujetSuite}
+  data-recap={JSON.stringify(recap)}
+  data-deux-points={textes.deuxPoints}
+  data-noms-etapes={JSON.stringify(f.etapes)}
+  data-erreur-choix={f.erreurChoix}
+  data-erreur-champ={commun.erreurChamp}
+  data-erreur-email={commun.erreurEmail}
+  data-erreur-consentement={f.erreurConsentement}
+  data-en-cours={commun.envoiEnCours}
+>
+  <form class="formulaire__form" id={id} name="candidature" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate data-form>
+    <input type="hidden" name="form-name" value="candidature" />
+    <input type="hidden" name="subject" value={f.sujetFormulaire} />
+    <input type="hidden" name="langue" value={langue.toUpperCase()} />
+    <input type="text" name="bot-field" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+    <!-- Progression -->
+    <div class="formulaire__progression" aria-hidden="true">
+      <span class="formulaire__etape-texte">
+        {commun.etape} <strong data-num>1</strong> {commun.sur} {f.etapes.length} · <span data-nom-etape>{f.etapes[0]}</span>
+      </span>
+      <span class="formulaire__segments">
+        {f.etapes.map((_, i) => <span class:list={[{ actif: i === 0 }]} data-segment />)}
+      </span>
+    </div>
+
+    <!-- Étape 1 : le métier -->
+    <fieldset class="etape" data-etape="0" data-choix-requis="metier">
+      <legend tabindex="-1">
+        <span class="etape__question">{f.q1}</span>
+        <span class="etape__aide">{f.q1Aide}</span>
+      </legend>
+      <div class="tuiles">
+        {
+          metiers.map((metier) => (
+            <label class="tuile">
+              <input
+                type="checkbox"
+                name="metier"
+                value={f.metiers[metier.cle]}
+                data-cles={metier.services}
+                data-precision={metier.cle === 'autre' ? `${id}-metier-autre` : undefined}
+              />
+              <span class="tuile__icone"><Icon nom={metier.icone} taille={24} /></span>
+              <span class="tuile__nom">{f.metiers[metier.cle]}</span>
+              <span class="tuile__coche" aria-hidden="true"><Icon nom="check" taille={14} epaisseur={3} /></span>
+            </label>
+          ))
+        }
+      </div>
+
+      <!-- « Autre métier » coché : on écrit lequel (le champ apparaît). -->
+      <div class="champ champ--precision" data-precision-champ>
+        <label for={`${id}-metier-autre`}>{f.metierAutre}</label>
+        <input type="text" id={`${id}-metier-autre`} name="metier_autre" placeholder={f.metierAutreExemple} data-erreur={f.erreurMetierAutre} />
+      </div>
+    </fieldset>
+
+    <!-- Étape 2 : l'expérience -->
+    <fieldset class="etape" data-etape="1">
+      <legend tabindex="-1"><span class="etape__question">{f.q2}</span></legend>
+      {
+        questionsExperience.map((question) => (
+          <fieldset class="question">
+            <legend class="question__label">{question.label}</legend>
+            <div class="pastilles">
+              {question.choix.map((choix) => (
+                <label class="pastille">
+                  <input type={question.multiple ? 'checkbox' : 'radio'} name={question.nom} value={choix} />
+                  <span>{choix}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+        ))
+      }
+    </fieldset>
+
+    <!-- Étape 3 : sur le chantier -->
+    <fieldset class="etape" data-etape="2">
+      <legend tabindex="-1"><span class="etape__question">{f.q3}</span></legend>
+      {
+        questionsChantier.map((question) => (
+          <fieldset class="question">
+            <legend class="question__label">{question.label}</legend>
+            <div class="pastilles">
+              {question.choix.map((choix) => (
+                <label class="pastille">
+                  <input type={question.multiple ? 'checkbox' : 'radio'} name={question.nom} value={choix} />
+                  <span>{choix}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+        ))
+      }
+      <div class="champ">
+        <label for={`${id}-langues`}>{f.languesAutres} <span class="champ__facultatif">({commun.facultatif})</span></label>
+        <input type="text" id={`${id}-langues`} name="langues_autres" placeholder={f.languesAutresExemple} />
+      </div>
+    </fieldset>
+
+    <!-- Étape 4 : les coordonnées -->
+    <fieldset class="etape" data-etape="3">
+      <legend tabindex="-1"><span class="etape__question">{f.q4}</span></legend>
+
+      <div class="champ">
+        <label for={`${id}-nom`}>{f.nom}</label>
+        <input type="text" id={`${id}-nom`} name="nom" required autocomplete="name" />
+      </div>
+
+      <div class="champ__paire">
+        <div class="champ">
+          <label for={`${id}-tel`}>{f.telephone}</label>
+          <input type="tel" id={`${id}-tel`} name="telephone" required autocomplete="tel" inputmode="tel" />
+        </div>
+        <div class="champ">
+          <label for={`${id}-email`}>{f.email} <span class="champ__facultatif">({commun.facultatif})</span></label>
+          <input type="email" id={`${id}-email`} name="email" autocomplete="email" inputmode="email" />
+        </div>
+      </div>
+
+      <div class="champ">
+        <label for={`${id}-commune`}>{f.commune} <span class="champ__facultatif">({commun.facultatif})</span></label>
+        <input type="text" id={`${id}-commune`} name="commune" autocomplete="address-level2" placeholder={f.communeExemple} />
+      </div>
+
+      <div class="champ">
+        <label for={`${id}-parcours`}>{f.parcours} <span class="champ__facultatif">({commun.facultatif})</span></label>
+        <textarea id={`${id}-parcours`} name="parcours" rows="3" placeholder={f.parcoursExemple}></textarea>
+      </div>
+
+      <label class="consentement">
+        <input type="checkbox" name="consentement" value="oui" required />
+        <span class="consentement__case" aria-hidden="true"><Icon nom="check" taille={14} epaisseur={3} /></span>
+        <span>
+          {f.consentement}{' '}
+          <a href={chemin('viePrivee', langue)}>{commun.consentementLien}</a>
+        </span>
+      </label>
+    </fieldset>
+
+    <p class="formulaire__erreur" role="alert" data-erreur></p>
+
+    <div class="formulaire__nav">
+      <button type="button" class="formulaire__retour" data-precedent hidden>
+        <Icon nom="fleche-gauche" taille={18} />
+        {commun.precedent}
+      </button>
+      <Bouton type="button" variante="principal" iconeApres="fleche" large class="formulaire__suivant" data-suivant>
+        {commun.suivant}
+      </Bouton>
+      <Bouton type="submit" variante="principal" iconeApres="fleche-diag" large class="formulaire__envoyer" data-envoyer>
+        {f.envoyer}
+      </Bouton>
+    </div>
+  </form>
+
+  <!-- Après l'envoi -->
+  <div class="formulaire__fin" data-merci hidden tabindex="-1">
+    <svg class="formulaire__coche" viewBox="0 0 80 80" aria-hidden="true">
+      <circle cx="40" cy="40" r="36" pathLength="1" />
+      <path d="M24 41l11 11 21-24" pathLength="1" />
+    </svg>
+    <h3 class="formulaire__fin-titre">{f.merciTitre}</h3>
+    <p>{f.merciTexte}</p>
+    <div class="formulaire__fin-actions">
+      <Bouton href={`https://wa.me/${entreprise.whatsappNumero}`} variante="whatsapp" icone="whatsapp" target="_blank" rel="noopener" data-suite-whatsapp>
+        {f.cvWhatsApp}
+      </Bouton>
+      {entreprise.email && (
+        <Bouton href={`mailto:${entreprise.email}`} variante="secondaire" icone="email" data-suite-email>
+          {f.cvEmail}
+        </Bouton>
+      )}
+    </div>
+  </div>
+
+  <div class="formulaire__fin formulaire__fin--erreur" data-echec hidden tabindex="-1">
+    <h3 class="formulaire__fin-titre">{commun.erreurTitre}</h3>
+    <p>
+      {commun.erreurTexte} <a href={`tel:${entreprise.telephoneLien}`}>{entreprise.telephoneAffiche}</a>.
+    </p>
+    <button type="button" class="formulaire__retour" data-reessayer>{commun.suivant}</button>
+  </div>
+</div>
+
+<script>
+  import '~/scripts/formulaire-etapes';
+</script>

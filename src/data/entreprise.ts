@@ -1,0 +1,54 @@
+/**
+ * Les faits vérifiés sur l'entreprise.
+ * Ils ne changent pas d'une langue à l'autre.
+ * Ne rien ajouter ici qui ne soit pas confirmé par le client.
+ */
+import { chemin, type Langue } from '../i18n';
+
+export const entreprise = {
+  nomLegal: 'BS Renove SRL',
+  nomCourt: 'BS Renove',
+  gerant: 'Sergiu Bivol',
+
+  adresse: {
+    rue: 'Elf Dagwand 67',
+    codePostal: '9473',
+    ville: 'Welle',
+    pays: 'BE',
+  },
+
+  tva: 'BE 1002.240.127',
+  /** Tribunal de l'entreprise compétent pour le siège (Welle, commune de Denderleeuw) : obligatoire (CSA art. 2:20). */
+  rpm: { fr: 'RPM Gand, division Termonde', nl: 'RPR Gent, afdeling Dendermonde' },
+  /** Date de création dans la BCE (14 novembre 2023), au format des données structurées. */
+  creation: '2023-11-14',
+
+  /** Affiché à l'écran, format belge. */
+  telephoneAffiche: '0485 38 43 90',
+  /** Pour le lien « Appeler ». */
+  telephoneLien: '+32485384390',
+  /** Pour le lien WhatsApp (sans + ni espaces). */
+  whatsappNumero: '32485384390',
+
+  email: 'Bivol.sergiu@hotmail.com' as string | null,
+
+  /** Expérience personnelle du gérant (confirmée le 22 septembre 2026), pas l'âge de l'entreprise. */
+  anneesExperience: 12,
+
+  /** L'hébergeur du site (il reçoit aussi les formulaires), affiché dans les mentions légales. */
+  hebergeur: 'Netlify, Inc., San Francisco (USA) · www.netlify.com',
+} as const;
+
+/** Adresse sur une ligne, pour le pied de page. */
+/** L'adresse complète : seulement dans les mentions légales (obligation légale), jamais ailleurs sur le site. */
+export const adresseUneLigne = `${entreprise.adresse.rue}, ${entreprise.adresse.codePostal} ${entreprise.adresse.ville}`;
+
+/** Construit le lien WhatsApp avec le message déjà écrit. */
+export function lienWhatsApp(message: string): string {
+  return `https://wa.me/${entreprise.whatsappNumero}?text=${encodeURIComponent(message)}`;
+}
+
+/** Tous les boutons « Demander un devis » mènent au formulaire de la page contact. */
+export function lienDevis(langue: Langue): string {
+  return `${chemin('contact', langue)}#devis`;
+}

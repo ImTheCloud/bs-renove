@@ -1,0 +1,17 @@
+---
+/**
+ * La page « Rejoindre l'équipe » : construite exactement comme la page Contact
+ * (même bloc bleu nuit, contacts directs à gauche), avec le formulaire de
+ * candidature en quatre étapes à la place du devis.
+ */
+import SectionDevis from '../accueil/SectionDevis.astro';
+import type { Langue } from '~/i18n';
+
+interface Props {
+  langue: Langue;
+}
+
+const { langue } = Astro.props;
+---
+
+<SectionDevis langue={langue} titrePrincipal formulaire="candidature" />

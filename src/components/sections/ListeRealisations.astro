@@ -1,0 +1,146 @@
+---
+/**
+ * La page Réalisations : un mur d'avant/après, groupés par type de pièce,
+ * peu importe le chantier d'origine. L'avant/après est l'élément le plus
+ * apprécié du site : ici il occupe toute la place, en grand.
+ */
+import GrilleAvantApres from '../GrilleAvantApres.astro';
+import EntetePage from '../EntetePage.astro';
+import { categories } from '~/data/categories';
+import { toutesLesPaires } from '~/data/projets';
+import { t, type Langue } from '~/i18n';
+
+interface Props {
+  langue: Langue;
+}
+
+const { langue } = Astro.props;
+const textes = t(langue);
+const bloc = textes.realisations;
+
+const paires = await toutesLesPaires();
+const categoriesPresentes = categories.filter((c) => paires.some((p) => p.categorie === c.slug));
+---
+
+<EntetePage surtitre={bloc.surtitre} titre={bloc.titre} serifMots={3} intro={bloc.intro} />
+
+<section class="wrap liste">
+  {
+    paires.length === 0 ? (
+      <p class="liste__vide">{bloc.aucun}</p>
+    ) : (
+      <>
+        {categoriesPresentes.length > 1 && (
+          <div class="liste__filtres" role="group" aria-label={bloc.filtrerAria}>
+            <button type="button" class="filtre filtre--actif" data-filtre="toutes" aria-pressed="true">
+              {bloc.toutes}
+            </button>
+            {categoriesPresentes.map((c) => (
+              <button type="button" class="filtre" data-filtre={c.slug} aria-pressed="false">
+                {c.nom[langue]}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <GrilleAvantApres langue={langue} paires={paires} premierePrioritaire />
+      </>
+    )
+  }
+</section>
+
+<script>
+  // Filtre les avant/après par catégorie, sans recharger la page.
+  document.querySelectorAll<HTMLElement>('.liste__filtres').forEach((groupe) => {
+    const boutons = Array.from(groupe.querySelectorAll<HTMLButtonElement>('.filtre'));
+    const galerie = groupe.nextElementSibling;
+    const paires = Array.from(galerie?.querySelectorAll<HTMLElement>('.paire') ?? []);
+
+    const filtrer = (bouton: HTMLButtonElement) => {
+      boutons.forEach((b) => {
+        const actif = b === bouton;
+        b.classList.toggle('filtre--actif', actif);
+        b.setAttribute('aria-pressed', String(actif));
+      });
+      const cible = bouton.dataset.filtre;
+      paires.forEach((paire) => {
+        paire.hidden = cible !== 'toutes' && paire.dataset.categorie !== cible;
+      });
+      return cible;
+    };
+
+    boutons.forEach((bouton) => {
+      bouton.addEventListener('click', () => {
+        const cible = filtrer(bouton);
+        // L'adresse garde le filtre : on peut partager « /realisations/#cuisine ».
+        history.replaceState(null, '', cible === 'toutes' ? location.pathname : `#${cible}`);
+      });
+    });
+
+    // Arrivée avec un filtre dans l'adresse (ex. depuis la page Services).
+    const depuisAdresse = boutons.find((b) => `#${b.dataset.filtre}` === location.hash);
+    if (depuisAdresse) filtrer(depuisAdresse);
+  });
+</script>
+
+<style>
+  .liste {
+    padding-bottom: 0;
+  }
+
+  .liste__vide {
+    padding: 40px 0;
+    color: var(--color-muted);
+  }
+
+  .liste__filtres {
+    display: flex;
+    gap: 8px;
+    margin: 0 calc(var(--gutter) * -1) 32px;
+    padding: 4px var(--gutter);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  @media (min-width: 900px) {
+    .liste__filtres {
+      flex-wrap: wrap;
+      margin-inline: 0;
+      padding-inline: 0;
+      overflow: visible;
+    }
+  }
+
+  .liste__filtres::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filtre {
+    flex-shrink: 0;
+    min-height: 44px;
+    padding: 0 18px;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-text);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-ink);
+    cursor: pointer;
+    transition:
+      background-color var(--speed) var(--ease),
+      border-color var(--speed) var(--ease),
+      color var(--speed) var(--ease);
+  }
+
+  .filtre:hover {
+    border-color: var(--color-ink);
+  }
+
+  .filtre--actif,
+  .filtre--actif:hover {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-on-ink);
+  }
+</style>

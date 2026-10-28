@@ -1,0 +1,12 @@
+---
+import PageAPropos from '~/components/sections/PageAPropos.astro';
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { t } from '~/i18n';
+
+const langue = 'nl' as const;
+const page = t(langue).pages.apropos;
+---
+
+<BaseLayout langue={langue} titre={page.titre} description={page.description}>
+  <PageAPropos langue={langue} />
+</BaseLayout>

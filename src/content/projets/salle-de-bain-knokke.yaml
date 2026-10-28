@@ -1,0 +1,16 @@
+# Salle de bain sous les combles (28 septembre 2026). Avant : les combles en chantier.
+# Après : l'ancienne photo « avant » de la douche, rangée par erreur à Woluwe-Saint-Pierre
+# (même radiateur et même baignoire que les photos de Knokke). Angles différents.
+commune:
+  fr: Knokke-Heist
+  nl: Knokke-Heist
+ordre: 7.5
+avantApres:
+  - avant: ../../assets/projets/salle-de-bain-knokke/avant-1.jpg
+    apres: ../../assets/projets/salle-de-bain-knokke/apres-1.jpg
+    legende:
+      fr: Salle de bain sous les combles, du gros œuvre au carrelage posé
+      nl: Badkamer onder het dak, van ruwbouw tot gelegde tegels
+    categorie: salle-de-bain
+    # La baignoire est à gauche de la photo « après » : la poignée démarre à gauche.
+    depart: 20

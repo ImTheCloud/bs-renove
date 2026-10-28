@@ -1,0 +1,37 @@
+/**
+ * Catégories des comparaisons avant/après, par type de pièce — pas par
+ * métier (voir src/data/services.ts pour les métiers). Sert à regrouper
+ * les avant/après de tous les chantiers sur la page Réalisations, pour
+ * qu'on puisse voir « toutes les salles de bain » d'un coup par exemple.
+ *
+ * Liste volontairement ouverte : on ajoute une catégorie ici dès qu'un
+ * avant/après ne rentre dans aucune des existantes.
+ */
+import type { Langue } from '~/i18n';
+
+interface Categorie {
+  slug: string;
+  nom: Record<Langue, string>;
+}
+
+export const categories: Categorie[] = [
+  { slug: 'salle-de-bain', nom: { fr: 'Salle de bain', nl: 'Badkamer' } },
+  { slug: 'douche', nom: { fr: 'Douche', nl: 'Douche' } },
+  { slug: 'cuisine', nom: { fr: 'Cuisine', nl: 'Keuken' } },
+  { slug: 'maison', nom: { fr: 'Maison entière', nl: 'Hele woning' } },
+  { slug: 'extension', nom: { fr: 'Extension', nl: 'Uitbreiding' } },
+  { slug: 'sejour', nom: { fr: 'Séjour', nl: 'Woonkamer' } },
+  { slug: 'couloir', nom: { fr: 'Couloir', nl: 'Gang' } },
+  { slug: 'toilette', nom: { fr: 'Toilette', nl: 'Toilet' } },
+  { slug: 'escalier', nom: { fr: 'Escalier', nl: 'Trap' } },
+  { slug: 'cave', nom: { fr: 'Cave', nl: 'Kelder' } },
+  { slug: 'toiture', nom: { fr: 'Toiture', nl: 'Dak' } },
+  { slug: 'auvent', nom: { fr: 'Petite toiture', nl: 'Klein dak' } },
+  { slug: 'exterieur', nom: { fr: 'Terrasse', nl: 'Terras' } },
+  { slug: 'allee', nom: { fr: 'Allée', nl: 'Oprit' } },
+  { slug: 'egouttage', nom: { fr: 'Égouttage', nl: 'Riolering' } },
+];
+
+export function nomCategorie(slug: string, langue: Langue): string | undefined {
+  return categories.find((c) => c.slug === slug)?.nom[langue];
+}

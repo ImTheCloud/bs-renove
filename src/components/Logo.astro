@@ -1,0 +1,108 @@
+---
+/**
+ * Le logo : l'icône de l'entreprise (recadrée au plus près pour rester
+ * lisible en petit) suivie du nom en logotype, dans le style des titres
+ * du site : « BS » en gras, « Renove » en italique bleu.
+ */
+import { Image } from 'astro:assets';
+import icone from '~/assets/marque/icone-logo-serre.png';
+import iconeNuit from '~/assets/marque/icone-logo-nuit.png';
+import { entreprise } from '../data/entreprise';
+
+interface Props {
+  /** Sur fond encre, le texte passe en clair. */
+  surFonce?: boolean;
+}
+
+const { surFonce = false } = Astro.props;
+---
+
+<span class:list={['logo', { 'logo--fonce': surFonce }]}>
+  <Image src={icone} alt="" height={64} loading="eager" class="logo__icone logo__icone--jour" />
+  <Image src={iconeNuit} alt="" height={64} class="logo__icone logo__icone--nuit" />
+  <span class="logo__nom" aria-hidden="true">
+    <span class="logo__bs">BS</span>{' '}<span class="logo__renove">Renove</span>
+  </span>
+  <span class="sr-only">{entreprise.nomLegal}</span>
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 1;
+  }
+
+  .logo__icone {
+    width: auto;
+    height: 30px;
+    flex-shrink: 0;
+  }
+
+  /* Pas de flex ici : l'espace entre « BS » et « Renove » doit rester une vraie espace. */
+  .logo__nom {
+    display: inline-block;
+    font-size: 27px;
+    white-space: nowrap;
+  }
+
+  .logo__bs {
+    font-family: var(--font-title);
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    color: var(--color-ink);
+    transition: color 400ms var(--ease);
+  }
+
+  .logo__renove {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.12em;
+    letter-spacing: -0.02em;
+    color: var(--color-accent);
+    transition: color 400ms var(--ease);
+  }
+
+  /* Sur fond sombre, l'icône aux traits clairs remplace l'icône aux traits foncés. */
+  .logo__icone--nuit {
+    display: none;
+  }
+
+  .logo--fonce .logo__icone--jour,
+  :global(.entete--sur-fonce:not(.entete--defile)) .logo__icone--jour {
+    display: none;
+  }
+
+  .logo--fonce .logo__icone--nuit,
+  :global(.entete--sur-fonce:not(.entete--defile)) .logo__icone--nuit {
+    display: block;
+  }
+
+  /* Menu mobile ouvert (panneau clair) : toujours l'icône normale, même sur une page sombre. */
+  :global(body.menu-ouvert .entete.entete) .logo__icone--jour {
+    display: block;
+  }
+
+  :global(body.menu-ouvert .entete.entete) .logo__icone--nuit {
+    display: none;
+  }
+
+  .logo--fonce .logo__bs {
+    color: var(--color-on-ink);
+  }
+
+  .logo--fonce .logo__renove {
+    color: var(--color-accent-vif);
+  }
+
+  @media (min-width: 900px) {
+    .logo__icone {
+      height: 34px;
+    }
+
+    .logo__nom {
+      font-size: 30px;
+    }
+  }
+</style>

@@ -1,0 +1,294 @@
+/* Base commune à toutes les pages. Les valeurs viennent de tokens.css. */
+
+@import './tokens.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + 16px);
+}
+
+/* Android : pas de rectangle bleu au toucher (chaque élément a déjà son propre retour visuel). */
+a,
+button,
+label,
+input,
+[role='button'] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Défilement fluide : géré par Lenis quand le JS est là. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-text);
+  font-size: var(--size-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+/* Grain de papier, très léger, sur toute la page. */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: var(--color-signal);
+  color: var(--color-ink);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-title);
+  color: var(--color-ink);
+  margin: 0;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--size-h1);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: var(--tracking-h1);
+}
+
+h2 {
+  font-size: var(--size-h2);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: var(--tracking-h2);
+}
+
+h3 {
+  font-size: var(--size-h3);
+  font-weight: 650;
+  line-height: 1.15;
+  letter-spacing: var(--tracking-h3);
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--color-accent);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--gutter);
+  top: -100px;
+  z-index: 300;
+  background: var(--color-ink);
+  color: var(--color-on-ink);
+  padding: 12px 20px;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  text-decoration: none;
+  transition: top var(--speed) var(--ease);
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: calc(var(--content-max) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ---------------------------------------------------------------------------
+   Petits outils typographiques, réutilisés partout
+   --------------------------------------------------------------------------- */
+
+/* Le mot en italique à empattements dans un titre. */
+.serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+/* Le coup de marqueur jaune derrière un mot. */
+.marqueur {
+  background: linear-gradient(transparent 58%, var(--color-signal) 58%, var(--color-signal) 92%, transparent 92%);
+  padding-inline: 0.06em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* L'écriture à la main, pour les annotations. */
+.manuscrit {
+  font-family: var(--font-main);
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* Le petit libellé au-dessus des titres. */
+.surtitre,
+.etiquette-section {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--size-tiny);
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
+.etiquette-section {
+  align-items: baseline;
+}
+
+.etiquette-section::before {
+  content: '';
+  flex-shrink: 0;
+  transform: translateY(-1px);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+/* ---------------------------------------------------------------------------
+   Apparitions au défilement (voir le script du gabarit).
+   Sans JS, tout est visible : la classe .js est posée par le script.
+   --------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 900ms var(--ease-out),
+      transform 900ms var(--ease-out);
+    transition-delay: var(--delai, 0ms);
+  }
+
+  .js [data-reveal='fondu'] {
+    transform: none;
+  }
+
+  .js [data-reveal='zoom'] {
+    transform: scale(0.94);
+  }
+
+  .js [data-reveal].est-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Titres découpés en mots : chaque mot monte à son tour. */
+  .js [data-mots] .mot {
+    display: inline-block;
+    overflow: clip;
+    overflow-clip-margin: 0.2em;
+    vertical-align: top;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+  }
+
+  .js [data-mots] .mot > span {
+    display: inline-block;
+    transform: translateY(105%);
+    transition: transform 1000ms var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 55ms + var(--delai, 0ms));
+  }
+
+  .js [data-mots].est-visible .mot > span {
+    transform: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Transitions entre pages (navigateurs récents, sans JavaScript)
+   --------------------------------------------------------------------------- */
+@view-transition {
+  navigation: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation: page-sort 260ms var(--ease) both;
+  }
+
+  ::view-transition-new(root) {
+    animation: page-entre 520ms var(--ease-out) both;
+  }
+
+  @keyframes page-sort {
+    to {
+      opacity: 0;
+      transform: translateY(-12px);
+    }
+  }
+
+  @keyframes page-entre {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

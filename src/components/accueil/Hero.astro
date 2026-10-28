@@ -1,0 +1,474 @@
+---
+/**
+ * Le haut de l'accueil : un grand titre à gauche, la maison en coupe à droite
+ * sur un fond de papier millimétré, comme une planche d'architecte.
+ */
+import Bouton from '../Bouton.astro';
+import Icon from '../Icon.astro';
+import MaisonCoupe from './MaisonCoupe.astro';
+import { entreprise, lienDevis } from '~/data/entreprise';
+import { cheminService, services } from '~/data/services';
+import { t, type Langue } from '~/i18n';
+
+interface Props {
+  langue: Langue;
+}
+
+const { langue } = Astro.props;
+const textes = t(langue);
+const hero = textes.accueil.hero;
+---
+
+<section class="hero">
+  <div class="hero__grille" aria-hidden="true"></div>
+
+  <div class="wrap hero__interieur">
+    <div class="hero__texte">
+      <h1 class="hero__titre">
+        <span class="ligne"><span>{hero.titreDebut}</span></span>
+        <span class="ligne"><span><span class="serif">{hero.titreSerif}</span></span></span>
+        <span class="ligne"><span><span class="marqueur">{hero.titreFin}</span></span></span>
+      </h1>
+
+      <p class="hero__intro">{hero.texte}</p>
+
+      <div class="hero__actions">
+        <Bouton href={lienDevis(langue)} variante="principal" iconeApres="fleche-diag" large class="hero__devis">
+          {hero.devisGratuit}
+        </Bouton>
+        <p class="hero__experience">
+          <span class="hero__experience-nombre">{entreprise.anneesExperience}</span>
+          <span class="hero__experience-texte">
+            <strong>{hero.experience}</strong>
+            {hero.experienceDetail}
+          </span>
+        </p>
+      </div>
+
+      <p class="hero__origine manuscrit">
+        <b>B</b>{hero.origine.b} <b>S</b>{hero.origine.s} {hero.origine.fin}
+      </p>
+    </div>
+
+    <div class="hero__visuel">
+      <MaisonCoupe langue={langue} />
+    </div>
+  </div>
+
+  <div class="wrap hero__bas">
+    <ul class="hero__puces" aria-label={textes.accueil.services.surtitre}>
+      {
+        services.map((service) => (
+          <li>
+            <a href={cheminService(service.slug, langue)} data-vers-piece={service.slug}>
+              {service.nom[langue]}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <a href="#suite" class="hero__defiler">
+      <span class="sr-only">{hero.defiler}</span>
+      <Icon nom="fleche" taille={18} class="hero__defiler-icone" />
+    </a>
+  </div>
+</section>
+
+<script>
+  // La puce du service éclairé dans la maison s'allume aussi.
+  document.addEventListener('piece', (evenement) => {
+    const slug = (evenement as CustomEvent<string | null>).detail;
+    document.querySelectorAll<HTMLElement>('[data-vers-piece]').forEach((puce) => {
+      puce.classList.toggle('actif', puce.dataset.versPiece === slug);
+    });
+  });
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    padding-top: calc(var(--header-h) + 36px);
+    padding-bottom: 40px;
+    overflow: hidden;
+    background-color: transparent;
+    border-radius: 0 0 var(--radius-large) var(--radius-large);
+    transition: background-color var(--speed-slow) var(--ease);
+  }
+
+  /*
+    Mode nuit (le visiteur clique sur le soleil) : fond bleu nuit, et les
+    couleurs du site s'inversent pour tout ce qui est dans le haut de page.
+  */
+  .hero--nuit {
+    background-color: var(--color-nuit);
+    --color-ink: #f5f2ec;
+    --color-on-ink: #0f1626;
+    --color-text: #c9ccd3;
+    --color-muted: #a3a8b3;
+    --color-border: rgba(245, 242, 236, 0.22);
+    --color-accent: #8cc4ff;
+  }
+
+  /* La nuit, le surlignage devient un bloc jaune plein : texte sombre lisible en entier. */
+  .hero--nuit .hero__titre .marqueur {
+    color: #0f1626;
+    background: var(--color-signal);
+  }
+
+  /* Boutons de nuit : le bouton principal devient une lumière jaune. */
+  .hero--nuit :global(.bouton--principal) {
+    background: var(--color-signal);
+    color: #0f1626;
+  }
+
+  .hero--nuit :global(.bouton--principal:hover) {
+    background: #ffcb1f;
+  }
+
+  .hero--nuit :global(.bouton--principal .bouton__pastille) {
+    background: #0f1626;
+    color: var(--color-signal);
+  }
+
+  .hero--nuit .hero__puces a {
+    background: transparent;
+  }
+
+  .hero--nuit .hero__puces a:hover,
+  .hero--nuit .hero__puces a.actif {
+    background: var(--color-signal);
+    color: #0f1626;
+  }
+
+  .hero--nuit .hero__grille {
+    opacity: 0.35;
+  }
+
+  .hero__titre,
+  .hero__intro,
+  .hero__puces a,
+  .etiquette-section,
+  .hero__defiler {
+    transition: color var(--speed-slow) var(--ease);
+  }
+
+  /* Papier millimétré, qui s'efface vers le bas et la gauche. */
+  .hero__grille {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0, 102, 180, 0.09) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 102, 180, 0.09) 1px, transparent 1px),
+      linear-gradient(rgba(0, 102, 180, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 102, 180, 0.045) 1px, transparent 1px);
+    background-size:
+      80px 80px,
+      80px 80px,
+      16px 16px,
+      16px 16px;
+    mask-image: radial-gradient(ellipse 70% 80% at 72% 45%, #000 30%, transparent 78%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 80% at 72% 45%, #000 30%, transparent 78%);
+    pointer-events: none;
+  }
+
+  .hero__interieur {
+    position: relative;
+    display: grid;
+    gap: 36px;
+  }
+
+  .hero__texte {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 26px;
+  }
+
+  .hero__titre {
+    font-size: var(--size-display);
+    line-height: 0.92;
+    letter-spacing: -0.05em;
+  }
+
+  .hero__titre .ligne {
+    display: block;
+    overflow: clip;
+    overflow-clip-margin: 0.25em;
+    padding-bottom: 0.04em;
+  }
+
+  .hero__titre .ligne > span {
+    display: inline-block;
+  }
+
+  .hero__titre .serif {
+    font-size: 1.08em;
+    line-height: 0.8;
+    color: var(--color-accent);
+  }
+
+  .hero__intro {
+    max-width: 34ch;
+    font-size: var(--size-lead);
+    line-height: 1.5;
+    color: var(--color-text);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px 32px;
+  }
+
+  /* Téléphone et tablette : le dock du bas propose déjà le devis, pas de doublon ici. */
+  @media (max-width: 1023px) {
+    .hero__actions :global(.hero__devis) {
+      display: none;
+    }
+  }
+
+  /* Les années de métier, en grand à côté du bouton. */
+  .hero__experience {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0;
+  }
+
+  .hero__experience-nombre {
+    font-family: var(--font-title);
+    font-size: clamp(64px, 6vw, 88px);
+    font-weight: 800;
+    line-height: 0.8;
+    letter-spacing: -0.06em;
+    color: var(--color-accent);
+  }
+
+  .hero__experience-texte {
+    display: flex;
+    flex-direction: column;
+    font-size: var(--size-small);
+    line-height: 1.25;
+    color: var(--color-muted);
+  }
+
+  /* D'où vient le nom : B comme Bivol, S comme Sergiu. */
+  .hero__origine {
+    margin: -8px 0 0;
+    font-size: 24px;
+    line-height: 1.2;
+    color: var(--color-accent);
+    transform: rotate(-1.5deg);
+    transform-origin: left;
+  }
+
+  .hero__origine b {
+    padding: 0 3px;
+    font-weight: 700;
+    color: #0f1626;
+    background: linear-gradient(transparent 45%, var(--color-signal) 45%, var(--color-signal) 90%, transparent 90%);
+  }
+
+  .hero__experience-texte strong {
+    font-family: var(--font-title);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+  }
+
+  /* Sur mobile, le dessin prend toute la largeur de l'écran. */
+  .hero__visuel {
+    position: relative;
+    margin-inline: calc(var(--gutter) * -1 + 4px);
+  }
+
+  /* --- Bas du hero : puces de services et invitation à défiler --- */
+  .hero__bas {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 36px;
+  }
+
+  .hero__puces {
+    display: flex;
+    gap: 8px;
+    margin: 0 calc(var(--gutter) * -1);
+    padding: 4px var(--gutter);
+    list-style: none;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .hero__puces::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hero__puces a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 16px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    background: rgba(245, 242, 236, 0.7);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-ink);
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      background-color 300ms var(--ease),
+      border-color 300ms var(--ease);
+  }
+
+  .hero__puces a:hover,
+  .hero__puces a.actif {
+    background: var(--color-signal);
+    border-color: var(--color-signal);
+  }
+
+  .hero__defiler {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: calc(var(--header-h) + 24px);
+      padding-bottom: 32px;
+    }
+
+    .hero__interieur {
+      grid-template-columns: minmax(0, 11fr) minmax(0, 13fr);
+      align-items: center;
+      gap: 24px;
+    }
+
+    .hero__visuel {
+      margin: 0;
+    }
+
+    /* Puces un peu plus compactes : tous les métiers tiennent sur une ligne (FR et NL). */
+    .hero__bas {
+      gap: 16px;
+    }
+
+    .hero__puces {
+      flex-wrap: wrap;
+      gap: 5px;
+      margin: 0;
+      padding: 0;
+      overflow: visible;
+    }
+
+    .hero__puces a {
+      padding: 0 11px;
+      font-size: 13px;
+    }
+
+    /* L'invitation à défiler : une pastille ronde avec la flèche, au bout de la ligne. */
+    .hero__defiler {
+      display: inline-grid;
+      place-items: center;
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--color-border);
+      border-radius: 50%;
+      color: var(--color-ink);
+      transition:
+        background-color 300ms var(--ease),
+        border-color 300ms var(--ease),
+        color var(--speed-slow) var(--ease);
+    }
+
+    .hero__defiler:hover {
+      background: var(--color-signal);
+      border-color: var(--color-signal);
+      color: #0f1626;
+    }
+
+    :global(.hero__defiler-icone) {
+      transform: rotate(90deg);
+    }
+  }
+
+  @media (min-width: 1400px) {
+    .hero__visuel {
+      margin-right: 0;
+    }
+  }
+
+  /* --- L'arrivée --- */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__titre .ligne > span {
+      animation: monter 1100ms var(--ease-out) backwards;
+    }
+
+    .hero__titre .ligne:nth-child(1) > span { animation-delay: 80ms; }
+    .hero__titre .ligne:nth-child(2) > span { animation-delay: 180ms; }
+    .hero__titre .ligne:nth-child(3) > span { animation-delay: 280ms; }
+
+    .hero__titre .marqueur {
+      background-size: 0% 100%;
+      background-repeat: no-repeat;
+      animation: surligner 900ms var(--ease-out) 1000ms forwards;
+    }
+
+    .hero__intro,
+    .hero__actions,
+    .hero__origine,
+    .hero__bas {
+      animation: fondu 1000ms var(--ease-out) backwards;
+    }
+
+    .hero__origine { animation-delay: 700ms; }
+
+    .hero__intro { animation-delay: 420ms; }
+    .hero__actions { animation-delay: 520ms; }
+    .hero__bas { animation-delay: 1600ms; }
+
+    @keyframes monter {
+      from {
+        transform: translateY(110%);
+      }
+    }
+
+    @keyframes fondu {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+    }
+
+    @keyframes surligner {
+      to {
+        background-size: 100% 100%;
+      }
+    }
+
+    /* La flèche descend doucement, puis revient. */
+    :global(.hero__defiler-icone) {
+      animation: descendre 2.2s var(--ease) infinite;
+    }
+
+    @keyframes descendre {
+      0%,
+      60%,
+      100% {
+        translate: 0 0;
+      }
+      30% {
+        translate: 0 4px;
+      }
+    }
+  }
+</style>

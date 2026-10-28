@@ -1,0 +1,13 @@
+# Photos envoyées par Claudiu. Numéro de maison masqué sur les deux photos.
+# Commune confirmée le 28 septembre 2026.
+commune:
+  fr: Woluwe-Saint-Pierre
+  nl: Sint-Pieters-Woluwe
+ordre: 1
+avantApres:
+  - avant: ../../assets/projets/renovation-maison-58/avant-1.jpg
+    apres: ../../assets/projets/renovation-maison-58/apres-1.jpg
+    legende:
+      fr: Façade avant, du début du chantier aux baies neuves et à l'entrée carrelée
+      nl: Voorgevel, van het begin van de werf tot nieuwe ramen en betegelde ingang
+    categorie: maison

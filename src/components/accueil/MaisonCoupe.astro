@@ -1,0 +1,1466 @@
+---
+/**
+ * La maison dessinée en coupe, comme sur un plan d'architecte.
+ *
+ * - Les traits se dessinent à l'arrivée (coupé si « réduire les animations »).
+ * - Une petite visite guidée éclaire les pièces une à une, avec une
+ *   annotation à la main, jusqu'à ce que la personne touche le dessin.
+ * - Un clic sur une pièce ouvre sa fiche (sans changer de page) : son métier,
+ *   un petit avant/après à faire glisser, puis « Voir ce métier ».
+ *   On passe d'une pièce à l'autre à volonté. Sans JavaScript, chaque pièce
+ *   reste un vrai lien vers son métier.
+ *
+ * Tout est dessiné ici, en SVG : aucune photo, aucune image générée.
+ */
+import { Image } from 'astro:assets';
+import Bouton from '../Bouton.astro';
+import CurseurAvantApres from '../CurseurAvantApres.astro';
+import Icon from '../Icon.astro';
+import { nomCategorie } from '~/data/categories';
+import { pairesDeLaCategorie, pairesDuService, photoSeuleParService } from '~/data/projets';
+import { cheminService, services } from '~/data/services';
+import { chemin, t, type Langue } from '~/i18n';
+
+interface Props {
+  langue: Langue;
+}
+
+const { langue } = Astro.props;
+const textes = t(langue);
+const hero = textes.accueil.hero;
+const pieces = hero.pieces;
+const lien = (slug: string) => cheminService(slug, langue);
+/** La cave n'est pas un métier : elle mène à son avant/après. */
+const lienCave = `${chemin('realisations', langue)}#cave`;
+/** La porte d'entrée et sa petite toiture mènent aux avant/après « Petite toiture ». */
+const lienAuvent = `${chemin('realisations', langue)}#auvent`;
+const lienAllee = `${chemin('realisations', langue)}#allee`;
+
+/** L'ordre de la visite guidée. */
+const visite = [
+  'toiture',
+  'salles-de-bain',
+  'electricite',
+  'peinture-finitions',
+  'cuisines',
+  'carrelage',
+  'escaliers',
+  'terrasses',
+  'cave',
+  'plomberie',
+  'auvent',
+  'allee',
+  'maconnerie-extensions',
+  'renovation-complete',
+];
+
+/*
+ * La fiche de chaque pièce. Les pièces qui ne sont pas un métier (cave, petite
+ * toiture, allée) montrent leurs propres avant/après et renvoient au métier concerné.
+ */
+const PIECES_HORS_METIER: Record<string, { categorie: string; metier: string }> = {
+  cave: { categorie: 'cave', metier: 'carrelage' },
+  auvent: { categorie: 'auvent', metier: 'toiture' },
+  allee: { categorie: 'allee', metier: 'terrasses' },
+};
+const fiches = (
+  await Promise.all(
+    visite.map(async (slug) => {
+      const horsMetier = PIECES_HORS_METIER[slug];
+      const metier = services.find((service) => service.slug === (horsMetier?.metier ?? slug));
+      if (!metier) return null;
+      const paires = horsMetier ? await pairesDeLaCategorie(horsMetier.categorie) : await pairesDuService(slug);
+      return {
+        slug,
+        surtitre: slug === 'renovation-complete' ? hero.maisonTout : (pieces as Record<string, string>)[slug],
+        titre: horsMetier ? (nomCategorie(horsMetier.categorie, langue) ?? metier.nom[langue]) : metier.nom[langue],
+        texte: horsMetier ? hero.fiches[slug as keyof typeof hero.fiches] : metier.phrase[langue],
+        paire: paires[0],
+        photo: photoSeuleParService[slug],
+        lien: lien(metier.slug),
+      };
+    }),
+  )
+).filter((fiche) => fiche !== null);
+---
+
+<figure class="maison" data-maison data-visite={visite.join(',')}>
+  <svg
+    class="maison__svg"
+    viewBox="0 0 720 710"
+    data-maison-svg
+    role="group"
+    aria-label={hero.maisonAria}
+  >
+    <defs>
+      <pattern id="hachures" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <line x1="0" y1="0" x2="0" y2="7" class="hachure" />
+      </pattern>
+      <pattern id="carreaux" width="14" height="14" patternUnits="userSpaceOnUse" x="176" y="336">
+        <path d="M14 0H0V14" class="joint" />
+      </pattern>
+    </defs>
+
+    <!-- ===================== Le dessin (décoratif) ===================== -->
+    <g class="dessin" aria-hidden="true">
+      <!-- Soleil (jour) / lune et étoiles (nuit) -->
+      <g class="astre astre--soleil">
+        <g class="t-groupe" style="--d: 1900">
+          <circle cx="96" cy="74" r="20" pathLength="1" class="t" />
+          <path d="M96 38v-10M96 120v-10M60 74H50M142 74h-10M71 49l-7-7M128 106l-7-7M71 99l-7 7M128 42l-7 7" pathLength="1" class="t t--fin" />
+        </g>
+      </g>
+      <g class="astre astre--lune">
+        <path class="lune" d="M104 50a26 26 0 1 0 22 36a21 21 0 1 1-22-36z" />
+      </g>
+      <g class="etoiles">
+        <path style="--e: 0" d="M182 40v12M176 46h12" />
+        <path style="--e: 1" d="M252 92v8M248 96h8" />
+        <path style="--e: 2" d="M36 150v10M31 155h10" />
+        <path style="--e: 3" d="M470 40v12M464 46h12" />
+        <path style="--e: 4" d="M600 96v8M596 100h8" />
+        <path style="--e: 5" d="M680 40v10M675 45h10" />
+        <path style="--e: 6" d="M150 20v8M146 24h8" />
+      </g>
+
+      <!-- Sol -->
+      <g class="t-groupe" style="--d: 0">
+        <path d="M8 560H150M570 560H712" pathLength="1" class="t" />
+        <rect x="140" y="560" width="440" height="18" class="mur-plein" />
+        <rect x="140" y="560" width="440" height="18" pathLength="1" class="t" />
+        <path d="M648 560l3-8M656 560l-3-9M700 560l4-9M708 560l-2-7" pathLength="1" class="t t--fin" />
+      </g>
+
+      <!-- Cave (sous-sol) : chauffe-eau, gaines, étagères, sol carrelé -->
+      <g class="t-groupe" style="--d: 300">
+        <path d="M24 596l6 4M70 628l6 4M36 664l6 4M112 604l6 4M96 684l6 4M606 598l6 4M660 630l6 4M622 672l6 4M690 690l6 4" pathLength="1" class="t t--fin terre" />
+        <rect x="150" y="578" width="14" height="92" class="mur-plein" />
+        <rect x="556" y="578" width="14" height="92" class="mur-plein" />
+        <rect x="150" y="660" width="420" height="10" class="mur-plein" />
+        <rect x="150" y="578" width="14" height="92" pathLength="1" class="t" />
+        <rect x="556" y="578" width="14" height="92" pathLength="1" class="t" />
+        <rect x="150" y="660" width="420" height="10" pathLength="1" class="t" />
+        <rect x="164" y="652" width="392" height="8" class="sol-carrele" />
+        <path d="M164 652h392M192 652v8M220 652v8M248 652v8M276 652v8M304 652v8M332 652v8M360 652v8M388 652v8M416 652v8M444 652v8M472 652v8M500 652v8M528 652v8" pathLength="1" class="t t--fin" />
+        <rect x="186" y="598" width="30" height="54" rx="10" pathLength="1" class="t" />
+        <path d="M194 598v-8h14v8M201 590v-8h44" pathLength="1" class="t t--fin" />
+        <path d="M236 582h160M236 594h160M252 582v12M268 582v12M284 582v12M300 582v12M316 582v12M332 582v12M348 582v12M364 582v12M380 582v12" pathLength="1" class="t t--fin" />
+        <path d="M420 578v10" pathLength="1" class="t t--fin" />
+        <circle cx="420" cy="592" r="4" pathLength="1" class="t t--fin" />
+        <path d="M468 604h72M468 628h72M474 604v48M534 604v48" pathLength="1" class="t" />
+        <rect x="480" y="592" width="18" height="12" pathLength="1" class="t t--fin" />
+        <rect x="504" y="616" width="24" height="12" pathLength="1" class="t t--fin" />
+      </g>
+
+      <!-- Murs porteurs (hachurés : la maçonnerie coupée) -->
+      <g class="t-groupe" style="--d: 150">
+        <rect x="150" y="300" width="14" height="260" class="mur-plein" />
+        <rect x="556" y="300" width="14" height="260" class="mur-plein" />
+        <rect x="150" y="300" width="14" height="260" pathLength="1" class="t" />
+        <rect x="556" y="300" width="14" height="260" pathLength="1" class="t" />
+      </g>
+
+      <!-- Côté rue (à gauche) : porte d'entrée et sa petite toiture -->
+      <g class="t-groupe" style="--d: 1600">
+        <rect x="148" y="490" width="18" height="58" class="porte-fond" />
+        <rect x="148" y="490" width="18" height="58" pathLength="1" class="t" />
+        <rect x="153" y="498" width="8" height="14" class="lumiere" />
+        <rect x="153" y="498" width="8" height="14" pathLength="1" class="t t--fin" />
+        <circle cx="152" cy="522" r="1.6" class="poignee" />
+        <path d="M150 474l-42 10v8l42-4z" class="auvent-toit" />
+        <path d="M150 474l-42 10v8l42-4z" pathLength="1" class="t" />
+        <path d="M150 500l-22-9" pathLength="1" class="t t--fin" />
+      </g>
+
+      <!-- Côté rue : allée pavée -->
+      <g class="t-groupe" style="--d: 1700">
+        <rect x="0" y="552" width="150" height="8" class="sol-carrele" />
+        <path d="M0 552h150M12 552v8M24 552v8M36 552v8M48 552v8M60 552v8M72 552v8M84 552v8M96 552v8M108 552v8M120 552v8M132 552v8M144 552v8" pathLength="1" class="t t--fin" />
+      </g>
+
+      <!-- Dalles et cloisons -->
+      <g class="t-groupe" style="--d: 450">
+        <rect x="164" y="300" width="392" height="10" pathLength="1" class="t" />
+        <rect x="164" y="428" width="392" height="10" pathLength="1" class="t" />
+        <rect x="360" y="310" width="8" height="52" pathLength="1" class="t" />
+        <rect x="378" y="438" width="8" height="54" pathLength="1" class="t" />
+      </g>
+
+      <!-- Toiture et charpente -->
+      <g class="t-groupe" style="--d: 650">
+        <path d="M130 302L360 118L590 302" pathLength="1" class="t t--epais" />
+        <path d="M164 300L360 143L556 300" pathLength="1" class="t" />
+        <path d="M147 301L360 130.5L573 301" pathLength="1" class="t t--tuiles" />
+        <path d="M250 231H470M360 143V231" pathLength="1" class="t t--fin" />
+        <rect x="-16" y="-6" width="32" height="12" transform="translate(250 205) rotate(-38.66)" class="lumiere" />
+        <rect x="-16" y="-6" width="32" height="12" transform="translate(250 205) rotate(-38.66)" pathLength="1" class="t" />
+      </g>
+
+      <!-- Cheminée et fumée -->
+      <g class="t-groupe" style="--d: 900">
+        <path d="M480 214V176H510V238" pathLength="1" class="t" />
+        <path d="M474 176H516M480 188H510M480 200H510M495 176v12M488 188v12M502 188v12" pathLength="1" class="t t--fin" />
+        <path d="M494 166c-8-16 12-26 2-42s6-26 0-38" pathLength="1" class="t t--fin fumee" />
+      </g>
+
+      <!-- Salle de bain -->
+      <g class="t-groupe" style="--d: 1050">
+        <rect x="176" y="336" width="100" height="56" class="carreaux" />
+        <rect x="176" y="336" width="100" height="56" pathLength="1" class="t t--fin" />
+        <rect x="172" y="392" width="110" height="26" rx="10" pathLength="1" class="t" />
+        <path d="M186 418v8M268 418v8" pathLength="1" class="t" />
+        <path d="M262 318v18M250 336h24" pathLength="1" class="t" />
+        <path d="M254 344v8M262 346v10M270 344v8" pathLength="1" class="t t--eau" />
+        <path d="M298 384h48q-2 18-24 18t-24-18z" pathLength="1" class="t" />
+        <path d="M322 402v26" pathLength="1" class="t" />
+        <ellipse cx="322" cy="350" rx="14" ry="20" pathLength="1" class="t" />
+      </g>
+
+      <!-- Chambre : lit, lampe, mur fraîchement peint -->
+      <g class="t-groupe" style="--d: 1250">
+        <rect x="482" y="318" width="70" height="110" class="peint" />
+        <rect x="380" y="404" width="90" height="16" rx="3" pathLength="1" class="t" />
+        <rect x="386" y="394" width="24" height="10" rx="4" pathLength="1" class="t" />
+        <path d="M376 384v44M386 420v8M464 420v8" pathLength="1" class="t" />
+        <path d="M408 340h24l26 64h-76z" class="halo" />
+        <path d="M420 310v18M408 340l6-12h12l6 12z" pathLength="1" class="t" />
+        <rect x="492" y="340" width="28" height="12" rx="4" pathLength="1" class="t" />
+        <path d="M520 346h6v18l-10 8v56" pathLength="1" class="t" />
+        <rect x="556" y="330" width="14" height="60" class="vitre" />
+        <rect x="556" y="330" width="14" height="60" class="lumiere" />
+        <path d="M556 330h14v60h-14zM563 330v60" pathLength="1" class="t t--fin" />
+      </g>
+
+      <!-- Cuisine -->
+      <g class="t-groupe" style="--d: 1400">
+        <rect x="172" y="452" width="90" height="30" pathLength="1" class="t" />
+        <path d="M217 452v30" pathLength="1" class="t t--fin" />
+        <path d="M274 438v28h16v-28M264 478l10-12h16l10 12z" pathLength="1" class="t" />
+        <path d="M168 514h166" pathLength="1" class="t t--epais" />
+        <rect x="172" y="514" width="158" height="46" pathLength="1" class="t" />
+        <path d="M224 514v46M276 514v46M214 526v10M234 526v10M286 526v10" pathLength="1" class="t t--fin" />
+        <path d="M272 496v14h20v-14M268 496h28" pathLength="1" class="t" />
+        <path d="M278 488c-4-6 4-8 0-14M288 488c-4-6 4-8 0-14" pathLength="1" class="t t--fin fumee" />
+        <rect x="338" y="470" width="34" height="90" rx="3" pathLength="1" class="t" />
+        <path d="M338 500h34M366 478v12M366 508v14" pathLength="1" class="t t--fin" />
+      </g>
+
+      <!-- Séjour : escalier, sol carrelé, tableau électrique -->
+      <g class="t-groupe" style="--d: 1550">
+        <rect x="386" y="548" width="170" height="12" class="sol-carrele" />
+        <path d="M386 548h170M403 548v12M420 548v12M437 548v12M454 548v12M471 548v12M488 548v12M505 548v12M522 548v12M539 548v12" pathLength="1" class="t t--fin" />
+        <path d="M548 548v-13.75h-16v-13.75h-16v-13.75h-16v-13.75h-16v-13.75h-16v-13.75h-16v-13.75h-16V438" pathLength="1" class="t" />
+        <path d="M436 440l112 108" pathLength="1" class="t t--fin" />
+        <rect x="394" y="452" width="24" height="26" rx="2" pathLength="1" class="t" />
+        <path d="M409 456l-7 10h6l-4 8" pathLength="1" class="t t--fin" />
+        <path d="M406 452v-8h64v8" pathLength="1" class="t t--cable" />
+        <path d="M420 310v-6h60v6" pathLength="1" class="t t--cable" />
+        <circle cx="470" cy="458" r="6" pathLength="1" class="t" />
+      </g>
+
+      <!-- Jardin -->
+      <g class="t-groupe" style="--d: 1750">
+        <path d="M680 560v-72M680 516l-14-14M680 504l14-14" pathLength="1" class="t" />
+        <path d="M680 438c20 0 34 14 34 32s-14 30-34 30-34-12-34-30 14-32 34-32z" pathLength="1" class="t" />
+        <rect x="570" y="552" width="70" height="8" class="sol-carrele" />
+        <path d="M570 552h70M586 552v8M602 552v8M618 552v8" pathLength="1" class="t t--fin" />
+        <path d="M618 552l3-12h14l3 12M628 540c-6-8-3-16 0-20M628 540c5-6 9-9 13-11M628 540c-7-3-11-7-13-11" pathLength="1" class="t" />
+      </g>
+    </g>
+
+    <!-- ===================== Les pièces (liens) ===================== -->
+    <g class="pieces">
+      <a href={lien('renovation-complete')} class="piece" data-piece="renovation-complete" aria-label={textes.nav.services}>
+        <path class="zone" d="M150 560V302L360 118L570 302V560Z" />
+        <text x="16" y="186" class="note">{hero.maisonTout}</text>
+        <path class="fleche" d="M60 196c20 30 50 50 96 64" pathLength="1" />
+      </a>
+
+      <a href={lien('toiture')} class="piece" data-piece="toiture" aria-label={pieces.toiture}>
+        <path class="zone" d="M164 300L360 143L556 300Z" />
+        <circle class="point" cx="410" cy="212" r="11" />
+        <text x="560" y="98" class="note">{pieces.toiture}</text>
+        <path class="fleche" d="M572 110c-30 34-100 76-150 96" pathLength="1" />
+      </a>
+
+      <a href={lien('salles-de-bain')} class="piece" data-piece="salles-de-bain" aria-label={pieces['salles-de-bain']}>
+        <rect class="zone" x="164" y="310" width="196" height="118" />
+        <circle class="point" cx="226" cy="364" r="11" />
+        <text x="10" y="262" class="note">{pieces['salles-de-bain']}</text>
+        <path class="fleche" d="M90 274c28 46 76 78 122 88" pathLength="1" />
+      </a>
+
+      <a href={lien('electricite')} class="piece" data-piece="electricite" aria-label={pieces.electricite}>
+        <path class="zone" d="M408 340h24l38 88H370z" />
+        <circle class="point" cx="420" cy="364" r="11" />
+        <text x="576" y="288" class="note">{pieces.electricite}</text>
+        <path class="fleche" d="M590 298c-40 10-106 34-152 60" pathLength="1" />
+      </a>
+
+      <a href={lien('peinture-finitions')} class="piece" data-piece="peinture-finitions" aria-label={pieces['peinture-finitions']}>
+        <rect class="zone" x="482" y="318" width="70" height="110" />
+        <circle class="point" cx="510" cy="394" r="11" />
+        <text x="588" y="440" class="note">{pieces['peinture-finitions']}</text>
+        <path class="fleche" d="M600 420c-20-18-44-24-72-24" pathLength="1" />
+      </a>
+
+      <a href={lien('cuisines')} class="piece" data-piece="cuisines" aria-label={pieces.cuisines}>
+        <rect class="zone" x="164" y="438" width="214" height="122" />
+        <circle class="point" cx="250" cy="537" r="11" />
+        <text x="40" y="610" class="note">{pieces.cuisines}</text>
+        <path class="fleche" d="M150 590c30-8 60-24 86-44" pathLength="1" />
+      </a>
+
+      <a href={lien('escaliers')} class="piece" data-piece="escaliers" aria-label={pieces.escaliers}>
+        <path class="zone" d="M548 548V534.25H532V520.5H516V506.75H500V493H484V479.25H468V465.5H452V451.75H436V438Z" />
+        <circle class="point" cx="494" cy="494" r="11" />
+        <text x="592" y="512" class="note">{pieces.escaliers}</text>
+        <path class="fleche" d="M596 520c-26 6-60 -2-86-18" pathLength="1" />
+      </a>
+
+      <a href={lien('terrasses')} class="piece" data-piece="terrasses" aria-label={pieces.terrasses}>
+        <rect class="zone" x="570" y="552" width="70" height="8" />
+        <circle class="point" cx="596" cy="556" r="11" />
+        <text x="718" y="612" text-anchor="end" class="note">{pieces.terrasses}</text>
+        <path class="fleche" d="M612 590c-4-6-8-12-12-20" pathLength="1" />
+      </a>
+
+      <a href={lienCave} class="piece" data-piece="cave" aria-label={pieces.cave}>
+        <rect class="zone" x="228" y="578" width="328" height="74" />
+        <circle class="point" cx="330" cy="624" r="11" />
+        <text x="250" y="704" class="note">{pieces.cave}</text>
+        <path class="fleche" d="M292 682c10-14 22-30 32-44" pathLength="1" />
+      </a>
+
+      <a href={lien('plomberie')} class="piece" data-piece="plomberie" aria-label={pieces.plomberie}>
+        <rect class="zone" x="170" y="578" width="54" height="74" />
+        <circle class="point" cx="201" cy="622" r="11" />
+        <text x="30" y="704" class="note">{pieces.plomberie}</text>
+        <path class="fleche" d="M120 682c26-12 48-28 68-48" pathLength="1" />
+      </a>
+
+      <a href={lien('carrelage')} class="piece" data-piece="carrelage" aria-label={pieces.carrelage}>
+        <rect class="zone" x="386" y="548" width="170" height="12" />
+        <circle class="point" cx="455" cy="554" r="11" />
+        <text x="582" y="612" class="note">{pieces.carrelage}</text>
+        <path class="fleche" d="M590 590c-40 0-92-10-120-24" pathLength="1" />
+      </a>
+
+      <a href={lien('maconnerie-extensions')} class="piece" data-piece="maconnerie-extensions" aria-label={pieces['maconnerie-extensions']}>
+        <rect class="zone" x="150" y="300" width="14" height="260" />
+        <rect class="zone" x="556" y="300" width="14" height="260" />
+        <path class="zone" d="M480 214V176H510V238Z" />
+        <circle class="point" cx="157" cy="362" r="11" />
+        <text x="8" y="404" class="note">{pieces['maconnerie-extensions']}</text>
+        <path class="fleche" d="M66 390c28-4 54-12 80-24" pathLength="1" />
+      </a>
+
+      <a href={lienAuvent} class="piece" data-piece="auvent" aria-label={pieces.auvent}>
+        <path class="zone" d="M150 474l-42 10v8l42-4z" />
+        <rect class="zone" x="148" y="490" width="18" height="58" />
+        <circle class="point" cx="118" cy="460" r="11" />
+        <text x="6" y="436" class="note">{pieces.auvent}</text>
+        <path class="fleche" d="M62 444c14 4 28 8 42 12" pathLength="1" />
+      </a>
+
+      <a href={lienAllee} class="piece" data-piece="allee" aria-label={pieces.allee}>
+        <rect class="zone" x="0" y="552" width="150" height="8" />
+        <circle class="point" cx="126" cy="556" r="11" />
+        <text x="20" y="640" class="note">{pieces.allee}</text>
+        <path class="fleche" d="M70 618c16-16 30-32 46-50" pathLength="1" />
+      </a>
+    </g>
+  </svg>
+
+  <button
+    type="button"
+    class="maison__astre"
+    aria-pressed="false"
+    aria-label={hero.nuit}
+    data-astre
+    data-label-nuit={hero.nuit}
+    data-label-jour={hero.jour}
+  ></button>
+  <span class="maison__note-astre manuscrit" aria-hidden="true">
+    <svg width="30" height="22" viewBox="0 0 30 22" fill="none"><path d="M28 18C20 18 8 14 3 4M3 4l1 8M3 4l8 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+    <span class="maison__note-nuit">{hero.noteNuit}</span>
+    <span class="maison__note-jour">{hero.noteJour}</span>
+  </span>
+
+  <p class="maison__legende manuscrit" aria-hidden="true" data-legende></p>
+
+  <!-- Les fiches des pièces (une seule visible à la fois) -->
+  <div class="fiches" data-fiches aria-live="polite">
+    {
+      fiches.map((fiche) => (
+        <section class="fiche" data-fiche={fiche.slug} hidden tabindex="-1" aria-labelledby={`fiche-${fiche.slug}`}>
+          <button type="button" class="fiche__fermer" data-fiche-fermer aria-label={hero.ficheFermer}>
+            <Icon nom="croix" taille={18} epaisseur={2.4} />
+          </button>
+          <p class="fiche__surtitre manuscrit">{fiche.surtitre}</p>
+          <h3 id={`fiche-${fiche.slug}`} class="fiche__titre">{fiche.titre}</h3>
+          <p class="fiche__texte">{fiche.texte}</p>
+          {fiche.paire ? (
+            <div class="fiche__photo">
+              <CurseurAvantApres langue={langue} paire={fiche.paire} idSuffixe={`-maison-${fiche.slug}`} sizes="320px" />
+            </div>
+          ) : fiche.photo ? (
+            <div class="fiche__photo fiche__photo--seule">
+              <Image src={fiche.photo.image} alt={fiche.photo.legende[langue]} widths={[400, 640]} width={640} quality={62} sizes="320px" loading="lazy" />
+              <span class="fiche__badge">{hero.fichePhotoSeule}</span>
+            </div>
+          ) : null}
+          <div class="fiche__actions">
+            <Bouton href={fiche.lien} variante="principal" iconeApres="fleche">{hero.fichePlus}</Bouton>
+          </div>
+          <p class="fiche__astuce manuscrit" aria-hidden="true">{hero.ficheAutre}</p>
+        </section>
+      ))
+    }
+  </div>
+
+  <!-- La flèche pointe vers la maison (en haut à gauche), jamais vers l'extérieur. -->
+  <figcaption class="maison__aide manuscrit" aria-hidden="true">
+    <svg width="34" height="24" viewBox="0 0 34 24" fill="none"><path d="M32 20C24 20 10 16 4 4M4 4l8 2M4 4l-1 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+    <span class="maison__aide-touch">{hero.maisonAide}</span>
+    <span class="maison__aide-souris">{hero.maisonAideSouris}</span>
+  </figcaption>
+</figure>
+
+<script is:inline>
+  // Sur mobile, le dessin est recadré sur la maison (plus grande), dès l'affichage.
+  (function () {
+    var svg = document.querySelector('[data-maison-svg]');
+    if (!svg) return;
+    var cadrer = function () {
+      var mobile = window.matchMedia('(max-width: 599px)').matches;
+      var vb = mobile ? [40, 36, 624, 660] : [0, 0, 720, 710];
+      svg.setAttribute('viewBox', vb.join(' '));
+      var m = svg.closest('[data-maison]');
+      m.style.setProperty('--vb-x', vb[0]);
+      m.style.setProperty('--vb-y', vb[1]);
+      m.style.setProperty('--vb-w', vb[2]);
+      m.style.setProperty('--vb-h', vb[3]);
+    };
+    cadrer();
+    window.matchMedia('(max-width: 599px)').addEventListener('change', cadrer);
+  })();
+</script>
+
+<script>
+  import { defilerDe } from '~/scripts/site';
+
+  /* --- Jour / nuit : le soleil (ou la lune) est un bouton --- */
+  document.querySelectorAll<HTMLButtonElement>('[data-astre]').forEach((bouton) => {
+    const hero = bouton.closest('.hero') ?? bouton.closest('[data-maison]');
+    const entete = document.querySelector<HTMLElement>('[data-entete]');
+    const enteteDejaFonce = entete?.classList.contains('entete--sur-fonce') ?? false;
+    bouton.addEventListener('click', () => {
+      const nuit = bouton.getAttribute('aria-pressed') !== 'true';
+      bouton.setAttribute('aria-pressed', String(nuit));
+      bouton.setAttribute('aria-label', (nuit ? bouton.dataset.labelJour : bouton.dataset.labelNuit) ?? '');
+      hero?.classList.toggle('hero--nuit', nuit);
+      // L'en-tête passe en clair tant qu'il est posé sur le haut de page sombre.
+      if (entete && !enteteDejaFonce) entete.classList.toggle('entete--sur-fonce', nuit);
+      entete?.classList.toggle('entete--nuit', nuit);
+    });
+  });
+
+  document.querySelectorAll<HTMLElement>('[data-maison]').forEach((maison) => {
+    const pieces = new Map<string, Element>();
+    maison.querySelectorAll('[data-piece]').forEach((el) => pieces.set(el.getAttribute('data-piece') ?? '', el));
+    const ordre = (maison.dataset.visite ?? '').split(',').filter((slug) => pieces.has(slug));
+    const calme = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let courant = -1;
+    let minuterie: number | undefined;
+    let enPause = false;
+
+    const legende = maison.querySelector<HTMLElement>('[data-legende]');
+    const activer = (slug: string | null) => {
+      pieces.forEach((el, cle) => el.classList.toggle('actif', cle === slug));
+      const note = slug ? pieces.get(slug)?.querySelector('.note')?.textContent : '';
+      if (legende) legende.textContent = note ? `→ ${note}` : '';
+      maison.classList.toggle('a-une-piece', slug !== null);
+      maison.dispatchEvent(new CustomEvent('piece', { detail: slug, bubbles: true }));
+    };
+
+    const suivante = () => {
+      if (enPause) return;
+      courant = (courant + 1) % ordre.length;
+      activer(ordre[courant]);
+    };
+
+    const demarrer = () => {
+      window.clearInterval(minuterie);
+      if (calme) return;
+      minuterie = window.setInterval(suivante, 2400);
+    };
+
+    // La visite commence quand le dessin est terminé.
+    maison.classList.add('pret');
+    if (!calme) window.setTimeout(() => { suivante(); demarrer(); }, 2600);
+
+    /* --- Les fiches : un clic sur une pièce ouvre la sienne, sans changer de page --- */
+    const fiches = new Map<string, HTMLElement>();
+    maison.querySelectorAll<HTMLElement>('[data-fiche]').forEach((el) => fiches.set(el.dataset.fiche ?? '', el));
+    const grandEcran = window.matchMedia('(min-width: 1024px)');
+    let ouverte: string | null = null;
+
+    /** Ordinateur : la fiche flotte à côté de la pièce. Téléphone : elle se glisse sous le dessin. */
+    const placer = () => {
+      const fiche = ouverte ? fiches.get(ouverte) : null;
+      if (!fiche) return;
+      if (!grandEcran.matches) {
+        fiche.style.left = '';
+        fiche.style.top = '';
+        return;
+      }
+      const point = pieces.get(ouverte ?? '')?.querySelector('.point') ?? pieces.get(ouverte ?? '');
+      if (!point) return;
+      const cadre = maison.getBoundingClientRect();
+      const p = point.getBoundingClientRect();
+      const px = p.left + p.width / 2 - cadre.left;
+      const py = p.top + p.height / 2 - cadre.top;
+      const l = fiche.offsetWidth;
+      const h = fiche.offsetHeight;
+      const aDroite = px < cadre.width / 2;
+      const x = aDroite ? px + 28 : px - l - 28;
+      const y = Math.min(Math.max(py - h / 2, 0), Math.max(0, cadre.height - h));
+      fiche.style.left = `${Math.round(Math.min(Math.max(x, -40), cadre.width - l + 40))}px`;
+      fiche.style.top = `${Math.round(y)}px`;
+      fiche.classList.toggle('fiche--gauche', !aDroite);
+    };
+
+    /** Une onde part du point de la pièce touchée. */
+    const onde = (slug: string) => {
+      const point = pieces.get(slug)?.querySelector<SVGCircleElement>('.point');
+      if (!point || calme) return;
+      const cercle = point.cloneNode() as SVGCircleElement;
+      cercle.setAttribute('class', 'onde');
+      point.parentNode?.insertBefore(cercle, point);
+      window.setTimeout(() => cercle.remove(), 900);
+    };
+
+    const fermer = (rendreFocus = false) => {
+      if (!ouverte) return;
+      const piece = pieces.get(ouverte) as HTMLElement | undefined;
+      fiches.get(ouverte)?.setAttribute('hidden', '');
+      pieces.forEach((el) => el.classList.remove('choisi'));
+      maison.classList.remove('fiche-ouverte');
+      document.body.classList.remove('fiche-maison');
+      ouverte = null;
+      enPause = false;
+      activer(null);
+      if (rendreFocus) piece?.focus();
+      window.setTimeout(() => { if (!ouverte) demarrer(); }, 3000);
+    };
+
+    const ouvrir = (slug: string, auClavier: boolean) => {
+      const fiche = fiches.get(slug);
+      if (!fiche) return false;
+      if (ouverte === slug) {
+        fermer();
+        return true;
+      }
+      if (ouverte) fiches.get(ouverte)?.setAttribute('hidden', '');
+      enPause = true;
+      window.clearInterval(minuterie);
+      courant = ordre.indexOf(slug);
+      ouverte = slug;
+      activer(slug);
+      pieces.forEach((el, cle) => el.classList.toggle('choisi', cle === slug));
+      maison.classList.add('fiche-ouverte');
+      fiche.removeAttribute('hidden');
+      fiche.classList.remove('fiche--entre');
+      void fiche.offsetWidth; // relance l'animation d'apparition
+      fiche.classList.add('fiche--entre');
+      placer();
+      onde(slug);
+      if (auClavier) fiche.focus({ preventScroll: true });
+      // Téléphone : la fiche monte du bas de l'écran.
+      // À la première ouverture, la maison remonte en haut de l'écran (le plus de pièces visibles) ;
+      // ensuite elle ne bouge plus, sauf si la pièce touchée est cachée sous la fiche.
+      const premiere = !document.body.classList.contains('fiche-maison');
+      document.body.classList.toggle('fiche-maison', !grandEcran.matches);
+      if (!grandEcran.matches) {
+        requestAnimationFrame(() => {
+          const dessin = maison.querySelector('.maison__svg')?.getBoundingClientRect();
+          const point = pieces.get(slug)?.querySelector('.point')?.getBoundingClientRect();
+          const haut = fiche.getBoundingClientRect().top;
+          if (!dessin || !point) return;
+          let decalage = premiere ? dessin.top - 16 : 0;
+          const basDuPoint = point.bottom - decalage;
+          if (basDuPoint > haut - 24) decalage += basDuPoint - (haut - 48);
+          if (Math.abs(decalage) > 8) defilerDe(decalage);
+        });
+      }
+      return true;
+    };
+
+    // Survol (souris) : la pièce s'éclaire ; la fiche ouverte reste en place.
+    pieces.forEach((el, slug) => {
+      el.addEventListener('pointerenter', (e) => {
+        if ((e as PointerEvent).pointerType !== 'mouse') return;
+        enPause = true;
+        window.clearInterval(minuterie);
+        activer(slug);
+      });
+      el.addEventListener('focus', () => {
+        enPause = true;
+        window.clearInterval(minuterie);
+        activer(slug);
+      });
+      el.addEventListener('click', (e) => {
+        if (ouvrir(slug, (e as MouseEvent).detail === 0)) e.preventDefault();
+      });
+    });
+
+    maison.addEventListener('pointerleave', (e) => {
+      if ((e as PointerEvent).pointerType !== 'mouse') return;
+      if (ouverte) {
+        activer(ouverte);
+        return;
+      }
+      if (!enPause) return;
+      enPause = false;
+      demarrer();
+    });
+
+    // Fermer : la croix, la touche Échap, ou un clic en dehors de la maison.
+    maison.querySelectorAll('[data-fiche-fermer]').forEach((bouton) => bouton.addEventListener('click', () => fermer(true)));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && ouverte) fermer(true);
+    });
+    document.addEventListener('click', (e) => {
+      if (ouverte && !maison.contains(e.target as Node)) fermer();
+    });
+
+    // Le lien de la fiche referme la fiche.
+    maison.querySelectorAll('[data-fiche] a').forEach((lien) => lien.addEventListener('click', () => fermer()));
+
+    window.addEventListener('resize', placer);
+    grandEcran.addEventListener('change', placer);
+
+    // Les puces de services à côté du dessin pilotent aussi la maison.
+    document.querySelectorAll<HTMLElement>('[data-vers-piece]').forEach((puce) => {
+      const slug = puce.dataset.versPiece ?? '';
+      puce.addEventListener('pointerenter', () => {
+        enPause = true;
+        window.clearInterval(minuterie);
+        activer(slug);
+      });
+      puce.addEventListener('pointerleave', () => {
+        enPause = false;
+        demarrer();
+      });
+    });
+
+    // Hors de l'écran, on arrête de tourner pour rien.
+    new IntersectionObserver(([entree]) => {
+      if (entree.isIntersecting) {
+        if (!enPause && courant >= 0) demarrer();
+      } else {
+        window.clearInterval(minuterie);
+      }
+    }).observe(maison);
+  });
+</script>
+
+<style>
+  .maison {
+    position: relative;
+    margin: 0;
+  }
+
+  .maison__svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  /* --- Les traits --- */
+  .t {
+    fill: none;
+    stroke: var(--color-ink);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .t--epais {
+    stroke-width: 3;
+  }
+
+  .t--fin {
+    stroke-width: 1.4;
+  }
+
+  .t--tuiles {
+    stroke-width: 1.4;
+    stroke-dasharray: 0.012 0.01;
+  }
+
+  .t--eau {
+    stroke: var(--color-accent);
+    stroke-width: 1.6;
+  }
+
+  .t--cable {
+    stroke: var(--color-accent);
+    stroke-width: 1.6;
+    stroke-dasharray: 0.04 0.03;
+  }
+
+  .hachure {
+    stroke: var(--color-ink);
+    stroke-width: 1.1;
+  }
+
+  .joint {
+    fill: none;
+    stroke: var(--color-ink);
+    stroke-width: 0.8;
+    opacity: 0.55;
+  }
+
+  .mur-plein {
+    fill: url(#hachures);
+  }
+
+  .carreaux {
+    fill: url(#carreaux);
+  }
+
+  .peint {
+    fill: var(--color-accent);
+    opacity: 0.12;
+  }
+
+  .vitre {
+    fill: #dfeaf5;
+  }
+
+  .porte-fond {
+    fill: var(--color-bg);
+    transition: fill var(--speed-slow) var(--ease);
+  }
+
+  .auvent-toit {
+    fill: var(--color-surface-2);
+    transition: fill var(--speed-slow) var(--ease);
+  }
+
+  .poignee {
+    fill: var(--color-ink);
+  }
+
+  :global(.hero--nuit) .porte-fond {
+    fill: var(--color-nuit);
+  }
+
+  :global(.hero--nuit) .auvent-toit {
+    fill: rgba(245, 242, 236, 0.12);
+  }
+
+  /* --- Jour / nuit --- */
+  .t,
+  .hachure,
+  .joint {
+    transition: stroke var(--speed-slow) var(--ease);
+  }
+
+  .astre {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition:
+      opacity var(--speed-slow) var(--ease),
+      transform var(--speed-slow) var(--ease-out);
+  }
+
+  .astre--lune {
+    opacity: 0;
+    transform: rotate(-40deg) scale(0.6);
+  }
+
+  .lune {
+    fill: #ffe9a8;
+    stroke: var(--color-signal);
+    stroke-width: 2;
+    filter: drop-shadow(0 0 14px rgba(255, 212, 71, 0.55));
+  }
+
+  .etoiles path {
+    fill: none;
+    stroke: var(--color-signal);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    opacity: 0;
+    transition: opacity var(--speed-slow) var(--ease);
+    transition-delay: calc(var(--e) * 80ms);
+  }
+
+  .lumiere,
+  .halo {
+    opacity: 0;
+    transition: opacity var(--speed-slow) var(--ease) 300ms;
+  }
+
+  .lumiere {
+    fill: var(--color-signal);
+    filter: drop-shadow(0 0 8px rgba(255, 212, 71, 0.9));
+  }
+
+  .halo {
+    fill: var(--color-signal);
+  }
+
+  :global(.hero--nuit) .astre--soleil {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.5);
+  }
+
+  :global(.hero--nuit) .astre--lune {
+    opacity: 1;
+    transform: none;
+  }
+
+  :global(.hero--nuit) .etoiles path {
+    opacity: 1;
+  }
+
+  :global(.hero--nuit) .lumiere {
+    opacity: 1;
+  }
+
+  :global(.hero--nuit) .halo {
+    opacity: 0.22;
+  }
+
+  :global(.hero--nuit) .vitre {
+    fill: var(--color-signal);
+  }
+
+  :global(.hero--nuit) .sol-carrele {
+    fill: rgba(245, 242, 236, 0.12);
+  }
+
+  :global(.hero--nuit) .peint {
+    opacity: 0.25;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.hero--nuit) .etoiles path {
+      animation: scintille 2.8s ease-in-out infinite;
+      animation-delay: calc(var(--e) * 0.4s + 1s);
+    }
+
+    @keyframes scintille {
+      50% {
+        opacity: 0.25;
+      }
+    }
+  }
+
+  /* Le bouton transparent posé sur l'astre (centre du soleil : 96, 74 sur 720 × 710). */
+  .maison__astre {
+    position: absolute;
+    left: calc((96 - var(--vb-x, 0)) / var(--vb-w, 720) * 100%);
+    top: calc((74 - var(--vb-y, 0)) / var(--vb-h, 710) * 100%);
+    z-index: 3;
+    width: 76px;
+    height: 76px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+  }
+
+  .maison__astre:hover ~ .maison__svg .astre--soleil,
+  .maison:has(.maison__astre:hover) .astre--soleil {
+    transform: rotate(25deg);
+  }
+
+  .maison__astre:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .maison__note-astre {
+    position: absolute;
+    left: calc((96 - var(--vb-x, 0)) / var(--vb-w, 720) * 100% + 44px);
+    top: calc((74 - var(--vb-y, 0)) / var(--vb-h, 710) * 100% + 18px);
+    z-index: 2;
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+    font-size: 22px;
+    color: var(--color-accent);
+    transform: rotate(-4deg);
+    pointer-events: none;
+  }
+
+  .maison__note-jour {
+    display: none;
+  }
+
+  :global(.hero--nuit) .maison__note-nuit {
+    display: none;
+  }
+
+  :global(.hero--nuit) .maison__note-jour {
+    display: inline;
+  }
+
+  .sol-carrele {
+    fill: var(--color-surface-2);
+  }
+
+  /* --- Les pièces cliquables --- */
+  .piece {
+    cursor: pointer;
+    outline: none;
+  }
+
+  .zone {
+    fill: var(--color-signal);
+    opacity: 0;
+    transition: opacity 500ms var(--ease);
+  }
+
+  .piece.actif .zone {
+    opacity: 0.55;
+  }
+
+  .point {
+    fill: var(--color-ink);
+    stroke: var(--color-signal);
+    stroke-width: 4;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 400ms var(--ease-out), fill 300ms var(--ease);
+  }
+
+  .piece.actif .point {
+    fill: var(--color-accent);
+    transform: scale(1.25);
+  }
+
+  .piece:focus-visible .zone {
+    opacity: 0.55;
+    stroke: var(--color-accent);
+    stroke-width: 3;
+  }
+
+  .note {
+    font-family: var(--font-main);
+    font-size: 31px;
+    font-weight: 650;
+    fill: var(--color-accent);
+    opacity: 0;
+    transform: translateY(6px);
+    transform-box: fill-box;
+    transition:
+      opacity 400ms var(--ease),
+      transform 500ms var(--ease-out);
+  }
+
+  .fleche {
+    fill: none;
+    stroke: var(--color-accent);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 600ms var(--ease-out);
+  }
+
+  /* Mobile : pas d'annotation dans le dessin (elle sortirait de l'écran), elle s'écrit dessous. */
+  .maison__legende {
+    display: none;
+  }
+
+  @media (max-width: 599px) {
+    .note,
+    .fleche {
+      display: none;
+    }
+
+    .maison__legende {
+      display: block;
+      min-height: 1.2em;
+      margin: 4px 0 0 8%;
+      font-size: 30px;
+      color: var(--color-accent);
+      transform: rotate(-2deg);
+    }
+
+    .maison__aide {
+      bottom: auto;
+      top: calc(100% - 34px);
+    }
+
+    /* « et la nuit ? » passe sous le soleil, dans le coin libre à gauche du toit. */
+    .maison__note-astre {
+      left: calc((96 - var(--vb-x, 0)) / var(--vb-w, 720) * 100% - 6px);
+      top: calc((74 - var(--vb-y, 0)) / var(--vb-h, 710) * 100% + 26px);
+      flex-direction: column;
+      gap: 0;
+      font-size: 19px;
+      transform: rotate(-3deg);
+    }
+
+    .maison__note-astre svg {
+      width: 22px;
+      height: 16px;
+      margin-left: 2px;
+      transform: rotate(40deg);
+    }
+  }
+
+  .piece.actif .note {
+    opacity: 1;
+    transform: none;
+  }
+
+  .piece.actif .fleche {
+    stroke-dashoffset: 0;
+    transition-delay: 120ms;
+  }
+
+  /* Les autres pièces s'effacent un peu quand l'une est éclairée. */
+  .maison.a-une-piece .dessin {
+    opacity: 0.88;
+  }
+
+  /* --- L'aide « touchez une pièce » --- */
+  .maison__aide {
+    position: absolute;
+    right: 2%;
+    bottom: -6px;
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    font-size: 22px;
+    color: var(--color-muted);
+    transform: rotate(-3deg);
+  }
+
+  .maison__aide-souris {
+    display: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .maison__aide-touch {
+      display: none;
+    }
+
+    .maison__aide-souris {
+      display: inline;
+    }
+  }
+
+  /* --- Le dessin qui se trace à l'arrivée --- */
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.js) .t {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: tracer 1400ms var(--ease-out) forwards;
+      animation-delay: calc(var(--d, 0) * 1ms + 300ms);
+    }
+
+    :global(.js) .t.t--tuiles {
+      stroke-dasharray: 0.012 0.01;
+      stroke-dashoffset: 0;
+      animation-name: apparaitre;
+    }
+
+    :global(.js) .t.t--cable {
+      stroke-dasharray: 0.04 0.03;
+      stroke-dashoffset: 0;
+      animation-name: apparaitre;
+    }
+
+    :global(.js) .mur-plein,
+    :global(.js) .carreaux,
+    :global(.js) .peint,
+    :global(.js) .vitre,
+    :global(.js) .sol-carrele {
+      animation: apparaitre 900ms var(--ease) backwards;
+      animation-delay: calc(var(--d, 0) * 1ms + 1100ms);
+    }
+
+    :global(.js) .point {
+      animation: surgir 600ms var(--ease-out) backwards;
+      animation-delay: 2300ms;
+    }
+
+    :global(.js) .t.fumee {
+      transform-box: fill-box;
+      animation:
+        tracer 1400ms var(--ease-out) forwards,
+        flotter 4s ease-in-out 2.5s infinite;
+    }
+
+    .point {
+      animation: pulser 2.4s ease-in-out 3s infinite;
+    }
+
+    :global(.js) .point {
+      animation:
+        surgir 600ms var(--ease-out) 2300ms backwards,
+        pulser 2.4s ease-in-out 3s infinite;
+    }
+
+    @keyframes tracer {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @keyframes apparaitre {
+      from {
+        opacity: 0;
+      }
+    }
+
+    @keyframes surgir {
+      from {
+        transform: scale(0);
+      }
+    }
+
+    @keyframes pulser {
+      0%,
+      100% {
+        stroke-width: 4;
+      }
+      50% {
+        stroke-width: 9;
+      }
+    }
+
+    @keyframes flotter {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-4px);
+      }
+    }
+  }
+
+  /* Les pointillés gardent leur rythme une fois tracés. */
+  .t--tuiles {
+    stroke-dashoffset: 0;
+  }
+
+  /* --- La pièce choisie (fiche ouverte) reste éclairée, les autres s'effacent --- */
+  .piece.choisi .zone {
+    opacity: 0.7;
+  }
+
+  .piece.choisi .point {
+    fill: var(--color-accent);
+    transform: scale(1.35);
+  }
+
+  .maison.fiche-ouverte .piece:not(.choisi):not(.actif) .point {
+    opacity: 0.55;
+  }
+
+  .maison.fiche-ouverte .note,
+  .maison.fiche-ouverte .fleche {
+    opacity: 0 !important;
+  }
+
+  .maison.fiche-ouverte .maison__legende,
+  .maison.fiche-ouverte .maison__aide {
+    visibility: hidden;
+  }
+
+  /* L'onde qui part du point touché. */
+  .onde {
+    fill: none;
+    stroke: var(--color-signal);
+    stroke-width: 3;
+    transform-box: fill-box;
+    transform-origin: center;
+    pointer-events: none;
+    animation: onde 850ms var(--ease-out) forwards;
+  }
+
+  @keyframes onde {
+    from {
+      transform: scale(1);
+      opacity: 1;
+    }
+    to {
+      transform: scale(4.5);
+      opacity: 0;
+    }
+  }
+
+  /* --- La fiche d'une pièce --- */
+  .fiche {
+    /* Couleurs fixes : la fiche reste claire, même quand la maison passe en mode nuit. */
+    --color-ink: #0f1626;
+    --color-on-ink: #f5f2ec;
+    --color-text: #3a3d45;
+    --color-muted: #5d6068;
+    --color-accent: #0066b4;
+    --color-border: #d6cfc2;
+    position: relative;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 18px 18px 16px;
+    background: #fbfaf7;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-float);
+    color: var(--color-text);
+    outline: none;
+    scroll-margin: 90px;
+  }
+
+  .fiche[hidden] {
+    display: none;
+  }
+
+  .fiche--entre {
+    animation: fiche-entre 420ms var(--ease-out);
+  }
+
+  @keyframes fiche-entre {
+    from {
+      opacity: 0;
+      transform: translateY(10px) scale(0.97);
+    }
+  }
+
+  .fiche__fermer {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+
+  .fiche__fermer:hover {
+    background: rgba(15, 22, 38, 0.06);
+  }
+
+  .fiche__fermer:focus-visible {
+    outline: 3px solid var(--color-accent);
+  }
+
+  .fiche__surtitre {
+    margin: 0;
+    font-size: 22px;
+    line-height: 1;
+    color: var(--color-accent);
+  }
+
+  .fiche__titre {
+    margin: 0;
+    padding-right: 40px;
+    font-size: 26px;
+    line-height: 1.05;
+    color: var(--color-ink);
+  }
+
+  .fiche__texte {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.45;
+  }
+
+  .fiche__photo {
+    position: relative;
+    margin-top: 2px;
+  }
+
+  .fiche__photo :global(.curseur) {
+    aspect-ratio: 4 / 3;
+    height: auto;
+    border-radius: 18px;
+  }
+
+  .fiche__photo :global(.curseur__poignee) {
+    width: 44px;
+    height: 44px;
+  }
+
+  .fiche__photo--seule :global(img) {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    height: auto;
+    object-fit: cover;
+    border-radius: 18px;
+  }
+
+  .fiche__badge {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    padding: 6px 12px;
+    background: rgba(245, 242, 236, 0.94);
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    font-weight: 650;
+    color: var(--color-ink);
+  }
+
+  .fiche__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .fiche__actions :global(.bouton) {
+    flex: 1 1 auto;
+    justify-content: space-between;
+  }
+
+  .fiche__astuce {
+    margin: 0;
+    font-size: 19px;
+    color: var(--color-accent);
+    text-align: right;
+    transform: rotate(-2deg);
+  }
+
+  /*
+    Téléphone et tablette : un panneau compact qui monte du bas de l'écran, au-dessus
+    du dock (masqué pendant ce temps). La page défile toujours dessous : on remonte
+    ou on descend la maison pour toucher une autre pièce.
+  */
+  @media (max-width: 1023px) {
+    .fiche {
+      position: fixed;
+      left: 8px;
+      right: 8px;
+      bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+      z-index: 58;
+      max-width: 520px;
+      margin: 0 auto;
+      gap: 6px;
+      padding: 14px 14px 12px;
+      border-radius: 24px;
+      box-shadow: 0 -8px 40px -8px rgba(15, 22, 38, 0.35);
+    }
+
+    .fiche--entre {
+      animation-name: fiche-monte;
+    }
+
+    @keyframes fiche-monte {
+      from {
+        transform: translateY(40px);
+        opacity: 0;
+      }
+    }
+
+    .fiche__fermer {
+      top: 4px;
+      right: 4px;
+    }
+
+    .fiche__surtitre {
+      font-size: 19px;
+    }
+
+    .fiche__titre {
+      font-size: 21px;
+    }
+
+    .fiche__texte {
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .fiche__photo :global(.curseur),
+    .fiche__photo--seule :global(img) {
+      aspect-ratio: 2 / 1;
+    }
+
+    .fiche__photo :global(.curseur__etiquette) {
+      top: 8px;
+      padding: 5px 10px;
+      font-size: 11px;
+    }
+
+    .fiche__photo :global(.curseur__poignee) {
+      width: 40px;
+      height: 40px;
+    }
+
+    .fiche__actions {
+      flex-wrap: nowrap;
+    }
+
+    .fiche__actions :global(.bouton) {
+      min-height: 50px;
+      font-size: 15px;
+    }
+
+    /* « Essayez une autre pièce ! » flotte au-dessus du panneau, vers la maison. */
+    .fiche__astuce {
+      position: absolute;
+      right: 18px;
+      bottom: calc(100% + 8px);
+      padding: 2px 10px;
+      background: rgba(245, 242, 236, 0.92);
+      border-radius: 999px;
+      font-size: 18px;
+      pointer-events: none;
+    }
+
+    :global(body.fiche-maison .dock) {
+      transform: translate(-50%, 140%) !important;
+    }
+  }
+
+  /* Téléphone couché (très peu de hauteur) : le panneau défile à l'intérieur. */
+  @media (max-width: 1023px) and (max-height: 520px) {
+    .fiche {
+      max-height: calc(100svh - 90px);
+      overflow-y: auto;
+    }
+
+    .fiche__astuce {
+      display: none;
+    }
+  }
+
+  /* Ordinateur : la fiche flotte à côté de la pièce (position calculée par le script). */
+  @media (min-width: 1024px) {
+    .fiche {
+      position: absolute;
+      width: 320px;
+      margin: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fiche--entre {
+      animation: none;
+    }
+  }
+</style>

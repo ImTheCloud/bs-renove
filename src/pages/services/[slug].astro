@@ -1,0 +1,18 @@
+---
+import PageService from '~/components/sections/PageService.astro';
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { services } from '~/data/services';
+import { t } from '~/i18n';
+
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+
+const langue = 'fr' as const;
+const { service } = Astro.props;
+const bloc = t(langue).servicesPage;
+---
+
+<BaseLayout langue={langue} titre={`${service.titre[langue]}${bloc.titreFin}`} description={`${service.texte[langue]}. ${bloc.descriptionFin}`}>
+  <PageService langue={langue} service={service} />
+</BaseLayout>

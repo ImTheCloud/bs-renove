@@ -1,0 +1,230 @@
+---
+/**
+ * Les métiers en grande liste typographique.
+ * Pas de photo ici : chaque ligne a l'icône de son métier. Les photos sont
+ * réservées aux avant/après.
+ */
+import Bouton from '../Bouton.astro';
+import Icon from '../Icon.astro';
+import { cheminService, iconeService, services } from '~/data/services';
+import { chemin, t, type Langue } from '~/i18n';
+
+interface Props {
+  langue: Langue;
+}
+
+const { langue } = Astro.props;
+const textes = t(langue);
+const bloc = textes.accueil.services;
+
+---
+
+<section class="metiers" aria-labelledby="metiers-titre">
+  <div class="wrap">
+    <div class="metiers__entete">
+      <p class="etiquette-section">{bloc.surtitre}</p>
+      <h2 id="metiers-titre" data-mots>
+        {bloc.titreDebut}{' '}<span class="serif">{bloc.titreSerif}</span>
+      </h2>
+      <p class="metiers__intro" data-reveal>{bloc.texte}</p>
+    </div>
+
+    <ol class="metiers__liste">
+      {
+        services.map((service, i) => {
+          return (
+            <li data-reveal style={`--delai: ${i * 40}ms`}>
+              <a href={cheminService(service.slug, langue)} class="metier" data-index={i}>
+                <span class="metier__num">{String(i + 1).padStart(2, '0')}</span>
+                <span class="metier__vignette" aria-hidden="true">
+                  <Icon nom={iconeService(service.slug)} taille={26} />
+                </span>
+                <span class="metier__nom">{service.nom[langue]}</span>
+                <span class="metier__phrase">{service.phrase[langue]}</span>
+                <span class="metier__fleche" aria-hidden="true">
+                  <Icon nom="fleche-diag" taille={20} epaisseur={2} />
+                </span>
+              </a>
+            </li>
+          );
+        })
+      }
+    </ol>
+
+    <div class="metiers__pied" data-reveal>
+      <Bouton href={chemin('services', langue)} variante="secondaire" iconeApres="fleche">
+        {bloc.voirTout}
+      </Bouton>
+    </div>
+  </div>
+
+</section>
+
+<style>
+  .metiers {
+    position: relative;
+    padding-block: var(--section-gap) 0;
+  }
+
+  .metiers__entete {
+    display: grid;
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+
+  .metiers__entete h2 .serif {
+    color: var(--color-accent);
+  }
+
+  .metiers__intro {
+    max-width: 44ch;
+    font-size: var(--size-lead);
+    line-height: 1.5;
+  }
+
+  .metiers__liste {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--color-ink);
+  }
+
+  .metier {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      'vignette nom fleche'
+      'vignette phrase fleche';
+    align-items: center;
+    column-gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-ink);
+    text-decoration: none;
+    isolation: isolate;
+  }
+
+  /* Le fond jaune qui monte au survol. */
+  .metier::before {
+    content: '';
+    position: absolute;
+    inset: 0 calc(var(--gutter) * -0.5);
+    z-index: -1;
+    background: var(--color-signal);
+    border-radius: 6px;
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 500ms var(--ease-out);
+  }
+
+  .metier:hover::before,
+  .metier:focus-visible::before {
+    transform: scaleY(1);
+  }
+
+  .metier__num {
+    display: none;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .metier__vignette {
+    grid-area: vignette;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--color-surface);
+    color: var(--color-ink);
+  }
+
+  .metier__nom {
+    grid-area: nom;
+    font-family: var(--font-title);
+    font-size: clamp(24px, 3.6vw, 60px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    transition: transform 500ms var(--ease-out);
+  }
+
+  .metier__phrase {
+    grid-area: phrase;
+    font-size: var(--size-small);
+    color: var(--color-text);
+    line-height: 1.4;
+  }
+
+  .metier__fleche {
+    grid-area: fleche;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--color-ink);
+    border-radius: 50%;
+    transition:
+      transform 500ms var(--ease-out),
+      background-color 300ms var(--ease),
+      color 300ms var(--ease);
+  }
+
+  .metier:hover .metier__fleche {
+    background: var(--color-ink);
+    color: var(--color-signal);
+    transform: rotate(45deg);
+  }
+
+  .metiers__pied {
+    margin-top: 40px;
+  }
+
+  @media (min-width: 900px) {
+    .metiers__entete {
+      grid-template-columns: 1.3fr 1fr;
+      align-items: end;
+      column-gap: 64px;
+    }
+
+    .metiers__entete .etiquette-section {
+      grid-column: 1 / -1;
+    }
+
+    .metiers__intro {
+      justify-self: end;
+    }
+
+    .metier {
+      grid-template-columns: 56px 1.3fr 1fr 56px;
+      grid-template-areas: 'num nom phrase fleche';
+      column-gap: 24px;
+      padding: 22px 0;
+    }
+
+    .metier__num {
+      display: block;
+      grid-area: num;
+    }
+
+    .metier__vignette {
+      display: none;
+    }
+
+    .metier:hover .metier__nom {
+      transform: translateX(14px);
+    }
+
+    .metier__fleche {
+      width: 52px;
+      height: 52px;
+      justify-self: end;
+    }
+  }
+</style>

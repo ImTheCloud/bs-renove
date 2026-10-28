@@ -1,0 +1,11 @@
+commune:
+  fr: Woluwe-Saint-Pierre
+  nl: Sint-Pieters-Woluwe
+ordre: 3
+avantApres:
+  - avant: ../../assets/projets/toiture-woluwe-saint-pierre/chantier-2.jpg
+    apres: ../../assets/projets/toiture-woluwe-saint-pierre/detail-1.jpg
+    legende:
+      fr: Toiture, pose des tuiles et lucarne terminée
+      nl: Dak, plaatsing van de pannen en afgewerkte dakkapel
+    categorie: toiture
