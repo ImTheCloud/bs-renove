@@ -23,7 +23,5 @@ npm-debug.log*
 !.vscode/extensions.json
 .idea/
 
-# --- Gardé sur le Mac, jamais publié : notes internes du projet ---
-CLAUDE.md
-docs/*.md
+# --- Jamais dans le dépôt ---
 .claude/

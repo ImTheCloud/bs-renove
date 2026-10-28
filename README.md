@@ -120,4 +120,6 @@ Site conçu et développé par **Claudiu Popadiuc**
 
 *Un site comme celui-ci pour votre entreprise ? Écrivez-moi.*
 
+© BS Renove : les photos, le logo et les textes appartiennent à BS Renove et ne peuvent pas être réutilisés sans son accord. Le code est visible à titre de référence.
+
 </div>
